@@ -11,8 +11,6 @@ namespace Interface
         static void Main(string[] args)
         {
             Console.WriteLine(____Информация.Main1());
-
-
             Console.ReadLine();
         }
     }
