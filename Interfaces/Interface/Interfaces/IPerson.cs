@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Interface.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,7 +15,7 @@ namespace Interface.Interface
         /// <value> Полное имя. </value>
         string Name { get; set; }
         /// <value>Пол. </value>
-        bool Gender { get; set; }
+        IGender Gender { get; set; }
         /// <value> Дата рождения. </value>
         DateTime BirthDay { get; set; }
         /// <value> Возраст. </value>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Interface.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,6 @@ namespace Interface.Interface
         /// <value> Семинар (ТВО-3). </value>
         string Seminar { get; set; }
         /// <value> Тип обучения(очка,...) </value>
-        string TypeStudy { get; set; }
+        ITypeStudy TypeStudy { get; set; }
     }
 }
