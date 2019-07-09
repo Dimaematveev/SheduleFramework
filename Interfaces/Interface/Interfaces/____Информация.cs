@@ -8,7 +8,7 @@ public static class ____Информация
     static List<string> s = new List<string>();
     public static void Data()
     {
-        const int smesh = 20;
+        const int smesh = 4;
         s.Add($"Что вообще делать");
         s.Add($"Делаем стандартные интерфейсы");
         var interfaces = new List<System.Type>()
@@ -29,26 +29,34 @@ public static class ____Информация
         s.Add($"Всего {interfaces.Count} интерфейсов.");
         foreach (var interfac in interfaces)
         {
-            var interfacesAttr = interfac.GetCustomAttributes(typeof(ReadMetaDataInterfaceAttribute), false);
-            foreach (ReadMetaDataInterfaceAttribute atrib in interfacesAttr)
+            foreach (ReadMetaDataInterfaceAttribute atrib in interfac.GetCustomAttributes(typeof(ReadMetaDataInterfaceAttribute), false))
             {
-                s.Add($"\t'{atrib.Name}' \n \t   {atrib.About}");
+                s.Add($"{"",smesh}'{atrib.Name}' \n{"",smesh}   {atrib.About}");
             }
-
-            var propertysAttr = interfac.GetProperties().SelectMany(x => x.GetCustomAttributes(typeof(ReadMetaDataPropertyAttribute), false));
-            s.Add($"\t\tИмеет {propertysAttr.Count()} свойств.");
-            foreach (ReadMetaDataPropertyAttribute atrib in propertysAttr)
+            int numbProp = 0;
+            s.Add( $"{"",2 * smesh}Имеет {numbProp} свойств.");
+            int ind = s.Count - 1;
+            foreach (System.Reflection.PropertyInfo props in interfac.GetProperties())
             {
-                    s.Add($"\t\t\t'{atrib.Name}' - {atrib.About}");
-                
+                foreach (ReadMetaDataPropertyAttribute atrib in props.GetCustomAttributes(typeof(ReadMetaDataPropertyAttribute), false))
+                {
+                    s.Add($"{"",3*smesh}'{props.ToString()}' - {atrib.About}");
+                    numbProp++;
+                }
             }
-
-            var metodsAttr = interfac.GetMethods().SelectMany(x => x.GetCustomAttributes(typeof(ReadMetaDataMethodAttribute), false));
-            s.Add($"\t\tИмеет {metodsAttr.Count()} методов.");
-            foreach (ReadMetaDataMethodAttribute atrib in metodsAttr)
+            s[ind] = $"{"",2*smesh}Имеет {numbProp} свойств.";
+            int numbMetod = 0;
+            s.Add($"{"",2 * smesh}Имеет {numbMetod} методов.");
+            ind = s.Count - 1;
+            foreach (System.Reflection.MethodInfo method in interfac.GetMethods())
             {
-                s.Add($"\t\t\t'{atrib.Name}' - {atrib.About}");
+                foreach (ReadMetaDataMethodAttribute atrib in method.GetCustomAttributes(typeof(ReadMetaDataMethodAttribute), false))
+                {
+                    s.Add($"{"",3*smesh}'{method.Name}':'{method.ToString()}' - {atrib.About}");
+                    numbMetod++;
+                }
             }
+            s[ind] = $"{"",2*smesh}Имеет {numbMetod} методов.";
         }
     }
     public static string Main1()

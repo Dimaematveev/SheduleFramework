@@ -22,6 +22,5 @@ namespace Interface.Interface
         /// <value> Список дней в семестре с указание учебных или нет. </value>
         [ReadMetaDataProperty(nameof(DaysOfStudies), "Список дней в семестре с указание учебных или нет.")]
         List<IDaysOfStudy> DaysOfStudies { get; set; }
-
     }
 }
