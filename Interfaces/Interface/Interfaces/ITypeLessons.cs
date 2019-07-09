@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Interface.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,9 +10,11 @@ namespace Interface.Interface
     /// <summary>
     /// Интерфейс виды пары.
     /// </summary>
+    [ReadMetaDataInterface(nameof(ITypeLessons), "Интерфейс виды пары.")]
     public interface ITypeLessons
     {
         /// <value> Вид пары(лекция,практика) </value>
+        [ReadMetaDataProperty(nameof(NameType), "Вид пары(лекция,практика)")]
         string NameType { get; set; }
     }
 }
