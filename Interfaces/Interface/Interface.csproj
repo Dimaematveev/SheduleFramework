@@ -44,20 +44,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interface\ITypeLessons.cs" />
-    <Compile Include="Interface\____Информация.cs" />
-    <Compile Include="Interface\IClassRoom.cs" />
-    <Compile Include="Interface\IDaysOfStudy.cs" />
-    <Compile Include="Interface\IGroup.cs" />
-    <Compile Include="Interface\IPerson.cs" />
-    <Compile Include="Interface\IPlanOfLessons.cs" />
-    <Compile Include="Interface\ISemestr.cs" />
-    <Compile Include="Interface\IStudent.cs" />
-    <Compile Include="Interface\ISubject.cs" />
-    <Compile Include="Interface\ISubjectOfTeacher.cs" />
-    <Compile Include="Interface\ISubjectTypeLessons.cs" />
-    <Compile Include="Interface\ITeacher.cs" />
-    <Compile Include="Interface\ITimeLessons.cs" />
+    <Compile Include="Interfaces\ITypeLessons.cs" />
+    <Compile Include="Interfaces\____Информация.cs" />
+    <Compile Include="Interfaces\IClassRoom.cs" />
+    <Compile Include="Interfaces\IDaysOfStudy.cs" />
+    <Compile Include="Interfaces\IGroup.cs" />
+    <Compile Include="Interfaces\IPerson.cs" />
+    <Compile Include="Interfaces\IPlanOfLessons.cs" />
+    <Compile Include="Interfaces\ISemestr.cs" />
+    <Compile Include="Interfaces\IStudent.cs" />
+    <Compile Include="Interfaces\ISubject.cs" />
+    <Compile Include="Interfaces\ISubjectOfTeacher.cs" />
+    <Compile Include="Interfaces\ISubjectTypeLessons.cs" />
+    <Compile Include="Interfaces\ITeacher.cs" />
+    <Compile Include="Interfaces\ITimeLessons.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
