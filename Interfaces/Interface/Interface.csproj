@@ -22,6 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>bin\Debug\Interface.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -43,6 +44,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interface\ITypeLessons.cs" />
+    <Compile Include="Interface\____Информация.cs" />
+    <Compile Include="Interface\IClassRoom.cs" />
+    <Compile Include="Interface\IDaysOfStudy.cs" />
+    <Compile Include="Interface\IGroup.cs" />
+    <Compile Include="Interface\IPerson.cs" />
+    <Compile Include="Interface\IPlanOfLessons.cs" />
+    <Compile Include="Interface\ISemestr.cs" />
+    <Compile Include="Interface\IStudent.cs" />
+    <Compile Include="Interface\ISubject.cs" />
+    <Compile Include="Interface\ISubjectOfTeacher.cs" />
+    <Compile Include="Interface\ISubjectTypeLessons.cs" />
+    <Compile Include="Interface\ITeacher.cs" />
+    <Compile Include="Interface\ITimeLessons.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
