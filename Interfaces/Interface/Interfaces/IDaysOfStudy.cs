@@ -14,10 +14,10 @@ namespace Interface.Interface
 
     enum HowDays { study = 2, notstudy = 0, shortened = 1 };
     /// <summary>
-    /// Интерфейс показывающий какой день(учебный, не учебный, сокращенный). Реализует интерфейс IConsole.
+    /// Интерфейс показывающий какой день(учебный, не учебный, сокращенный).
     /// </summary>
-    [ReadMetaDataInterface(nameof(IDaysOfStudy), "Интерфейс показывающий какой день(учебный, не учебный, сокращенный). Реализует интерфейс IConsole.")]
-    public interface IDaysOfStudy: IConsole
+    [ReadMetaDataInterface(nameof(IDaysOfStudy), "Интерфейс показывающий какой день(учебный, не учебный, сокращенный).")]
+    public interface IDaysOfStudy
     {
         /// <value> Дата.</value>
         [ReadMetaDataProperty(nameof(Day), "Дата.")]

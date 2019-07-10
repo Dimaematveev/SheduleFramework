@@ -1,4 +1,4 @@
-﻿using Interface.Interface;
+﻿using Semester.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Semester
 {
-    class DaysOfStudy : IDaysOfStudy
+    class DaysOfStudy : IDaysOfStudyWithConsole
     {
         public DateTime Day { get; set; }
         public int Study { get; set; }
