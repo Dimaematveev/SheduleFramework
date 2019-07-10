@@ -12,7 +12,6 @@ namespace Semester
 {
     class Semester : ISemesterWithConsole<IDaysOfStudyWithConsole>
     {
-       
         public DateTime BeginSemestr { get; set ; }
         public DateTime EndSemestr { get ; set; }
         public List<IDaysOfStudyWithConsole> DaysOfStudies { get; set; }
@@ -31,7 +30,7 @@ namespace Semester
                 }
                 else
                 {
-                    DaysOfStudies.Add(new DaysOfStudy(i, 1));
+                    DaysOfStudies.Add(new DaysOfStudy(i, -1));
                 }
             }
         }
@@ -52,7 +51,6 @@ namespace Semester
                 {
                     Console.WriteLine();
                     MethodConsole(cultureDataFormat, item.Day);
-
                 }
                 if(item.Day.DayOfWeek== cultureDataFormat.FirstDayOfWeek)
                 {
@@ -85,13 +83,13 @@ namespace Semester
 
         public void CommandConsole()
         {
-            
+            Console.WriteLine();
             List<KeyValuePair<char, string>> command = new List<KeyValuePair<char, string>>()
             {
                 new KeyValuePair<char, string>('0',"выход"),
                 new KeyValuePair<char, string>('1',"вывод на консоль"),
                 new KeyValuePair<char, string>('2',"добавления выходного"),
-                //new KeyValuePair<char, string>('2',"удаления выходного")
+                new KeyValuePair<char, string>('3',"добавления рабочего дня")
             };
             Console.WriteLine("Все возможные команды.");
             Console.WriteLine("Введите:");
@@ -99,7 +97,6 @@ namespace Semester
             {
                 Console.WriteLine($"'{item.Key}' - {item.Value}.");
             }
-
             char characterInput;
             do
             {
@@ -116,20 +113,34 @@ namespace Semester
             }
             if (characterInput == command[2].Key)
             {
-                AddDayOffConsole();
+                AddDayConsole(0);
+            }
+            if (characterInput == command[3].Key)
+            {
+                AddDayConsole(-1);
             }
             CommandConsole();
         }
 
-        public void AddDayOffConsole()
+        public void AddDayConsole(int numberOfPairsPerDay)
         {
+            Console.WriteLine();
+            string dayIs = "сокращенных дней";
+            if (numberOfPairsPerDay==-1)
+            {
+                dayIs = "рабочих дней";
+            }
+            if (numberOfPairsPerDay == 0)
+            {
+                dayIs = "выходных дней";
+            }
             List<KeyValuePair<char, string>> command = new List<KeyValuePair<char, string>>()
             {
                 new KeyValuePair<char, string>('0',"выход"),
-                new KeyValuePair<char, string>('1',"добавления одного выходного"),
-                new KeyValuePair<char, string>('2',"добавления диапазона выходных")
+                new KeyValuePair<char, string>('1',"добавления одного"),
+                new KeyValuePair<char, string>('2',"добавления диапазона")
             };
-            Console.WriteLine("Возможные команды для добавления выходного.");
+            Console.WriteLine($"Возможные команды для добавления {dayIs}.");
             Console.WriteLine("Введите:");
             foreach (var item in command)
             {
@@ -148,35 +159,35 @@ namespace Semester
             }
             if (characterInput == command[1].Key)
             {
-                AddDayOffOneConsole();
+                AddDayOneConsole(numberOfPairsPerDay);
             }
             if (characterInput == command[2].Key)
             {
-                AddDayOffManyConsole();
+                AddDayManyConsole(numberOfPairsPerDay);
             }
-            AddDayOffConsole();
+            AddDayConsole(numberOfPairsPerDay);
         }
-        public void AddDayOffOneConsole()
+        public void AddDayOneConsole(int numberOfPairsPerDay)
         {
             char characterInput;
             do
             {
                 DateTime date = DateValidationCheckConsole("Введите дату между", BeginSemestr, EndSemestr);
-                DaysOfStudies.Find(x => x.Day == date).Study = 0;
-                Console.WriteLine($"Введите 'y' если хотите добавить еще один выходной.");
+                DaysOfStudies.Find(x => x.Day == date).Study = numberOfPairsPerDay;
+                Console.WriteLine($"Введите 'y' если хотите добавить еще один день.");
                 characterInput = Console.ReadKey(true).KeyChar;
             } while (characterInput == 'y');
         }
 
-        public void AddDayOffManyConsole()
+        public void AddDayManyConsole(int numberOfPairsPerDay)
         {
             char characterInput;
             do
             {
                 DateTime dateBegin = DateValidationCheckConsole("Введите дату начала диапазона между", BeginSemestr, EndSemestr);
                 DateTime dateEnd = DateValidationCheckConsole("Введите дату окончания диапазона между", dateBegin, EndSemestr);
-                DaysOfStudies.FindAll(x => x.Day >= dateBegin && x.Day <= dateEnd).ForEach(y=>y.Study= 0);
-                Console.WriteLine($"Введите 'y' если хотите добавить еще один диапазон выходных.");
+                DaysOfStudies.FindAll(x => x.Day >= dateBegin && x.Day <= dateEnd).ForEach(y=>y.Study= numberOfPairsPerDay);
+                Console.WriteLine($"Введите 'y' если хотите добавить еще один диапазон дней.");
                 characterInput = Console.ReadKey(true).KeyChar;
             } while (characterInput == 'y');
 
@@ -209,6 +220,7 @@ namespace Semester
             }
             return date;
         }
+        
     }
 
    

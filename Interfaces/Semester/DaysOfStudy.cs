@@ -26,9 +26,15 @@ namespace Semester
                 Console.ForegroundColor = ConsoleColor.White;
 
             }
-            else
+            else if (Study == -1)
             {
                 Console.Write($"{Day.Day,4}");
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                Console.Write($"{Day.Day,4}");
+                Console.ForegroundColor = ConsoleColor.White;
             }
         }
     }
