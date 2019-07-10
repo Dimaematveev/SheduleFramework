@@ -26,11 +26,11 @@ namespace Semester
             {
                 if (i.DayOfWeek==DayOfWeek.Sunday)
                 {
-                    DaysOfStudies.Add(new DaysOfStudy(i, 0));
+                    DaysOfStudies.Add(new DaysOfStudy(i, HowDays.DayOff));
                 }
                 else
                 {
-                    DaysOfStudies.Add(new DaysOfStudy(i, -1));
+                    DaysOfStudies.Add(new DaysOfStudy(i,HowDays.WorkingDay));
                 }
             }
         }
@@ -47,12 +47,12 @@ namespace Semester
             }
             foreach (var item in DaysOfStudies)
             {
-                if (item.Day.Day==1)
+                if (item.Date.Day==1)
                 {
                     Console.WriteLine();
-                    MethodConsole(cultureDataFormat, item.Day);
+                    MethodConsole(cultureDataFormat, item.Date);
                 }
-                if(item.Day.DayOfWeek== cultureDataFormat.FirstDayOfWeek)
+                if(item.Date.DayOfWeek== cultureDataFormat.FirstDayOfWeek)
                 {
                     Console.WriteLine();
                 }
@@ -113,24 +113,24 @@ namespace Semester
             }
             if (characterInput == command[2].Key)
             {
-                AddDayConsole(0);
+                AddDayConsole(HowDays.DayOff);
             }
             if (characterInput == command[3].Key)
             {
-                AddDayConsole(-1);
+                AddDayConsole(HowDays.WorkingDay);
             }
             CommandConsole();
         }
 
-        public void AddDayConsole(int numberOfPairsPerDay)
+        public void AddDayConsole(HowDays howDays)
         {
             Console.WriteLine();
             string dayIs = "сокращенных дней";
-            if (numberOfPairsPerDay==-1)
+            if (howDays == HowDays.WorkingDay)
             {
                 dayIs = "рабочих дней";
             }
-            if (numberOfPairsPerDay == 0)
+            if (howDays == HowDays.DayOff)
             {
                 dayIs = "выходных дней";
             }
@@ -159,34 +159,34 @@ namespace Semester
             }
             if (characterInput == command[1].Key)
             {
-                AddDayOneConsole(numberOfPairsPerDay);
+                AddDayOneConsole(howDays);
             }
             if (characterInput == command[2].Key)
             {
-                AddDayManyConsole(numberOfPairsPerDay);
+                AddDayManyConsole(howDays);
             }
-            AddDayConsole(numberOfPairsPerDay);
+            AddDayConsole(howDays);
         }
-        public void AddDayOneConsole(int numberOfPairsPerDay)
+        public void AddDayOneConsole(HowDays numberOfPairsPerDay)
         {
             char characterInput;
             do
             {
                 DateTime date = DateValidationCheckConsole("Введите дату между", BeginSemestr, EndSemestr);
-                DaysOfStudies.Find(x => x.Day == date).Study = numberOfPairsPerDay;
+                DaysOfStudies.Find(x => x.Date == date).Study = numberOfPairsPerDay;
                 Console.WriteLine($"Введите 'y' если хотите добавить еще один день.");
                 characterInput = Console.ReadKey(true).KeyChar;
             } while (characterInput == 'y');
         }
 
-        public void AddDayManyConsole(int numberOfPairsPerDay)
+        public void AddDayManyConsole(HowDays numberOfPairsPerDay)
         {
             char characterInput;
             do
             {
                 DateTime dateBegin = DateValidationCheckConsole("Введите дату начала диапазона между", BeginSemestr, EndSemestr);
                 DateTime dateEnd = DateValidationCheckConsole("Введите дату окончания диапазона между", dateBegin, EndSemestr);
-                DaysOfStudies.FindAll(x => x.Day >= dateBegin && x.Day <= dateEnd).ForEach(y=>y.Study= numberOfPairsPerDay);
+                DaysOfStudies.FindAll(x => x.Date >= dateBegin && x.Date <= dateEnd).ForEach(y=>y.Study= numberOfPairsPerDay);
                 Console.WriteLine($"Введите 'y' если хотите добавить еще один диапазон дней.");
                 characterInput = Console.ReadKey(true).KeyChar;
             } while (characterInput == 'y');

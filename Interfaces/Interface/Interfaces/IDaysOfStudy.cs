@@ -11,8 +11,7 @@ namespace Interface.Interface
     /// <summary>
     /// перечисление для Study. Какой день.
     /// </summary>
-
-    enum HowDays { study = 2, notstudy = 0, shortened = 1 };
+    public enum HowDays : int { WorkingDay = -1, DayOff = 0 };
     /// <summary>
     /// Интерфейс показывающий какой день(учебный, не учебный, сокращенный).
     /// </summary>
@@ -20,11 +19,11 @@ namespace Interface.Interface
     public interface IDaysOfStudy
     {
         /// <value> Дата.</value>
-        [ReadMetaDataProperty(nameof(Day), "Дата.")]
-        DateTime Day { get; set; }
+        [ReadMetaDataProperty(nameof(Date), "Дата.")]
+        DateTime Date { get; set; }
         /// <value> Какой день учебный или нет. </value>
         [ReadMetaDataProperty(nameof(Study), "Какой день учебный или нет.")]
-        int Study { get; set; }
+        HowDays Study { get; set; }
 
     }
 }
