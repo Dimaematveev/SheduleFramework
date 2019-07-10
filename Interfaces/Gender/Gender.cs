@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Gender
 {
-    class Gender : IGenderWithConsole
+    public class Gender : IGenderWithConsole
     {
         
         public string NameGender { get; set; }
