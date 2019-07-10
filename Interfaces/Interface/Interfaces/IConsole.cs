@@ -10,7 +10,7 @@ namespace Interface.Interfaces
     /// <summary>
     /// Интерфейс для консоли.
     /// </summary>
-    [ReadMetaDataInterface(nameof(IConsole), "Интерфейс для консоли.")]
+    [ReadMetaDataInterface(nameof(IConsole), "Интерфейс для консоли.","Где-то подреализовывал)")]
     public interface IConsole
     {
         /// <summary>
