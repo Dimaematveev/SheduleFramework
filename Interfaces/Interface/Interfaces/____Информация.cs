@@ -1,5 +1,6 @@
 ﻿using Interface.Attributes;
 using Interface.Interface;
+using Interface.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ public static class ____Информация
         s.Add($"Делаем стандартные интерфейсы");
         var interfaces = new List<System.Type>()
         {
+            typeof(IConsole),
             typeof(IGroup),
             typeof(ISubject),
             typeof(ISubjectOfTeacher),

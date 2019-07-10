@@ -16,5 +16,10 @@ namespace Semester
             Day = day;
             Study = study;
         }
+        public void ToConsole()
+        {
+            Console.WriteLine($"'{this.GetType()}' заглушка");
+
+        }
     }
 }

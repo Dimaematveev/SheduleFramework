@@ -13,7 +13,7 @@ namespace Semester
 
             Console.WriteLine("Begin");
             var sem = new Semester(new DateTime(2019, 06, 01), new DateTime(2019, 08, 01));
-
+            sem.ToConsole();
 
             Console.ReadLine();
         }

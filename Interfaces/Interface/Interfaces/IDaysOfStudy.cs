@@ -1,4 +1,5 @@
 ﻿using Interface.Attributes;
+using Interface.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,10 @@ namespace Interface.Interface
 
     enum HowDays { study = 2, notstudy = 0, shortened = 1 };
     /// <summary>
-    /// Интерфейс показывающий какой день(учебный, не учебный, сокращенный).
+    /// Интерфейс показывающий какой день(учебный, не учебный, сокращенный). Реализует интерфейс IConsole.
     /// </summary>
-    [ReadMetaDataInterface(nameof(IDaysOfStudy), "Интерфейс показывающий какой день(учебный, не учебный, сокращенный).")]
-    public interface IDaysOfStudy
+    [ReadMetaDataInterface(nameof(IDaysOfStudy), "Интерфейс показывающий какой день(учебный, не учебный, сокращенный). Реализует интерфейс IConsole.")]
+    public interface IDaysOfStudy: IConsole
     {
         /// <value> Дата.</value>
         [ReadMetaDataProperty(nameof(Day), "Дата.")]
