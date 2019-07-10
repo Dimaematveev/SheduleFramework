@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 namespace Interface.Interfaces
 {
     /// <summary>
-    /// Интерфейс тип обучения (очка,...)
+    /// Интерфейс тип обучения (очка,...) удалить
     /// </summary>
-    [ReadMetaDataInterface(nameof(ITypeStudy), "Интерфейс тип обучения (очка,...)")]
+    [ReadMetaDataInterface(nameof(ITypeStudy), "Интерфейс тип обучения (очка,...)  удалить")]
     public interface ITypeStudy
     {
         /// <value> Тип обучения (очка,...)</value>
-        [ReadMetaDataProperty(nameof(TypeStudy), "Тип обучения (очка,...)")]
-        string TypeStudy { get; set; }
+        [ReadMetaDataProperty(nameof(TypeOfTraining), "Тип обучения (очка,...)")]
+        string TypeOfTraining { get; set; }
     }
 }

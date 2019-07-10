@@ -10,6 +10,7 @@ namespace ClassRoom
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Begin!!");
             List<ClassRoom> classRooms = new List<ClassRoom>();
             Random rnd = new Random();
             for (int i = 0; i < 100; i++)
@@ -20,7 +21,7 @@ namespace ClassRoom
             {
                 item.ToConsole();
             }
-
+            Console.WriteLine("Вы вышли в основную программу!");
             Console.ReadLine();
         }
     }

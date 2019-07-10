@@ -9,6 +9,10 @@ using System.Threading.Tasks;
 namespace Interface.Interface
 {
     /// <summary>
+    /// Тип обучения.
+    /// </summary>
+    public enum TypeStudy:int { FullTimeEducation=0, ExtraMuralStudies=1, EveningClass=2 }
+    /// <summary>
     /// Интерфейс для групп.
     /// </summary>
     [ReadMetaDataInterface(nameof(IGroup), "Интерфейс для групп.")]
@@ -27,7 +31,7 @@ namespace Interface.Interface
         [ReadMetaDataProperty(nameof(Seminar), "Семинар (ТВО-3).")]
         string Seminar { get; set; }
         /// <value> Тип обучения(очка,...). </value>
-        [ReadMetaDataProperty(nameof(TypeStudy), "Тип обучения(очка,...).")]
-        ITypeStudy TypeStudy { get; set; }
+        [ReadMetaDataProperty(nameof(TypeOfTraining), "Тип обучения(очка,...).")]
+        TypeStudy TypeOfTraining { get; set; }
     }
 }
