@@ -10,7 +10,7 @@ namespace Interface.Interface
     /// <summary>
     /// Интерфейс семестра.
     /// </summary>
-    [ReadMetaDataInterface(nameof(ISemester<T>), "Интерфейс семестра.")]
+    [ReadMetaDataInterface(nameof(ISemester<T>), "Интерфейс семестра.", "Неплохо сделано.")]
     public interface ISemester<T> where T:IDaysOfStudy
     {
         /// <value> Дата начала семестра.</value>

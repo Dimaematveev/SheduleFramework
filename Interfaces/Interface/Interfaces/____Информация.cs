@@ -218,6 +218,9 @@ public static class ____Информация
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write($"{ InterfaceAttribute.About}");
             Console.ForegroundColor = ConsoleColor.White;
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.Write($"{InterfaceAttribute.Readiness}");
+            Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();
         }
 
@@ -243,6 +246,8 @@ public static class ____Информация
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write($"{PropertyAttribute.About}");
             Console.ForegroundColor = ConsoleColor.White;
+            
+
             Console.WriteLine();
         }
         public override string ToString()

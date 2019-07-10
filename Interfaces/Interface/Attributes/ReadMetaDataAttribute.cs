@@ -11,11 +11,13 @@ namespace Interface.Attributes
     {
         public string Name;
         public string About;
+        public string Readiness;
 
-        public ReadMetaDataInterfaceAttribute(string name, string about)
+        public ReadMetaDataInterfaceAttribute(string name, string about, string readiness = "Не делал!!!")
         {
             Name = name;
             About = about;
+            Readiness = readiness;
         }
     }
 
@@ -24,11 +26,13 @@ namespace Interface.Attributes
     {
         public string Name;
         public string About;
+        public string Readiness;
 
-        public ReadMetaDataPropertyAttribute(string name, string about)
+        public ReadMetaDataPropertyAttribute(string name, string about, string readiness = "Не делал!!!")
         {
             Name = name;
             About = about;
+            Readiness = readiness;
         }
     }
 
@@ -37,11 +41,13 @@ namespace Interface.Attributes
     {
         public string Name;
         public string About;
+        public string Readiness;
 
-        public ReadMetaDataMethodAttribute(string name, string about)
+        public ReadMetaDataMethodAttribute(string name, string about,string readiness="Не делал!!!")
         {
             Name = name;
             About = about;
+            Readiness = readiness;
         }
     }
 }

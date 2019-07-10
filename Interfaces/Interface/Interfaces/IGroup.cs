@@ -15,7 +15,7 @@ namespace Interface.Interface
     /// <summary>
     /// Интерфейс для групп.
     /// </summary>
-    [ReadMetaDataInterface(nameof(IGroup), "Интерфейс для групп.")]
+    [ReadMetaDataInterface(nameof(IGroup), "Интерфейс для групп.", "Простейшее сделано.")]
     public interface IGroup
     {
         /// <value> Название группы (ТВО).</value>

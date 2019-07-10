@@ -10,7 +10,7 @@ namespace Interface.Interfaces
     /// <summary>
     /// Интерфейс тип обучения (очка,...) удалить
     /// </summary>
-    [ReadMetaDataInterface(nameof(ITypeStudy), "Интерфейс тип обучения (очка,...)  удалить")]
+    [ReadMetaDataInterface(nameof(ITypeStudy), "Интерфейс тип обучения (очка,...)  удалить", "Удалить.")]
     public interface ITypeStudy
     {
         /// <value> Тип обучения (очка,...)</value>

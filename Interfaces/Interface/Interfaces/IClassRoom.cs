@@ -10,7 +10,7 @@ namespace Interface.Interface
     /// <summary>
     /// Интерфейс аудитории.
     /// </summary>
-    [ReadMetaDataInterface(nameof(IClassRoom), "Интерфейс аудитории.")]
+    [ReadMetaDataInterface(nameof(IClassRoom), "Интерфейс аудитории.","Простейшее сделано.")]
     public interface IClassRoom
     {
         /// <value> Название аудитории.</value>

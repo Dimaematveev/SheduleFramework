@@ -15,7 +15,7 @@ namespace Interface.Interface
     /// <summary>
     /// Интерфейс показывающий какой день(учебный, не учебный, сокращенный).
     /// </summary>
-    [ReadMetaDataInterface(nameof(IDaysOfStudy), "Интерфейс показывающий какой день(учебный, не учебный, сокращенный).")]
+    [ReadMetaDataInterface(nameof(IDaysOfStudy), "Интерфейс показывающий какой день(учебный, не учебный, сокращенный).", "Простейшее сделано.")]
     public interface IDaysOfStudy
     {
         /// <value> Дата.</value>
