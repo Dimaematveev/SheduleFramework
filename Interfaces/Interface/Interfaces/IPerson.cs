@@ -11,7 +11,7 @@ namespace Interface.Interface
     /// <summary>
     /// Интерфейс для людей.
     /// </summary>
-    [ReadMetaDataInterface(nameof(IPerson), "Интерфейс для людей.")]
+    [ReadMetaDataInterface(nameof(IPerson), "Интерфейс для людей.","Начально готов.")]
     public interface IPerson
     {
         /// <value> Полное имя. </value>
