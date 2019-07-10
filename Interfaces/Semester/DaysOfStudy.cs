@@ -18,8 +18,18 @@ namespace Semester
         }
         public void ToConsole()
         {
-            Console.WriteLine($"'{this.GetType()}' заглушка");
+            //Console.WriteLine($"'{this.GetType()}' заглушка");
+            if (Study==0)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.Write($"{Day.Day,4}");
+                Console.ForegroundColor = ConsoleColor.White;
 
+            }
+            else
+            {
+                Console.Write($"{Day.Day,4}");
+            }
         }
     }
 }

@@ -42,24 +42,49 @@ namespace Semester
             System.Threading.Thread.CurrentThread.CurrentUICulture = culInf;
             var cultureDataFormat = DateTimeFormatInfo.CurrentInfo;
             cultureDataFormat.FirstDayOfWeek=DayOfWeek.Monday;
-
-
-            Console.WriteLine(cultureDataFormat.MonthNames[BeginSemestr.Month-1]);
-            Console.Write($"{"",4}");
-            for (var i = (int)cultureDataFormat.FirstDayOfWeek; i < (int)(7 + cultureDataFormat.FirstDayOfWeek); i++)
+            if (BeginSemestr.Day!=1)
             {
-                Console.Write($"{cultureDataFormat.AbbreviatedDayNames[i%7],4}");
+                MethodConsole(cultureDataFormat, BeginSemestr);
             }
-
+            
             foreach (var item in DaysOfStudies)
             {
+                if (item.Day.Day==1)
+                {
+                    Console.WriteLine();
+                    MethodConsole(cultureDataFormat, item.Day);
+
+                }
+                if(item.Day.DayOfWeek== cultureDataFormat.FirstDayOfWeek)
+                {
+                    Console.WriteLine();
+                }
                 item.ToConsole();
             }
             Console.WriteLine();
 
         }
 
+        void MethodConsole( DateTimeFormatInfo cultureDataFormat, DateTime dateTime)
+        {
+            Console.WriteLine();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"{cultureDataFormat.MonthNames[dateTime.Month - 1],10}");
+            Console.ForegroundColor = ConsoleColor.White;
 
+
+            for (var i = (int)cultureDataFormat.FirstDayOfWeek; i < (int)(7 + cultureDataFormat.FirstDayOfWeek); i++)
+            {
+                Console.Write($"{cultureDataFormat.AbbreviatedDayNames[i % 7],4}");
+            }
+            if (dateTime.DayOfWeek != cultureDataFormat.FirstDayOfWeek)
+            {
+                Console.WriteLine();
+                string sss = new string(' ', 4 * (int)(dateTime.DayOfWeek - 1));
+                Console.Write($"{sss}");
+            }
+
+        }
 
 
     }
