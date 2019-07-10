@@ -43,8 +43,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DaysOfStudy.cs" />
-    <Compile Include="Interfaces\IDaysOfStudyWithConsole.cs" />
     <Compile Include="Interfaces\ISemesterWithConsole.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -54,6 +52,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DaysOfStudy\DaysOfStudy.csproj">
+      <Project>{a1080797-c4ab-4d13-b82f-f400c37ddd20}</Project>
+      <Name>DaysOfStudy</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Interface\Interface.csproj">
       <Project>{445c8a35-4ec3-4c8a-a314-92676c9a5023}</Project>
       <Name>Interface</Name>

@@ -1,12 +1,9 @@
-﻿using Interface.Interface;
-using Interface.Interfaces;
+﻿using DaysOfStudy.Interfaces;
+using Interface.Interface;
 using Semester.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Semester
 {
@@ -26,11 +23,11 @@ namespace Semester
             {
                 if (i.DayOfWeek==DayOfWeek.Sunday)
                 {
-                    DaysOfStudies.Add(new DaysOfStudy(i, HowDays.DayOff));
+                    DaysOfStudies.Add(new DaysOfStudy.DaysOfStudy(i, HowDays.DayOff));
                 }
                 else
                 {
-                    DaysOfStudies.Add(new DaysOfStudy(i,HowDays.WorkingDay));
+                    DaysOfStudies.Add(new DaysOfStudy.DaysOfStudy(i,HowDays.WorkingDay));
                 }
             }
         }

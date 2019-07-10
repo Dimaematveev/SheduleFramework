@@ -1,14 +1,14 @@
 ﻿using Interface.Interface;
-using Semester.Interfaces;
+using DaysOfStudy.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Semester
+namespace DaysOfStudy
 {
-    class DaysOfStudy : IDaysOfStudyWithConsole
+    public class DaysOfStudy : IDaysOfStudyWithConsole
     {
         public DateTime Date { get; set; }
         public HowDays Study { get; set; }
@@ -21,7 +21,7 @@ namespace Semester
         public void ToConsole()
         {
             //Console.WriteLine($"'{this.GetType()}' заглушка");
-            if (Study== HowDays.DayOff)
+            if (Study == HowDays.DayOff)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.Write($"{Date.Day,4}");

@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Semester.Interfaces
+namespace DaysOfStudy.Interfaces
 {
     public interface IDaysOfStudyWithConsole : IDaysOfStudy, IConsole
     {
