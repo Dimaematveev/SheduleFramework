@@ -10,7 +10,7 @@ namespace Interface.Interfaces
     /// <summary>
     /// Интерфейс гендера.
     /// </summary>
-    [ReadMetaDataInterface(nameof(IGender), "Интерфейс гендера.")]
+    [ReadMetaDataInterface(nameof(IGender), "Интерфейс гендера.","Простейший создан")]
     public interface IGender
     {
         /// <value> Название гендера.</value>

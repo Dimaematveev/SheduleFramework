@@ -10,6 +10,19 @@ namespace Gender
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Begin!!");
+            List<Gender> genders = new List<Gender>()
+            {
+                new Gender("мужчина"),
+                new Gender("женщина")
+            };
+            foreach (var item in genders)
+            {
+                item.ToConsole();
+            }
+
+            Console.WriteLine("Вы вышли в основную программу!");
+            Console.ReadLine();
         }
     }
 }
