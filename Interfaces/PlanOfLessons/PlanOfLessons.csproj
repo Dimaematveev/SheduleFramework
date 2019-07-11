@@ -52,9 +52,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Group\Group.csproj">
+      <Project>{7c39d6f0-eaee-4d17-9e78-4bc4b4ce7ee5}</Project>
+      <Name>Group</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Interface\Interface.csproj">
       <Project>{445c8a35-4ec3-4c8a-a314-92676c9a5023}</Project>
       <Name>Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Subject\Subject.csproj">
+      <Project>{f370c4e7-2e53-45f3-9a2c-ab97f712cb14}</Project>
+      <Name>Subject</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
