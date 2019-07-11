@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Subject
 {
-    class Subject : ISubjectWithConsole
+    public class Subject : ISubjectWithConsole
     {
         public string NameSubject { get; set; }
         public string Departament { get; set; }
