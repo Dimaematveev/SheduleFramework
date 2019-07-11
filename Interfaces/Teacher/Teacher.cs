@@ -5,20 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using Interface.Interface;
 using Interface.Interfaces;
+using SubjectOfTeacher.Interfaces;
 using Teacher.Interfaces;
 
 namespace Teacher
 {
-    class Teacher : ITeacherWithConsole
+    class Teacher : ITeacherWithConsole<ISubjectOfTeacherWithConsole>
     {
         
 
-        public List<ISubjectOfTeacher> SubjectOfTeachers { get; set; }
+        public List<ISubjectOfTeacherWithConsole> SubjectOfTeachers { get; set; }
         public string Certification { get; set; }
         public int Rate { get; set; }
         public IPerson Person { get; set; }
 
-        public Teacher( List<ISubjectOfTeacher> subjectOfTeachers, 
+        public Teacher( List<ISubjectOfTeacherWithConsole> subjectOfTeachers, 
                         string certification, 
                         int rate, 
                         IPerson person)
@@ -32,6 +33,10 @@ namespace Teacher
         public void ToConsole()
         {
             ((IConsole)Person).ToConsole();
+            foreach (var item in SubjectOfTeachers)
+            {
+                item.ToConsole();
+            }
         }
     }
 }

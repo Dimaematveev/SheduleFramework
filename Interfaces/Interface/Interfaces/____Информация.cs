@@ -19,7 +19,7 @@ public static class ____Информация
         {
             typeof(IConsole),
             typeof(IGroup),
-            typeof(ITeacher),
+            typeof(ITeacher<ISubjectOfTeacher>),
             typeof(ISubject),
             typeof(ISubjectOfTeacher),
             typeof(IPerson),

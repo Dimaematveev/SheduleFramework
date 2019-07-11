@@ -10,12 +10,12 @@ namespace Interface.Interface
     /// <summary>
     /// Интерфейс преподавателя. 
     /// </summary>
-    [ReadMetaDataInterface(nameof(ITeacher), "Интерфейс преподавателя.")]
-    public interface ITeacher
+    [ReadMetaDataInterface(nameof(ITeacher<T>), "Интерфейс преподавателя.","НАчально готов.")]
+    public interface ITeacher<T> where T : ISubjectOfTeacher
     {
         /// <value>Какие предметы может вести. </value>
         [ReadMetaDataProperty(nameof(SubjectOfTeachers), "Какие предметы может вести.")]
-        List<ISubjectOfTeacher> SubjectOfTeachers { get; set; }
+        List<T> SubjectOfTeachers { get; set; }
         /// <value> Сертификаты.</value>
         [ReadMetaDataProperty(nameof(Certification), "Сертификаты.")]
         string Certification { get; set; }

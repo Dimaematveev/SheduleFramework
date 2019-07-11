@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SubjectOfTeacher.Interfaces
 {
-    interface ISubjectOfTeacherWithConsole: ISubjectOfTeacher,IConsole
+    public interface ISubjectOfTeacherWithConsole: ISubjectOfTeacher,IConsole
     {
     }
 }
