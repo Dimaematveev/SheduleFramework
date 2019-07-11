@@ -26,7 +26,7 @@ public static class ____Информация
             typeof(ITimeLessons),
             typeof(ITypeLessons),
             typeof(ISubjectTypeLessons),
-            typeof(ISemester<IDaysOfStudy>),
+            typeof(ISemester),
             typeof(IDaysOfStudy),
             typeof(IPlanOfLessons),
             typeof(IStudent),
