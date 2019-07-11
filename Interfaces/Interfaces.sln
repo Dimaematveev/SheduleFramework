@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.28307.705
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Interface", "Interface\Interface.csproj", "{445C8A35-4EC3-4C8A-A314-92676C9A5023}"
 EndProject
@@ -28,6 +28,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Student", "Student\Student.csproj", "{B36F6498-6ACA-4830-97A8-7F35061E7FA3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Teacher", "Teacher\Teacher.csproj", "{92DB84A6-53C1-4A56-AA54-C257F701CD01}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlanOfLessons", "PlanOfLessons\PlanOfLessons.csproj", "{DCDF153F-64E6-4554-92D5-0F00D553DA26}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +89,10 @@ Global
 		{92DB84A6-53C1-4A56-AA54-C257F701CD01}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92DB84A6-53C1-4A56-AA54-C257F701CD01}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92DB84A6-53C1-4A56-AA54-C257F701CD01}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCDF153F-64E6-4554-92D5-0F00D553DA26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCDF153F-64E6-4554-92D5-0F00D553DA26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCDF153F-64E6-4554-92D5-0F00D553DA26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCDF153F-64E6-4554-92D5-0F00D553DA26}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
