@@ -10,7 +10,7 @@ namespace Interface.Interface
     /// <summary>
     /// Интерфейс времени пар.
     /// </summary>
-    [ReadMetaDataInterface(nameof(ITimeLessons), "Интерфейс времени пар.")]
+    [ReadMetaDataInterface(nameof(ITimeLessons), "Интерфейс времени пар.","Простейший сделан.")]
     public interface ITimeLessons
     {
         /// <value> Начало пары.</value>
