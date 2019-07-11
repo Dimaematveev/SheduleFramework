@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace SubjectOfTeacher
 {
-    class SubjectOfTeacher : ISubjectOfTeacherWithConsole
+    public class SubjectOfTeacher : ISubjectOfTeacherWithConsole
     {
         public ISubject Subject { get; set; }
         public int Percent { get; set; }
