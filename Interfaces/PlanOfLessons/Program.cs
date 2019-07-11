@@ -10,6 +10,12 @@ namespace PlanOfLessons
     {
         static void Main(string[] args)
         {
+
+            Console.WriteLine("Begin");
+
+
+            Console.WriteLine("Вы вышли в основную программу!");
+            Console.ReadLine();
         }
     }
 }
