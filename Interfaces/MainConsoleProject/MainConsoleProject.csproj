@@ -49,5 +49,63 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ClassRoom\ClassRoom.csproj">
+      <Project>{8900afb0-e5b8-4160-bf88-12ae9a7dbccd}</Project>
+      <Name>ClassRoom</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DaysOfStudy\DaysOfStudy.csproj">
+      <Project>{a1080797-c4ab-4d13-b82f-f400c37ddd20}</Project>
+      <Name>DaysOfStudy</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Gender\Gender.csproj">
+      <Project>{317b51a9-5bcd-46be-8027-72efa81d4e8a}</Project>
+      <Name>Gender</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Group\Group.csproj">
+      <Project>{7c39d6f0-eaee-4d17-9e78-4bc4b4ce7ee5}</Project>
+      <Name>Group</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interface\Interface.csproj">
+      <Project>{445c8a35-4ec3-4c8a-a314-92676c9a5023}</Project>
+      <Name>Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Person\Person.csproj">
+      <Project>{738aa76d-3a2b-498c-82bd-868b85d5ac5a}</Project>
+      <Name>Person</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\PlanOfLessons\PlanOfLessons.csproj">
+      <Project>{dcdf153f-64e6-4554-92d5-0f00d553da26}</Project>
+      <Name>PlanOfLessons</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Semester\Semester.csproj">
+      <Project>{86196a51-41a8-4e3b-a144-4704ad7cb4ca}</Project>
+      <Name>Semester</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Student\Student.csproj">
+      <Project>{b36f6498-6aca-4830-97a8-7f35061e7fa3}</Project>
+      <Name>Student</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SubjectOfTeacher\SubjectOfTeacher.csproj">
+      <Project>{95a11a21-cc17-42ba-b685-fc0242963db0}</Project>
+      <Name>SubjectOfTeacher</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Subject\Subject.csproj">
+      <Project>{f370c4e7-2e53-45f3-9a2c-ab97f712cb14}</Project>
+      <Name>Subject</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Teacher\Teacher.csproj">
+      <Project>{92db84a6-53c1-4a56-aa54-c257f701cd01}</Project>
+      <Name>Teacher</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TimeLessons\TimeLessons.csproj">
+      <Project>{ca688e9d-a5a1-4ede-a216-f906886b5a37}</Project>
+      <Name>TimeLessons</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TypeLessons\TypeLessons.csproj">
+      <Project>{68a24bd2-1f1b-42aa-9fe9-25be45357d0c}</Project>
+      <Name>TypeLessons</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

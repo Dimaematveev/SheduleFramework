@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace PlanOfLessons
 {
-    class PlanOfLessons : IPlanOfLessonsWithConsole
+    public class PlanOfLessons : IPlanOfLessonsWithConsole
     {
        
         public IGroup Group { get; set; }

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Student
 {
-    class Student : IStudentWithConsole
+    public class Student : IStudentWithConsole
     {
         public IGroup Group { get ; set; }
         public IPerson Person { get ; set; }

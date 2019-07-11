@@ -7,7 +7,7 @@ using TypeLessons.Interfaces;
 
 namespace TypeLessons
 {
-    class TypeLessons : ITypeLessonsWithConsole
+    public class TypeLessons : ITypeLessonsWithConsole
     {
         
         public string NameType { get; set; }

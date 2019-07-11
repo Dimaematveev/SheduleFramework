@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ClassRoom
 {
-    class ClassRoom : IClassRoomWithConsole
+    public class ClassRoom : IClassRoomWithConsole
     {
         
 

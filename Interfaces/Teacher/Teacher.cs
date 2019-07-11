@@ -10,7 +10,7 @@ using Teacher.Interfaces;
 
 namespace Teacher
 {
-    class Teacher : ITeacherWithConsole<ISubjectOfTeacherWithConsole>
+    public class Teacher : ITeacherWithConsole<ISubjectOfTeacherWithConsole>
     {
         
 

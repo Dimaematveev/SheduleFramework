@@ -7,7 +7,7 @@ using TimeLessons.Interfaces;
 
 namespace TimeLessons
 {
-    class TimeLessons : ITimeLessonsWithConsole
+    public class TimeLessons : ITimeLessonsWithConsole
     {
        
         public TimeSpan BeginTime { get; set; }

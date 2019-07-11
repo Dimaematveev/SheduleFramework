@@ -8,7 +8,7 @@ using System.Globalization;
 
 namespace Semester
 {
-    class Semester : ISemesterWithConsole
+    public class Semester : ISemesterWithConsole
     {
         public DateTime BeginSemestr { get; set ; }
         public DateTime EndSemestr { get ; set; }
