@@ -25,17 +25,19 @@ public static class ____Информация
             typeof(IPerson),
             typeof(ITimeLessons),
             typeof(ITypeLessons),
-            typeof(ISubjectTypeLessons),
+
             typeof(ISemester),
             typeof(IDaysOfStudy),
             typeof(IPlanOfLessons),
             typeof(IStudent),
-            typeof(IClassRoom)
+            typeof(IClassRoom),
+
+            typeof(ISubjectTypeLessons),
         };
         s.Add($"Всего {interfaces.Count} интерфейсов.");
         foreach (var interfac in interfaces)
         {
-            var pairInterface =new List<InterfaceValue>();
+            var pairInterface = new List<InterfaceValue>();
             foreach (ReadMetaDataInterfaceAttribute atrib in interfac.GetCustomAttributes(typeof(ReadMetaDataInterfaceAttribute), false))
             {
                 pairInterface.Add(new InterfaceValue(interfac, atrib));
@@ -44,19 +46,19 @@ public static class ____Информация
 
 
             int numbProp = 0;
-            var pairProperty = new List<PropertyValue> ();
-            s.Add( $"{"",2 * smesh}Имеет {numbProp} свойств.");
+            var pairProperty = new List<PropertyValue>();
+            s.Add($"{"",2 * smesh}Имеет {numbProp} свойств.");
             int ind = s.Count - 1;
             foreach (System.Reflection.PropertyInfo props in interfac.GetProperties())
             {
                 foreach (ReadMetaDataPropertyAttribute atrib in props.GetCustomAttributes(typeof(ReadMetaDataPropertyAttribute), false))
                 {
                     pairProperty.Add(new PropertyValue(props, atrib));
-                    s.Add($"{"",3*smesh}'{props.ToString()}' - {atrib.About}");
+                    s.Add($"{"",3 * smesh}'{props.ToString()}' - {atrib.About}");
                     numbProp++;
                 }
             }
-            s[ind] = $"{"",2*smesh}Имеет {numbProp} свойств.";
+            s[ind] = $"{"",2 * smesh}Имеет {numbProp} свойств.";
 
 
             int numbMetod = 0;
@@ -68,25 +70,21 @@ public static class ____Информация
                 foreach (ReadMetaDataMethodAttribute atrib in method.GetCustomAttributes(typeof(ReadMetaDataMethodAttribute), false))
                 {
                     pairMetod.Add(new MethodValue(method, atrib));
-                    s.Add($"{"",3*smesh}'{method.Name}':'{method.ToString()}' - {atrib.About}");
+                    s.Add($"{"",3 * smesh}'{method.Name}':'{method.ToString()}' - {atrib.About}");
                     numbMetod++;
                 }
             }
-            
-            s[ind] = $"{"",2*smesh}Имеет {numbMetod} методов.";
+
+            s[ind] = $"{"",2 * smesh}Имеет {numbMetod} методов.";
             lis.Add(new IntarfacePropertyMetod(pairInterface, pairProperty, pairMetod));
         }
 
-        
+
     }
     public static string Main1()
     {
         Data();
         string ret = "";
-        //foreach (var item in s)
-        //{
-        //    ret += item + "\n";
-        //}
         ret += $"Всего {lis.Count} интерфейсов." + "\n";
         foreach (var item in lis)
         {
@@ -117,9 +115,9 @@ public static class ____Информация
         List<PropertyValue> propertyPair = new List<PropertyValue>();
         List<MethodValue> metodPair = new List<MethodValue>();
 
-        public IntarfacePropertyMetod(  List<InterfaceValue> interfacePair, 
-                                        List<PropertyValue> propertyPair, 
-                                        List<MethodValue> metodPair)
+        public IntarfacePropertyMetod(List<InterfaceValue> interfacePair,
+                                      List<PropertyValue> propertyPair,
+                                      List<MethodValue> metodPair)
         {
             this.interfacePair = interfacePair;
             this.propertyPair = propertyPair;
@@ -162,7 +160,7 @@ public static class ____Информация
                 item.ToConsole();
             }
             Console.WriteLine();
-            
+
         }
         public override string ToString()
         {
@@ -172,7 +170,7 @@ public static class ____Информация
             //ret += "\n";
             foreach (var item in interfacePair)
             {
-                ret+=$"{item.ToString()}";
+                ret += $"{item.ToString()}";
                 ret += "\n";
             }
             ret += $"{"",2 * smesh}Имеет {propertyPair.Count} свойств.";
@@ -247,7 +245,7 @@ public static class ____Информация
             Console.ForegroundColor = ConsoleColor.White;
             Console.Write($"{PropertyAttribute.About}");
             Console.ForegroundColor = ConsoleColor.White;
-            
+
 
             Console.WriteLine();
         }
