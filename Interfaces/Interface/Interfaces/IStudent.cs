@@ -8,13 +8,17 @@ using System.Threading.Tasks;
 namespace Interface.Interface
 {
     /// <summary>
-    /// Интерфейс студента. Реализует интерфейс человека.
+    /// Интерфейс студента.
     /// </summary>
-    [ReadMetaDataInterface(nameof(IStudent), " Интерфейс студента. Реализует интерфейс человека.")]
-    public interface IStudent : IPerson
+    [ReadMetaDataInterface(nameof(IStudent), " Интерфейс студента.","Простейшая реализация.")]
+    public interface IStudent 
     {
         /// <value> Группа. </value>
         [ReadMetaDataProperty(nameof(Group), "Группа.")]
         IGroup Group { get; set; }
+
+        /// <value> Человек. </value>
+        [ReadMetaDataProperty(nameof(Person), "Человек.")]
+        IPerson Person { get; set; }
     }
 }

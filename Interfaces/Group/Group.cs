@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Group
 {
-    class Group : IGroupWithConsole
+    public class Group : IGroupWithConsole
     {
         
 

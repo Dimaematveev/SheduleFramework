@@ -43,11 +43,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IStudentWithConsole.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Student.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Gender\Gender.csproj">
+      <Project>{317b51a9-5bcd-46be-8027-72efa81d4e8a}</Project>
+      <Name>Gender</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Group\Group.csproj">
+      <Project>{7c39d6f0-eaee-4d17-9e78-4bc4b4ce7ee5}</Project>
+      <Name>Group</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interface\Interface.csproj">
+      <Project>{445c8a35-4ec3-4c8a-a314-92676c9a5023}</Project>
+      <Name>Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Person\Person.csproj">
+      <Project>{738aa76d-3a2b-498c-82bd-868b85d5ac5a}</Project>
+      <Name>Person</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

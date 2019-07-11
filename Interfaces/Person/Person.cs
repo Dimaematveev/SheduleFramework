@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Person
 {
-    class Person : IPersonWithConsole
+    public class Person : IPersonWithConsole
     {
         
 
