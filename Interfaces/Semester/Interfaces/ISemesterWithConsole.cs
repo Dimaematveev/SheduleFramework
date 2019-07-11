@@ -4,8 +4,7 @@ using DaysOfStudy.Interfaces;
 
 namespace Semester.Interfaces
 {
-    public interface ISemesterWithConsole<T>  : ISemester<T>, IConsole
-    where T: IDaysOfStudyWithConsole
+    public interface ISemesterWithConsole : ISemester, IConsole
     {
     }
 }

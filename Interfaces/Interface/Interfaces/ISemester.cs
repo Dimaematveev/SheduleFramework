@@ -10,8 +10,8 @@ namespace Interface.Interface
     /// <summary>
     /// Интерфейс семестра.
     /// </summary>
-    [ReadMetaDataInterface(nameof(ISemester<T>), "Интерфейс семестра.", "Неплохо сделано.")]
-    public interface ISemester<T> where T:IDaysOfStudy
+    [ReadMetaDataInterface(nameof(ISemester), "Интерфейс семестра.", "Неплохо сделано.")]
+    public interface ISemester
     {
         /// <value> Дата начала семестра.</value>
         [ReadMetaDataProperty(nameof(BeginSemestr), "Дата начала семестра.")]
@@ -21,6 +21,6 @@ namespace Interface.Interface
         DateTime EndSemestr { get; set; }
         /// <value> Список дней в семестре с указание учебных или нет. </value>
         [ReadMetaDataProperty(nameof(DaysOfStudies), "Список дней в семестре с указание учебных или нет.")]
-        List<T> DaysOfStudies { get; set; }
+        List<IDaysOfStudy> DaysOfStudies { get; set; }
     }
 }

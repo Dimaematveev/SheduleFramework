@@ -1,5 +1,6 @@
 ﻿using DaysOfStudy.Interfaces;
 using Interface.Interface;
+using Interface.Interfaces;
 using Semester.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -7,18 +8,18 @@ using System.Globalization;
 
 namespace Semester
 {
-    class Semester : ISemesterWithConsole<IDaysOfStudyWithConsole>
+    class Semester : ISemesterWithConsole
     {
         public DateTime BeginSemestr { get; set ; }
         public DateTime EndSemestr { get ; set; }
-        public List<IDaysOfStudyWithConsole> DaysOfStudies { get; set; }
+        public List<IDaysOfStudy> DaysOfStudies { get; set; }
         public Semester(DateTime beginSemestr, DateTime endSemestr)
         {
             //TODO: BeginSemestr < EndSemestr
             //TODO: Их разница не более полугода.
             BeginSemestr = beginSemestr;
             EndSemestr = endSemestr;
-            DaysOfStudies = new List<IDaysOfStudyWithConsole>();
+            DaysOfStudies = new List<IDaysOfStudy>();
             for (var i = BeginSemestr; i <= EndSemestr; i=i.AddDays(1))
             {
                 if (i.DayOfWeek==DayOfWeek.Sunday)
@@ -53,7 +54,7 @@ namespace Semester
                 {
                     Console.WriteLine();
                 }
-                item.ToConsole();
+                ((IConsole)item).ToConsole();
             }
             Console.WriteLine();
         }
