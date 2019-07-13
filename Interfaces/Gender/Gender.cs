@@ -14,6 +14,11 @@ namespace Gender
 
         public Gender(string nameGender)
         {
+            if (string.IsNullOrWhiteSpace(nameGender))
+            {
+                throw new ArgumentNullException("Имя гендера не должно быть пустым!", nameof(nameGender));
+            }
+
             NameGender = nameGender;
         }
 

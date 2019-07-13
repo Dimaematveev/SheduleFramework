@@ -16,7 +16,7 @@ namespace ClassRoom
 
         public ClassRoom(string nameClass, int numberOfPeople)
         {
-            if (nameClass==null)
+            if (string.IsNullOrWhiteSpace(nameClass))
             {
                 throw new ArgumentNullException($"Имя аудитории не должно быть пустым.", nameof(nameClass));
             }

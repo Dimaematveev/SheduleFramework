@@ -12,7 +12,6 @@ namespace DaysOfStudy
     {
         public DateTime Date { get; set; }
         public HowDays Study { get; set; }
-
         public DaysOfStudy(DateTime day, HowDays study)
         {
             Date = day;
