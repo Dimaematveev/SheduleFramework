@@ -16,7 +16,14 @@ namespace ClassRoom
 
         public ClassRoom(string nameClass, int numberOfPeople)
         {
-            //TODO:Проверка что Number>0
+            if (nameClass==null)
+            {
+                throw new ArgumentNullException($"Имя аудитории не должно быть пустым.", nameof(nameClass));
+            }
+            if (numberOfPeople < 0)
+            {
+                throw new ArgumentNullException($"Количество людей в аудитории должно быть больше нуля.", nameof(numberOfPeople));
+            }
             NameClass = nameClass;
             NumberOfPeople = numberOfPeople;
         }
