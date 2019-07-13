@@ -5,11 +5,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-
-public static class ____Информация
+/// <summary>
+/// Класс для информации. Собирает информацию по всем интерфейсам по моему атрибуту.
+/// </summary>
+public static class Информация
 {
     static List<string> s = new List<string>();
     static List<IntarfacePropertyMetod> lis = new List<IntarfacePropertyMetod>();
+    /// <summary>
+    /// Основной метод. Сбор данных.
+    /// </summary>
     public static void Data()
     {
         const int smesh = 4;
@@ -81,6 +86,10 @@ public static class ____Информация
 
 
     }
+    /// <summary>
+    /// Метод который запускает все остальное.
+    /// </summary>
+    /// <returns></returns>
     public static string Main1()
     {
         Data();
@@ -92,6 +101,9 @@ public static class ____Информация
         }
         return ret;
     }
+    /// <summary>
+    /// Метод вывода на консоль.
+    /// </summary>
     public static void ToConsole()
     {
         Data();
@@ -109,12 +121,21 @@ public static class ____Информация
             item.ToConsole();
         }
     }
+    /// <summary>
+    /// Класс со всеми Интерфейсами, методами и свойствами присутствующими. 
+    /// </summary>
     public class IntarfacePropertyMetod
     {
         List<InterfaceValue> interfacePair = new List<InterfaceValue>();
         List<PropertyValue> propertyPair = new List<PropertyValue>();
         List<MethodValue> metodPair = new List<MethodValue>();
 
+        /// <summary>
+        /// Просто конструктор.
+        /// </summary>
+        /// <param name="interfacePair">Список интерфейсов.</param>
+        /// <param name="propertyPair">Список свойств.</param>
+        /// <param name="metodPair">Список методов.</param>
         public IntarfacePropertyMetod(List<InterfaceValue> interfacePair,
                                       List<PropertyValue> propertyPair,
                                       List<MethodValue> metodPair)
@@ -124,6 +145,9 @@ public static class ____Информация
             this.metodPair = metodPair;
         }
 
+        /// <summary>
+        /// Вывод на консоль.
+        /// </summary>
         public void ToConsole()
         {
             const int smesh = 3;
@@ -162,6 +186,10 @@ public static class ____Информация
             Console.WriteLine();
 
         }
+        /// <summary>
+        /// Преобразование в строку.
+        /// </summary>
+        /// <returns> строка.</returns>
         public override string ToString()
         {
             const int smesh = 3;
@@ -191,20 +219,35 @@ public static class ____Информация
         }
     }
 
+    /// <summary>
+    /// Класс для интерфейсов.
+    /// </summary>
     public class InterfaceValue
     {
         Type Type { get; set; }
         ReadMetaDataInterfaceAttribute InterfaceAttribute { get; set; }
+        /// <summary>
+        /// ХЗ
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="attribute"></param>
         public InterfaceValue(Type type, ReadMetaDataInterfaceAttribute attribute)
         {
             Type = type;
             InterfaceAttribute = attribute;
         }
+        /// <summary>
+        /// В строку.
+        /// </summary>
+        /// <returns> строка.</returns>
         public override string ToString()
         {
             const int smesh = 3;
             return $"{"",smesh}'{InterfaceAttribute.Name}' \n{"",smesh}   {InterfaceAttribute.About}";
         }
+        /// <summary>
+        /// Вывод на консоль.
+        /// </summary>
         public void ToConsole()
         {
             const int smesh = 3;
@@ -224,15 +267,26 @@ public static class ____Информация
         }
 
     }
+    /// <summary>
+    /// Класс для свойств.
+    /// </summary>
     public class PropertyValue
     {
         PropertyInfo PropertyType { get; set; }
         ReadMetaDataPropertyAttribute PropertyAttribute { get; set; }
+        /// <summary>
+        /// Конструктор.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="attribute"></param>
         public PropertyValue(PropertyInfo type, ReadMetaDataPropertyAttribute attribute)
         {
             PropertyType = type;
             PropertyAttribute = attribute;
         }
+        /// <summary>
+        /// На консоль.
+        /// </summary>
         public void ToConsole()
         {
             const int smesh = 3;
@@ -249,6 +303,10 @@ public static class ____Информация
 
             Console.WriteLine();
         }
+        /// <summary>
+        /// В строку.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             const int smesh = 3;
@@ -256,15 +314,26 @@ public static class ____Информация
         }
 
     }
+    /// <summary>
+    /// Класс для методов.
+    /// </summary>
     public class MethodValue
     {
         MethodInfo MethodType { get; set; }
         ReadMetaDataMethodAttribute MethodAttribute { get; set; }
+        /// <summary>
+        /// Конструктор.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="attribute"></param>
         public MethodValue(MethodInfo type, ReadMetaDataMethodAttribute attribute)
         {
             MethodType = type;
             MethodAttribute = attribute;
         }
+        /// <summary>
+        /// На консоль.
+        /// </summary>
         public void ToConsole()
         {
             const int smesh = 3;
@@ -279,6 +348,10 @@ public static class ____Информация
             Console.ForegroundColor = ConsoleColor.White;
             Console.WriteLine();
         }
+        /// <summary>
+        /// В строку.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             const int smesh = 3;

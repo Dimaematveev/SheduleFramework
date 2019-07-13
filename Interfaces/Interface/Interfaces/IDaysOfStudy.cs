@@ -11,7 +11,13 @@ namespace Interface.Interface
     /// <summary>
     /// перечисление для Study. Какой день.
     /// </summary>
-    public enum HowDays : int { WorkingDay = -1, DayOff = 0 };
+    public enum HowDays : int
+    {
+        /// <value>Рабочий день = -1.</value>
+        WorkingDay = -1,
+        /// <value>Выходной день = 0.</value>
+        DayOff = 0
+    };
     /// <summary>
     /// Интерфейс показывающий какой день(учебный, не учебный, сокращенный).
     /// </summary>

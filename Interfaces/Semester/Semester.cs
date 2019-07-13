@@ -15,8 +15,14 @@ namespace Semester
         public List<IDaysOfStudy> DaysOfStudies { get; set; }
         public Semester(DateTime beginSemestr, DateTime endSemestr)
         {
-            //TODO: BeginSemestr < EndSemestr
-            //TODO: Их разница не более полугода.
+            if (beginSemestr>= endSemestr)
+            {
+                throw new ArgumentException($"'beginSemestr={beginSemestr}' должен быть Меньше 'endSemestr={endSemestr}'!", nameof(endSemestr) + "-" + nameof(beginSemestr));
+            }
+            if ((endSemestr - beginSemestr).Days > 180)
+            {
+                throw new ArgumentException($"Семестр не должен быть больше 180 дней! А сейчас {(endSemestr - beginSemestr).Days} ", nameof(endSemestr)+"-"+nameof(beginSemestr));
+            }
             BeginSemestr = beginSemestr;
             EndSemestr = endSemestr;
             DaysOfStudies = new List<IDaysOfStudy>();

@@ -10,7 +10,7 @@ namespace Interface
     {
         static void Main()
         {
-            ____Информация.ToConsole();
+            Информация.ToConsole();
             Console.ReadLine();
         }
     }

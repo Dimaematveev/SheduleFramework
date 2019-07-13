@@ -11,7 +11,15 @@ namespace Interface.Interface
     /// <summary>
     /// Тип обучения.
     /// </summary>
-    public enum TypeStudy:int { FullTimeEducation=0, ExtraMuralStudies=1, EveningClass=2 }
+    public enum TypeStudy:int
+    {
+        /// <value>Дневное обучение = 0.</value>
+        FullTimeEducation =0,
+        /// <value>Заочное обучение = 1.</value>
+        ExtraMuralStudies = 1,
+        /// <value>Вечернее обучение = 2.</value>
+        EveningClass = 2
+    }
     /// <summary>
     /// Интерфейс для групп.
     /// </summary>
