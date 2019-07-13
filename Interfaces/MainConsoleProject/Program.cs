@@ -10,6 +10,9 @@ namespace MainConsoleProject
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("Begin");
+
+
             Gender.Gender gender = new Gender.Gender("мужской");
             var genders = new List<Gender.Gender>
             {
@@ -90,6 +93,9 @@ namespace MainConsoleProject
                 new TypeLessons.TypeLessons("Лекция"),
                 new TypeLessons.TypeLessons("Практика"),
             };
+
+
+            Console.WriteLine("Вы вышли в основную программу!");
             Console.ReadLine();
         }
     }
