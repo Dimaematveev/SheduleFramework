@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{68A24BD2-1F1B-42AA-9FE9-25BE45357D0C}</ProjectGuid>
+    <ProjectGuid>{8B866FA4-6E6B-43FB-B726-88615A7A17B2}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>TypeLessons</RootNamespace>
-    <AssemblyName>TypeLessons</AssemblyName>
+    <RootNamespace>NumberOfLesson</RootNamespace>
+    <AssemblyName>NumberOfLesson</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
@@ -43,19 +43,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interfaces\ITypeLessonsWithConsole.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TypeLessons.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Interface\Interface.csproj">
-      <Project>{445c8a35-4ec3-4c8a-a314-92676c9a5023}</Project>
-      <Name>Interface</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -4,9 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TypeLessons
+namespace NumberOfLesson
 {
-    class NumberOfLesson
+    class Program
     {
+        static void Main(string[] args)
+        {
+        }
     }
 }
