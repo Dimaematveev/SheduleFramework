@@ -45,9 +45,25 @@ namespace MainConsoleProject
                  new Subject.Subject("история России 1-4 курс"),
             };
 
-            
-            //Явная недоработка Надо добавить еще один класс как Subject+int и сюда добавить List этого класса
-            PlanOfLessons.PlanOfLessons planOfLessons = new PlanOfLessons.PlanOfLessons(group, subject, 14);
+            NumberOfLesson.NumberOfLesson numberOfLesson = new NumberOfLesson.NumberOfLesson(subject, 5);
+            var numberOfLessons = new List<NumberOfLesson.NumberOfLesson>[groups.Count];
+            for (int i = 0; i < groups.Count; i++)
+            {
+                int r1 = i * 5 % subjects.Count;
+                int r2 = i * 3 % subjects.Count;
+                if (r1 == r2)
+                {
+                    r1 = (r1 + 1) % subjects.Count;
+                }
+                var tempNumberOfLessons = new List<NumberOfLesson.NumberOfLesson>
+                {
+                    new NumberOfLesson.NumberOfLesson(subjects[r1],7),
+                    new NumberOfLesson.NumberOfLesson(subjects[r2],9),
+                };
+                numberOfLessons[i] = tempNumberOfLessons;
+            };
+
+
             Semester.Semester semester = new Semester.Semester(new DateTime(2019, 02, 02), new DateTime(2019, 05, 31));
            
 
