@@ -49,6 +49,7 @@
     <Compile Include="Attributes\ReadMetaDataAttribute.cs" />
     <Compile Include="Interfaces\IConsole.cs" />
     <Compile Include="Interfaces\IGender.cs" />
+    <Compile Include="Interfaces\INumberOfLesson.cs" />
     <Compile Include="Interfaces\ITypeLessons.cs" />
     <Compile Include="Interfaces\ITypeStudy.cs" />
     <Compile Include="Interfaces\____Информация.cs" />

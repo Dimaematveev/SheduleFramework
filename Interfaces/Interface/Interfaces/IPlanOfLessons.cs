@@ -1,4 +1,5 @@
 ﻿using Interface.Attributes;
+using Interface.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +17,10 @@ namespace Interface.Interface
         /// <value> Группа. </value>
         [ReadMetaDataProperty(nameof(Group), "Группа.")]
         IGroup Group { get; set; }
-        /// <value> Предмет. </value>
-        [ReadMetaDataProperty(nameof(Subject), "Предмет.")]
-        ISubject Subject { get; set; }
-        /// <value> Количество пар за семестр. </value>
-        [ReadMetaDataProperty(nameof(NumberSubject), "Количество пар за семестр.")]
-        int NumberSubject { get; set; }
+
+        /// <value> Список количества пар за семестр. </value>
+        [ReadMetaDataProperty(nameof(NumberOfLesson), "Группа.")]
+        List<INumberOfLesson> NumberOfLesson { get; set; }
+
     }
 }
