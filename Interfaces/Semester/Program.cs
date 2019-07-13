@@ -12,7 +12,7 @@ namespace Semester
         {
 
             Console.WriteLine("Begin");
-            var sem = new Semester(new DateTime(2019, 02, 02), new DateTime(2019, 05, 28));
+            var sem = new Semester( new DateTime(2019, 05, 28), new DateTime(2018, 02, 02));
             sem.CommandConsole();
             Console.WriteLine("Вы вышли в основную программу!");    
             Console.ReadLine();
