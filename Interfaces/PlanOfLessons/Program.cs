@@ -1,4 +1,5 @@
 ﻿using Interface.Interface;
+using Interface.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,13 +31,19 @@ namespace PlanOfLessons
                 new Subject.Subject("Программирование","КБ-5"),
                 new Subject.Subject("Математический анализ","КБ-5"),
             };
-            
+
+           
+
             foreach (var item1 in groups)
             {
-                foreach (var item2 in subjects)
+                var numberOfLessons = new List<INumberOfLesson>
                 {
-                    planOfLessons.Add(new PlanOfLessons(item1,item2,rnd.Next(10,40)));
-                }
+                    new NumberOfLesson.NumberOfLesson(subjects[rnd.Next(0,subjects.Count)],rnd.Next(0,19)),
+                    new NumberOfLesson.NumberOfLesson(subjects[rnd.Next(0,subjects.Count)],rnd.Next(0,19)),
+                    new NumberOfLesson.NumberOfLesson(subjects[rnd.Next(0,subjects.Count)],rnd.Next(0,19)),
+                };
+                planOfLessons.Add(new PlanOfLessons(item1, numberOfLessons));
+               
             }
 
             foreach (var item in planOfLessons)

@@ -13,20 +13,22 @@ namespace PlanOfLessons
     {
        
         public IGroup Group { get; set; }
-        public ISubject Subject { get; set; }
-        public int NumberSubject { get; set; }
-        public PlanOfLessons(IGroup group, ISubject subject, int numberSubject)
+        public List<INumberOfLesson> NumberOfLesson { get; set; }
+
+        public PlanOfLessons(IGroup group, List<INumberOfLesson> numberOfLesson)
         {
             Group = group;
-            Subject = subject;
-            NumberSubject = numberSubject;
+            NumberOfLesson = numberOfLesson;
         }
 
         public void ToConsole()
         {
             ((IConsole)Group).ToConsole();
-            ((IConsole)Subject).ToConsole();
-            Console.WriteLine($"{NumberSubject}");
+            foreach (var item in NumberOfLesson)
+            {
+                Console.Write($"{"",4}");
+                ((IConsole)item).ToConsole();
+            }
             Console.WriteLine();
         }
     }

@@ -11,7 +11,7 @@ namespace Interface.Interfaces
     /// <summary>
     /// Интерфейс количества пар в семестр.
     /// </summary>
-    [ReadMetaDataInterface(nameof(INumberOfLesson), "Интерфейс количества пар в семестр.")]
+    [ReadMetaDataInterface(nameof(INumberOfLesson), "Интерфейс количества пар в семестр.", "Первоначально готов.")]
     public interface INumberOfLesson
     {
         /// <value> Предмет. </value>

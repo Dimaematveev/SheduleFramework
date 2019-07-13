@@ -70,6 +70,10 @@
       <Project>{445c8a35-4ec3-4c8a-a314-92676c9a5023}</Project>
       <Name>Interface</Name>
     </ProjectReference>
+    <ProjectReference Include="..\NumberOfLesson\NumberOfLesson.csproj">
+      <Project>{8b866fa4-6e6b-43fb-b726-88615a7a17b2}</Project>
+      <Name>NumberOfLesson</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Person\Person.csproj">
       <Project>{738aa76d-3a2b-498c-82bd-868b85d5ac5a}</Project>
       <Name>Person</Name>
