@@ -33,6 +33,27 @@ namespace Person
 
         public Person(string name, IGender gender, DateTime birthDay, string living)
         {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                throw new ArgumentNullException("Имя не должно быть пустым!", nameof(name));
+            }
+            if (gender==null)
+            {
+                throw new ArgumentNullException("Гендер не должен быть пустым!", nameof(gender));
+            }
+            if (birthDay==null)
+            {
+                throw new ArgumentNullException("Дата рождения не должна быть пустым!", nameof(birthDay));
+            }
+            if (birthDay >DateTime.Now || birthDay<new DateTime(1870,1,1))
+            {
+                throw new ArgumentException($"Дата рождения не должна быть больше '{DateTime.Now.ToShortDateString()}' и меньше '01.01.1870'!", nameof(birthDay));
+            }
+            if (string.IsNullOrWhiteSpace(living))
+            {
+                throw new ArgumentNullException("Место жительства не должно быть пустым!", nameof(living));
+            }
+
             Name = name;
             Gender = gender;
             BirthDay = birthDay;
