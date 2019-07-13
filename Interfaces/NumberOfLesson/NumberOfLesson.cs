@@ -15,6 +15,14 @@ namespace NumberOfLesson
 
         public NumberOfLesson(ISubject subject, int numberSubject)
         {
+            if (subject==null)
+            {
+                throw new ArgumentNullException("Должен передаваться предмет, а не пустое значение.", nameof(subject));
+            }
+            if (numberSubject<=0)
+            {
+                throw new ArgumentException("Количество пар за семестр должно быть больше нуля.", nameof(numberSubject));
+            }
             Subject = subject;
             NumberSubject = numberSubject;
         }
