@@ -25,7 +25,23 @@ namespace Group
                         string seminar, 
                         TypeStudy typeOfTraining)
         {
-            //TODO: Проверки на null
+
+            if (string.IsNullOrWhiteSpace(nameGroup))
+            {
+                throw new ArgumentNullException("Имя группы не должно быть пустым!", nameof(nameGroup));
+            }
+            if (numberOfStutents<=0)
+            {
+                throw new ArgumentNullException($"Количество студентов в группе должно быть больше нуля!",nameof(numberOfStutents));
+            }
+            if (cours < 1 || cours>5)
+            {
+                throw new ArgumentException($"Курс должен быть больше нуля и не превышать 5!", nameof(cours));
+            }
+            if (string.IsNullOrWhiteSpace(seminar))
+            {
+                throw new ArgumentNullException("Семинар не должен быть пустым.", nameof(seminar));
+            }
             NameGroup = nameGroup;
             NumberOfStutents = numberOfStutents;
             Cours = cours;

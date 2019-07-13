@@ -20,7 +20,7 @@ namespace ClassRoom
             {
                 throw new ArgumentNullException($"Имя аудитории не должно быть пустым.", nameof(nameClass));
             }
-            if (numberOfPeople < 0)
+            if (numberOfPeople <= 0)
             {
                 throw new ArgumentNullException($"Количество людей в аудитории должно быть больше нуля.", nameof(numberOfPeople));
             }
