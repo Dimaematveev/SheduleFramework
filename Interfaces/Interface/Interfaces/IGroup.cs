@@ -29,9 +29,12 @@ namespace Interface.Interface
         /// <value> Название группы (ТВО).</value>
         [ReadMetaDataProperty(nameof(NameGroup), "Название группы (ТВО).")]
         string NameGroup { get; set; }
+        /// <value> Список студентов.</value>
+        [ReadMetaDataProperty(nameof(Students), "Список студентов.")]
+        List<IStudent> Students{ get; set;}
         /// <value> Количество студентов.</value>
         [ReadMetaDataProperty(nameof(NumberOfStutents), "Количество студентов.")]
-        int NumberOfStutents { get; set; }
+        int NumberOfStutents { get; }
         /// <value> Курс (3).</value>
         [ReadMetaDataProperty(nameof(Cours), "Курс (3).")]
         int Cours { get; set; }

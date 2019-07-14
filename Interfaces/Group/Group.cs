@@ -14,13 +14,15 @@ namespace Group
         
 
         public string NameGroup { get; set; }
-        public int NumberOfStutents { get; set; }
+        public List<IStudent> Students { get; set; }
+        public int NumberOfStutents { get => Students.Count; }
         public int Cours { get; set; }
         public string Seminar { get; set; }
         public TypeStudy TypeOfTraining { get; set; }
+        
 
-        public Group(   string nameGroup, 
-                        int numberOfStutents, 
+        public Group(   string nameGroup,
+                        List<IStudent> students, 
                         int cours, 
                         string seminar, 
                         TypeStudy typeOfTraining)
@@ -30,9 +32,9 @@ namespace Group
             {
                 throw new ArgumentNullException("Имя группы не должно быть пустым!", nameof(nameGroup));
             }
-            if (numberOfStutents<=0)
+            if (students.Count<= 0 || students == null)
             {
-                throw new ArgumentNullException($"Количество студентов в группе должно быть больше нуля!",nameof(numberOfStutents));
+                throw new ArgumentNullException($"Количество студентов в группе должно быть больше нуля!",nameof(students));
             }
             if (cours < 1 || cours>5)
             {
@@ -43,7 +45,7 @@ namespace Group
                 throw new ArgumentNullException("Семинар не должен быть пустым.", nameof(seminar));
             }
             NameGroup = nameGroup;
-            NumberOfStutents = numberOfStutents;
+            Students = students;
             Cours = cours;
             Seminar = seminar;
             TypeOfTraining = typeOfTraining;
