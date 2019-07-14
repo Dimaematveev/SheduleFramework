@@ -11,12 +11,23 @@ namespace PlanOfLessons
 {
     public class PlanOfLessons : IPlanOfLessonsWithConsole
     {
-       
         public IGroup Group { get; set; }
         public List<INumberOfLesson> NumberOfLesson { get; set; }
 
         public PlanOfLessons(IGroup group, List<INumberOfLesson> numberOfLesson)
         {
+            if (group == null) 
+            {
+                throw new ArgumentNullException("Группа не должна быть пустой!",nameof(group));
+            }
+            if (numberOfLesson == null)
+            {
+                throw new ArgumentNullException("План не должен быть пустым!", nameof(numberOfLesson));
+            }
+            if (numberOfLesson.Count <= 0) 
+            {
+                throw new ArgumentNullException("План не должен быть пустым!", nameof(numberOfLesson));
+            }
             Group = group;
             NumberOfLesson = numberOfLesson;
         }
