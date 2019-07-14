@@ -16,6 +16,14 @@ namespace Student
 
         public Student(IGroup group, IPerson person)
         {
+            if (group == null)
+            {
+                throw new ArgumentNullException("Группа не должна быть пустой!", nameof(group));
+            }
+            if (person == null)
+            {
+                throw new ArgumentNullException("Человек не должен быть пуст!", nameof(person));
+            }
             Group = group;
             Person = person;
         }
