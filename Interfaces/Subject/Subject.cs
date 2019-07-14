@@ -14,11 +14,21 @@ namespace Subject
 
         public Subject(string nameSubject)
         {
+            if (string.IsNullOrWhiteSpace(nameSubject))
+            {
+                throw new ArgumentException("Название предмета не должно быть пустым!", nameof(nameSubject));
+            }
+
             NameSubject = nameSubject;
         }
 
         public Subject(string nameSubject, string departament) : this(nameSubject)
         {
+            if (string.IsNullOrWhiteSpace(departament))
+            {
+                throw new ArgumentException("Кафедра не должна быть пустой!", nameof(departament));
+            }
+
             Departament = departament;
         }
 
