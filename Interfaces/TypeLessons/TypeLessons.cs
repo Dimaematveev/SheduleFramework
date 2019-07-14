@@ -14,6 +14,11 @@ namespace TypeLessons
 
         public TypeLessons(string nameType)
         {
+            if (string.IsNullOrWhiteSpace(nameType))
+            {
+                throw new ArgumentException("Имя типа занятия не должно быть пустым!", nameof(nameType));
+            }
+
             NameType = nameType;
         }
         public void ToConsole()
