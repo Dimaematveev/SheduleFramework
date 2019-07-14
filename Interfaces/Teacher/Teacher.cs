@@ -24,6 +24,27 @@ namespace Teacher
                         int rate, 
                         IPerson person)
         {
+            if (subjectOfTeachers == null || subjectOfTeachers.Count<=0)
+            {
+                throw new ArgumentNullException("Предмет учителя не должен быть пустым!", nameof(subjectOfTeachers));
+            }
+
+            if (string.IsNullOrWhiteSpace(certification))
+            {
+                throw new ArgumentException("Сертификаты не должны быть пусты!", nameof(certification));
+            }
+            if (rate < 1) 
+            {
+                throw new ArgumentException("Ставка не может быть меньше 1!", nameof(rate));
+            }
+            if (rate > 4)
+            {
+                throw new ArgumentException("Ставка не может быть больше 4!", nameof(rate));
+            }
+            if (person == null)
+            {
+                throw new ArgumentNullException("Человек не должен быть пустым!", nameof(person));
+            }
             SubjectOfTeachers = subjectOfTeachers;
             Certification = certification;
             Rate = rate;
