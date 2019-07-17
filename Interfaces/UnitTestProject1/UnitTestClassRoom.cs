@@ -11,6 +11,8 @@ namespace UnitTestClassRoom
         [DataRow(null,1)]
         [DataRow(" ",1)]
         [DataRow("",1)]
+        [DataRow("\n",5)]
+        [DataRow("\t",9)]
         [DataRow("11",-1)]
         [DataRow("11",0)]
         public void TestConstructorIsException(string name, int number)

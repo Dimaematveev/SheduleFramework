@@ -21,10 +21,13 @@ namespace Gender
 
             NameGender = nameGender;
         }
-
+        public override string ToString()
+        {
+            return NameGender;
+        }
         public void ToConsole()
         {
-            Console.WriteLine(NameGender);
+            Console.WriteLine(ToString());
         }
     }
 }
