@@ -102,7 +102,7 @@ namespace Group
         /// <param name="students">Список студентов.</param>
         public bool AddStudent(List<IStudent> students)
         {
-            if (students.Count <= 0 || students == null)
+            if (students == null || students.Count <= 0 )
             {
                 throw new ArgumentNullException($"Количество студентов в группе должно быть больше нуля!", nameof(students));
             }
@@ -118,11 +118,18 @@ namespace Group
             }
         }
         /// <summary>
+        /// Преобразование в строку.
+        /// </summary>
+        public override string ToString()
+        {
+            return Seminar;
+        }
+        /// <summary>
         /// Вывод на консоль.
         /// </summary>
         public void ToConsole()
         {
-            Console.WriteLine(Seminar);
+            Console.WriteLine(ToString());
         }
     }
 }

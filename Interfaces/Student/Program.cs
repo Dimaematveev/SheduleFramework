@@ -14,6 +14,7 @@ namespace Student
             Console.WriteLine("Begin!!");
             List<Student> students = new List<Student>();    
 
+            /*
             List<Group.Group> groups = new List<Group.Group >();
             Random rnd = new Random();
             for (int i = 0; i < 10; i++)
@@ -50,7 +51,7 @@ namespace Student
                 item.ToConsole();
             }
 
-
+            */
 
             Console.WriteLine("Вы вышли в основную программу!");
             Console.ReadLine();
