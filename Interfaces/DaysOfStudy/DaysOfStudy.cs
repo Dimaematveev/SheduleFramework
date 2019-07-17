@@ -12,10 +12,14 @@ namespace DaysOfStudy
     {
         public DateTime Date { get; set; }
         public HowDays Study { get; set; }
-        public DaysOfStudy(DateTime day, HowDays study)
+        public DaysOfStudy(DateTime date, HowDays study)
         {
-            Date = day;
+            Date = date;
             Study = study;
+        }
+        public override string ToString()
+        {
+            return $"{Date.Day}({Study})";
         }
         public void ToConsole()
         {

@@ -25,6 +25,9 @@ namespace DaysOfStudy
             {
                 item.ToConsole();
             }
+            DateTime date1 = new DateTime();
+            var Day = new DaysOfStudy(date1,HowDays.WorkingDay);
+
             Console.WriteLine();
             Console.WriteLine("Вы вышли в основную программу!");
             Console.ReadLine();
