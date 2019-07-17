@@ -27,10 +27,13 @@ namespace ClassRoom
             NameClass = nameClass;
             NumberOfPeople = numberOfPeople;
         }
-
+        public override string ToString()
+        {
+            return $"Аудитория {NameClass} вмещает {NumberOfPeople}.";
+        }
         public void ToConsole()
         {
-            Console.WriteLine($"Аудитория {NameClass} вмещает {NumberOfPeople}.");
+            Console.WriteLine(ToString());
         }
     }
 }
