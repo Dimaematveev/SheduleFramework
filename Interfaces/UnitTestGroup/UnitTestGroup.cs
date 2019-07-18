@@ -8,6 +8,28 @@ namespace UnitTestGroup
     [TestClass]
     public class UnitTestGroup
     {
+        static string standatrNameGroup = "NBO";
+        static int standatrCoursGroup = 3;
+        static string standatrSeminarGroup = "NBO-3";
+        static Interface.Interface.TypeStudy standatrTypeStudyGroup = Interface.Interface.TypeStudy.EveningClass;
+        static List<Person.Person> standatrPersons = new List<Person.Person>
+        {
+            new Person.Person("Dima", new Gender.Gender("Men"), new DateTime(1996, 05, 19), "none"),
+            new Person.Person("Ira", new Gender.Gender("Women"), new DateTime(1995, 02, 21), "none"),
+            new Person.Person("Vova", new Gender.Gender("Men"), new DateTime(1982, 09, 11), "none"),
+            new Person.Person("Ivan", new Gender.Gender("Men"), new DateTime(1990, 4, 14), "none"),
+            new Person.Person("Roma", new Gender.Gender("Men"), new DateTime(2015, 12, 22), "none"),
+        };
+        static List<Student.Student> standatrStudents = new List<Student.Student>
+        {
+            new Student.Student(standatrPersons[0]),
+            new Student.Student(standatrPersons[1]),
+            new Student.Student(standatrPersons[2]),
+            new Student.Student(standatrPersons[3]),
+            new Student.Student(standatrPersons[4])
+        };
+
+
         [DataTestMethod]
         [DataRow(null, 1,"ss", Interface.Interface.TypeStudy.EveningClass, typeof(ArgumentNullException))]
         [DataRow("gr1", 6,"ss", Interface.Interface.TypeStudy.EveningClass, typeof(ArgumentException))]
@@ -40,7 +62,6 @@ namespace UnitTestGroup
             //act
             var group = new Group.Group(name, cours, seminar, typeStudy);
             //assert
-         
         }
 
         [DataTestMethod]
@@ -49,13 +70,7 @@ namespace UnitTestGroup
         public void TestConstructorWithListStudentIsExceptionGroupNull(int? numberStudents, Type exception)
         {
             //arrange
-            string nameGroup = "NBO";
-            int coursGroup = 3;
-            string seminarGroup = "NBO-3";
-            Interface.Interface.TypeStudy typeStudyGroup = Interface.Interface.TypeStudy.EveningClass;
-            Person.Person person = new Person.Person("Dima", new Gender.Gender("Men"), new DateTime(1996, 05, 19), "HZ");
-
-            
+            Random rnd = new Random();
             List<IStudent> students;
             if (numberStudents==null)
             {
@@ -66,15 +81,13 @@ namespace UnitTestGroup
                 students = new List<IStudent>();
                 for (int i = 0; i < numberStudents; i++)
                 {
-                    students.Add(new Student.Student(person));
+                    students.Add(new Student.Student(standatrPersons[rnd.Next(0, standatrPersons.Count)]));
                 }
             }
-
-            
             try
             {
                 //act
-                var group = new Group.Group(nameGroup, coursGroup, seminarGroup, typeStudyGroup, students);
+                var group = new Group.Group(standatrNameGroup, standatrCoursGroup, standatrSeminarGroup, standatrTypeStudyGroup, students);
             }
             catch (Exception ex)
             {
@@ -89,24 +102,19 @@ namespace UnitTestGroup
         public void TestConstructorWithListStudentGroupAnother(int numberStudents,int numberStudentWithGroup , int result)
         {
             //arrange
-            string nameGroup = "NBO";
-            int coursGroup = 3;
-            string seminarGroup = "NBO-3";
-            Interface.Interface.TypeStudy typeStudyGroup = Interface.Interface.TypeStudy.EveningClass;
-            Person.Person person = new Person.Person("Dima", new Gender.Gender("Men"), new DateTime(1996, 05, 19), "HZ");
-            var group2 = new Group.Group(nameGroup + "2", coursGroup, seminarGroup + "2", typeStudyGroup);
-
+            var group2 = new Group.Group(standatrNameGroup + "2", standatrCoursGroup, standatrSeminarGroup, standatrTypeStudyGroup);
+            Random rnd = new Random();
             List<IStudent> students=new List<IStudent>();
             for (int i = 0; i < numberStudents; i++)
             {
-                students.Add(new Student.Student(person));
+                students.Add(new Student.Student(standatrPersons[rnd.Next(0, standatrPersons.Count)]));
             }
             for (int i = 0; i < numberStudentWithGroup; i++)
             {
                 students[i].Group = group2;
             }
             //act
-            var group1 = new Group.Group(nameGroup + "1", coursGroup, seminarGroup + "1", typeStudyGroup, students);
+            var group1 = new Group.Group(standatrNameGroup + "1", standatrCoursGroup, standatrSeminarGroup, standatrTypeStudyGroup, students);
             Assert.AreEqual(group1.NumberOfStutents,result);
 
         }
@@ -116,23 +124,15 @@ namespace UnitTestGroup
         public void TestConstructorWithListStudentIsTrueGroupNull(int numberStudents)
         {
             //arrange
-            string nameGroup = "NBO";
-            int coursGroup = 3;
-            string seminarGroup = "NBO-3";
-            Interface.Interface.TypeStudy typeStudyGroup = Interface.Interface.TypeStudy.EveningClass;
-            Person.Person person = new Person.Person("Dima", new Gender.Gender("Men"), new DateTime(1996, 05, 19), "HZ");
-
-
+            Random rnd = new Random();
             List<IStudent> students = new List<IStudent>();
             for (int i = 0; i < numberStudents; i++)
             {
-                students.Add(new Student.Student(person));
+                students.Add(new Student.Student(standatrPersons[rnd.Next(0, standatrPersons.Count)]));
             }
 
             //act
-            var group = new Group.Group(nameGroup, coursGroup, seminarGroup, typeStudyGroup, students);
-          
-
+            var group = new Group.Group(standatrNameGroup, standatrCoursGroup, standatrSeminarGroup, standatrTypeStudyGroup, students);
         }
         [DataTestMethod]
         [DataRow(100,100)]
@@ -141,21 +141,15 @@ namespace UnitTestGroup
         public void TestConstructorGetNumberOfStutents(int numberStudents,int result)
         {
             //arrange
-            string nameGroup = "NBO";
-            int coursGroup = 3;
-            string seminarGroup = "NBO-3";
-            Interface.Interface.TypeStudy typeStudyGroup = Interface.Interface.TypeStudy.EveningClass;
-            Person.Person person = new Person.Person("Dima", new Gender.Gender("Men"), new DateTime(1996, 05, 19), "HZ");
-
-
+            Random rnd = new Random();
             List<IStudent> students = new List<IStudent>();
             for (int i = 0; i < numberStudents; i++)
             {
-                students.Add(new Student.Student(person));
+                students.Add(new Student.Student(standatrPersons[rnd.Next(0, standatrPersons.Count)]));
             }
 
             //act
-            var group = new Group.Group(nameGroup, coursGroup, seminarGroup, typeStudyGroup, students);
+            var group = new Group.Group(standatrNameGroup, standatrCoursGroup, standatrSeminarGroup, standatrTypeStudyGroup, students);
             Assert.AreEqual(group.NumberOfStutents, result);
         }
         [DataTestMethod]
@@ -165,22 +159,17 @@ namespace UnitTestGroup
         public void TestConstructorAddOneStudentGroupNull(int numberStudents, int result)
         {
             //arrange
-            string nameGroup = "NBO";
-            int coursGroup = 3;
-            string seminarGroup = "NBO-3";
-            Interface.Interface.TypeStudy typeStudyGroup = Interface.Interface.TypeStudy.EveningClass;
-            Person.Person person = new Person.Person("Dima", new Gender.Gender("Men"), new DateTime(1996, 05, 19), "HZ");
-
-
+            Random rnd = new Random();
             List<IStudent> students = new List<IStudent>();
             for (int i = 0; i < numberStudents; i++)
             {
-                students.Add(new Student.Student(person));
+                students.Add(new Student.Student(standatrPersons[rnd.Next(0, standatrPersons.Count)]));
             }
-            Student.Student student = new Student.Student(person);
+            Student.Student student = new Student.Student(standatrPersons[rnd.Next(0, standatrPersons.Count)]);
             //act
-            var group = new Group.Group(nameGroup, coursGroup, seminarGroup, typeStudyGroup, students);
+            var group = new Group.Group(standatrNameGroup, standatrCoursGroup, standatrSeminarGroup, standatrTypeStudyGroup, students);
             group.AddStudent(student);
+            //assert
             Assert.AreEqual(group.NumberOfStutents, result);
         }
         [DataTestMethod]
@@ -190,25 +179,20 @@ namespace UnitTestGroup
         public void TestConstructorAddListStudentGroupNull(int numberStudents1,int numberStudents2, int result)
         {
             //arrange
-            string nameGroup = "NBO";
-            int coursGroup = 3;
-            string seminarGroup = "NBO-3";
-            Interface.Interface.TypeStudy typeStudyGroup = Interface.Interface.TypeStudy.EveningClass;
-            Person.Person person = new Person.Person("Dima", new Gender.Gender("Men"), new DateTime(1996, 05, 19), "HZ");
 
-
+            Random rnd = new Random();
             List<IStudent> students1 = new List<IStudent>();
             for (int i = 0; i < numberStudents1; i++)
             {
-                students1.Add(new Student.Student(person));
+                students1.Add(new Student.Student(standatrPersons[rnd.Next(0, standatrPersons.Count)]));
             }
             List<IStudent> students2 = new List<IStudent>();
             for (int i = 0; i < numberStudents2; i++)
             {
-                students2.Add(new Student.Student(person));
+                students2.Add(new Student.Student(standatrPersons[rnd.Next(0, standatrPersons.Count)]));
             }
             //act
-            var group = new Group.Group(nameGroup, coursGroup, seminarGroup, typeStudyGroup, students1);
+            var group = new Group.Group(standatrNameGroup, standatrCoursGroup, standatrSeminarGroup, standatrTypeStudyGroup, students1);
             group.AddStudent(students2);
             Assert.AreEqual(group.NumberOfStutents, result);
         }
