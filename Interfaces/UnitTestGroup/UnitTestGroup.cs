@@ -29,22 +29,28 @@ namespace UnitTestGroup
             new Student.Student(standatrPersons[4])
         };
 
-
+        /// <summary>
+        /// Простейший тест конструктора без Студентов. Проверим исключения!
+        /// </summary>
+        /// <param name="name">Имя группы.</param>
+        /// <param name="cours">Курс.</param>
+        /// <param name="seminar">Семинар.</param>
+        /// <param name="exception">Тип вызываемого исключение. Сверяется с этим!</param>
         [DataTestMethod]
-        [DataRow(null, 1,"ss", Interface.Interface.TypeStudy.EveningClass, typeof(ArgumentNullException))]
-        [DataRow("gr1", 6,"ss", Interface.Interface.TypeStudy.EveningClass, typeof(ArgumentException))]
-        [DataRow("gr2", 0,"ss", Interface.Interface.TypeStudy.EveningClass, typeof(ArgumentException))]
-        [DataRow("gr2", 1, null, Interface.Interface.TypeStudy.EveningClass, typeof(ArgumentNullException))]
-        [DataRow("gr2", 1, "", Interface.Interface.TypeStudy.EveningClass, typeof(ArgumentNullException))]
-        [DataRow("gr2", 1, "   ", Interface.Interface.TypeStudy.EveningClass, typeof(ArgumentNullException))]
-        [DataRow("\n", 1, " wd ", Interface.Interface.TypeStudy.EveningClass, typeof(ArgumentNullException))]
-        public void TestConstructorNullListStudentIsException(string name, int cours, string seminar, Interface.Interface.TypeStudy typeStudy,Type exception)
+        [DataRow(null, 1,"Seminar",  typeof(ArgumentNullException))]
+        [DataRow("", 1,"Seminar",  typeof(ArgumentNullException))]
+        [DataRow("\t", 1,"Seminar",  typeof(ArgumentNullException))]
+        [DataRow("group1", 6, "Seminar",  typeof(ArgumentException))]
+        [DataRow("group1", 0, "Seminar", typeof(ArgumentException))]
+        [DataRow("group1", 1, null, typeof(ArgumentNullException))]
+        [DataRow("group1", 1, "\n", typeof(ArgumentNullException))]
+        public void TestConstructorNullListStudentIsException(string name, int cours, string seminar, Type exception)
         {
             //arrange
             try
             {
                 //act
-                var group = new Group.Group(name, cours, seminar, typeStudy);
+                var group = new Group.Group(name, cours, seminar, standatrTypeStudyGroup);
             }
             catch (Exception ex)
             {
@@ -52,18 +58,29 @@ namespace UnitTestGroup
                 Assert.AreEqual(ex.GetType(), exception);
             }
         }
+        /// <summary>
+        /// Простейший тест конструктора без Студентов. Проверим что класс будет создан!
+        /// </summary>
+        /// <param name="name">Имя группы.</param>
+        /// <param name="cours">Курс.</param>
+        /// <param name="seminar">Семинар.</param>
         [DataTestMethod]
-        [DataRow("group1", 1, "sem", Interface.Interface.TypeStudy.EveningClass)]
-        [DataRow("group1", 2, "sem", Interface.Interface.TypeStudy.FullTimeEducation)]
-        [DataRow("2", 5, "TB/d", Interface.Interface.TypeStudy.ExtraMuralStudies)]
-        public void TestConstructorNullListStudentIsTruen(string name, int cours, string seminar, Interface.Interface.TypeStudy typeStudy)
+        [DataRow("group1", 1, "@11")]
+        [DataRow("gr1", 2, "11@")]
+        [DataRow("@1", 5, "'")]
+        public void TestConstructorNullListStudentIsTrue(string name, int cours, string seminar)
         {
             //arrange
             //act
-            var group = new Group.Group(name, cours, seminar, typeStudy);
+            var group = new Group.Group(name, cours, seminar, standatrTypeStudyGroup);
             //assert
         }
 
+        /// <summary>
+        /// Тест конструктора с пустыми Студентами. Должно быть исключение!
+        /// </summary>
+        /// <param name="numberStudents">Количество студентов(либо null,либо 0)</param>
+        /// <param name="exception">Тип исключения. Проверяет это.</param>
         [DataTestMethod]
         [DataRow(null,  typeof(ArgumentNullException))]
         [DataRow(0,  typeof(ArgumentNullException))]
@@ -79,10 +96,6 @@ namespace UnitTestGroup
             else
             {
                 students = new List<IStudent>();
-                for (int i = 0; i < numberStudents; i++)
-                {
-                    students.Add(new Student.Student(standatrPersons[rnd.Next(0, standatrPersons.Count)]));
-                }
             }
             try
             {
@@ -95,6 +108,12 @@ namespace UnitTestGroup
                 Assert.AreEqual(ex.GetType(), exception);
             }
         }
+        /// <summary>
+        /// Тест конструктора с не пустыми студентами. Должно быть исключение!
+        /// </summary>
+        /// <param name="numberStudents"></param>
+        /// <param name="numberStudentWithGroup"></param>
+        /// <param name="result"></param>
         [DataTestMethod]
         [DataRow(3,1,0)]
         [DataRow(3,3,0)]
@@ -107,7 +126,7 @@ namespace UnitTestGroup
             List<IStudent> students=new List<IStudent>();
             for (int i = 0; i < numberStudents; i++)
             {
-                students.Add(new Student.Student(standatrPersons[rnd.Next(0, standatrPersons.Count)]));
+                students.Add(standatrStudents[rnd.Next(0, standatrStudents.Count)]);
             }
             for (int i = 0; i < numberStudentWithGroup; i++)
             {
@@ -128,7 +147,7 @@ namespace UnitTestGroup
             List<IStudent> students = new List<IStudent>();
             for (int i = 0; i < numberStudents; i++)
             {
-                students.Add(new Student.Student(standatrPersons[rnd.Next(0, standatrPersons.Count)]));
+                students.Add(standatrStudents[rnd.Next(0, standatrStudents.Count)]);
             }
 
             //act
@@ -145,7 +164,7 @@ namespace UnitTestGroup
             List<IStudent> students = new List<IStudent>();
             for (int i = 0; i < numberStudents; i++)
             {
-                students.Add(new Student.Student(standatrPersons[rnd.Next(0, standatrPersons.Count)]));
+                students.Add(standatrStudents[rnd.Next(0, standatrStudents.Count)]);
             }
 
             //act
@@ -163,7 +182,7 @@ namespace UnitTestGroup
             List<IStudent> students = new List<IStudent>();
             for (int i = 0; i < numberStudents; i++)
             {
-                students.Add(new Student.Student(standatrPersons[rnd.Next(0, standatrPersons.Count)]));
+                students.Add(standatrStudents[rnd.Next(0, standatrStudents.Count)]);
             }
             Student.Student student = new Student.Student(standatrPersons[rnd.Next(0, standatrPersons.Count)]);
             //act
@@ -184,12 +203,12 @@ namespace UnitTestGroup
             List<IStudent> students1 = new List<IStudent>();
             for (int i = 0; i < numberStudents1; i++)
             {
-                students1.Add(new Student.Student(standatrPersons[rnd.Next(0, standatrPersons.Count)]));
+                students1.Add(standatrStudents[rnd.Next(0, standatrStudents.Count)]);
             }
             List<IStudent> students2 = new List<IStudent>();
             for (int i = 0; i < numberStudents2; i++)
             {
-                students2.Add(new Student.Student(standatrPersons[rnd.Next(0, standatrPersons.Count)]));
+                students2.Add(standatrStudents[rnd.Next(0, standatrStudents.Count)]);
             }
             //act
             var group = new Group.Group(standatrNameGroup, standatrCoursGroup, standatrSeminarGroup, standatrTypeStudyGroup, students1);
