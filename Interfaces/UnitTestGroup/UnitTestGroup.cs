@@ -13,16 +13,12 @@ namespace UnitTestGroup
         static int standatrCoursGroup;
         static string standatrSeminarGroup;
         static Interface.Interface.TypeStudy standatrTypeStudyGroup;
-        static Group.Group standatrGroup1;
-        static Group.Group standatrGroup2;
         private void ResetStandart()
         {
             standatrNameGroup = "NBO";
             standatrCoursGroup = 3;
             standatrSeminarGroup = "NBO-3";
             standatrTypeStudyGroup = Interface.Interface.TypeStudy.EveningClass;
-            standatrGroup1 = new Group.Group(standatrNameGroup, standatrCoursGroup, standatrSeminarGroup, standatrTypeStudyGroup);
-            standatrGroup2 = new Group.Group(standatrNameGroup + "2", standatrCoursGroup, standatrSeminarGroup + "2", standatrTypeStudyGroup);
         }
 
         /// <summary>
@@ -72,26 +68,25 @@ namespace UnitTestGroup
             //act
             var group = new Group.Group(name, cours, seminar, standatrTypeStudyGroup);
             //assert
+            Assert.AreEqual(0, group.NumberOfStutents);
         }
 
         /// <summary>
-        /// Тест конструктора с пустыми Студентами. Должно быть исключение!
+        /// Тест конструктора с не пустыми Студентами. Должно быть исключение!
         /// </summary>
-        /// <param name="numberStudents">Количество студентов(либо null,либо 0)</param>
+        /// <param name="numberStudents">Количество студентов(=< 0)</param>
         /// <param name="exception">Тип исключения. Проверяет это.</param>
         [DataTestMethod]
-        [DataRow(null,  typeof(ArgumentNullException))]
         [DataRow(0,  typeof(ArgumentNullException))]
-        public void TestConstructorWithListStudentIsExceptionGroupNull(int? numberStudents, Type exception)
+        [DataRow(-1,  typeof(ArgumentNullException))]
+        public void TestConstructorWithListStudentIsExceptionGroupNull(int numberStudents, Type exception)
         {
             ResetStandart();
             //arrange
-            Random rnd = new Random();
-            
             try
             {
                 //act
-                var group = new Group.Group(standatrNameGroup, standatrCoursGroup, standatrSeminarGroup, standatrTypeStudyGroup, students);
+                var group = new Group.Group(standatrNameGroup, standatrCoursGroup, standatrSeminarGroup, standatrTypeStudyGroup, numberStudents);
             }
             catch (Exception ex)
             {
@@ -100,97 +95,30 @@ namespace UnitTestGroup
             }
         }
         /// <summary>
-        /// Тест конструктора с не пустыми студентами. Если есть хоть один не с нашей или пустой группой, то будет ноль студентов!
+        /// Тест конструктора с не пустыми студентами.
         /// </summary>
-        /// <param name="numberStudents">Сколько студентов добавляется.</param>
-        /// <param name="numberStudentWithGroup">Сколько из них из другой группы.</param>
-        /// <param name="result">Сколько добавится.</param>
+        /// <param name="numberStudents">Сколько студентов в группе.</param>
         [DataTestMethod]
-        [DataRow(3,1,0)]
-        [DataRow(3,3,0)]
-        [DataRow(7,0,7)]
-        public void TestConstructorWithListStudentGroupAnother(int numberStudents,int numberStudentWithGroup , int result)
-        {
-            ResetStandart();
-            if (numberStudentWithGroup> numberStudents)
-            {
-                numberStudentWithGroup = numberStudents;
-            }
-            //arrange
-            Random rnd = new Random();
-            List<IStudent> students=new List<IStudent>();
-            for (int i = 0; i < numberStudents- numberStudentWithGroup; i++)
-            {
-                students.Add(standatrStudents0[rnd.Next(0, standatrStudents0.Count)]);
-            }
-            for (int i = 0; i < numberStudentWithGroup; i++)
-            {
-                students.Add(standatrStudents2[rnd.Next(0, standatrStudents2.Count)]);
-            }
-            //act
-            var group1 = new Group.Group(standatrNameGroup + "1", standatrCoursGroup, standatrSeminarGroup, standatrTypeStudyGroup, students);
-            Assert.AreEqual(group1.NumberOfStutents,result);
-           
-        }
-        /// <summary>
-        /// Тест конструктора с не пустыми студентами.Студенты из нашей группы или пустой.
-        /// </summary>
-        /// <param name="numberStudents">Количество студентов.</param>
-        [DataTestMethod]
+        [DataRow(1)]
+        [DataRow(3)]
         [DataRow(100)]
-        [DataRow(10)]
-        public void TestConstructorWithListStudentIsTrueGroupNull(int numberStudents)
+        public void TestConstructorWithListStudentGroupAnother(int numberStudents)
         {
             ResetStandart();
             //arrange
-            Random rnd = new Random();
-            List<IStudent> students = new List<IStudent>();
-            for (int i = 0; i < numberStudents; i++)
-            {
-                students.Add(standatrStudents0[rnd.Next(0, standatrStudents0.Count)]);
-            }
-
             //act
-            var group = new Group.Group(standatrNameGroup, standatrCoursGroup, standatrSeminarGroup, standatrTypeStudyGroup, students);
-            Assert.AreEqual(numberStudents, group.NumberOfStutents);
-            
-        }
-        /// <summary>
-        /// Тест свойства Get NumberOfStutents.
-        /// </summary>
-        /// <param name="numberStudents">количество студентов.</param>
-        /// <param name="numberStudentWithGroup">Сколько из них из другой группы.</param>
-        /// <param name="result">Что должен вернуть Get.</param>
-        [DataTestMethod]
-        [DataRow(100,15,85)]
-        [DataRow(10,5,5)]
-        [DataRow(1,1,0)]
-        public void TestConstructorGetNumberOfStutents(int numberStudents, int numberStudentWithGroup, int result)
-        {
-            ResetStandart();
-            //arrange
-            Random rnd = new Random();
-            List<IStudent> students = new List<IStudent>();
-            for (int i = 0; i < numberStudents- numberStudentWithGroup; i++)
-            {
-                Student.Student student = standatrStudents1[rnd.Next(0, standatrStudents1.Count)];
-                standatrGroup1.AddStudent(student);
-            }
-            for (int i = 0; i <  numberStudentWithGroup; i++)
-            {
-                Student.Student student = standatrStudents2[rnd.Next(0, standatrStudents2.Count)];
-                standatrGroup1.AddStudent(student);
-            }
-            //act
-            Assert.AreEqual(result,standatrGroup1.NumberOfStutents);
+            var group = new Group.Group(standatrNameGroup, standatrCoursGroup, standatrSeminarGroup, standatrTypeStudyGroup, numberStudents);
+            Assert.AreEqual(numberStudents,group.NumberOfStutents);
            
         }
+        
+
         /// <summary>
         /// Метод Addstudent Добавляем к списку студентов, другой список.
         /// </summary>
-        /// <param name="numberStudents1">количество студентов в первой партии.</param>
-        /// <param name="numberStudents2">количество студентов во второй партии.</param>
-        /// <param name="result">Что должен вернуть.</param>
+        /// <param name="numberStudents1">количество студентов было.</param>
+        /// <param name="numberStudents2">Количество добавленных.</param>
+        /// <param name="result">Сколько должно стать.</param>
         [DataTestMethod]
         [DataRow(100,15, 115)]
         [DataRow(10, 30, 40)]
@@ -200,21 +128,11 @@ namespace UnitTestGroup
             ResetStandart();
             //arrange
 
-            Random rnd = new Random();
-            List<IStudent> students1 = new List<IStudent>();
-            for (int i = 0; i < numberStudents1; i++)
-            {
-                students1.Add(standatrStudents1[rnd.Next(0, standatrStudents1.Count)]);
-            }
-            List<IStudent> students2 = new List<IStudent>();
-            for (int i = 0; i < numberStudents2; i++)
-            {
-                students2.Add(standatrStudents1[rnd.Next(0, standatrStudents1.Count)]);
-            }
+            var group = new Group.Group(standatrNameGroup, standatrCoursGroup, standatrSeminarGroup, standatrTypeStudyGroup, numberStudents1);
+
             //act
-            standatrGroup1.AddStudent(students1);
-            standatrGroup1.AddStudent(students2);
-            Assert.AreEqual( result, standatrGroup1.NumberOfStutents);
+            group.AddStudent(numberStudents2);
+            Assert.AreEqual( result, group.NumberOfStutents);
        
         }
         /// <summary>

@@ -78,11 +78,11 @@ namespace Group
         /// <param name="student">Студент.</param>
         public void AddStudent(int numberOfStutents)
         {
-            if (numberOfStutents == 0)
+            if (numberOfStutents <= 0)
             {
                 throw new ArgumentNullException($"Количество студентов в группе должно быть больше нуля!", nameof(numberOfStutents));
             }
-            NumberOfStutents = numberOfStutents;
+            NumberOfStutents += numberOfStutents;
         }
       
         /// <summary>
