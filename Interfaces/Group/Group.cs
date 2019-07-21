@@ -70,7 +70,7 @@ namespace Group
                         TypeStudy typeOfTraining,
                         int numberOfStutents) : this(nameGroup, cours, seminar, typeOfTraining)
         {
-            NumberOfStutents = numberOfStutents;
+            AddStudent(numberOfStutents);
         }
         /// <summary>
         /// Добавление студентов в группу(одного).

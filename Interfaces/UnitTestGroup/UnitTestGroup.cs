@@ -22,12 +22,33 @@ namespace UnitTestGroup
         }
 
         /// <summary>
+        /// Проверка что стандартные параметры делаю конструктор без исключения.
+        /// </summary>
+        [TestMethod]
+        public void TestStandartConstructor()
+        {
+            ResetStandart();
+            //arrange
+            
+            //act
+            var group = new Group.Group(standatrNameGroup, standatrCoursGroup, standatrSeminarGroup, standatrTypeStudyGroup);
+
+            //assert
+            Assert.AreEqual(0,group.NumberOfStutents);
+            Assert.AreEqual(standatrNameGroup, group.NameGroup);
+            Assert.AreEqual(standatrCoursGroup, group.Cours);
+            Assert.AreEqual(standatrSeminarGroup, group.Seminar);
+            Assert.AreEqual(standatrTypeStudyGroup, group.TypeOfTraining);
+
+        }
+
+        /// <summary>
         /// Простейший тест конструктора без Студентов. Проверим исключения!
         /// </summary>
         /// <param name="name">Имя группы.</param>
         /// <param name="cours">Курс.</param>
         /// <param name="seminar">Семинар.</param>
-        /// <param name="exception">Тип вызываемого исключение. Сверяется с этим!</param>
+        /// <param name="result">Тип вызываемого исключение. Сверяется с этим!</param>
         [DataTestMethod]
         [DataRow(null, 1,"Seminar",  typeof(ArgumentNullException))]
         [DataRow("", 1,"Seminar",  typeof(ArgumentNullException))]
@@ -36,9 +57,10 @@ namespace UnitTestGroup
         [DataRow("group1", 0, "Seminar", typeof(ArgumentException))]
         [DataRow("group1", 1, null, typeof(ArgumentNullException))]
         [DataRow("group1", 1, "\n", typeof(ArgumentNullException))]
-        public void TestConstructorNullListStudentIsException(string name, int cours, string seminar, Type exception)
+        public void TestConstructorNullListStudentIsException(string name, int cours, string seminar, Type result)
         {
             ResetStandart();
+            Type exception = null;
             //arrange
             try
             {
@@ -48,8 +70,13 @@ namespace UnitTestGroup
             catch (Exception ex)
             {
                 //assert
-                Assert.AreEqual(ex.GetType(), exception);
+                exception = ex.GetType();
             }
+            finally
+            {
+                Assert.AreEqual(result, exception);
+            }
+            
         }
         /// <summary>
         /// Простейший тест конструктора без Студентов. Проверим что класс будет создан!
@@ -75,13 +102,14 @@ namespace UnitTestGroup
         /// Тест конструктора с не пустыми Студентами. Должно быть исключение!
         /// </summary>
         /// <param name="numberStudents">Количество студентов(=< 0)</param>
-        /// <param name="exception">Тип исключения. Проверяет это.</param>
+        /// <param name="result">Тип исключения. Проверяет это.</param>
         [DataTestMethod]
         [DataRow(0,  typeof(ArgumentNullException))]
         [DataRow(-1,  typeof(ArgumentNullException))]
-        public void TestConstructorWithListStudentIsExceptionGroupNull(int numberStudents, Type exception)
+        public void TestConstructorWithListStudentIsExceptionGroupNull(int numberStudents, Type result)
         {
             ResetStandart();
+            Type exception = null;
             //arrange
             try
             {
@@ -90,9 +118,15 @@ namespace UnitTestGroup
             }
             catch (Exception ex)
             {
-                //assert
-                Assert.AreEqual(ex.GetType(), exception);
+                
+                exception = ex.GetType();
             }
+            finally
+            {
+                //assert
+                Assert.AreEqual(result, exception);
+            }
+            
         }
         /// <summary>
         /// Тест конструктора с не пустыми студентами.
@@ -111,10 +145,40 @@ namespace UnitTestGroup
             Assert.AreEqual(numberStudents,group.NumberOfStutents);
            
         }
-        
 
         /// <summary>
-        /// Метод Addstudent Добавляем к списку студентов, другой список.
+        /// Метод Addstudent Добавляем к студентам, еще студентов.
+        /// </summary>
+        /// <param name="numberStudents">Количество студентов(=< 0)</param>
+        /// <param name="result">Тип исключения. Проверяет это.</param>
+        [DataTestMethod]
+        [DataRow(0, typeof(ArgumentNullException))]
+        [DataRow(-1, typeof(ArgumentNullException))]
+        public void TestAddListStudentGroupNullIsException(int numberStudents, Type result)
+        {
+            ResetStandart();
+            Type exception = null;
+            var group = new Group.Group(standatrNameGroup, standatrCoursGroup, standatrSeminarGroup, standatrTypeStudyGroup);
+            //arrange
+            try
+            {
+                //act
+                group.AddStudent(numberStudents);
+            }
+            catch (Exception ex)
+            {
+                exception = ex.GetType();
+            }
+            finally
+            {
+                //assert
+                Assert.AreEqual(result, exception);
+                Assert.AreEqual(0, group.NumberOfStutents);
+            }
+
+        }
+        /// <summary>
+        /// Метод Addstudent Добавляем к студентам, еще студентов.
         /// </summary>
         /// <param name="numberStudents1">количество студентов было.</param>
         /// <param name="numberStudents2">Количество добавленных.</param>
@@ -133,7 +197,6 @@ namespace UnitTestGroup
             //act
             group.AddStudent(numberStudents2);
             Assert.AreEqual( result, group.NumberOfStutents);
-       
         }
         /// <summary>
         /// Проверка метода ToString
