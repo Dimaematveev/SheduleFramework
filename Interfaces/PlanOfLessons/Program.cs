@@ -22,7 +22,7 @@ namespace PlanOfLessons
                 string name = Guid.NewGuid().ToString().Substring(1, 4);
                 int cours = rnd.Next(1, 5);
                 var typeOfTraining = (TypeStudy)rnd.Next(0, 3);
-                groups.Add(new Group.Group(name, rnd.Next(7, 63), cours, $"{name}-{cours}", typeOfTraining));
+                groups.Add(new Group.Group(name, cours, $"{name}-{cours}", typeOfTraining,rnd.Next(10,63)));
             }
 
             var subjects = new List<Subject.Subject>()

@@ -34,7 +34,6 @@ public static class Информация
             typeof(ISemester),
             typeof(IDaysOfStudy),
             typeof(IPlanOfLessons),
-            typeof(IStudent),
             typeof(IClassRoom),
 
             typeof(ISubjectTypeLessons),

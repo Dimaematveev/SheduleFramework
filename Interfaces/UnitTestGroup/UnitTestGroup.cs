@@ -15,10 +15,6 @@ namespace UnitTestGroup
         static Interface.Interface.TypeStudy standatrTypeStudyGroup;
         static Group.Group standatrGroup1;
         static Group.Group standatrGroup2;
-        static List<Person.Person> standatrPersons;
-        static List<Student.Student> standatrStudents0;
-        static List<Student.Student> standatrStudents1;
-        static List<Student.Student> standatrStudents2;
         private void ResetStandart()
         {
             standatrNameGroup = "NBO";
@@ -27,38 +23,6 @@ namespace UnitTestGroup
             standatrTypeStudyGroup = Interface.Interface.TypeStudy.EveningClass;
             standatrGroup1 = new Group.Group(standatrNameGroup, standatrCoursGroup, standatrSeminarGroup, standatrTypeStudyGroup);
             standatrGroup2 = new Group.Group(standatrNameGroup + "2", standatrCoursGroup, standatrSeminarGroup + "2", standatrTypeStudyGroup);
-            standatrPersons = new List<Person.Person>
-            {
-                new Person.Person("Dima", new Gender.Gender("Men"), new DateTime(1986, 12, 5), "none"),
-                new Person.Person("Ira", new Gender.Gender("Women"), new DateTime(1995, 02, 21), "none"),
-                new Person.Person("Vova", new Gender.Gender("Men"), new DateTime(1982, 09, 11), "none"),
-                new Person.Person("Ivan", new Gender.Gender("Men"), new DateTime(1990, 4, 14), "none"),
-                new Person.Person("Roma", new Gender.Gender("Men"), new DateTime(2015, 12, 22), "none"),
-            };
-            standatrStudents0 = new List<Student.Student>
-            {
-                new Student.Student(standatrPersons[0]),
-                new Student.Student(standatrPersons[1]),
-                new Student.Student(standatrPersons[2]),
-                new Student.Student(standatrPersons[3]),
-                new Student.Student(standatrPersons[4])
-            };
-            standatrStudents1 = new List<Student.Student>
-            {
-                new Student.Student(standatrPersons[0],standatrGroup1),
-                new Student.Student(standatrPersons[1],standatrGroup1),
-                new Student.Student(standatrPersons[2],standatrGroup1),
-                new Student.Student(standatrPersons[3],standatrGroup1),
-                new Student.Student(standatrPersons[4],standatrGroup1)
-            };
-            standatrStudents2 = new List<Student.Student>
-            {
-                new Student.Student(standatrPersons[0],standatrGroup2),
-                new Student.Student(standatrPersons[1],standatrGroup2),
-                new Student.Student(standatrPersons[2],standatrGroup2),
-                new Student.Student(standatrPersons[3],standatrGroup2),
-                new Student.Student(standatrPersons[4],standatrGroup2)
-            };
         }
 
         /// <summary>
@@ -123,19 +87,7 @@ namespace UnitTestGroup
             ResetStandart();
             //arrange
             Random rnd = new Random();
-            List<IStudent> students;
-            if (numberStudents==null)
-            {
-                students = null;
-            }
-            else
-            {
-                students = new List<IStudent>();
-                for (int i = 0; i < numberStudents; i++)
-                {
-                    students.Add(standatrStudents0[rnd.Next(0, standatrStudents0.Count)]);
-                }
-            }
+            
             try
             {
                 //act

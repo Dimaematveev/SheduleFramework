@@ -27,13 +27,13 @@ namespace MainConsoleProject
                 new ClassRoom.ClassRoom("Аудит4", 107),
                 new ClassRoom.ClassRoom("Аудит5", 31),
             };
-            Group.Group group = new Group.Group("TBO", 35, 2, "TBO-2", Interface.Interface.TypeStudy.FullTimeEducation);
+            Group.Group group = new Group.Group("TBO",  2, "TBO-2", Interface.Interface.TypeStudy.FullTimeEducation,35);
             var groups = new List<Group.Group>
             {
-                new Group.Group("TBO", 35, 1, "TBO-1", Interface.Interface.TypeStudy.FullTimeEducation),
-                new Group.Group("TBO", 23, 2, "TBO-2", Interface.Interface.TypeStudy.FullTimeEducation),
-                new Group.Group("TMO", 11, 3, "TMO-3", Interface.Interface.TypeStudy.FullTimeEducation),
-                new Group.Group("TCO", 54, 2, "TCO-2", Interface.Interface.TypeStudy.FullTimeEducation),
+                new Group.Group("TBO", 1, "TBO-1", Interface.Interface.TypeStudy.FullTimeEducation,35),
+                new Group.Group("TBO", 2, "TBO-2", Interface.Interface.TypeStudy.FullTimeEducation,25),
+                new Group.Group("TMO", 3, "TMO-3", Interface.Interface.TypeStudy.FullTimeEducation,11),
+                new Group.Group("TCO", 2, "TCO-2", Interface.Interface.TypeStudy.FullTimeEducation,54),
             };
             Subject.Subject subject = new Subject.Subject("Математика");
             var subjects = new List<Subject.Subject>
@@ -68,7 +68,7 @@ namespace MainConsoleProject
 
             DaysOfStudy.DaysOfStudy daysOfStudy = new DaysOfStudy.DaysOfStudy(DateTime.Now,Interface.Interface.HowDays.DayOff);
             Person.Person person = new Person.Person("Dima", gender, new DateTime(1996, 05, 19), "Юго западная");
-            Student.Student student = new Student.Student(group, person);//Пока бессмысленно делать.
+           
             SubjectOfTeacher.SubjectOfTeacher subjectOfTeacher = new SubjectOfTeacher.SubjectOfTeacher(subject, 10);
             Teacher.Teacher teacher = new Teacher.Teacher(new List<SubjectOfTeacher.Interfaces.ISubjectOfTeacherWithConsole> { subjectOfTeacher }, "none", 1, person);
             var teachers = new List<Teacher.Teacher>();
