@@ -86,10 +86,6 @@
       <Project>{86196a51-41a8-4e3b-a144-4704ad7cb4ca}</Project>
       <Name>Semester</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Student\Student.csproj">
-      <Project>{b36f6498-6aca-4830-97a8-7f35061e7fa3}</Project>
-      <Name>Student</Name>
-    </ProjectReference>
     <ProjectReference Include="..\SubjectOfTeacher\SubjectOfTeacher.csproj">
       <Project>{95a11a21-cc17-42ba-b685-fc0242963db0}</Project>
       <Name>SubjectOfTeacher</Name>

@@ -59,7 +59,6 @@
     <Compile Include="Interfaces\IPerson.cs" />
     <Compile Include="Interfaces\IPlanOfLessons.cs" />
     <Compile Include="Interfaces\ISemester.cs" />
-    <Compile Include="Interfaces\IStudent.cs" />
     <Compile Include="Interfaces\ISubject.cs" />
     <Compile Include="Interfaces\ISubjectOfTeacher.cs" />
     <Compile Include="Interfaces\ISubjectTypeLessons.cs" />
