@@ -63,6 +63,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Interface\Interface.csproj">
+      <Project>{445c8a35-4ec3-4c8a-a314-92676c9a5023}</Project>
+      <Name>Interface</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NumberOfLesson\NumberOfLesson.csproj">
       <Project>{8B866FA4-6E6B-43FB-B726-88615A7A17B2}</Project>
       <Name>NumberOfLesson</Name>

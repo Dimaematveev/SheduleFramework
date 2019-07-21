@@ -8,11 +8,20 @@ using System.Threading.Tasks;
 
 namespace NumberOfLesson
 {
+    /// <summary>
+    /// Класс количества пар в семестр.
+    /// </summary>
     public class NumberOfLesson : INumberOfLessonWithConsole
     {
+        /// <value> Предмет. </value>
         public ISubject Subject { get; set; }
+        /// <value> Количество пар за семестр. </value>
         public int NumberSubject { get; set; }
-
+        /// <summary>
+        /// Конструктор.
+        /// </summary>
+        /// <param name="subject">Предмет.</param>
+        /// <param name="numberSubject">Пар за семестр.</param>
         public NumberOfLesson(ISubject subject, int numberSubject)
         {
             if (subject==null)
@@ -26,9 +35,20 @@ namespace NumberOfLesson
             Subject = subject;
             NumberSubject = numberSubject;
         }
+        /// <summary>
+        /// Класс в строку.
+        /// </summary>
+        /// <returns>Строка.</returns>
+        public override string ToString()
+        {
+            return $"{Subject.NameSubject} - {NumberSubject}";
+        }
+        /// <summary>
+        /// Вывод на консоль.
+        /// </summary>
         public void ToConsole()
         {
-            Console.WriteLine($"{Subject.NameSubject} - {NumberSubject}" );
+            Console.WriteLine(ToString());
         }
     }
 }
