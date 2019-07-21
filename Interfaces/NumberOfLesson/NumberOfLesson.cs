@@ -14,7 +14,7 @@ namespace NumberOfLesson
         public int NumberSubject { get; set; }
 
         public NumberOfLesson(ISubject subject, int numberSubject)
-        { 
+        {
             if (subject==null)
             {
                 throw new ArgumentNullException("Должен передаваться предмет, а не пустое значение.", nameof(subject));
