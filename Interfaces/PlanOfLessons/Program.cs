@@ -38,9 +38,9 @@ namespace PlanOfLessons
             {
                 var numberOfLessons = new List<INumberOfLesson>
                 {
-                    new NumberOfLesson.NumberOfLesson(subjects[rnd.Next(0,subjects.Count)],rnd.Next(0,19)),
-                    new NumberOfLesson.NumberOfLesson(subjects[rnd.Next(0,subjects.Count)],rnd.Next(0,19)),
-                    new NumberOfLesson.NumberOfLesson(subjects[rnd.Next(0,subjects.Count)],rnd.Next(0,19)),
+                    new NumberOfLesson.NumberOfLesson(subjects[rnd.Next(0,subjects.Count)],rnd.Next(1,19)),
+                    new NumberOfLesson.NumberOfLesson(subjects[rnd.Next(0,subjects.Count)],rnd.Next(1,19)),
+                    new NumberOfLesson.NumberOfLesson(subjects[rnd.Next(0,subjects.Count)],rnd.Next(1,19)),
                 };
                 planOfLessons.Add(new PlanOfLessons(item1, numberOfLessons));
                
@@ -49,6 +49,11 @@ namespace PlanOfLessons
             foreach (var item in planOfLessons)
             {
                 item.ToConsole();
+            }
+            Console.WriteLine("----------------------------");
+            foreach (var item in planOfLessons)
+            {
+                Console.WriteLine(item.ToString());
             }
             Console.WriteLine("Вы вышли в основную программу!");
             Console.ReadLine();

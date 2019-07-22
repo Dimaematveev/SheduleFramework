@@ -32,15 +32,23 @@ namespace PlanOfLessons
             NumberOfLesson = numberOfLesson;
         }
 
-        public void ToConsole()
+        public override string ToString()
         {
-            ((IConsole)Group).ToConsole();
+            string ret = "";
+            ret += Group.ToString();
+            ret += "\n";
             foreach (var item in NumberOfLesson)
             {
-                Console.Write($"{"",4}");
-                ((IConsole)item).ToConsole();
+                ret += $"{"",4}";
+                ret += item.ToString();
+                ret += "\n";
             }
-            Console.WriteLine();
+            return ret;
+        }
+
+        public void ToConsole()
+        {
+            Console.WriteLine(ToString());
         }
     }
 }

@@ -55,7 +55,7 @@ namespace Person
             BirthDay = birthDay;
             Living = living;
         }
-        public string ToString()
+        public override string ToString()
         {
             return $"Пол {Gender.NameGender} имя {Name} возраст {Age}";
         }

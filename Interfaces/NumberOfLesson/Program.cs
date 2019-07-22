@@ -23,6 +23,11 @@ namespace NumberOfLesson
             {
                 item.ToConsole();
             }
+
+            foreach (var item in numberLessons)
+            {
+                Console.WriteLine( item.ToString());
+            }
             Console.WriteLine("Вы вышли в основную программу!");
             Console.ReadLine();
         }
