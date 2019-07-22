@@ -41,10 +41,6 @@ namespace Person
             {
                 throw new ArgumentNullException("Гендер не должен быть пустым!", nameof(gender));
             }
-            if (birthDay==null)
-            {
-                throw new ArgumentNullException("Дата рождения не должна быть пустым!", nameof(birthDay));
-            }
             if (birthDay >DateTime.Now || birthDay<new DateTime(1870,1,1))
             {
                 throw new ArgumentException($"Дата рождения не должна быть больше '{DateTime.Now.ToShortDateString()}' и меньше '01.01.1870'!", nameof(birthDay));
@@ -59,9 +55,13 @@ namespace Person
             BirthDay = birthDay;
             Living = living;
         }
+        public string ToString()
+        {
+            return $"Пол {Gender.NameGender} имя {Name} возраст {Age}";
+        }
         public void ToConsole()
         {
-            Console.WriteLine($"Пол {Gender.NameGender} имя {Name} возраст {Age}");
+            Console.WriteLine(ToString());
         }
     }
 }
