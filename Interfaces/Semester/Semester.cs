@@ -15,14 +15,6 @@ namespace Semester
         public List<IDaysOfStudy> DaysOfStudies { get; set; }
         public Semester(DateTime beginSemestr, DateTime endSemestr)
         {
-            if (beginSemestr==null)
-            {
-                throw new ArgumentNullException("Дата начала семестра не должна быть пустой!", nameof(beginSemestr));
-            }
-            if (endSemestr == null)
-            {
-                throw new ArgumentNullException("Дата окончания семестра не должна быть пустой!", nameof(endSemestr));
-            }
             if (beginSemestr < new DateTime(DateTime.Now.Year-7,1,1))
             {
                 throw new ArgumentException($"Дата начала семестра не должна быть меньше {new DateTime(DateTime.Now.Year - 7, 1, 1).ToShortDateString()}!", nameof(beginSemestr));
