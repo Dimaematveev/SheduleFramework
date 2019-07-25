@@ -21,6 +21,6 @@ namespace Interface.Interface
         DateTime EndSemestr { get; set; }
         /// <value> Список дней в семестре с указание учебных или нет. </value>
         [ReadMetaDataProperty(nameof(DaysOfStudies), "Список дней в семестре с указание учебных или нет.")]
-        List<IDaysOfStudy> DaysOfStudies { get; set; }
+        IDaysOfStudy[] DaysOfStudies { get; set; }
     }
 }
