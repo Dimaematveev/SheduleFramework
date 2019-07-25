@@ -49,6 +49,13 @@ namespace UnitTestSemester
             }
         }
 
-
+        /// <summary>
+        /// не сделаны тесты.
+        /// </summary>
+        [TestMethod]
+        public void False()
+        {
+            Assert.Fail();
+        }
     }
 }

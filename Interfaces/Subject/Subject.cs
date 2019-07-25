@@ -16,7 +16,7 @@ namespace Subject
         {
             if (string.IsNullOrWhiteSpace(nameSubject))
             {
-                throw new ArgumentException("Название предмета не должно быть пустым!", nameof(nameSubject));
+                throw new ArgumentNullException("Название предмета не должно быть пустым!", nameof(nameSubject));
             }
 
             NameSubject = nameSubject;
@@ -26,15 +26,18 @@ namespace Subject
         {
             if (string.IsNullOrWhiteSpace(departament))
             {
-                throw new ArgumentException("Кафедра не должна быть пустой!", nameof(departament));
+                throw new ArgumentNullException("Кафедра не должна быть пустой!", nameof(departament));
             }
 
             Departament = departament;
         }
-
+        public override string ToString()
+        {
+            return NameSubject;
+        }
         public void ToConsole()
         {
-            Console.WriteLine(NameSubject);
+            Console.WriteLine(ToString());
         }
     }
 }
