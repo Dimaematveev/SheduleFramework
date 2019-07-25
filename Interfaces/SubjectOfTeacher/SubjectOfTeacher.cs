@@ -18,20 +18,20 @@ namespace SubjectOfTeacher
             {
                 throw new ArgumentNullException("Предмет не должен быть пустым!", nameof(subject));
             }
-            if (percent <0)
+            if (percent <0 && percent > 100)
             {
-                throw new ArgumentNullException("Процент не должен быть меньше 0!", nameof(percent));
-            }
-            if (percent > 100) 
-            {
-                throw new ArgumentNullException("Процент не должен быть больше 100!", nameof(percent));
+                throw new ArgumentNullException("Процент не должен быть меньше 0 и больше 100!", nameof(percent));
             }
             Subject = subject;
             Percent = percent;
         }
+        public override string ToString()
+        {
+            return $"Преподаватель готов вести предмет {Subject.NameSubject} с уверенностью в {Percent}%";
+        }
         public void ToConsole()
         {
-            Console.WriteLine($"Преподаватель готов вести предмет {Subject.NameSubject} с уверенностью в {Percent}%");
+            Console.WriteLine(ToString());
         }
     }
 }
