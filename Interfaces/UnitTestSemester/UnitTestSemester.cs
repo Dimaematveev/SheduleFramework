@@ -14,18 +14,18 @@ namespace UnitTestSemester
         static List<IDaysOfStudy> standatrDaysOfStudies;
         private void ResetStandart()
         {
-
-            standatrBeginSemestr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 01);
-            standatrEndSemestr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 07);
+            standatrBeginSemestr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 7);
+            standatrBeginSemestr = standatrBeginSemestr.AddDays(-(int)standatrBeginSemestr.DayOfWeek);
+            standatrEndSemestr = standatrBeginSemestr.AddDays(6);
             standatrDaysOfStudies = new List<IDaysOfStudy>
             {
-                new DaysOfStudy.DaysOfStudy(standatrBeginSemestr.AddDays(0), HowDays.WorkingDay),
+                new DaysOfStudy.DaysOfStudy(standatrBeginSemestr.AddDays(0), HowDays.DayOff),
                 new DaysOfStudy.DaysOfStudy(standatrBeginSemestr.AddDays(1), HowDays.WorkingDay),
                 new DaysOfStudy.DaysOfStudy(standatrBeginSemestr.AddDays(2), HowDays.WorkingDay),
                 new DaysOfStudy.DaysOfStudy(standatrBeginSemestr.AddDays(3), HowDays.WorkingDay),
                 new DaysOfStudy.DaysOfStudy(standatrBeginSemestr.AddDays(4), HowDays.WorkingDay),
                 new DaysOfStudy.DaysOfStudy(standatrBeginSemestr.AddDays(5), HowDays.WorkingDay),
-                new DaysOfStudy.DaysOfStudy(standatrBeginSemestr.AddDays(6), HowDays.DayOff),
+                new DaysOfStudy.DaysOfStudy(standatrBeginSemestr.AddDays(6), HowDays.WorkingDay),
             };
             
         }
@@ -48,5 +48,7 @@ namespace UnitTestSemester
                 Assert.AreEqual(standatrDaysOfStudies[i].Study, semester.DaysOfStudies[i].Study, $"i={i}");
             }
         }
+
+
     }
 }
