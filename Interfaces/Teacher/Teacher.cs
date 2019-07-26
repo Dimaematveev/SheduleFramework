@@ -10,16 +10,16 @@ using Teacher.Interfaces;
 
 namespace Teacher
 {
-    public class Teacher : ITeacherWithConsole<ISubjectOfTeacherWithConsole>
+    public class Teacher : ITeacherWithConsole
     {
         
 
-        public List<ISubjectOfTeacherWithConsole> SubjectOfTeachers { get; set; }
+        public List<ISubjectOfTeacher> SubjectOfTeachers { get; set; }
         public string Certification { get; set; }
         public int Rate { get; set; }
         public IPerson Person { get; set; }
 
-        public Teacher( List<ISubjectOfTeacherWithConsole> subjectOfTeachers, 
+        public Teacher( List<ISubjectOfTeacher> subjectOfTeachers, 
                         string certification, 
                         int rate, 
                         IPerson person)
@@ -51,13 +51,21 @@ namespace Teacher
             Person = person;
         }
 
-        public void ToConsole()
+        public override string ToString()
         {
-            ((IConsole)Person).ToConsole();
+            string ret = "";
+            ret+=Person.ToString();
+            ret += "\n";
             foreach (var item in SubjectOfTeachers)
             {
-                item.ToConsole();
+                ret += item.ToString();
+                ret += "\n";
             }
+            return ret;
+        }
+        public void ToConsole()
+        {
+            Console.WriteLine(ToString());
         }
     }
 }

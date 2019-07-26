@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 
 namespace Teacher.Interfaces
 {
-    interface ITeacherWithConsole<T> : ITeacher<T>, IConsole
-    where T: ISubjectOfTeacherWithConsole
+    interface ITeacherWithConsole : ITeacher, IConsole
     {
     }
 }
