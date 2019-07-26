@@ -18,9 +18,9 @@ namespace SubjectOfTeacher
             {
                 throw new ArgumentNullException("Предмет не должен быть пустым!", nameof(subject));
             }
-            if (percent <0 && percent > 100)
+            if (percent <0 || percent > 100)
             {
-                throw new ArgumentNullException("Процент не должен быть меньше 0 и больше 100!", nameof(percent));
+                throw new ArgumentException("Процент не должен быть меньше 0 и больше 100!", nameof(percent));
             }
             Subject = subject;
             Percent = percent;
