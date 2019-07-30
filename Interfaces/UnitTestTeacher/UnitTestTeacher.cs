@@ -12,7 +12,6 @@ namespace UnitTestTeacher
         static List<ISubjectOfTeacher> standartSubjectOfTeachers;
         static string standartCertification;
         static int standartRate;
-        static IPerson standartPerson;
         private void ResetStandart()
         {
             standartSubjectOfTeachers = new List<ISubjectOfTeacher>
