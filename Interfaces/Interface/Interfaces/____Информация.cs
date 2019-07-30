@@ -24,7 +24,7 @@ public static class Информация
         {
             typeof(IConsole),
             typeof(IGroup),
-            typeof(ITeacher<ISubjectOfTeacher>),
+            typeof(ITeacher),
             typeof(ISubject),
             typeof(ISubjectOfTeacher),
             typeof(IPerson),

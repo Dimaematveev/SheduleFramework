@@ -24,7 +24,7 @@ namespace Teacher
                         int rate, 
                         IPerson person)
         {
-            if (subjectOfTeachers == null || subjectOfTeachers.Count<=0)
+            if (subjectOfTeachers == null || subjectOfTeachers.Count==0)
             {
                 throw new ArgumentNullException("Предмет учителя не должен быть пустым!", nameof(subjectOfTeachers));
             }

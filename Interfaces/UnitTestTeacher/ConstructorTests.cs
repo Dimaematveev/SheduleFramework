@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace UnitTestTeacher
 {
     [TestClass]
-    public class UnitTestTeacher
+    public class ConstructorTests
     {
         /// <value> стандартные значения и классы с которыми программа БУДЕТ работать! Переделывать  </value>
         static List<ISubjectOfTeacher> standartSubjectOfTeachers;
@@ -30,18 +30,17 @@ namespace UnitTestTeacher
         /// Проверка что стандартные параметры делаю конструктор без исключения.
         /// </summary>
         [TestMethod]
-        public void TestStandartValue()
+        public void TestConstructor_SubjectTeacherIsNullOrCountNull_CallException()
         {
-            ResetStandart();
             //arrange
+            ResetStandart();
             //act
-            var teacher = new Teacher.Teacher(standartSubjectOfTeachers, standartCertification, standartRate, standatrPerson);
-
             //assert
-            Assert.AreEqual(standartSubjectOfTeachers, teacher.SubjectOfTeachers);
-            Assert.AreEqual(standartCertification, teacher.Certification);
-            Assert.AreEqual(standartRate, teacher.Rate);
-            Assert.AreEqual(standatrPerson, teacher.Person);
+            Assert.ThrowsException<ArgumentNullException>(()=>new Teacher.Teacher(null, standartCertification, standartRate, standatrPerson),"NULL");
+            standartSubjectOfTeachers = new List<ISubjectOfTeacher>();
+            Assert.ThrowsException<ArgumentNullException>(()=>new Teacher.Teacher(standartSubjectOfTeachers, standartCertification, standartRate, standatrPerson),"Count=0");
+
         }
+
     }
 }
