@@ -31,15 +31,11 @@ namespace Teacher
 
             if (string.IsNullOrWhiteSpace(certification))
             {
-                throw new ArgumentException("Сертификаты не должны быть пусты!", nameof(certification));
+                throw new ArgumentNullException("Сертификаты не должны быть пусты!", nameof(certification));
             }
-            if (rate < 1) 
+            if (rate <= 0 || rate >= 5) 
             {
-                throw new ArgumentException("Ставка не может быть меньше 1!", nameof(rate));
-            }
-            if (rate > 4)
-            {
-                throw new ArgumentException("Ставка не может быть больше 4!", nameof(rate));
+                throw new ArgumentException("Ставка не может быть меньше 1 или больше 4!", nameof(rate));
             }
             if (person == null)
             {
