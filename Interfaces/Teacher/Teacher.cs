@@ -24,18 +24,21 @@ namespace Teacher
                         int rate, 
                         IPerson person)
         {
-            if (subjectOfTeachers == null || subjectOfTeachers.Count==0)
+            if (subjectOfTeachers == null )
+            {
+                throw new ArgumentNullException("Предмет учителя не должен быть null!", nameof(subjectOfTeachers));
+            }
+            if (subjectOfTeachers.Count == 0)
             {
                 throw new ArgumentNullException("Предмет учителя не должен быть пустым!", nameof(subjectOfTeachers));
             }
-
             if (string.IsNullOrWhiteSpace(certification))
             {
                 throw new ArgumentNullException("Сертификаты не должны быть пусты!", nameof(certification));
             }
             if (rate <= 0 || rate >= 5) 
             {
-                throw new ArgumentException("Ставка не может быть меньше 1 или больше 4!", nameof(rate));
+                throw new ArgumentException("Ставка не может быть <= 0 или >=5!", nameof(rate));
             }
             if (person == null)
             {

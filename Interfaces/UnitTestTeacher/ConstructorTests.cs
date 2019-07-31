@@ -15,6 +15,8 @@ namespace UnitTestTeacher
         static string standartCertification;
         static int standartRate;
         static IPerson standatrPerson;
+        static int maxRate=5;
+        static int minRate=0;
         private void ResetStandart()
         {
             standartSubjectOfTeachers = new List<ISubjectOfTeacher>
@@ -35,7 +37,10 @@ namespace UnitTestTeacher
             ResetStandart();
             //arrange
             //act
-            var teacher = new Teacher.Teacher(standartSubjectOfTeachers, standartCertification, standartRate, standatrPerson);
+            var teacher = new Teacher.Teacher(  standartSubjectOfTeachers, 
+                                                standartCertification, 
+                                                standartRate, 
+                                                standatrPerson);
 
             //assert
             Assert.AreEqual(standartSubjectOfTeachers, teacher.SubjectOfTeachers);
@@ -55,7 +60,10 @@ namespace UnitTestTeacher
             //act
             List<ISubjectOfTeacher> nullSubjectOfTeachers = null;
             //assert
-            Assert.ThrowsException<ArgumentNullException>(()=>new Teacher.Teacher(nullSubjectOfTeachers, standartCertification, standartRate, standatrPerson),"NULL");
+            Assert.ThrowsException<ArgumentNullException>(()=>new Teacher.Teacher(  nullSubjectOfTeachers, 
+                                                                                    standartCertification, 
+                                                                                    standartRate, 
+                                                                                    standatrPerson),"NULL");
             
         }
         /// <summary>
@@ -69,7 +77,10 @@ namespace UnitTestTeacher
             //act
             var countNullSubjectOfTeachers = new List<ISubjectOfTeacher>();
             //assert
-            Assert.ThrowsException<ArgumentNullException>(() => new Teacher.Teacher(countNullSubjectOfTeachers, standartCertification, standartRate, standatrPerson), "Count=0");
+            Assert.ThrowsException<ArgumentNullException>(() => new Teacher.Teacher(countNullSubjectOfTeachers, 
+                                                                                    standartCertification, 
+                                                                                    standartRate, 
+                                                                                    standatrPerson), "Count=0");
 
         }
 
@@ -84,7 +95,10 @@ namespace UnitTestTeacher
             //act
             string nullCertification = null;
             //assert
-            Assert.ThrowsException<ArgumentNullException>(() => new Teacher.Teacher(standartSubjectOfTeachers, nullCertification, standartRate, standatrPerson), "NULL");
+            Assert.ThrowsException<ArgumentNullException>(() => new Teacher.Teacher(standartSubjectOfTeachers, 
+                                                                                    nullCertification, 
+                                                                                    standartRate, 
+                                                                                    standatrPerson), "NULL");
         }
         /// <summary>
         /// Конструктор вызывает исключение при подаче пустой строки или строки только из пробелов Certification.
@@ -102,7 +116,10 @@ namespace UnitTestTeacher
             ResetStandart();
             //act
             //assert
-            Assert.ThrowsException<ArgumentNullException>(() => new Teacher.Teacher(standartSubjectOfTeachers, whiteSpaceСharactersCertification, standartRate, standatrPerson), "Строка из пробелов!");
+            Assert.ThrowsException<ArgumentNullException>(() => new Teacher.Teacher(standartSubjectOfTeachers, 
+                                                                                    whiteSpaceСharactersCertification, 
+                                                                                    standartRate, 
+                                                                                    standatrPerson), "Строка из пробелов!");
         }
 
         /// <summary>
@@ -114,15 +131,18 @@ namespace UnitTestTeacher
             //arrange
             ResetStandart();
             //act
-            int min = 5;//Максимальное значения для Rate 
-            int bigRate = min;
+            
+            int bigRate = minRate;
             //assert
             Random rnd = new Random(DateTime.Now.Millisecond);
             for (int i = 0; i < 100; i++)
             {
-                string message = $"\nДолжно быть: Rate<={min}, у нас: Rate={bigRate}";
-                Assert.ThrowsException<ArgumentException>(() => new Teacher.Teacher(standartSubjectOfTeachers, standartCertification, bigRate, standatrPerson), message);
-                bigRate = rnd.Next(min,100);
+                string message = $"\nДолжно быть: Rate<={minRate}, у нас: Rate={bigRate}";
+                Assert.ThrowsException<ArgumentException>(() => new Teacher.Teacher(standartSubjectOfTeachers, 
+                                                                                    standartCertification, 
+                                                                                    bigRate, 
+                                                                                    standatrPerson), message);
+                bigRate = rnd.Next(minRate, 100);
             }
         }
         /// <summary>
@@ -134,15 +154,18 @@ namespace UnitTestTeacher
             //arrange
             ResetStandart();
             //act
-            int max=0;//Максимальное значения для Rate 
-            int smallRate = max;
+            
+            int smallRate = maxRate;
              //assert
              Random rnd = new Random(DateTime.Now.Millisecond);
             for (int i = 0; i < 100; i++)
             {
-                string message = $"\nДолжно быть: Rate<={max}, у нас: Rate={smallRate}";
-                Assert.ThrowsException<ArgumentException>(() => new Teacher.Teacher(standartSubjectOfTeachers, standartCertification, smallRate, standatrPerson), message);
-                smallRate = rnd.Next(-100, max);
+                string message = $"\nДолжно быть: Rate<={maxRate}, у нас: Rate={smallRate}";
+                Assert.ThrowsException<ArgumentException>(() => new Teacher.Teacher(standartSubjectOfTeachers, 
+                                                                                    standartCertification, 
+                                                                                    smallRate, 
+                                                                                    standatrPerson), message);
+                smallRate = rnd.Next(-100, maxRate);
             }
         }
         /// <summary>
@@ -156,25 +179,49 @@ namespace UnitTestTeacher
             //act
             IPerson nullPerson = null;
             //assert
-            Assert.ThrowsException<ArgumentNullException>(() => new Teacher.Teacher(standartSubjectOfTeachers, standartCertification, standartRate, nullPerson), "NULL");
+            Assert.ThrowsException<ArgumentNullException>(() => new Teacher.Teacher(standartSubjectOfTeachers, 
+                                                                                    standartCertification, 
+                                                                                    standartRate, 
+                                                                                    nullPerson), "NULL");
         }
 
         /// <summary>
         /// Проверка что получиться создать класс.
         /// </summary>
         [TestMethod]
-        public void TestConstructor_()
+        public void TestConstructor_CorrectParameters_NotExeption()
         {
-            ResetStandart();
             //arrange
             //act
-            var teacher = new Teacher.Teacher(standartSubjectOfTeachers, standartCertification, standartRate, standatrPerson);
+
+            Random rnd = new Random(DateTime.Now.Millisecond);
+            for (int i = 0; i < 100; i++)
+            {
+                var paramSubjectOfTeachers = new List<ISubjectOfTeacher>();
+                int countList = rnd.Next(1, 100);
+                for (int j = 0; j < countList; j++)
+                {
+                    paramSubjectOfTeachers.Add(A.Fake<ISubjectOfTeacher>());
+                }
+                int countCertification = rnd.Next(1, 30);
+                var paramCertification = Guid.NewGuid().ToString().Substring(0, countCertification);
+                var paramRate = rnd.Next(minRate, maxRate);
+                var paramPerson = A.Fake<IPerson>();
+                
+                var teacher = new Teacher.Teacher(  paramSubjectOfTeachers, 
+                                                    paramCertification,
+                                                    paramRate,
+                                                    paramPerson);
+                Assert.AreEqual(paramSubjectOfTeachers, teacher.SubjectOfTeachers,"111");
+                Assert.AreEqual(countList, teacher.SubjectOfTeachers.Count, "111");
+                Assert.AreEqual(paramCertification, teacher.Certification, "111");
+                Assert.AreEqual(paramRate, teacher.Rate, "111");
+                Assert.AreEqual(paramPerson, teacher.Person, "111");
+            }
+           
 
             //assert
-            Assert.AreEqual(standartSubjectOfTeachers, teacher.SubjectOfTeachers);
-            Assert.AreEqual(standartCertification, teacher.Certification);
-            Assert.AreEqual(standartRate, teacher.Rate);
-            Assert.AreEqual(standatrPerson, teacher.Person);
+           
         }
     }
 }
