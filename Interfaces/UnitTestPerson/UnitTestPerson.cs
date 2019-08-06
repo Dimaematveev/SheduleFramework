@@ -1,6 +1,8 @@
 ﻿using System;
+using FakeItEasy;
 using Interface.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using TypeMock.ArrangeActAssert;
 
 namespace UnitTestPerson
 {
@@ -176,7 +178,27 @@ namespace UnitTestPerson
             //assert
             Assert.AreEqual(age, person.Age);
         }
+        /// <summary>
+        /// Проверка свойства Age.  Надо часто обновлять!!!!!!
+        /// </summary>
+        /// <param name="stingBirthDay">Строка даты. Должна быть нормальным. либо (now+/-x) x-количество от сегодня</param>
+        /// <param name="age">Возраст.</param>
+        
+        [TestMethod, Isolated]
+        public void NewTestPropertyAge_True()
+        {
+            //arrange
+            ResetStandart();
+            // Isolate.WhenCalled(() => DateTime.Now).WillReturn(new DateTime(2000, 1, 2));
+            DateTime birthDay = DateTime.Parse("03.01.2001");
 
+
+            A.CallTo(() => DateTime.Now).Returns(new DateTime(2001, 01, 01));
+            //act
+            var person = new Person.Person(standatrName, standatrGender, birthDay, standatrLiving);
+            //assert
+            Assert.AreEqual(1, person.Age);
+        }
         /// <summary>
         /// Тест Метода ToString.   Надо часто обновлять!!!!!!
         /// </summary>
