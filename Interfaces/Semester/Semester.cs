@@ -51,14 +51,15 @@ namespace Semester
                 tempDaysOfStudies.Add(new DaysOfStudy.DaysOfStudy(i,HowDays.WorkingDay));
             }
             DaysOfStudies = tempDaysOfStudies.ToArray();
-            AddDayWeekConsole(DayOfWeek.Sunday, HowDays.DayOff);
+            AddDayWeek(DayOfWeek.Sunday, HowDays.DayOff);
         }
+
         /// <summary>
         /// У указанного дня недели устанавливает тип дня.
         /// </summary>
         /// <param name="dayOfWeek">День недели.</param>
         /// <param name="numberOfPairsPerDay">Тип дня(выходной, учебный..)</param>
-        public void AddDayWeekConsole(DayOfWeek dayOfWeek ,HowDays numberOfPairsPerDay)
+        private void AddDayWeek(DayOfWeek dayOfWeek ,HowDays numberOfPairsPerDay)
         {
             for (int i = 0; i < DaysOfStudies.Length; i++)
             {
@@ -68,9 +69,46 @@ namespace Semester
                     i += 6;
                 }
             }
-            
-            
         }
+
+        /// <summary>
+        /// Изменить один день.
+        /// </summary>
+        /// <param name="numberOfPairsPerDay">На какой изменить.</param>
+        /// <param name="date">День.</param>
+        private void AddDayOne(HowDays numberOfPairsPerDay, DateTime date)
+        {
+            DaysOfStudies.First(d => d.Date == date).Study = numberOfPairsPerDay;
+        }
+
+        /// <summary>
+        /// Изменить диапазон дней.
+        /// </summary>
+        /// <param name="numberOfPairsPerDay">На какой изменить.</param>
+        /// <param name="dateBegin">Дата начала диапазона.</param>
+        /// <param name="dateEnd">Дата окончания диапазона.</param>
+        private void AddDayMany(HowDays numberOfPairsPerDay, DateTime dateBegin, DateTime dateEnd)
+        {
+            int beginInd = Array.FindIndex(DaysOfStudies, d => d.Date == dateBegin);
+            int endInd = Array.FindIndex(DaysOfStudies, d => d.Date == dateEnd);
+            for (int i = beginInd; i <= endInd; i++)
+            {
+                DaysOfStudies[i].Study = numberOfPairsPerDay;
+            }
+        }
+
+        /// <summary>
+        /// Получение строки.
+        /// </summary>
+        /// <returns>Строка.</returns>
+        public override string ToString()
+        {
+            return $"Начало семестра {BeginSemestr.ToShortDateString()}, окончание семестра {EndSemestr.ToShortDateString()}. Всего дней {DaysOfStudies.Length}.";
+        }
+
+
+
+
         /// <summary>
         /// Вывод на консоль.
         /// </summary>
@@ -106,7 +144,7 @@ namespace Semester
         /// </summary>
         /// <param name="cultureDataFormat">Образно язык используемый в приложении.</param>
         /// <param name="dateTime">Месяц</param>
-        void MethodConsole( DateTimeFormatInfo cultureDataFormat, DateTime dateTime)
+        private void MethodConsole( DateTimeFormatInfo cultureDataFormat, DateTime dateTime)
         {
             Console.WriteLine();
             Console.ForegroundColor = ConsoleColor.Green;
@@ -174,7 +212,7 @@ namespace Semester
         /// Функция изменения типа дней.!!! Рефакторинг
         /// </summary>
         /// <param name="howDays">На какой день поменять.</param>
-        public void AddDayConsole(HowDays howDays)
+        private void AddDayConsole(HowDays howDays)
         {
             Console.WriteLine();
             string dayIs = "сокращенных дней";
@@ -190,7 +228,8 @@ namespace Semester
             {
                 new KeyValuePair<char, string>('0',"выход"),
                 new KeyValuePair<char, string>('1',"добавления одного"),
-                new KeyValuePair<char, string>('2',"добавления диапазона")
+                new KeyValuePair<char, string>('2',"добавления диапазона"),
+                new KeyValuePair<char, string>('3',"добавление дню недели")
             };
             Console.WriteLine($"Возможные команды для добавления {dayIs}.");
             Console.WriteLine("Введите:");
@@ -217,44 +256,82 @@ namespace Semester
             {
                 AddDayManyConsole(howDays);
             }
+            if (characterInput == command[3].Key)
+            {
+                AddDayWeekConsole(howDays);
+            }
             AddDayConsole(howDays);
         }
         /// <summary>
-        /// Изменить один день.
+        /// Изменить один день Консоль.
         /// </summary>
         /// <param name="numberOfPairsPerDay">На какой изменить.</param>
-        public void AddDayOneConsole(HowDays numberOfPairsPerDay)
+        private void AddDayOneConsole(HowDays numberOfPairsPerDay)
         {
             char characterInput;
             do
             {
                 DateTime date = DateValidationCheckConsole("Введите дату между", BeginSemestr, EndSemestr);
-                DaysOfStudies.First(d => d.Date == date).Study = numberOfPairsPerDay;
+                AddDayOne(numberOfPairsPerDay,date);
                 Console.WriteLine($"Введите 'y' если хотите добавить еще один день.");
                 characterInput = Console.ReadKey(true).KeyChar;
             } while (characterInput == 'y');
         }
+
         /// <summary>
-        /// Изменить Несколько дней.
+        /// Изменить Несколько дней Консоль.
         /// </summary>
         /// <param name="numberOfPairsPerDay">На какой изменить.</param>
-        public void AddDayManyConsole(HowDays numberOfPairsPerDay)
+        private void AddDayManyConsole(HowDays numberOfPairsPerDay)
         {
             char characterInput;
             do
             {
                 DateTime dateBegin = DateValidationCheckConsole("Введите дату начала диапазона между", BeginSemestr, EndSemestr);
                 DateTime dateEnd = DateValidationCheckConsole("Введите дату окончания диапазона между", dateBegin, EndSemestr);
-                int beginInd = Array.FindIndex(DaysOfStudies,d => d.Date == dateBegin);
-                int endInd = Array.FindIndex(DaysOfStudies,d => d.Date == dateEnd);
-                for (int i = beginInd; i <= endInd; i++)
-                {
-                    DaysOfStudies[i].Study = numberOfPairsPerDay;
-                }
+                AddDayMany(numberOfPairsPerDay, dateBegin, dateEnd);
                 Console.WriteLine($"Введите 'y' если хотите добавить еще один диапазон дней.");
                 characterInput = Console.ReadKey(true).KeyChar;
             } while (characterInput == 'y');
 
+        }
+        /// <summary>
+        /// Изменить один день недели Консоль.
+        /// </summary>
+        /// <param name="numberOfPairsPerDay">На какой изменить.</param>
+        private void AddDayWeekConsole(HowDays numberOfPairsPerDay)
+        {
+            var cultureDataFormat = DateTimeFormatInfo.CurrentInfo;
+            cultureDataFormat.FirstDayOfWeek = DayOfWeek.Monday;
+            List<KeyValuePair<int, string>> dayweek = new List<KeyValuePair<int, string>> ();
+            for (var i = (int)cultureDataFormat.FirstDayOfWeek; i < (int)(7 + cultureDataFormat.FirstDayOfWeek); i++)
+            {
+                
+                dayweek.Add(new KeyValuePair<int, string>(i % 7, cultureDataFormat.AbbreviatedDayNames[i % 7]));
+            }
+            char characterInput;
+            do
+            {
+                characterInput = ' ';
+                Console.WriteLine("Введите день недели из:");
+                foreach (var item in dayweek)
+                {
+                    Console.Write($"{item.Value,4}");
+                }
+                string day = Console.ReadLine();
+                int ind = dayweek.FindIndex(x => x.Value == day);
+                if (ind != -1 )
+                {
+                    AddDayWeek((DayOfWeek)dayweek[ind].Key, numberOfPairsPerDay);
+                    Console.WriteLine($"Введите 'y' если хотите добавить еще один день недели.");
+                    characterInput = Console.ReadKey(true).KeyChar;
+                }
+                else
+                {
+                    Console.WriteLine("Нет такого дня недели! Попробуйте еще раз");
+                    characterInput = 'y';
+                }
+            } while (characterInput == 'y');
         }
         /// <summary>
         /// Проверка корректности веденной даты.
@@ -263,7 +340,7 @@ namespace Semester
         /// <param name="dateBegin"></param>
         /// <param name="dateEnd"></param>
         /// <returns></returns>
-        public DateTime DateValidationCheckConsole(string str, DateTime dateBegin, DateTime dateEnd)
+        private DateTime DateValidationCheckConsole(string str, DateTime dateBegin, DateTime dateEnd)
         {
             DateTime date;
             while (true)

@@ -52,6 +52,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddDayWeekTest.cs" />
     <Compile Include="ConstructorTests.cs" />
     <Compile Include="UnitTestSemester.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
