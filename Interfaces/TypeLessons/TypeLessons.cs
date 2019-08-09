@@ -21,9 +21,13 @@ namespace TypeLessons
 
             NameType = nameType;
         }
+        public override string ToString()
+        {
+            return NameType;
+        }
         public void ToConsole()
         {
-            Console.WriteLine(NameType);
+            Console.WriteLine(ToString());
         }
     }
 }
