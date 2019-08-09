@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace UnitTestSemester
 {
     [TestClass]
-    public class UnitTestSemester
+    class UnitTestSemester
     {
         /// <value> стандартные значения и классы с которыми программа БУДЕТ работать! Переделывать  </value>
         static DateTime standatrBeginSemestr;

@@ -27,13 +27,17 @@ namespace Semester
         /// <param name="endSemestr">Дата окончания семестра.</param>
         public Semester(DateTime beginSemestr, DateTime endSemestr)
         {
-            if (beginSemestr < new DateTime(DateTime.Now.Year-7,1,1) && beginSemestr > new DateTime(DateTime.Now.Year + 7, 1, 1))
+            if (beginSemestr < new DateTime(DateTime.Now.Year-7,1,1))
             {
-                throw new ArgumentException($"Дата начала семестра не должна быть меньше {new DateTime(DateTime.Now.Year - 7, 1, 1).ToShortDateString()} и больше {new DateTime(DateTime.Now.Year + 7, 1, 1).ToShortDateString()}!", nameof(beginSemestr));
+                throw new ArgumentException($"Дата начала семестра не должна быть меньше {new DateTime(DateTime.Now.Year - 7, 1, 1).ToShortDateString()}! Сейчас={beginSemestr.ToShortDateString()}", nameof(beginSemestr));
+            }
+            if (endSemestr > new DateTime(DateTime.Now.Year + 7, 1, 1))
+            {
+                throw new ArgumentException($"Дата окончания семестра не должна быть больше {new DateTime(DateTime.Now.Year + 7, 1, 1).ToShortDateString()}! Сейчас={endSemestr.ToShortDateString()}", nameof(endSemestr));
             }
             if (beginSemestr >= endSemestr) 
             {
-                throw new ArgumentException($"'beginSemestr={beginSemestr.ToShortDateString()}' должен быть меньше 'endSemestr={endSemestr.ToShortDateString()}'!", nameof(endSemestr) + "," + nameof(beginSemestr));
+                throw new ArgumentException($"'Дата начала семестра ={beginSemestr.ToShortDateString()}' должен быть меньше 'Даты окончания семестра={endSemestr.ToShortDateString()}'! ", nameof(endSemestr) + "," + nameof(beginSemestr));
             }
             if ((endSemestr - beginSemestr).Days > 180)
             {
