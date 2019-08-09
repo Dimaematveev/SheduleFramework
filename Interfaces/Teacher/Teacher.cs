@@ -38,7 +38,7 @@ namespace Teacher
             }
             if (rate <= 0 || rate >= 5) 
             {
-                throw new ArgumentException("Ставка не может быть <= 0 или >=5!", nameof(rate));
+                throw new ArgumentException($"Ставка не может быть <= 0 или >=5. Сейчас-rate={rate}!", $"{nameof(rate)}");
             }
             if (person == null)
             {

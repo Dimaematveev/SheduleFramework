@@ -132,17 +132,17 @@ namespace UnitTestTeacher
             ResetStandart();
             //act
             
-            int bigRate = minRate;
+            int bigRate = maxRate;
             //assert
             Random rnd = new Random(DateTime.Now.Millisecond);
             for (int i = 0; i < 100; i++)
             {
-                string message = $"\nДолжно быть: Rate<={minRate}, у нас: Rate={bigRate}";
+                string message = $"\nДолжно быть: Rate>={maxRate}, у нас: Rate={bigRate}";
                 Assert.ThrowsException<ArgumentException>(() => new Teacher.Teacher(standartSubjectOfTeachers, 
                                                                                     standartCertification, 
                                                                                     bigRate, 
                                                                                     standatrPerson), message);
-                bigRate = rnd.Next(minRate, 100);
+                bigRate = rnd.Next(maxRate, 100);
             }
         }
         /// <summary>
@@ -155,17 +155,17 @@ namespace UnitTestTeacher
             ResetStandart();
             //act
             
-            int smallRate = maxRate;
+            int smallRate = minRate;
              //assert
              Random rnd = new Random(DateTime.Now.Millisecond);
             for (int i = 0; i < 100; i++)
             {
-                string message = $"\nДолжно быть: Rate<={maxRate}, у нас: Rate={smallRate}";
+                string message = $"\nДолжно быть: Rate<={minRate}, у нас: Rate={smallRate}";
                 Assert.ThrowsException<ArgumentException>(() => new Teacher.Teacher(standartSubjectOfTeachers, 
                                                                                     standartCertification, 
                                                                                     smallRate, 
                                                                                     standatrPerson), message);
-                smallRate = rnd.Next(-100, maxRate);
+                smallRate = rnd.Next(-100, minRate);
             }
         }
         /// <summary>
@@ -205,18 +205,19 @@ namespace UnitTestTeacher
                 }
                 int countCertification = rnd.Next(1, 30);
                 var paramCertification = Guid.NewGuid().ToString().Substring(0, countCertification);
-                var paramRate = rnd.Next(minRate, maxRate);
+                var paramRate = rnd.Next(minRate+1, maxRate);
                 var paramPerson = A.Fake<IPerson>();
                 
                 var teacher = new Teacher.Teacher(  paramSubjectOfTeachers, 
                                                     paramCertification,
                                                     paramRate,
                                                     paramPerson);
-                Assert.AreEqual(paramSubjectOfTeachers, teacher.SubjectOfTeachers,"111");
-                Assert.AreEqual(countList, teacher.SubjectOfTeachers.Count, "111");
-                Assert.AreEqual(paramCertification, teacher.Certification, "111");
-                Assert.AreEqual(paramRate, teacher.Rate, "111");
-                Assert.AreEqual(paramPerson, teacher.Person, "111");
+
+                Assert.AreEqual(paramSubjectOfTeachers, teacher.SubjectOfTeachers,$"paramSubjectOfTeachers.Count={paramSubjectOfTeachers.Count},teacher.SubjectOfTeachers.Count={teacher.SubjectOfTeachers.Count}");
+                Assert.AreEqual(countList, teacher.SubjectOfTeachers.Count, $"countList={countList}, teacher.SubjectOfTeachers.Count={teacher.SubjectOfTeachers.Count},");
+                Assert.AreEqual(paramCertification, teacher.Certification, $"Certification={paramCertification},  teacher.Certification={ teacher.Certification},");
+                Assert.AreEqual(paramRate, teacher.Rate, "paramRate={paramRate}, teacher.Rate={teacher.Rate}");
+                Assert.AreEqual(paramPerson, teacher.Person, "paramPerson={paramPerson}, teacher.Person={teacher.Person} ");
             }
            
 

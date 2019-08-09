@@ -53,6 +53,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConstructorTests.cs" />
+    <Compile Include="ToStringTests.cs" />
     <Compile Include="UnitTestTeacher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
