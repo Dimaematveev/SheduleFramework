@@ -53,18 +53,28 @@ namespace UnitTestTeacher
         /// Конструктор вызывает исключение при подаче вместо списка SubjectTeacher -> null.
         /// </summary>
         [TestMethod]
-        public void TestConstructor_SubjectTeacherIsNull_CallArgumentNullException()
+        public void TestToString_TeacherIsReady_FixedLineCheck()
         {
             //arrange
             ResetStandart();
+            string ret = "Person\nSubjTeach_0\nSubjTeach_1\nSubjTeach_2\nSubjTeach_3\n";
+            var testSubjectOfTeachers = new List<ISubjectOfTeacher>();
+            for (int i = 0; i < 4; i++)
+            {
+                var tes = A.Fake<ISubjectOfTeacher>();
+                A.CallTo(()=>tes.ToString()).Returns($"SubjTeach_{i}");
+                testSubjectOfTeachers.Add(tes);
+            }
+            var testPerson = A.Fake<IPerson>();
+            A.CallTo(() => testPerson.ToString()).Returns($"Person");
             //act
-            List<ISubjectOfTeacher> nullSubjectOfTeachers = null;
-            //assert
-            Assert.ThrowsException<ArgumentNullException>(() => new Teacher.Teacher(nullSubjectOfTeachers,
-                                                                                    standartCertification,
-                                                                                    standartRate,
-                                                                                    standatrPerson), "NULL");
+            var teacher = new Teacher.Teacher(testSubjectOfTeachers,
+                                                standartCertification,
+                                                standartRate,
+                                                testPerson);
 
+            //assert
+            Assert.AreEqual(ret, teacher.ToString());
         }
     }
 }
