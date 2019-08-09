@@ -59,6 +59,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestSubjectOfTeacher", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestTeacher", "UnitTestTeacher\UnitTestTeacher.csproj", "{BB4E7FE9-884E-4824-BBF3-67F1C75BD556}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestTimeLessons", "UnitTestTimeLessons\UnitTestTimeLessons.csproj", "{D2E7E2E4-2851-4024-A29A-9563C70706E8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -169,6 +171,10 @@ Global
 		{BB4E7FE9-884E-4824-BBF3-67F1C75BD556}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB4E7FE9-884E-4824-BBF3-67F1C75BD556}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB4E7FE9-884E-4824-BBF3-67F1C75BD556}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D2E7E2E4-2851-4024-A29A-9563C70706E8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D2E7E2E4-2851-4024-A29A-9563C70706E8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D2E7E2E4-2851-4024-A29A-9563C70706E8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D2E7E2E4-2851-4024-A29A-9563C70706E8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -198,6 +204,7 @@ Global
 		{B8FC3F4D-D40D-438E-90ED-96B219FF16F4} = {D3FE3C8A-1F0C-4295-A3EE-C8ACD72A416E}
 		{6898AF5E-A585-4E36-AFB6-1D0B52345F57} = {D3FE3C8A-1F0C-4295-A3EE-C8ACD72A416E}
 		{BB4E7FE9-884E-4824-BBF3-67F1C75BD556} = {D3FE3C8A-1F0C-4295-A3EE-C8ACD72A416E}
+		{D2E7E2E4-2851-4024-A29A-9563C70706E8} = {D3FE3C8A-1F0C-4295-A3EE-C8ACD72A416E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DE6D49CF-E98B-4D1B-88CF-07FE0BABA47B}

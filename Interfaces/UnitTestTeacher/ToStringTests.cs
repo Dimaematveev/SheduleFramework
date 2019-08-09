@@ -57,7 +57,8 @@ namespace UnitTestTeacher
         {
             //arrange
             ResetStandart();
-            string ret = "Person\nSubjTeach_0\nSubjTeach_1\nSubjTeach_2\nSubjTeach_3\n";
+            string assert = "Person\nSubjTeach_0\nSubjTeach_1\nSubjTeach_2\nSubjTeach_3\n";
+
             var testSubjectOfTeachers = new List<ISubjectOfTeacher>();
             for (int i = 0; i < 4; i++)
             {
@@ -74,7 +75,7 @@ namespace UnitTestTeacher
                                                 testPerson);
 
             //assert
-            Assert.AreEqual(ret, teacher.ToString());
+            Assert.AreEqual(assert, teacher.ToString());
         }
     }
 }

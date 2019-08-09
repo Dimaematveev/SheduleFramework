@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace UnitTestTeacher
 {
     [TestClass]
-    public class UnitTestTeacher
+    class UnitTestTeacher
     {
         /// <value> стандартные значения и классы с которыми программа БУДЕТ работать! Переделывать  </value>
         static List<ISubjectOfTeacher> standartSubjectOfTeachers;

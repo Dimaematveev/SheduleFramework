@@ -30,7 +30,7 @@ namespace Teacher
             }
             if (subjectOfTeachers.Count == 0)
             {
-                throw new ArgumentNullException("Предмет учителя не должен быть пустым!", nameof(subjectOfTeachers));
+                throw new ArgumentNullException("Предмет учителя не должен быть пустым! ", nameof(subjectOfTeachers));
             }
             if (string.IsNullOrWhiteSpace(certification))
             {
