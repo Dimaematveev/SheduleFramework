@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Interface.Interface;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,10 +21,10 @@ namespace Person
                 "Maksim",
                 "Oleg"
             };
-            List<Gender.Gender> genders = new List<Gender.Gender>()
+            List<Gender> genders = new List<Gender>()
             {
-                new Gender.Gender("мужчина"),
-                new Gender.Gender("женщина")
+                Gender.men,
+                Gender.women
             };
             Random rnd = new Random();
             var pers = new List<Person>();
@@ -37,6 +38,7 @@ namespace Person
             {
                 item.ToConsole();
             }
+            
             Console.WriteLine("Вы вышли в основную программу!");
             Console.ReadLine();
         }

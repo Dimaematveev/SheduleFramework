@@ -1,5 +1,6 @@
 ﻿using System;
 using FakeItEasy;
+using Interface.Interface;
 using Interface.Interfaces;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TypeMock.ArrangeActAssert;
@@ -11,14 +12,14 @@ namespace UnitTestPerson
     {
         /// <value> стандартные значения и классы с которыми программа БУДЕТ работать  </value>
         string standatrName;
-        IGender standatrGender;
+        Gender standatrGender;
         DateTime standatrBirthDay;
         int standatrAge;
         string standatrLiving;
         private void ResetStandart()
         {
             standatrName = "Name1";
-            standatrGender = new Gender.Gender("men");
+            standatrGender =  Gender.men;
             standatrAge = 19;
             standatrBirthDay = new DateTime(DateTime.Now.Year- standatrAge, DateTime.Now.Month, DateTime.Now.Day);
             standatrLiving = "unknown";
@@ -45,33 +46,27 @@ namespace UnitTestPerson
         /// Тест конструктора. 
         /// </summary>
         /// <param name="name">Имя.</param>
-        /// <param name="IsGender">Показывает передается null или Gender.</param>
         /// <param name="stingBirthDay">Строка даты. Должна быть нормальным.</param>
         /// <param name="living">Где живет.</param>
         /// <param name="result">Тип исключения!</param>
         [DataTestMethod]
-        [DataRow(null,true, "11.01.1959","HZ", typeof(ArgumentNullException))]
-        [DataRow("  \t \n", true, "11.01.1959","HZ", typeof(ArgumentNullException))]
-        [DataRow("Name1",false , "11.01.1869","HZ", typeof(ArgumentNullException))]
-        [DataRow("Name1", true, "11.01.1869","HZ", typeof(ArgumentException))]
-        [DataRow("Name1", true, "25.02.2222","HZ", typeof(ArgumentException))]
-        [DataRow("Name1", true, "11.01.1959",null, typeof(ArgumentNullException))]
-        [DataRow("Name1", true, "11.01.1959", "  \t \n", typeof(ArgumentNullException))]
-        public void TestConstructor_Exception(string name, bool IsGender, string stingBirthDay, string living, Type result)
+        [DataRow(null, "11.01.1959","HZ", typeof(ArgumentNullException))]
+        [DataRow("  \t \n", "11.01.1959","HZ", typeof(ArgumentNullException))]
+        [DataRow("Name1", "11.01.1869","HZ", typeof(ArgumentException))]
+        [DataRow("Name1", "25.02.2222","HZ", typeof(ArgumentException))]
+        [DataRow("Name1", "11.01.1959",null, typeof(ArgumentNullException))]
+        [DataRow("Name1", "11.01.1959", "  \t \n", typeof(ArgumentNullException))]
+        public void TestConstructor_Exception(string name, string stingBirthDay, string living, Type result)
         {
             ResetStandart();
-            IGender gender = null;
-            if (IsGender)
-            {
-                gender = standatrGender;
-            }
+           
             DateTime birthDay = DateTime.Parse(stingBirthDay);
             Type exception = null;
             //arrange
             try
             {
                 //act
-                var person = new Person.Person(name, gender, birthDay, living);
+                var person = new Person.Person(name, standatrGender, birthDay, living);
             }
             catch (Exception ex)
             {
@@ -97,7 +92,7 @@ namespace UnitTestPerson
         {
             //arrange
             ResetStandart();
-            IGender gender = standatrGender;
+            Gender gender = standatrGender;
            
             DateTime birthDay = DateTime.Parse(stingBirthDay);
             
@@ -192,12 +187,17 @@ namespace UnitTestPerson
         [DataRow("Name2", "women", "now-1.now.now-50", "HZ", "Пол women имя Name2 возраст 50")]
         [DataRow("Name3", "men", "now.now.now-50", "HZ", "Пол men имя Name3 возраст 50")]
         [DataRow("Name4", "men", "now+1.now.now-50", "HZ", "Пол men имя Name4 возраст 49")]
-        [DataRow("Name5", "woemen", "now.now+1.now-50", "HZ",  "Пол woemen имя Name5 возраст 49")]
+        [DataRow("Name5", "women", "now.now+1.now-50", "HZ", "Пол women имя Name5 возраст 49")]
         public void TestToString_True(string name, string stingGender, string stingBirthDay, string living, string toSting)
         {
             //arrange
             ResetStandart();
-            IGender gender = new Gender.Gender(stingGender);
+            Gender gender =  Gender.women;
+            if (stingGender== "men")
+            {
+                gender = Gender.men;
+            }
+           
             DateTime birthDay;
             if (stingBirthDay.ToLower().Contains("now"))
             {

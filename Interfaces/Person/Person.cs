@@ -1,4 +1,5 @@
-﻿using Interface.Interfaces;
+﻿using Interface.Interface;
+using Interface.Interfaces;
 using Person.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -13,7 +14,7 @@ namespace Person
         
 
         public string Name { get; set; }
-        public IGender Gender { get; set; }
+        public Gender Gender { get; set; }
         public DateTime BirthDay { get; set; }
         public int Age
         {
@@ -31,16 +32,13 @@ namespace Person
         }
         public string Living { get; set; }
 
-        public Person(string name, IGender gender, DateTime birthDay, string living)
+        public Person(string name, Gender gender, DateTime birthDay, string living)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
                 throw new ArgumentNullException("Имя не должно быть пустым!", nameof(name));
             }
-            if (gender==null)
-            {
-                throw new ArgumentNullException("Гендер не должен быть пустым!", nameof(gender));
-            }
+            
             if (birthDay >DateTime.Now || birthDay<new DateTime(1870,1,1))
             {
                 throw new ArgumentException($"Дата рождения не должна быть больше '{DateTime.Now.ToShortDateString()}' и меньше '01.01.1870'!", nameof(birthDay));
@@ -57,7 +55,7 @@ namespace Person
         }
         public override string ToString()
         {
-            return $"Пол {Gender.NameGender} имя {Name} возраст {Age}";
+            return $"Пол {Gender} имя {Name} возраст {Age}";
         }
         public void ToConsole()
         {

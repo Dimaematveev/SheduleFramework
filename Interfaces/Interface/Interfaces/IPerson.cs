@@ -9,6 +9,16 @@ using System.Threading.Tasks;
 namespace Interface.Interface
 {
     /// <summary>
+    /// Пол человека.
+    /// </summary>
+    public enum Gender:int
+    {
+        /// <value>Мужчина= 1.</value>
+        men = 1,
+        /// <value>Женщина = 2.</value>
+        women = 2
+    };
+    /// <summary>
     /// Интерфейс для людей.
     /// </summary>
     [ReadMetaDataInterface(nameof(IPerson), "Интерфейс для людей.","Начально готов.")]
@@ -19,7 +29,7 @@ namespace Interface.Interface
         string Name { get; set; }
         /// <value>Пол. </value>
         [ReadMetaDataProperty(nameof(Gender), "Пол.")]
-        IGender Gender { get; set; }
+        Gender Gender { get; set; }
         /// <value> Дата рождения. </value>
         [ReadMetaDataProperty(nameof(BirthDay), "Дата рождения.")]
         DateTime BirthDay { get; set; }

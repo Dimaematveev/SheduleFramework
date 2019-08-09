@@ -29,13 +29,11 @@ public static class Информация
             typeof(ISubjectOfTeacher),
             typeof(IPerson),
             typeof(ITimeLessons),
-            typeof(ITypeLessons),
             typeof(INumberOfLesson),
             typeof(ISemester),
             typeof(IDaysOfStudy),
             typeof(IPlanOfLessons),
             typeof(IClassRoom),
-
             typeof(ISubjectTypeLessons),
         };
         s.Add($"Всего {interfaces.Count} интерфейсов.");

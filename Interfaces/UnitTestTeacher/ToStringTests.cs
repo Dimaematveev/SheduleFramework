@@ -15,8 +15,6 @@ namespace UnitTestTeacher
         static string standartCertification;
         static int standartRate;
         static IPerson standatrPerson;
-        static int maxRate = 5;
-        static int minRate = 0;
         private void ResetStandart()
         {
             standartSubjectOfTeachers = new List<ISubjectOfTeacher>
