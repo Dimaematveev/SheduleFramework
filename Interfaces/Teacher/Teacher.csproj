@@ -52,10 +52,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Gender\Gender.csproj">
-      <Project>{317b51a9-5bcd-46be-8027-72efa81d4e8a}</Project>
-      <Name>Gender</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Interface\Interface.csproj">
       <Project>{445C8A35-4EC3-4C8A-A314-92676C9A5023}</Project>
       <Name>Interface</Name>

@@ -58,10 +58,6 @@
       <Project>{a1080797-c4ab-4d13-b82f-f400c37ddd20}</Project>
       <Name>DaysOfStudy</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Gender\Gender.csproj">
-      <Project>{317b51a9-5bcd-46be-8027-72efa81d4e8a}</Project>
-      <Name>Gender</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Group\Group.csproj">
       <Project>{7c39d6f0-eaee-4d17-9e78-4bc4b4ce7ee5}</Project>
       <Name>Group</Name>
@@ -101,10 +97,6 @@
     <ProjectReference Include="..\TimeLessons\TimeLessons.csproj">
       <Project>{ca688e9d-a5a1-4ede-a216-f906886b5a37}</Project>
       <Name>TimeLessons</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\TypeLessons\TypeLessons.csproj">
-      <Project>{68a24bd2-1f1b-42aa-9fe9-25be45357d0c}</Project>
-      <Name>TypeLessons</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
