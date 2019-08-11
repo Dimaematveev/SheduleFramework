@@ -59,7 +59,7 @@ namespace Semester
         /// </summary>
         /// <param name="dayOfWeek">День недели.</param>
         /// <param name="numberOfPairsPerDay">Тип дня(выходной, учебный..)</param>
-        private void AddDayWeek(DayOfWeek dayOfWeek ,HowDays numberOfPairsPerDay)
+        public void AddDayWeek(DayOfWeek dayOfWeek ,HowDays numberOfPairsPerDay)
         {
             for (int i = 0; i < DaysOfStudies.Length; i++)
             {
@@ -76,7 +76,7 @@ namespace Semester
         /// </summary>
         /// <param name="numberOfPairsPerDay">На какой изменить.</param>
         /// <param name="date">День.</param>
-        private void AddDayOne(HowDays numberOfPairsPerDay, DateTime date)
+        public void AddDayOne(HowDays numberOfPairsPerDay, DateTime date)
         {
             DaysOfStudies.First(d => d.Date == date).Study = numberOfPairsPerDay;
         }
@@ -87,7 +87,7 @@ namespace Semester
         /// <param name="numberOfPairsPerDay">На какой изменить.</param>
         /// <param name="dateBegin">Дата начала диапазона.</param>
         /// <param name="dateEnd">Дата окончания диапазона.</param>
-        private void AddDayMany(HowDays numberOfPairsPerDay, DateTime dateBegin, DateTime dateEnd)
+        public void AddDayMany(HowDays numberOfPairsPerDay, DateTime dateBegin, DateTime dateEnd)
         {
             int beginInd = Array.FindIndex(DaysOfStudies, d => d.Date == dateBegin);
             int endInd = Array.FindIndex(DaysOfStudies, d => d.Date == dateEnd);
