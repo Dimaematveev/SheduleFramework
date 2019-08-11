@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="Group.cs" />
     <Compile Include="Interfaces\IGroupWithConsole.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

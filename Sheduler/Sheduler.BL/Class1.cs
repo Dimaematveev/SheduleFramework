@@ -1,17 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using Interface.Interface;
-using Interface.Interfaces;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using FakeItEasy;
+﻿using Interface.Interface;
+using System;
 
 namespace Sheduler.BL
 {
     public class Class1
     {
-        ISemester semester = A.Fake<ISemester>();
-        
+        ISemester semester =new Semester.Semester(new DateTime(2019,09,01), new DateTime(2019, 12, 31));
+
     }
 }

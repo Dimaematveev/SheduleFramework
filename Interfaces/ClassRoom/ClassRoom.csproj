@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="ClassRoom.cs" />
     <Compile Include="Interfaces\IClassRoomWithConsole.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

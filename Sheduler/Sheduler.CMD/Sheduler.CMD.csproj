@@ -4,21 +4,22 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A1080797-C4AB-4D13-B82F-F400C37DDD20}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>DaysOfStudy</RootNamespace>
-    <AssemblyName>DaysOfStudy</AssemblyName>
+    <ProjectGuid>{1BBC3D3A-7B69-483A-919C-2BD9E8246455}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Sheduler.CMD</RootNamespace>
+    <AssemblyName>Sheduler.CMD</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\Debug\</OutputPath>
+    <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -32,10 +33,37 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ClassRoom">
+      <HintPath>..\..\Interfaces\Debug\ClassRoom.dll</HintPath>
+    </Reference>
+    <Reference Include="DaysOfStudy">
+      <HintPath>..\..\Interfaces\Debug\DaysOfStudy.dll</HintPath>
+    </Reference>
+    <Reference Include="Group">
+      <HintPath>..\..\Interfaces\Debug\Group.dll</HintPath>
+    </Reference>
+    <Reference Include="Interface">
+      <HintPath>..\..\Interfaces\Debug\Interface.dll</HintPath>
+    </Reference>
+    <Reference Include="NumberOfLesson">
+      <HintPath>..\..\Interfaces\Debug\NumberOfLesson.dll</HintPath>
+    </Reference>
+    <Reference Include="Person">
+      <HintPath>..\..\Interfaces\Debug\Person.dll</HintPath>
+    </Reference>
+    <Reference Include="PlanOfLessons">
+      <HintPath>..\..\Interfaces\Debug\PlanOfLessons.dll</HintPath>
+    </Reference>
+    <Reference Include="Semester">
+      <HintPath>..\..\Interfaces\Debug\Semester.dll</HintPath>
+    </Reference>
+    <Reference Include="Subject">
+      <HintPath>..\..\Interfaces\Debug\Subject.dll</HintPath>
+    </Reference>
+    <Reference Include="SubjectOfTeacher">
+      <HintPath>..\..\Interfaces\Debug\SubjectOfTeacher.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,20 +72,19 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="Teacher">
+      <HintPath>..\..\Interfaces\Debug\Teacher.dll</HintPath>
+    </Reference>
+    <Reference Include="TimeLessons">
+      <HintPath>..\..\Interfaces\Debug\TimeLessons.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DaysOfStudy.cs" />
-    <Compile Include="Interfaces\IDaysOfStudyWithConsole.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Interface\Interface.csproj">
-      <Project>{445c8a35-4ec3-4c8a-a314-92676c9a5023}</Project>
-      <Name>Interface</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

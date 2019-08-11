@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="Interfaces\INumberOfLessonWithConsole.cs" />
     <Compile Include="NumberOfLesson.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

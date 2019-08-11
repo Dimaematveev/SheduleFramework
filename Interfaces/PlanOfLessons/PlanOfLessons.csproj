@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="Interfaces\IPlanOfLessonsWithConsole.cs" />
     <Compile Include="PlanOfLessons.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

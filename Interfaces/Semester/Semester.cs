@@ -158,7 +158,10 @@ namespace Semester
             if (dateTime.DayOfWeek != cultureDataFormat.FirstDayOfWeek)
             {
                 Console.WriteLine();
-                string sss = new string(' ', 4 * (int)(dateTime.DayOfWeek - 1));
+                int temp = (int)(dateTime.DayOfWeek);
+                temp = temp - 1;
+                temp = temp % 7;
+                string sss = new string(' ', 4 * temp);
                 Console.Write($"{sss}");
             }
 

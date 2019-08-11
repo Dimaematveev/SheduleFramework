@@ -48,7 +48,6 @@
   <ItemGroup>
     <Compile Include="SubjectOfTeacher.cs" />
     <Compile Include="Interfaces\ISubjectOfTeacherWithConsole.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
