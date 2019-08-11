@@ -12,6 +12,6 @@ namespace Sheduler.BL
     public class Class1
     {
         ISemester semester = A.Fake<ISemester>();
-       
+        
     }
 }

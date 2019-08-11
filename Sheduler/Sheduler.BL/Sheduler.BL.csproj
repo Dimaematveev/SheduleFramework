@@ -31,11 +31,38 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ClassRoom">
+      <HintPath>..\..\Interfaces\Debug\ClassRoom.dll</HintPath>
+    </Reference>
+    <Reference Include="DaysOfStudy">
+      <HintPath>..\..\Interfaces\Debug\DaysOfStudy.dll</HintPath>
+    </Reference>
     <Reference Include="FakeItEasy, Version=5.0.0.0, Culture=neutral, PublicKeyToken=eff28e2146d5fd2c, processorArchitecture=MSIL">
       <HintPath>..\packages\FakeItEasy.5.1.1\lib\net45\FakeItEasy.dll</HintPath>
     </Reference>
+    <Reference Include="Group">
+      <HintPath>..\..\Interfaces\Debug\Group.dll</HintPath>
+    </Reference>
     <Reference Include="Interface">
-      <HintPath>..\..\Interfaces\Interface\bin\Debug\Interface.dll</HintPath>
+      <HintPath>..\..\Interfaces\Debug\Interface.dll</HintPath>
+    </Reference>
+    <Reference Include="NumberOfLesson">
+      <HintPath>..\..\Interfaces\Debug\NumberOfLesson.dll</HintPath>
+    </Reference>
+    <Reference Include="Person">
+      <HintPath>..\..\Interfaces\Debug\Person.dll</HintPath>
+    </Reference>
+    <Reference Include="PlanOfLessons">
+      <HintPath>..\..\Interfaces\Debug\PlanOfLessons.dll</HintPath>
+    </Reference>
+    <Reference Include="Semester">
+      <HintPath>..\..\Interfaces\Debug\Semester.dll</HintPath>
+    </Reference>
+    <Reference Include="Subject">
+      <HintPath>..\..\Interfaces\Debug\Subject.dll</HintPath>
+    </Reference>
+    <Reference Include="SubjectOfTeacher">
+      <HintPath>..\..\Interfaces\Debug\SubjectOfTeacher.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,6 +72,12 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
+    <Reference Include="Teacher">
+      <HintPath>..\..\Interfaces\Debug\Teacher.dll</HintPath>
+    </Reference>
+    <Reference Include="TimeLessons">
+      <HintPath>..\..\Interfaces\Debug\TimeLessons.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
