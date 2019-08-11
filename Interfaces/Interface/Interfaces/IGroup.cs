@@ -41,5 +41,12 @@ namespace Interface.Interface
         /// <value> Тип обучения(очка,...). </value>
         [ReadMetaDataProperty(nameof(TypeOfTraining), "Тип обучения(очка,...).")]
         TypeStudy TypeOfTraining { get; set; }
+
+        /// <summary>
+        /// Добавление студентов в группу(одного).
+        /// </summary>
+        /// <param name="student">Студент.</param>
+        [ReadMetaDataMethod(nameof(AddStudent), "Метод для добавления студентов в группу(одного).")]
+        void AddStudent(int numberOfStutents);
     }
 }

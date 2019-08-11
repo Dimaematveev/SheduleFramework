@@ -72,7 +72,7 @@ namespace Semester
         }
 
         /// <summary>
-        /// Изменить один день.
+        /// У указанного дня устанавливает тип дня.
         /// </summary>
         /// <param name="numberOfPairsPerDay">На какой изменить.</param>
         /// <param name="date">День.</param>
