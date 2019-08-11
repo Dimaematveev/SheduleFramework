@@ -16,8 +16,8 @@ namespace UnitTestSemester
         static int standatrCountDaysOfStudies;
         private void ResetStandart()
         {
-            standatrBeginSemestr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 7);
-            standatrEndSemestr = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 8);
+            standatrBeginSemestr = DateTime.Now;
+            standatrEndSemestr = DateTime.Now.AddDays(1);
             standatrCountDaysOfStudies = 2;
         }
         /// <summary>
@@ -38,14 +38,14 @@ namespace UnitTestSemester
 
 
         /// <summary>
-        /// Проверка что стандартные параметры делаю конструктор без исключения.
+        /// Сделать воскресенье выходным.
         /// </summary>
         [TestMethod]
-        public void TestStandartValue1()
+        public void TestAddDayWeek_SundayToDayOff()
         {
-
+            ResetStandart();
             //arrange
-            
+
             IDaysOfStudy[] var = new IDaysOfStudy[100];
             for (int i = 0; i < 100; i++)
             {
@@ -54,7 +54,8 @@ namespace UnitTestSemester
                 te.Study = HowDays.WorkingDay;
                 var[i] = te;
             }
-            var semester = new Semester.Semester(DateTime.Now.AddDays(0), DateTime.Now.AddDays(1));
+            
+            var semester = new Semester.Semester(standatrBeginSemestr, standatrEndSemestr);
             semester.DaysOfStudies = var;
             //act
             semester.AddDayWeek(DayOfWeek.Sunday, HowDays.DayOff);
@@ -62,6 +63,45 @@ namespace UnitTestSemester
             foreach (var item in semester.DaysOfStudies)
             {
                 if (item.Date.DayOfWeek== DayOfWeek.Sunday)
+                {
+                    Assert.AreEqual(HowDays.DayOff, item.Study);
+                }
+                else
+                {
+                    Assert.AreEqual(HowDays.WorkingDay, item.Study);
+                }
+            }
+        }
+        /// <summary>
+        /// Сделать с понедельника по пятницу рабочими выходным.
+        /// </summary>
+        [TestMethod]
+        public void TestAddDayWeek_MonToFriToWorkingDay()
+        {
+            ResetStandart();
+            //arrange
+
+            IDaysOfStudy[] var = new IDaysOfStudy[100];
+            for (int i = 0; i < 100; i++)
+            {
+                var te = A.Fake<IDaysOfStudy>();
+                te.Date = DateTime.Now.AddDays(i);
+                te.Study = HowDays.DayOff;
+                var[i] = te;
+            }
+
+            var semester = new Semester.Semester(standatrBeginSemestr, standatrEndSemestr);
+            semester.DaysOfStudies = var;
+            //act
+            semester.AddDayWeek(DayOfWeek.Monday, HowDays.WorkingDay);
+            semester.AddDayWeek(DayOfWeek.Tuesday, HowDays.WorkingDay);
+            semester.AddDayWeek(DayOfWeek.Wednesday, HowDays.WorkingDay);
+            semester.AddDayWeek(DayOfWeek.Thursday, HowDays.WorkingDay);
+            semester.AddDayWeek(DayOfWeek.Friday, HowDays.WorkingDay);
+            //assert
+            foreach (var item in semester.DaysOfStudies)
+            {
+                if (item.Date.DayOfWeek == DayOfWeek.Sunday || item.Date.DayOfWeek == DayOfWeek.Saturday)
                 {
                     Assert.AreEqual(HowDays.DayOff, item.Study);
                 }

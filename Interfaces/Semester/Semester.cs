@@ -43,8 +43,8 @@ namespace Semester
             {
                 throw new ArgumentException($"Семестр не должен быть больше 180 дней! А сейчас {(endSemestr - beginSemestr).Days}!", nameof(endSemestr)+"-"+nameof(beginSemestr));
             }
-            BeginSemestr = beginSemestr;
-            EndSemestr = endSemestr;
+            BeginSemestr = beginSemestr.Date;
+            EndSemestr = endSemestr.Date;
             var  tempDaysOfStudies = new List<IDaysOfStudy>();
             for (var i = BeginSemestr; i <= EndSemestr; i=i.AddDays(1))
             {
@@ -78,7 +78,7 @@ namespace Semester
         /// <param name="date">День.</param>
         public void AddDayOne(HowDays numberOfPairsPerDay, DateTime date)
         {
-            DaysOfStudies.First(d => d.Date == date).Study = numberOfPairsPerDay;
+            DaysOfStudies.First(d => d.Date.Date == date.Date).Study = numberOfPairsPerDay;
         }
 
         /// <summary>
@@ -89,8 +89,8 @@ namespace Semester
         /// <param name="dateEnd">Дата окончания диапазона.</param>
         public void AddDayMany(HowDays numberOfPairsPerDay, DateTime dateBegin, DateTime dateEnd)
         {
-            int beginInd = Array.FindIndex(DaysOfStudies, d => d.Date == dateBegin);
-            int endInd = Array.FindIndex(DaysOfStudies, d => d.Date == dateEnd);
+            int beginInd = Array.FindIndex(DaysOfStudies, d => d.Date.Date == dateBegin.Date);
+            int endInd = Array.FindIndex(DaysOfStudies, d => d.Date.Date == dateEnd.Date);
             for (int i = beginInd; i <= endInd; i++)
             {
                 DaysOfStudies[i].Study = numberOfPairsPerDay;
