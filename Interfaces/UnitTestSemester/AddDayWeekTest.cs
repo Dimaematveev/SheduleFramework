@@ -16,8 +16,8 @@ namespace UnitTestSemester
         static int standatrCountDaysOfStudies;
         private void ResetStandart()
         {
-            standatrBeginSemestr = DateTime.Now;
-            standatrEndSemestr = DateTime.Now.AddDays(1);
+            standatrBeginSemestr = DateTime.Now.Date;
+            standatrEndSemestr = DateTime.Now.AddDays(1).Date;
             standatrCountDaysOfStudies = 2;
         }
         /// <summary>

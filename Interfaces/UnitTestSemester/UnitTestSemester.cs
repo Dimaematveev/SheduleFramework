@@ -48,14 +48,5 @@ namespace UnitTestSemester
                 Assert.AreEqual(standatrDaysOfStudies[i].Study, semester.DaysOfStudies[i].Study, $"i={i}");
             }
         }
-
-        /// <summary>
-        /// не сделаны тесты.
-        /// </summary> 
-        [TestMethod]
-        public void False()
-        {
-            Assert.Fail();
-        }
     }
 }

@@ -46,7 +46,7 @@ namespace UnitTestSemester
         [DataRow(100, 0)]
         [DataRow(100, 99)]
         [DataRow(100, 70)]
-        public void TestAddDayMany_OneToDayOff(int allDays, int day)
+        public void TestAddDayOne_OneToDayOff(int allDays, int day)
         {
             ResetStandart();
             //arrange
@@ -93,7 +93,7 @@ namespace UnitTestSemester
         [DataRow(100, 0)]
         [DataRow(100, 99)]
         [DataRow(100, 70)]
-        public void TestAddDayMany_OneToWorkingDay(int allDays, int day)
+        public void TestAddDayOne_OneToWorkingDay(int allDays, int day)
         {
             ResetStandart();
             //arrange
