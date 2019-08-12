@@ -1,5 +1,6 @@
 ﻿using Interface.Interface;
 using Interface.Interfaces;
+using Sheduler.BL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,8 +23,16 @@ namespace Sheduler.CMD
 
             //Предмет
             Console.WriteLine("\n Предмет нач!");
-            ISubject subject = new Subject.Subject("Математический анализ");
-            ((IConsole)subject).ToConsole();
+            List<ISubject> subjects = new List<ISubject>
+            {
+                new Subject.Subject("Математический анализ"),
+                new Subject.Subject("Программирование"),
+            };
+            foreach (var subject in subjects)
+            {
+                ((IConsole)subject).ToConsole();
+            }
+            
             Console.WriteLine(" Предмет окон!\n");
 
             //Аудитории
@@ -36,9 +45,9 @@ namespace Sheduler.CMD
                 new ClassRoom.ClassRoom("Аудитория №4",23),
                 new ClassRoom.ClassRoom("Аудитория №5",45)
             };
-            foreach (var item in classRooms)
+            foreach (var classRoom in classRooms)
             {
-                ((IConsole)item).ToConsole();
+                ((IConsole)classRoom).ToConsole();
             }
             Console.WriteLine(" Аудитория окон!\n");
 
@@ -57,9 +66,9 @@ namespace Sheduler.CMD
                 new Group.Group("KB-3",3,"KB", TypeStudy.FullTimeEducation,16),
                 new Group.Group("KB-4",4,"KB", TypeStudy.FullTimeEducation,17),
             };
-            foreach (var item in groups)
+            foreach (var group in groups)
             {
-                ((IConsole)item).ToConsole();
+                ((IConsole)group).ToConsole();
             }
             
             Console.WriteLine("Группа окон!\n");
@@ -67,30 +76,45 @@ namespace Sheduler.CMD
             //План занятий
             Console.WriteLine("\n План занятий нач!");
             List<IPlanOfLessons> planOfLessons = new List<IPlanOfLessons>();
-            foreach (var item in groups)
+            foreach (var group in groups)
             {
-                List<INumberOfLesson> numberOfLessons = new List<INumberOfLesson>
+                List<INumberOfLesson> numberOfLessons = new List<INumberOfLesson>();
+                foreach (var subject in subjects)
                 {
-                    new NumberOfLesson.NumberOfLesson(subject,95)
+                    numberOfLessons.Add(new NumberOfLesson.NumberOfLesson(subject, 95));
                 };
-                planOfLessons.Add( new PlanOfLessons.PlanOfLessons(item, numberOfLessons));
+                planOfLessons.Add( new PlanOfLessons.PlanOfLessons(group, numberOfLessons));
             }
-            foreach (var item in planOfLessons)
+            foreach (var planOfLesson in planOfLessons)
             {
-                ((IConsole)item).ToConsole();
+                ((IConsole)planOfLesson).ToConsole();
             }
             Console.WriteLine(" План занятий окон!\n");
 
             //Преподаватель
             Console.WriteLine("\n Преподаватель нач!");
-            List<ISubjectOfTeacher> subjectOfTeachers = new List<ISubjectOfTeacher>
-            {
-                new SubjectOfTeacher.SubjectOfTeacher(subject,100)
-            };
-            IPerson person = new Person.Person("Добронравов Андрей Геориевич", Gender.men, new DateTime(1982, 01, 01), "None");
+            List<ITeacher> teachers = new List<ITeacher>();
 
-            ITeacher teacher = new Teacher.Teacher(subjectOfTeachers,"none",1, person);
-            ((IConsole)teacher).ToConsole();
+            List<IPerson> persons = new List<IPerson>
+            {
+                new Person.Person("Добронравов Андрей Геориевич", Gender.men, new DateTime(1982, 01, 01), "None"),
+                new Person.Person("Казимов Олег Дмитриевич", Gender.men, new DateTime(1972, 12, 19), "None")
+            };
+            foreach (var person in persons)
+            {
+                List<ISubjectOfTeacher> subjectOfTeachers = new List<ISubjectOfTeacher>();
+                foreach (var subject in subjects)
+                {
+                    subjectOfTeachers.Add(new SubjectOfTeacher.SubjectOfTeacher(subject, 100));
+                };
+                teachers.Add(new Teacher.Teacher(subjectOfTeachers, "none", 1, person));
+            }
+            
+            foreach (var teacher in teachers)
+            {
+                ((IConsole)teacher).ToConsole();
+            }
+            
             Console.WriteLine("Преподаватель окон!\n");
 
             //Время занятий
@@ -104,13 +128,19 @@ namespace Sheduler.CMD
                 new TimeLessons.TimeLessons(new TimeSpan(16,20,00),new TimeSpan(17,50,00),5),
                 new TimeLessons.TimeLessons(new TimeSpan(18,00,00),new TimeSpan(19,30,00),6)
             };
-            foreach (var item in timeLessons)
+            foreach (var timeLesson in timeLessons)
             {
-                ((IConsole)item).ToConsole();
+                ((IConsole)timeLesson).ToConsole();
             }
             Console.WriteLine("Время занятий окон!\n");
 
 
+
+
+
+
+            Version1 version1 = new Version1(semester, groups, classRooms, planOfLessons, teachers, timeLessons);
+            version1.Free();
             Console.WriteLine(" Конец!");
             Console.ReadLine();
         }
