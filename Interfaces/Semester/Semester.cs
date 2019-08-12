@@ -159,7 +159,7 @@ namespace Semester
             {
                 Console.WriteLine();
                 int temp = (int)(dateTime.DayOfWeek);
-                temp = temp - 1;
+                temp = temp + 7 - 1;
                 temp = temp % 7;
                 string sss = new string(' ', 4 * temp);
                 Console.Write($"{sss}");

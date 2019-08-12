@@ -90,7 +90,7 @@ namespace Group
         /// </summary>
         public override string ToString()
         {
-            return Seminar;
+            return NameGroup;
         }
 
         /// <summary>

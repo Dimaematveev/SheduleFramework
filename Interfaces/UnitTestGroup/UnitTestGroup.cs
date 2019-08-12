@@ -223,9 +223,9 @@ namespace UnitTestGroup
         /// <param name="typeStudy">Тип обучения.</param>
         /// <param name="toString">Что должно получиться.</param>
         [DataTestMethod]
-        [DataRow("group1", 1, "sem", Interface.Interface.TypeStudy.EveningClass, "sem")]
-        [DataRow("group1", 2, "sem", Interface.Interface.TypeStudy.FullTimeEducation, "sem")]
-        [DataRow("2", 5, "TB/d", Interface.Interface.TypeStudy.ExtraMuralStudies, "TB/d")]
+        [DataRow("group1", 1, "sem", Interface.Interface.TypeStudy.EveningClass, "group1")]
+        [DataRow("group1", 2, "sem", Interface.Interface.TypeStudy.FullTimeEducation, "group1")]
+        [DataRow("2", 5, "TB/d", Interface.Interface.TypeStudy.ExtraMuralStudies, "2")]
         public void TestToString(string name, int cours, string seminar, Interface.Interface.TypeStudy typeStudy,string toString)
         {
 
