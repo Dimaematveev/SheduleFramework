@@ -66,7 +66,7 @@ namespace Sheduler.BL
                     List<Lesson> tempLessons = new List<Lesson>();
                     foreach (var timeLesson in timeLessons)
                     {
-                        tempLessons.Add(new Lesson(timeLesson.NumberLessons,null));
+                        tempLessons.Add(new Lesson(timeLesson.NumberLessons, null));
                     }
                     free.Add(new Free(dayOfStudies.Date.Date, tempLessons));
                 }
@@ -86,9 +86,9 @@ namespace Sheduler.BL
             }
         }
 
-       /// <summary>
-       /// когда свободен преподаватель.
-       /// </summary>
+        /// <summary>
+        /// когда свободен преподаватель.
+        /// </summary>
         public void FreeTeacher()
         {
             freeTeachers = new List<FreeTeacher>();
@@ -118,7 +118,11 @@ namespace Sheduler.BL
         // 1) Создать на каждый день свободные часы
         // 2) Каждому преподавателю поставить свободные часы
         // 3) 
-
+        public void Distribution()
+        {
+            //1) Преподаватель выбирается на весь семестр на один предмет
+            //2) 
+        }
     }
     /// <summary>
     /// О паре кто ведет, какая группа и какой предмет
