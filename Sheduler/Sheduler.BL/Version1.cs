@@ -8,6 +8,7 @@ namespace Sheduler.BL
     {
         List<FreeClassRoom> freeClassrooms;
         List<FreeTeacher> freeTeachers;
+        List<FreeGroup> freeGroups;
 
 
         ISemester semester;
@@ -31,7 +32,10 @@ namespace Sheduler.BL
             this.teachers = teachers ?? throw new ArgumentNullException(nameof(teachers));
             this.timeLessons = timeLessons ?? throw new ArgumentNullException(nameof(timeLessons));
         }
-
+        /// <summary>
+        /// День и список пар когда свободно.
+        /// </summary>
+        /// <returns></returns>
         public List<Free> Free()
         {
             List<Free> free = new List<Free>();
@@ -39,17 +43,20 @@ namespace Sheduler.BL
             {
                 if (dayOfStudies.Study == HowDays.WorkingDay)
                 {
-                    List<int> tempNumbersLessons = new List<int>();
+                    List<Lesson> tempLessons = new List<Lesson>();
                     foreach (var timeLesson in timeLessons)
                     {
-                        tempNumbersLessons.Add(timeLesson.NumberLessons);
+                        tempLessons.Add(new Lesson(timeLesson.NumberLessons,null));
                     }
-                    free.Add(new Free(dayOfStudies.Date.Date, tempNumbersLessons));
+                    free.Add(new Free(dayOfStudies.Date.Date, tempLessons));
                 }
             }
             return free;
         }
 
+        /// <summary>
+        /// Когда свободна аудитория
+        /// </summary>
         public void FreeClassRoom()
         {
             freeClassrooms = new List<FreeClassRoom>();
@@ -58,6 +65,10 @@ namespace Sheduler.BL
                 freeClassrooms.Add(new FreeClassRoom(Free(), classRoom));
             }
         }
+
+       /// <summary>
+       /// когда свободен преподаватель.
+       /// </summary>
         public void FreeTeacher()
         {
             freeTeachers = new List<FreeTeacher>();
@@ -66,10 +77,22 @@ namespace Sheduler.BL
                 freeTeachers.Add(new FreeTeacher(Free(), teacher));
             }
         }
+        /// <summary>
+        /// когда свободна группа.
+        /// </summary>
+        public void FreeGroup()
+        {
+            freeGroups = new List<FreeGroup>();
+            foreach (var group in groups)
+            {
+                freeGroups.Add(new FreeGroup(Free(), group));
+            }
+        }
         public void SetFree()
         {
             FreeClassRoom();
             FreeTeacher();
+            FreeGroup();
         }
         //Что можно сделать
         // 1) Создать на каждый день свободные часы
@@ -77,16 +100,45 @@ namespace Sheduler.BL
         // 3) 
 
     }
+    /// <summary>
+    /// О паре кто ведет, какая группа и какой предмет
+    /// </summary>
+    public class InfoLesson
+    {
+        ITeacher teacher;
+        ISubject subject;
+        IGroup group;
 
+        public InfoLesson(ITeacher teacher, ISubject subject, IGroup group)
+        {
+            this.teacher = teacher ?? throw new ArgumentNullException(nameof(teacher));
+            this.subject = subject ?? throw new ArgumentNullException(nameof(subject));
+            this.group = group ?? throw new ArgumentNullException(nameof(group));
+        }
+    }
+    /// <summary>
+    /// Есть ли пара на этот номер пары
+    /// </summary>
+    public class Lesson
+    {
+        public int numberLesson;
+        public InfoLesson infoLesson;
+
+        public Lesson(int numberLesson, InfoLesson infoLesson)
+        {
+            this.numberLesson = numberLesson;
+            this.infoLesson = infoLesson;
+        }
+    }
     public class Free
     {
         public DateTime dateTime;
-        public List<int> numberLessons;
+        public List<Lesson> Lessons;
 
-        public Free(DateTime dateTime, List<int> numberLessons)
+        public Free(DateTime dateTime, List<Lesson> Lessons)
         {
             this.dateTime = dateTime;
-            this.numberLessons = numberLessons ?? throw new ArgumentNullException(nameof(numberLessons));
+            this.Lessons = Lessons ?? throw new ArgumentNullException(nameof(Lessons));
         }
     }
     public class FreeClassRoom
@@ -109,6 +161,17 @@ namespace Sheduler.BL
         {
             this.free = free ?? throw new ArgumentNullException(nameof(free));
             this.teacher = teacher ?? throw new ArgumentNullException(nameof(teacher));
+        }
+    }
+    public class FreeGroup
+    {
+        public List<Free> free;
+        public IGroup group;
+
+        public FreeGroup(List<Free> free, IGroup group)
+        {
+            this.free = free ?? throw new ArgumentNullException(nameof(free));
+            this.group = group ?? throw new ArgumentNullException(nameof(group));
         }
     }
 }
