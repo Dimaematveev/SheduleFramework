@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sheduler.BL", "Sheduler.BL\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sheduler.CMD", "Sheduler.CMD\Sheduler.CMD.csproj", "{1BBC3D3A-7B69-483A-919C-2BD9E8246455}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sheduler.BLTests", "Sheduler.BLTests\Sheduler.BLTests.csproj", "{D6E8C93A-60BD-46EB-8B9B-9318888576A2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1BBC3D3A-7B69-483A-919C-2BD9E8246455}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BBC3D3A-7B69-483A-919C-2BD9E8246455}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BBC3D3A-7B69-483A-919C-2BD9E8246455}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6E8C93A-60BD-46EB-8B9B-9318888576A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6E8C93A-60BD-46EB-8B9B-9318888576A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6E8C93A-60BD-46EB-8B9B-9318888576A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6E8C93A-60BD-46EB-8B9B-9318888576A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
