@@ -9,30 +9,41 @@ namespace Sheduler.BL.Tests
     [TestClass()]
     public class ConstructorTests
     {
-        [TestMethod()]
-        public void ConstructorTest_CallConstructorNotException()
+        static ISemester semester;
+        static List<IGroup> groups;
+        static List<IClassRoom> classRooms;
+        static List<IPlanOfLessons> planOfLessons;
+        static List<ITeacher> teachers;
+        static List<ITimeLessons> timeLessons;
+
+        public void Reset()
         {
-            ISemester semester = A.Fake<ISemester>();
-            List<IGroup> groups = new List<IGroup>
+            semester = A.Fake<ISemester>();
+            groups = new List<IGroup>
             {
                 A.Fake<IGroup>()
             };
-            List<IClassRoom> classRooms = new List<IClassRoom>
+           classRooms = new List<IClassRoom>
             {
                 A.Fake<IClassRoom>()
             };
-            List<IPlanOfLessons> planOfLessons = new List<IPlanOfLessons>
+           planOfLessons = new List<IPlanOfLessons>
             {
                 A.Fake<IPlanOfLessons>()
             };
-            List<ITeacher> teachers = new List<ITeacher>
+           teachers = new List<ITeacher>
             {
                 A.Fake<ITeacher>()
             };
-            List<ITimeLessons> timeLessons = new List<ITimeLessons>
+           timeLessons = new List<ITimeLessons>
             {
                 A.Fake<ITimeLessons>()
             };
+        }
+        [TestMethod()]
+        public void ConstructorTest_CallConstructorNotException()
+        {
+            Reset();
 
             Version1 version1 = new Version1(semester, groups, classRooms, planOfLessons, teachers, timeLessons);
 
@@ -48,28 +59,9 @@ namespace Sheduler.BL.Tests
         [TestMethod()]
         public void ConstructorTest_SemesterToNULL_CallArgumentNullException()
         {
-            ISemester semester =null;
-            List<IGroup> groups = new List<IGroup>
-            {
-                A.Fake<IGroup>()
-            };
-            List<IClassRoom> classRooms = new List<IClassRoom>
-            {
-                A.Fake<IClassRoom>()
-            };
-            List<IPlanOfLessons> planOfLessons = new List<IPlanOfLessons>
-            {
-                A.Fake<IPlanOfLessons>()
-            };
-            List<ITeacher> teachers = new List<ITeacher>
-            {
-                A.Fake<ITeacher>()
-            };
-            List<ITimeLessons> timeLessons = new List<ITimeLessons>
-            {
-                A.Fake<ITimeLessons>()
-            };
-
+            Reset();
+            semester =null;
+           
 
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
@@ -84,25 +76,10 @@ namespace Sheduler.BL.Tests
         [TestMethod()]
         public void ConstructorTest_GroupsToNULL_CallArgumentNullException()
         {
-            ISemester semester = A.Fake<ISemester>();
-            List<IGroup> groups = null;
-            List<IClassRoom> classRooms = new List<IClassRoom>
-            {
-                A.Fake<IClassRoom>()
-            };
-            List<IPlanOfLessons> planOfLessons = new List<IPlanOfLessons>
-            {
-                A.Fake<IPlanOfLessons>()
-            };
-            List<ITeacher> teachers = new List<ITeacher>
-            {
-                A.Fake<ITeacher>()
-            };
-            List<ITimeLessons> timeLessons = new List<ITimeLessons>
-            {
-                A.Fake<ITimeLessons>()
-            };
-
+            Reset();
+         
+            groups = null;
+           
 
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
@@ -117,25 +94,9 @@ namespace Sheduler.BL.Tests
         [TestMethod()]
         public void ConstructorTest_GroupsIsEmpty_CallArgumentNullException()
         {
-            ISemester semester = A.Fake<ISemester>();
-            List<IGroup> groups = new List<IGroup>();
-            List<IClassRoom> classRooms = new List<IClassRoom>
-            {
-                A.Fake<IClassRoom>()
-            };
-            List<IPlanOfLessons> planOfLessons = new List<IPlanOfLessons>
-            {
-                A.Fake<IPlanOfLessons>()
-            };
-            List<ITeacher> teachers = new List<ITeacher>
-            {
-                A.Fake<ITeacher>()
-            };
-            List<ITimeLessons> timeLessons = new List<ITimeLessons>
-            {
-                A.Fake<ITimeLessons>()
-            };
-
+            Reset();
+            groups = new List<IGroup>();
+            
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
                 return new Version1(semester,
@@ -149,24 +110,10 @@ namespace Sheduler.BL.Tests
         [TestMethod()]
         public void ConstructorTest_ClassRoomsToNULL_CallArgumentNullException()
         {
-            ISemester semester = A.Fake<ISemester>();
-            List<IGroup> groups = new List<IGroup>
-            {
-                A.Fake<IGroup>()
-            };
-            List<IClassRoom> classRooms = null;
-            List<IPlanOfLessons> planOfLessons = new List<IPlanOfLessons>
-            {
-                A.Fake<IPlanOfLessons>()
-            };
-            List<ITeacher> teachers = new List<ITeacher>
-            {
-                A.Fake<ITeacher>()
-            };
-            List<ITimeLessons> timeLessons = new List<ITimeLessons>
-            {
-                A.Fake<ITimeLessons>()
-            };
+            Reset();
+           
+            classRooms = null;
+           
 
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
@@ -181,25 +128,10 @@ namespace Sheduler.BL.Tests
         [TestMethod()]
         public void ConstructorTest_ClassRoomsIsEmpty_CallArgumentNullException()
         {
-            ISemester semester = A.Fake<ISemester>();
-            List<IGroup> groups = new List<IGroup>
-            {
-                A.Fake<IGroup>()
-            };
-            List<IClassRoom> classRooms = new List<IClassRoom>();
-            List<IPlanOfLessons> planOfLessons = new List<IPlanOfLessons>
-            {
-                A.Fake<IPlanOfLessons>()
-            };
-            List<ITeacher> teachers = new List<ITeacher>
-            {
-                A.Fake<ITeacher>()
-            };
-            List<ITimeLessons> timeLessons = new List<ITimeLessons>
-            {
-                A.Fake<ITimeLessons>()
-            };
-
+            Reset();
+           
+            classRooms = new List<IClassRoom>();
+            
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
                 return new Version1(semester,
@@ -213,24 +145,9 @@ namespace Sheduler.BL.Tests
         [TestMethod()]
         public void ConstructorTest_PlanOfLessonsToNULL_CallArgumentNullException()
         {
-            ISemester semester = A.Fake<ISemester>();
-            List<IGroup> groups = new List<IGroup>
-            {
-                A.Fake<IGroup>()
-            };
-            List<IClassRoom> classRooms = new List<IClassRoom>
-            {
-                A.Fake<IClassRoom>()
-            };
-            List<IPlanOfLessons> planOfLessons = null;
-            List<ITeacher> teachers = new List<ITeacher>
-            {
-                A.Fake<ITeacher>()
-            };
-            List<ITimeLessons> timeLessons = new List<ITimeLessons>
-            {
-                A.Fake<ITimeLessons>()
-            };
+            Reset();
+            planOfLessons = null;
+           
 
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
@@ -245,24 +162,9 @@ namespace Sheduler.BL.Tests
         [TestMethod()]
         public void ConstructorTest_PlanOfLessonsIsEmpty_CallArgumentNullException()
         {
-            ISemester semester = A.Fake<ISemester>();
-            List<IGroup> groups = new List<IGroup>
-            {
-                A.Fake<IGroup>()
-            };
-            List<IClassRoom> classRooms = new List<IClassRoom>
-            {
-                A.Fake<IClassRoom>()
-            };
-            List<IPlanOfLessons> planOfLessons = new List<IPlanOfLessons>();
-            List<ITeacher> teachers = new List<ITeacher>
-            {
-                A.Fake<ITeacher>()
-            };
-            List<ITimeLessons> timeLessons = new List<ITimeLessons>
-            {
-                A.Fake<ITimeLessons>()
-            };
+            Reset();
+            planOfLessons = new List<IPlanOfLessons>();
+           
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
                 return new Version1(semester,
@@ -276,24 +178,9 @@ namespace Sheduler.BL.Tests
         [TestMethod()]
         public void ConstructorTest_TeachersToNULL_CallArgumentNullException()
         {
-            ISemester semester = A.Fake<ISemester>();
-            List<IGroup> groups = new List<IGroup>
-            {
-                A.Fake<IGroup>()
-            };
-            List<IClassRoom> classRooms = new List<IClassRoom>
-            {
-                A.Fake<IClassRoom>()
-            };
-            List<IPlanOfLessons> planOfLessons = new List<IPlanOfLessons>
-            {
-                A.Fake<IPlanOfLessons>()
-            };
-            List<ITeacher> teachers = null;
-            List<ITimeLessons> timeLessons = new List<ITimeLessons>
-            {
-                A.Fake<ITimeLessons>()
-            };
+            Reset();
+            teachers = null;
+           
 
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
@@ -309,24 +196,9 @@ namespace Sheduler.BL.Tests
         public void ConstructorTest_TeachersIsEmpty_CallArgumentNullException()
         {
 
-            ISemester semester = A.Fake<ISemester>();
-            List<IGroup> groups = new List<IGroup>
-            {
-                A.Fake<IGroup>()
-            };
-            List<IClassRoom> classRooms = new List<IClassRoom>
-            {
-                A.Fake<IClassRoom>()
-            };
-            List<IPlanOfLessons> planOfLessons = new List<IPlanOfLessons>
-            {
-                A.Fake<IPlanOfLessons>()
-            };
-            List<ITeacher> teachers = new List<ITeacher>();
-            List<ITimeLessons> timeLessons = new List<ITimeLessons>
-            {
-                A.Fake<ITimeLessons>()
-            };
+            Reset();
+            teachers = new List<ITeacher>();
+           
 
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
@@ -341,24 +213,8 @@ namespace Sheduler.BL.Tests
         [TestMethod()]
         public void ConstructorTest_TimeLessonsToNULL_CallArgumentNullException()
         {
-            ISemester semester = A.Fake<ISemester>();
-            List<IGroup> groups = new List<IGroup>
-            {
-                A.Fake<IGroup>()
-            };
-            List<IClassRoom> classRooms = new List<IClassRoom>
-            {
-                A.Fake<IClassRoom>()
-            };
-            List<IPlanOfLessons> planOfLessons = new List<IPlanOfLessons>
-            {
-                A.Fake<IPlanOfLessons>()
-            };
-            List<ITeacher> teachers = new List<ITeacher>
-            {
-                A.Fake<ITeacher>()
-            };
-            List<ITimeLessons> timeLessons = null;
+            Reset();
+            timeLessons = null;
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
                 return new Version1(semester,
@@ -373,24 +229,8 @@ namespace Sheduler.BL.Tests
         public void ConstructorTest_TimeLessonsIsEmpty_CallArgumentNullException()
         {
 
-            ISemester semester = A.Fake<ISemester>();
-            List<IGroup> groups = new List<IGroup>
-            {
-                A.Fake<IGroup>()
-            };
-            List<IClassRoom> classRooms = new List<IClassRoom>
-            {
-                A.Fake<IClassRoom>()
-            };
-            List<IPlanOfLessons> planOfLessons = new List<IPlanOfLessons>
-            {
-                A.Fake<IPlanOfLessons>()
-            };
-            List<ITeacher> teachers = new List<ITeacher>
-            {
-                A.Fake<ITeacher>()
-            };
-            List<ITimeLessons> timeLessons = new List<ITimeLessons>();
+            Reset();
+            timeLessons = new List<ITimeLessons>();
             Assert.ThrowsException<ArgumentNullException>(() =>
             {
                 return new Version1(semester,
