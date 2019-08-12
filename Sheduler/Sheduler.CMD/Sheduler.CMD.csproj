@@ -43,7 +43,8 @@
     <Reference Include="Group">
       <HintPath>..\..\Interfaces\Debug\Group.dll</HintPath>
     </Reference>
-    <Reference Include="Interface">
+    <Reference Include="Interface, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Interfaces\Debug\Interface.dll</HintPath>
     </Reference>
     <Reference Include="NumberOfLesson">
