@@ -6,17 +6,17 @@ namespace Sheduler.BL
 {
     public class Version1
     {
-        List<FreeClassRoom> freeClassrooms;
-        List<FreeTeacher> freeTeachers;
-        List<FreeGroup> freeGroups;
+        public List<FreeClassRoom> freeClassrooms;
+        public List<FreeTeacher> freeTeachers;
+        public List<FreeGroup> freeGroups;
 
 
-        ISemester semester;
-        List<IGroup> groups;
-        List<IClassRoom> classRooms;
-        List<IPlanOfLessons> planOfLessons;
-        List<ITeacher> teachers;
-        List<ITimeLessons> timeLessons;
+        public ISemester semester;
+        public List<IGroup> groups;
+        public List<IClassRoom> classRooms;
+        public List<IPlanOfLessons> planOfLessons;
+        public List<ITeacher> teachers;
+        public List<ITimeLessons> timeLessons;
 
         public Version1(ISemester semester,
                       List<IGroup> groups,
@@ -26,11 +26,31 @@ namespace Sheduler.BL
                       List<ITimeLessons> timeLessons)
         {
             this.semester = semester ?? throw new ArgumentNullException(nameof(semester));
-            this.groups = groups ?? throw new ArgumentNullException(nameof(groups));
-            this.classRooms = classRooms ?? throw new ArgumentNullException(nameof(classRooms));
-            this.planOfLessons = planOfLessons ?? throw new ArgumentNullException(nameof(planOfLessons));
-            this.teachers = teachers ?? throw new ArgumentNullException(nameof(teachers));
-            this.timeLessons = timeLessons ?? throw new ArgumentNullException(nameof(timeLessons));
+            if (groups == null || groups.Count == 0)
+            {
+                throw new ArgumentNullException(nameof(groups));
+            }
+            if (classRooms == null || classRooms.Count == 0)
+            {
+                throw new ArgumentNullException(nameof(classRooms));
+            }
+            if (planOfLessons == null || planOfLessons.Count == 0)
+            {
+                throw new ArgumentNullException(nameof(planOfLessons));
+            }
+            if (teachers == null || teachers.Count == 0)
+            {
+                throw new ArgumentNullException(nameof(teachers));
+            }
+            if (timeLessons == null || timeLessons.Count == 0)
+            {
+                throw new ArgumentNullException(nameof(timeLessons));
+            }
+            this.groups = groups;
+            this.classRooms = classRooms;
+            this.planOfLessons = planOfLessons;
+            this.teachers = teachers;
+            this.timeLessons = timeLessons;
         }
         /// <summary>
         /// День и список пар когда свободно.
