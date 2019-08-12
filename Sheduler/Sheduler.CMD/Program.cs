@@ -140,7 +140,7 @@ namespace Sheduler.CMD
 
 
             Version1 version1 = new Version1(semester, groups, classRooms, planOfLessons, teachers, timeLessons);
-            version1.Free();
+            version1.SetFree();
             Console.WriteLine(" Конец!");
             Console.ReadLine();
         }

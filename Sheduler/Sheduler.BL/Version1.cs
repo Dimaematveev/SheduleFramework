@@ -6,8 +6,9 @@ namespace Sheduler.BL
 {
     public class Version1
     {
-        List<DateTime> dateTime;
-        List<List<int>> numbersLessons;
+        List<FreeClassRoom> freeClassrooms;
+        List<FreeTeacher> freeTeachers;
+
 
         ISemester semester;
         List<IGroup> groups;
@@ -31,28 +32,83 @@ namespace Sheduler.BL
             this.timeLessons = timeLessons ?? throw new ArgumentNullException(nameof(timeLessons));
         }
 
-        public void Free()
+        public List<Free> Free()
         {
-            dateTime = new List<DateTime>();
-            numbersLessons = new List<List<int>>();
+            List<Free> free = new List<Free>();
             foreach (var dayOfStudies in semester.DaysOfStudies)
             {
                 if (dayOfStudies.Study == HowDays.WorkingDay)
                 {
-                    dateTime.Add(dayOfStudies.Date);
                     List<int> tempNumbersLessons = new List<int>();
                     foreach (var timeLesson in timeLessons)
                     {
                         tempNumbersLessons.Add(timeLesson.NumberLessons);
                     }
-                    numbersLessons.Add(tempNumbersLessons);
+                    free.Add(new Free(dayOfStudies.Date.Date, tempNumbersLessons));
                 }
             }
+            return free;
+        }
+
+        public void FreeClassRoom()
+        {
+            freeClassrooms = new List<FreeClassRoom>();
+            foreach (var classRoom in classRooms)
+            {
+                freeClassrooms.Add(new FreeClassRoom(Free(), classRoom));
+            }
+        }
+        public void FreeTeacher()
+        {
+            freeTeachers = new List<FreeTeacher>();
+            foreach (var teacher in teachers)
+            {
+                freeTeachers.Add(new FreeTeacher(Free(), teacher));
+            }
+        }
+        public void SetFree()
+        {
+            FreeClassRoom();
+            FreeTeacher();
         }
         //Что можно сделать
         // 1) Создать на каждый день свободные часы
         // 2) Каждому преподавателю поставить свободные часы
         // 3) 
 
+    }
+
+    public class Free
+    {
+        public DateTime dateTime;
+        public List<int> numberLessons;
+
+        public Free(DateTime dateTime, List<int> numberLessons)
+        {
+            this.dateTime = dateTime;
+            this.numberLessons = numberLessons ?? throw new ArgumentNullException(nameof(numberLessons));
+        }
+    }
+    public class FreeClassRoom
+    {
+        public List<Free> free;
+        public IClassRoom classRoom;
+
+        public FreeClassRoom(List<Free> free, IClassRoom classRoom)
+        {
+            this.free = free ?? throw new ArgumentNullException(nameof(free));
+            this.classRoom = classRoom ?? throw new ArgumentNullException(nameof(classRoom));
+        }
+    }
+    public class FreeTeacher
+    {
+        public List<Free> free;
+        public ITeacher teacher;
+
+        public FreeTeacher(List<Free> free, ITeacher teacher)
+        {
+            this.free = free ?? throw new ArgumentNullException(nameof(free));
+            this.teacher = teacher ?? throw new ArgumentNullException(nameof(teacher));
+        }
     }
 }
