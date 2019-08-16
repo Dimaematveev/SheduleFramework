@@ -53,10 +53,6 @@ namespace Sheduler.BL
             this.timeLessons = timeLessons;
         }
 
-        public void TwoWeek()
-        {
-
-        }
         /// <summary>
         /// День и список пар когда свободно.
         /// </summary>
@@ -128,6 +124,41 @@ namespace Sheduler.BL
             //1) Преподаватель выбирается на весь семестр на один предмет
             //2) 
         }
+
+        /// <summary>
+        /// Проверяет есть ли группы у которых пар больше чем учебных пар.
+        /// </summary>
+        /// <returns>Список групп.</returns>
+        public List<IGroup> CheckLesson()
+        {
+            List<IGroup> ret = new List<IGroup>();
+
+            foreach (var freeGroup in freeGroups)
+            {
+                int freeGr = 0;
+                foreach (var free in freeGroup.free)
+                {
+                    freeGr+=free.Lessons.Count;
+                }
+                int grBuzy = 0;
+                var groupPlanOfLessons = planOfLessons.Find(x => x.Group == freeGroup.group);
+                foreach (var plan in groupPlanOfLessons.NumberOfLesson)
+                {
+                    grBuzy+=plan.NumberSubject;
+                }
+
+                if (grBuzy > freeGr)
+                {
+                    ret.Add(freeGroup.group);
+                }
+            }
+            return ret;
+        }
+        public void TwoWeek()
+        {
+
+        }
+
     }
     /// <summary>
     /// О паре кто ведет, какая группа и какой предмет

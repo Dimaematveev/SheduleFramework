@@ -83,8 +83,10 @@ namespace Sheduler.CMD
                 {
                     numberOfLessons.Add(new NumberOfLesson.NumberOfLesson(subject, 95));
                 };
+
                 planOfLessons.Add( new PlanOfLessons.PlanOfLessons(group, numberOfLessons));
             }
+           // planOfLessons[0].NumberOfLesson[0].NumberSubject = 600;
             foreach (var planOfLesson in planOfLessons)
             {
                 ((IConsole)planOfLesson).ToConsole();
@@ -141,6 +143,7 @@ namespace Sheduler.CMD
 
             Version1 version1 = new Version1(semester, groups, classRooms, planOfLessons, teachers, timeLessons);
             version1.SetFree();
+            var kkk = version1.CheckLesson();
             Console.WriteLine(" Конец!");
             Console.ReadLine();
         }
