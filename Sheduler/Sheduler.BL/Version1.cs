@@ -52,6 +52,11 @@ namespace Sheduler.BL
             this.teachers = teachers;
             this.timeLessons = timeLessons;
         }
+
+        public void TwoWeek()
+        {
+
+        }
         /// <summary>
         /// День и список пар когда свободно.
         /// </summary>
