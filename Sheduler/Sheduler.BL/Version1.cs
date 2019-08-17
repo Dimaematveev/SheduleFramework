@@ -154,6 +154,56 @@ namespace Sheduler.BL
             }
             return ret;
         }
+        public class Wee
+        {
+            public DayOfWeek DayOfWeek;
+            public int number;
+
+            public Wee(DayOfWeek dayOfWeek)
+            {
+                DayOfWeek = dayOfWeek;
+                number = 0;
+            }
+            public void AddNumber(int k)
+            {
+                number += k;
+            }
+        }
+        public class WeeOfGroup
+        {
+            IGroup group;
+            List<Wee> wees;
+
+            public WeeOfGroup(IGroup group, List<Wee> wees)
+            {
+                this.group = group ?? throw new ArgumentNullException(nameof(group));
+                this.wees = wees ?? throw new ArgumentNullException(nameof(wees));
+            }
+        }
+        /// <summary>
+        /// Список количества рабочих дней недели у группы!
+        /// </summary>
+        /// <returns>Список количества рабочих дней недели у группы</returns>
+        public List<WeeOfGroup> NumberWorkDayofWeekFoeGroup()
+        {
+
+            List<WeeOfGroup> weeOfGroups = new List<WeeOfGroup>();
+            foreach (var freeGroup in freeGroups)
+            {
+                List<Wee> wees = new List<Wee>();
+                for (int i = 0; i < 7; i++)
+                {
+                    wees.Add(new Wee((DayOfWeek)i));
+                }
+                foreach (var free in freeGroup.free)
+                {
+                    wees[(int)free.dateTime.DayOfWeek].number++;
+                }
+                weeOfGroups.Add(new WeeOfGroup(freeGroup.group, wees));
+            }
+
+            return weeOfGroups;
+        }
         public void TwoWeek()
         {
 

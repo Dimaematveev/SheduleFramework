@@ -144,6 +144,7 @@ namespace Sheduler.CMD
             Version1 version1 = new Version1(semester, groups, classRooms, planOfLessons, teachers, timeLessons);
             version1.SetFree();
             var kkk = version1.CheckLesson();
+            var kk2 = version1.NumberWorkDayofWeekFoeGroup();
             Console.WriteLine(" Конец!");
             Console.ReadLine();
         }
