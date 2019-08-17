@@ -86,7 +86,9 @@ namespace Sheduler.CMD
 
                 planOfLessons.Add( new PlanOfLessons.PlanOfLessons(group, numberOfLessons));
             }
-           // planOfLessons[0].NumberOfLesson[0].NumberSubject = 600;
+            planOfLessons[0].NumberOfLesson[0].NumberSubject = 300;
+            planOfLessons[1].NumberOfLesson[0].NumberSubject = 15;
+            planOfLessons[2].NumberOfLesson[0].NumberSubject = 150;
             foreach (var planOfLesson in planOfLessons)
             {
                 ((IConsole)planOfLesson).ToConsole();
@@ -143,8 +145,9 @@ namespace Sheduler.CMD
 
             Version1 version1 = new Version1(semester, groups, classRooms, planOfLessons, teachers, timeLessons);
             version1.SetFree();
-            var kkk = version1.CheckLesson();
+            var kk1 = version1.CheckLesson();
             var kk2 = version1.NumberWorkDayofWeekFoeGroup();
+            var kk3 = version1.LessonOfWeekToGroups();
             Console.WriteLine(" Конец!");
             Console.ReadLine();
         }

@@ -204,6 +204,74 @@ namespace Sheduler.BL
 
             return weeOfGroups;
         }
+
+        public class LessonOfWeek
+        {
+            public ISubject subject;
+            public int classesPerWeek;
+            public int lessonLeft;
+
+            public LessonOfWeek(ISubject subject, int classesPerWeek, int lessonLeft)
+            {
+                this.subject = subject ?? throw new ArgumentNullException(nameof(subject));
+                this.classesPerWeek = classesPerWeek;
+                this.lessonLeft = lessonLeft;
+            }
+        }
+        public class LessonOfWeekToGroup
+        {
+            public IGroup group;
+            public List<LessonOfWeek> lessonOfWeeks;
+            public int numberWeek;
+
+            public LessonOfWeekToGroup(IGroup group, List<LessonOfWeek> lessonOfWeeks, int numberWeek)
+            {
+                this.group = group ?? throw new ArgumentNullException(nameof(group));
+                this.lessonOfWeeks = lessonOfWeeks ?? throw new ArgumentNullException(nameof(lessonOfWeeks));
+                this.numberWeek = numberWeek;
+            }
+        }
+        /// <summary>
+        /// Метод показывает сколько раз в неделю надо пару и сколько в остатке.
+        /// </summary>
+        /// <returns></returns>
+        public List<LessonOfWeekToGroup> LessonOfWeekToGroups()
+        {
+            List<LessonOfWeekToGroup> lessonOfWeekToGroups = new List<LessonOfWeekToGroup>();
+            
+            foreach (var freeGroup in freeGroups)
+            {
+                int week = 0;
+                List<Wee> wees = new List<Wee>();
+                for (int i = 0; i < 7; i++)
+                {
+                    wees.Add(new Wee((DayOfWeek)i));
+                }
+                foreach (var free in freeGroup.free)
+                {
+                    wees[(int)free.dateTime.DayOfWeek].number++;
+                }
+                for (int i = 1; i <= 5; i++)
+                {
+                    week += wees[i].number;
+                }
+                week /= 5;
+                var groupPlanOfLessons = planOfLessons.Find(x => x.Group == freeGroup.group);
+                List<LessonOfWeek> lessonOfWeeks = new List<LessonOfWeek>();
+                foreach (var plan in groupPlanOfLessons.NumberOfLesson)
+                {
+                    lessonOfWeeks.Add(new LessonOfWeek(plan.Subject, (plan.NumberSubject / week), (plan.NumberSubject % week)));
+                   // grBuzy += plan.NumberSubject;
+                }
+                lessonOfWeekToGroups.Add(new LessonOfWeekToGroup(freeGroup.group, lessonOfWeeks,week));
+
+
+            }
+
+
+
+            return lessonOfWeekToGroups;
+        }
         public void TwoWeek()
         {
 
