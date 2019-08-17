@@ -81,11 +81,15 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Program_All.cs" />
+    <Compile Include="Program_Real.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="Книга1.xlsx" />
+    <None Include="План.docx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Sheduler.BL\Sheduler.BL.csproj">

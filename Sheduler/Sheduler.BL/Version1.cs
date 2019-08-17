@@ -232,7 +232,7 @@ namespace Sheduler.BL
             }
         }
         /// <summary>
-        /// Метод показывает сколько раз в неделю надо пару и сколько в остатке.
+        /// Метод показывает сколько раз в неделю надо пару и сколько в остатке. Переделал на 2 недели.
         /// </summary>
         /// <returns></returns>
         public List<LessonOfWeekToGroup> LessonOfWeekToGroups()
@@ -256,6 +256,9 @@ namespace Sheduler.BL
                     week += wees[i].number;
                 }
                 week /= 5;
+                //Для четных и нечетных недель
+                week /= 2;
+
                 var groupPlanOfLessons = planOfLessons.Find(x => x.Group == freeGroup.group);
                 List<LessonOfWeek> lessonOfWeeks = new List<LessonOfWeek>();
                 foreach (var plan in groupPlanOfLessons.NumberOfLesson)
