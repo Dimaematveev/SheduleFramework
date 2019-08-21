@@ -259,11 +259,21 @@ namespace Sheduler.BL
                 //Для четных и нечетных недель
                 week /= 2;
 
+                //Добавляет для каждого предмета количество пар в неделю + оставшиеся свободные
+                // Делаю так  чтобы если пар в неделю >=1 то +1 если оставшихся >0 и из оставшихся отнять кол-во недель
+                // Если пар в неделю =0 и оставшихся > week/2 то пар в неделю=1 а кол-во оставшихся дней - кол-во недель
                 var groupPlanOfLessons = planOfLessons.Find(x => x.Group == freeGroup.group);
                 List<LessonOfWeek> lessonOfWeeks = new List<LessonOfWeek>();
                 foreach (var plan in groupPlanOfLessons.NumberOfLesson)
                 {
-                    lessonOfWeeks.Add(new LessonOfWeek(plan.Subject, (plan.NumberSubject / week), (plan.NumberSubject % week)));
+                    int classesPerWeek = (plan.NumberSubject / week);
+                    int lessonLeft = (plan.NumberSubject % week);
+                    if (lessonLeft > week / 2 || (classesPerWeek >= 1 && lessonLeft > 0)) 
+                    {
+                        classesPerWeek++;
+                        lessonLeft -= week;
+                    }
+                    lessonOfWeeks.Add(new LessonOfWeek(plan.Subject, classesPerWeek, lessonLeft));
                    // grBuzy += plan.NumberSubject;
                 }
                 lessonOfWeekToGroups.Add(new LessonOfWeekToGroup(freeGroup.group, lessonOfWeeks,week));
