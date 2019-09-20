@@ -9,7 +9,7 @@ namespace SimpleSheduler.BD.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
             ContextKey = "SimpleSheduler.BD.MyDbContext";
         }
 
