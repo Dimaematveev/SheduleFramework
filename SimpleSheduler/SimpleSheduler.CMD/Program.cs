@@ -21,41 +21,41 @@ namespace SimpleSheduler.CMD
             
             using(var context =new MyDbContext())
             {
-                /*
-                var group = new Group()
+                
+                var group1 = new Group()
                 {
                     Name = "G1",
                     NumberOfPersons = 10
                 };
 
-                var classroom = new Classroom()
+                var classroom1 = new Classroom()
                 {
                     Name = "C1",
                     NumberOfSeats=10
 
                 };
-                var teacher = new Teacher()
+                var teacher1 = new Teacher()
                 {
                     Name = "T1"
 
                 };
-                var subject = new Subject()
+                var subject1 = new Subject()
                 {
                     Name = "S1"
                 };
                 ///Добавляем запись в наш КЭШ но пока не отправили в БД
-                context.Groups.Add(group);
-                context.Classrooms.Add(classroom);
-                context.Teachers.Add(teacher);
-                context.Subjects.Add(subject);
+                context.Groups.Add(group1);
+                context.Classrooms.Add(classroom1);
+                context.Teachers.Add(teacher1);
+                context.Subjects.Add(subject1);
                 
 
                 ///Все изменения из локального хранилища в БД
                 context.SaveChanges();
-                */
-                Group group = context.Groups.First();
-                Teacher teacher = context.Teachers.First();
-                Subject subject = context.Subjects.First();
+                
+                Group group = context.Groups.ToArray().Last();
+                Teacher teacher = context.Teachers.ToArray().Last();
+                Subject subject = context.Subjects.ToArray().Last();
                 var curriculums = new List<Curriculum>()
                 {
                     new Curriculum(){GroupId = group.GroupId, SubjectId = subject.SubjectId}
