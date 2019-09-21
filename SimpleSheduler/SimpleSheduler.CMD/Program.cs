@@ -21,16 +21,15 @@ namespace SimpleSheduler.CMD
             ///Создаем подключение к БД
             ///т.к. работает с внешним хранилищем и за безопасность
             ///
-
-            //InitialFilling initialFilling = new InitialFilling();
-            //initialFilling.Filling();
+            //InitialFilling.Filling();
+            InitialFilling.Filling1();
            
             using (var context = new MyDbContext())
             {
-                ConsoleClassroom(context.Classrooms.ToArray());
-                ConsoleGroup(context.Groups.ToArray());
-                ConsoleSubject(context.Subjects.ToArray());
-                ConsoleTeacher(context.Teachers.ToArray());
+                ConsoleClassroom(context.Classrooms.ToArray(),0,false);
+                ConsoleGroup(context.Groups.ToArray(), 0, false);
+                ConsoleSubject(context.Subjects.ToArray(), 0, false);
+                ConsoleTeacher(context.Teachers.ToArray(), 0, false);
 
                 ConsoleCurriculum(context.Curricula.ToArray());
                 ConsoleSubjectOfTeacher(context.SubjectsOfTeachers.ToArray());

@@ -29,5 +29,6 @@ namespace SimpleSheduler.BD
         public DbSet<Classroom> Classrooms { get; set; }
         public DbSet<Curriculum> Curricula { get; set; }
         public DbSet<SubjectOfTeacher> SubjectsOfTeachers { get; set; }
+        public DbSet<StudyDay> StudyDays { get; set; }
     }
 }

@@ -48,6 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201909211524306_AddTableStudyDays.cs" />
+    <Compile Include="Migrations\201909211524306_AddTableStudyDays.Designer.cs">
+      <DependentUpon>201909211524306_AddTableStudyDays.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Model\StudyDay.cs" />
     <Compile Include="Migrations\201909210938027_InitialCreate.cs" />
     <Compile Include="Migrations\201909210938027_InitialCreate.Designer.cs">
       <DependentUpon>201909210938027_InitialCreate.cs</DependentUpon>
@@ -76,6 +81,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909211011140_PropNameBigSubject.resx">
       <DependentUpon>201909211011140_PropNameBigSubject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909211524306_AddTableStudyDays.resx">
+      <DependentUpon>201909211524306_AddTableStudyDays.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

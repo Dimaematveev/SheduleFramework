@@ -13,7 +13,51 @@ namespace SimpleSheduler.CMD
     /// </summary>
     public class InitialFilling
     {
-        public void Filling()
+        public static void Filling1()
+        {
+            using (var context = new MyDbContext())
+            {
+                var AddStudyDays = new List<StudyDay>
+                {
+                    new StudyDay(){NameDayOfWeek="Понедельник", NumberOfWeek=1},
+                    new StudyDay(){NameDayOfWeek="Вторник", NumberOfWeek=1},
+                    new StudyDay(){NameDayOfWeek="Среда", NumberOfWeek=1},
+                    new StudyDay(){NameDayOfWeek="Четверг", NumberOfWeek=1},
+                    new StudyDay(){NameDayOfWeek="Пятница", NumberOfWeek=1},
+                    new StudyDay(){NameDayOfWeek="Понедельник", NumberOfWeek=2},
+                    new StudyDay(){NameDayOfWeek="Вторник", NumberOfWeek=2},
+                    new StudyDay(){NameDayOfWeek="Среда", NumberOfWeek=2},
+                    new StudyDay(){NameDayOfWeek="Четверг", NumberOfWeek=2},
+                    new StudyDay(){NameDayOfWeek="Пятница", NumberOfWeek=2},
+                };
+
+
+                ///Добавляем запись в наш КЭШ но пока не отправили в БД
+                context.StudyDays.AddRange(AddStudyDays);
+                ///Все изменения из локального хранилища в БД
+                ///
+                try
+                {
+
+                    context.SaveChanges();
+
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    foreach (DbEntityValidationResult validationError in ex.EntityValidationErrors)
+                    {
+                        Console.Write("Object: " + validationError.Entry.Entity.ToString());
+                        Console.Write("");
+                        foreach (DbValidationError err in validationError.ValidationErrors)
+                        {
+                            Console.Write(err.ErrorMessage + "");
+                        }
+                        Console.WriteLine();
+                    }
+                }
+            }
+        }
+        public static void Filling()
         {
             using (var context = new MyDbContext())
             {
