@@ -14,7 +14,7 @@ namespace SimpleSheduler.CMD
         /// На сколько каждый раз смещается курсов в Консоли
         /// </summary>
         const int posit = 5;
-        static void Main(string[] args)
+        static void Main()
         {
             Console.WriteLine("Привет мир!");
 
@@ -22,8 +22,8 @@ namespace SimpleSheduler.CMD
             ///т.к. работает с внешним хранилищем и за безопасность
             ///
             //InitialFilling.Filling();
-            InitialFilling.Filling1();
-           
+            //InitialFilling.Filling1();
+            
             using (var context = new MyDbContext())
             {
                 ConsoleClassroom(context.Classrooms.ToArray(),0,false);

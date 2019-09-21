@@ -30,10 +30,18 @@ namespace SimpleSheduler.CMD
                     new StudyDay(){NameDayOfWeek="Четверг", NumberOfWeek=2},
                     new StudyDay(){NameDayOfWeek="Пятница", NumberOfWeek=2},
                 };
-
-
+                var AddPairs = new List<Pair>
+                {
+                    new Pair(){NameThePair="Пара-1", NumberThePair=1},
+                    new Pair(){NameThePair="Пара-2", NumberThePair=2},
+                    new Pair(){NameThePair="Пара-3", NumberThePair=3},
+                    new Pair(){NameThePair="Пара-4", NumberThePair=4},
+                    new Pair(){NameThePair="Пара-5", NumberThePair=5},
+                    new Pair(){NameThePair="Пара-6", NumberThePair=6},
+                };
                 ///Добавляем запись в наш КЭШ но пока не отправили в БД
                 context.StudyDays.AddRange(AddStudyDays);
+                context.Pairs.AddRange(AddPairs);
                 ///Все изменения из локального хранилища в БД
                 ///
                 try
