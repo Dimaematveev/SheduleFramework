@@ -15,9 +15,8 @@ namespace SimpleSheduler.BD
         /// <summary>
         /// Передаем будущую строку подключения
         /// </summary>
-        public MyDbContext() : base("DbConnectionString")
+        public MyDbContext() :base("test")
         {
-
         }
 
         ///Надо указать коллекции наборы данных которые будем использовать.

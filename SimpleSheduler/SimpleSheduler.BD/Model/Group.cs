@@ -12,63 +12,40 @@ namespace SimpleSheduler.BD
     /// </summary>
     public class Group
     {
-        public Group()
-        {
-        }
+        //public Group()
+        //{
+        //}
 
-        public Group(string name, int numberOfPersons)
-        {
-            Name = name;
-            NumberOfPersons = numberOfPersons;
-        }
+        //public Group(string name, int numberOfPersons)
+        //{
+        //    if (string.IsNullOrWhiteSpace(name))
+        //    {
+        //        throw new ArgumentNullException($"Название группы не должно быть пустым!({name})", nameof(name)); ;
+        //    }
+        //    if (numberOfPersons <= 0)
+        //    {
+        //        throw new ArgumentNullException($"Количество человек в группе должно быть больше 0!({numberOfPersons})", nameof(numberOfPersons));
+        //    }
+        //    Name = name;
+        //    NumberOfPersons = numberOfPersons;
+        //}
 
         /// <summary>
         /// Ключ группы
         /// </summary>
         [Key]
         public int GroupId { get; set; }
-        private string name;
         /// <summary>
         /// Название группы
         /// </summary>
         [Required]
         [StringLength(20)]
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentNullException($"Название группы не должно быть пустым!({name})", nameof(name));;
-                }
-                name = value;
-            }
-        }
-
-        private int numberOfPersons;
+        public string Name { get; set; }
         /// <summary>
         /// Кол-во человек в группе. ?значит может быть нуль
         /// </summary>
         [Required]
-        public int NumberOfPersons
-        {
-            get
-            {
-                return numberOfPersons;
-            }
-            set
-            {
-                if (value <= 0)
-                {
-                    throw new ArgumentNullException($"Количество человек в группе должно быть больше 0!({value})", nameof(numberOfPersons));
-                }
-                numberOfPersons = value;
-            }
-        }
+        public int NumberOfPersons { get; set; }
 
 
 

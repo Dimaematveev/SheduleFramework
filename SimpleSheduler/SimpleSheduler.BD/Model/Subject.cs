@@ -12,41 +12,30 @@ namespace SimpleSheduler.BD
     /// </summary>
     public class Subject
     {
-        public Subject(string name)
-        {
-            Name = name;
-        }
+        //public Subject(string name)
+        //{
+        //    if (string.IsNullOrWhiteSpace(name))
+        //    {
+        //        throw new ArgumentNullException($"Название предмета не должно быть пустым!({name})", nameof(name));
+        //    }
+        //    Name = name;
+        //}
 
-        public Subject()
-        {
-        }
+        //public Subject()
+        //{
+        //}
 
         /// <summary>
         /// Ключ Предмета
         /// </summary>
         [Key]
         public int SubjectId { get; set; }
-        private string name;
         /// <summary>
         /// Название Предмета
         /// </summary>
         [Required]
         [StringLength(20)]
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentNullException($"Название предмета не должно быть пустым!({value})", nameof(name));
-                }
-                name = value;
-            }
-        }
+        public string Name { get; set; }
 
         ///Свойство для EntityFramework
         /// <summary>
