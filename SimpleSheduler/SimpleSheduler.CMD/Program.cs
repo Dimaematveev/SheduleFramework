@@ -21,28 +21,12 @@ namespace SimpleSheduler.CMD
             
             using(var context =new MyDbContext())
             {
-                
-                var group1 = new Group()
-                {
-                    Name = "G1",
-                    NumberOfPersons = 10
-                };
 
-                var classroom1 = new Classroom()
-                {
-                    Name = "C1",
-                    NumberOfSeats=10
+                var group1 = new Group("G1", 10);
 
-                };
-                var teacher1 = new Teacher()
-                {
-                    Name = "T1"
-
-                };
-                var subject1 = new Subject()
-                {
-                    Name = "S1"
-                };
+                var classroom1 = new Classroom("C1", 10);
+                var teacher1 = new Teacher("T1");
+                var subject1 = new Subject("S1");
                 ///Добавляем запись в наш КЭШ но пока не отправили в БД
                 context.Groups.Add(group1);
                 context.Classrooms.Add(classroom1);
@@ -56,19 +40,19 @@ namespace SimpleSheduler.CMD
                 Group group = context.Groups.ToArray().Last();
                 Teacher teacher = context.Teachers.ToArray().Last();
                 Subject subject = context.Subjects.ToArray().Last();
-                var curriculums = new List<Curriculum>()
+                var curricula = new List<Curriculum>()
                 {
-                    new Curriculum(){GroupId = group.GroupId, SubjectId = subject.SubjectId}
+                    new Curriculum(group.GroupId,subject.SubjectId,10)
                     
                 };
-                var subjectsOfTeachers = new List<SubjectOfTeacher>()
+                var subjectOfTeachers = new List<SubjectOfTeacher>()
                 {
-                    new SubjectOfTeacher(){TeacherId = teacher.TeacherId,SubjectId = subject.SubjectId}
+                    new SubjectOfTeacher(teacher.TeacherId,subject.SubjectId)
                     
                     
                 };
-                context.Curriculums.AddRange(curriculums);
-                context.SubjectsOfTeachers.AddRange(subjectsOfTeachers);
+                context.Curriculums.AddRange(curricula);
+                context.SubjectsOfTeachers.AddRange(subjectOfTeachers);
                 context.SaveChanges();
 
 

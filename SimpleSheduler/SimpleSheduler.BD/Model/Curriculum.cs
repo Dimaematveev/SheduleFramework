@@ -12,26 +12,82 @@ namespace SimpleSheduler.BD
     /// </summary>
     public class Curriculum
     {
+        public Curriculum(int groupId, int subjectId, int numberOfPairs)
+        {
+            GroupId = groupId;
+            SubjectId = subjectId;
+            NumberOfPairs = numberOfPairs;
+        }
+
+        public Curriculum()
+        {
+        }
+
         /// <summary>
         /// Ключ Учебного плана
         /// </summary>
         [Key]
         public int CurriculumId { get; set; }
+        private int groupId;
         /// <summary>
         /// Группа
         /// </summary>
         [Required]
-        public int GroupId { get; set; }
+        public int GroupId
+        {
+            get
+            {
+                return groupId;
+            }
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentNullException($"id Группы должно быть больше 0!({value})", nameof(groupId));
+                }
+                groupId = value;
+            }
+        }
+        private int subjectId;
         /// <summary>
         /// Предмет
         /// </summary>
         [Required]
-        public int SubjectId { get; set; }
+        public int SubjectId
+        {
+            get
+            {
+                return subjectId;
+            }
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentNullException($"id Предмета должно быть больше 0!({value})", nameof(subjectId));
+                }
+                subjectId = value;
+            }
+        }
+        private int numberOfPairs;
         /// <summary>
         /// Количество пар за 2 недели
         /// </summary>
         [Required]
-        public int NumberOfPairs { get; set; }
+        public int NumberOfPairs
+        {
+            get
+            {
+                return numberOfPairs;
+            }
+            set
+            {
+                if (value <= 0)
+                {
+                    throw new ArgumentNullException($"Количество пар за 2 недели должно быть больше 0!({value})", nameof(numberOfPairs));
+                }
+                numberOfPairs = value;
+            }
+        }
 
 
         /// <summary>
