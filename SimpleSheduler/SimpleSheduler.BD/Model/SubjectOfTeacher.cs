@@ -12,24 +12,7 @@ namespace SimpleSheduler.BD
     /// </summary>
     public class SubjectOfTeacher
     {
-        //public SubjectOfTeacher(int teacherId, int subjectId)
-        //{
-        //    if (teacherId <= 0)
-        //    {
-        //        throw new ArgumentNullException($"id Преподавателя должно быть больше 0!({teacherId})", nameof(teacherId));
-        //    }
-        //    if (subjectId <= 0)
-        //    {
-        //        throw new ArgumentNullException($"id Предмета должно быть больше 0!({subjectId})", nameof(subjectId));
-        //    }
-        //    TeacherId = teacherId;
-        //    SubjectId = subjectId;
-        //}
-
-        //public SubjectOfTeacher()
-        //{
-        //}
-
+       
         /// <summary>
         /// Ключ  Предмета преподавателя
         /// </summary>

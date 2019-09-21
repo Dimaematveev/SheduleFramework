@@ -12,23 +12,6 @@ namespace SimpleSheduler.BD
     /// </summary>
     public class Classroom
     {
-        //public Classroom()
-        //{
-        //}
-
-        //public Classroom(string name, int numberOfSeats)
-        //{
-        //    if (numberOfSeats <= 0)
-        //    {
-        //        throw new ArgumentNullException($"Количество мест в аудитории должно быть больше 0!({numberOfSeats})", nameof(numberOfSeats));
-        //    }
-        //    if (string.IsNullOrWhiteSpace(name))
-        //    {
-        //        throw new ArgumentNullException($"Название аудитории не должно быть пустым!({name})", nameof(name));
-        //    }
-        //    Name = name;
-        //    NumberOfSeats = numberOfSeats;
-        //}
 
         /// <summary>
         /// Ключ Аудитории

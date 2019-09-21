@@ -12,24 +12,7 @@ namespace SimpleSheduler.BD
     /// </summary>
     public class Group
     {
-        //public Group()
-        //{
-        //}
-
-        //public Group(string name, int numberOfPersons)
-        //{
-        //    if (string.IsNullOrWhiteSpace(name))
-        //    {
-        //        throw new ArgumentNullException($"Название группы не должно быть пустым!({name})", nameof(name)); ;
-        //    }
-        //    if (numberOfPersons <= 0)
-        //    {
-        //        throw new ArgumentNullException($"Количество человек в группе должно быть больше 0!({numberOfPersons})", nameof(numberOfPersons));
-        //    }
-        //    Name = name;
-        //    NumberOfPersons = numberOfPersons;
-        //}
-
+        
         /// <summary>
         /// Ключ группы
         /// </summary>

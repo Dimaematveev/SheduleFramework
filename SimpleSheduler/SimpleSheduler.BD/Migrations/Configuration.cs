@@ -10,6 +10,7 @@ namespace SimpleSheduler.BD.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+            ContextKey = "SimpleSheduler.BD.MyDbContext";
         }
 
         protected override void Seed(SimpleSheduler.BD.MyDbContext context)

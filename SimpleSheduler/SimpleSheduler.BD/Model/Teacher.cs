@@ -12,18 +12,7 @@ namespace SimpleSheduler.BD
     /// </summary>
     public class Teacher
     {
-        //public Teacher(string name)
-        //{
-        //    if (string.IsNullOrWhiteSpace(name))
-        //    {
-        //        throw new ArgumentNullException($"Имя преподавателя не должно быть пустым!({name})", nameof(name));
-        //    }
-        //    Name = name;
-        //}
-
-        //public Teacher()
-        //{
-        //}
+        
 
         /// <summary>
         /// Ключ Преподавателя
