@@ -4,17 +4,16 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B0A135D7-6890-424F-B13C-22D13D433B6F}</ProjectGuid>
-    <OutputType>Exe</OutputType>
-    <RootNamespace>SimpleSheduler.CMD</RootNamespace>
-    <AssemblyName>SimpleSheduler.CMD</AssemblyName>
+    <ProjectGuid>{30FFD8C4-8C26-4080-8F65-06E4B7F508A5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SimpleSheduler.BL</RootNamespace>
+    <AssemblyName>SimpleSheduler.BL</AssemblyName>
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -24,7 +23,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -33,14 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
-    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -50,26 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InitialFilling.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="BusyPair.cs" />
+    <Compile Include="Filling.cs" />
+    <Compile Include="PossibleFilling.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-    <None Include="packages.config" />
-    <None Include="План.docx" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="trebovania_k_raspisaniyu.txt" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SimpleSheduler.BD\SimpleSheduler.BD.csproj">
       <Project>{e56cc290-5a77-4fe7-8a37-d7ddacc4c190}</Project>
       <Name>SimpleSheduler.BD</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\SimpleSheduler.BL\SimpleSheduler.BL.csproj">
-      <Project>{30ffd8c4-8c26-4080-8f65-06e4b7f508a5}</Project>
-      <Name>SimpleSheduler.BL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

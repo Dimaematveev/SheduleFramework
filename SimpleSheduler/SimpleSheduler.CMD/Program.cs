@@ -1,4 +1,5 @@
 ﻿using SimpleSheduler.BD;
+using SimpleSheduler.BL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,20 +24,77 @@ namespace SimpleSheduler.CMD
             ///
             //InitialFilling.Filling();
             //InitialFilling.Filling1();
-            
+            Filling<Teacher>[] fillingTeachers;
+            Filling<Group>[] fillingGroups;
+            Filling<Classroom>[] fillingClassroom;
+            PossibleFilling[] possibleFillings;
             using (var context = new MyDbContext())
             {
-                ConsoleClassroom(context.Classrooms.ToArray(),0,false);
-                ConsoleGroup(context.Groups.ToArray(), 0, false);
-                ConsoleSubject(context.Subjects.ToArray(), 0, false);
-                ConsoleTeacher(context.Teachers.ToArray(), 0, false);
+                var classrooms = context.Classrooms.ToArray();
+                var groups = context.Groups.ToArray();
+                var subjects = context.Subjects.ToArray();
+                var teachers = context.Teachers.ToArray();
+                var curricula = context.Curricula.ToArray();
+                var subjectOfTeachers = context.SubjectsOfTeachers.ToArray();
+                var pairs = context.Pairs.ToArray();
+                var studyDays = context.StudyDays.ToArray();
+                ConsoleClassroom(classrooms, 0, false);
+                ConsoleGroup(groups, 0, false);
+                ConsoleSubject(subjects, 0, false);
+                ConsoleTeacher(teachers, 0, false);
 
-                ConsoleCurriculum(context.Curricula.ToArray());
-                ConsoleSubjectOfTeacher(context.SubjectsOfTeachers.ToArray());
+                ConsoleCurriculum(curricula);
+                ConsoleSubjectOfTeacher(subjectOfTeachers);
+
+                ConsolePair(pairs);
+                ConsoleStudyDay(studyDays);
+
+                possibleFillings = GetPossibleFilling(pairs, studyDays);
+                fillingTeachers = GetFilling(teachers, possibleFillings);
+                fillingGroups = GetFilling(groups, possibleFillings);
+                fillingClassroom = GetFilling(classrooms, possibleFillings);
+
             }
-                   
+
             Console.ReadLine();
 
+        }
+
+
+
+        private static Filling<T>[] GetFilling<T>(T[] array, PossibleFilling[] possibleFillings)
+        {
+            var result = new List<Filling<T>>();
+
+            foreach (var item in array)
+            {
+                var tempPossibleFillings = new List<PossibleFilling>();
+                foreach (var possibleFilling in possibleFillings)
+                {
+                    tempPossibleFillings.Add(possibleFilling.Clone() as PossibleFilling);
+                }
+                result.Add(new Filling<T>(item, tempPossibleFillings.ToArray()));
+            }
+            return result.ToArray();
+        }
+
+
+        private static PossibleFilling[] GetPossibleFilling(Pair[] pairs, StudyDay[] studyDays)
+        {
+            PossibleFilling[] possibleFillings;
+            {
+                var tempPossibleFillings = new List<PossibleFilling>();
+                foreach (var studyDay in studyDays)
+                {
+                    foreach (var pair in pairs)
+                    {
+                        tempPossibleFillings.Add(new PossibleFilling(pair, studyDay));
+                    }
+                }
+                possibleFillings = tempPossibleFillings.ToArray();
+            }
+
+            return possibleFillings;
         }
 
         private static void ConsoleClassroom(Classroom[] classrooms,int pos=0, bool All=true)
@@ -252,6 +310,67 @@ namespace SimpleSheduler.CMD
                 
                 Console.CursorLeft = pos + 1 * posit;
                 Console.WriteLine($"ID:{id}, Имя преподавателя :{teacher}, Название предмета:{subject}.");
+
+            }
+        }
+
+        private static void ConsolePair(Pair[] pairs, int pos = 0)
+        {
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.CursorLeft = pos + 0 * posit;
+
+            Console.WriteLine($"Пары ({pairs.Length}):");
+            Console.ForegroundColor = ConsoleColor.White;
+            if (pairs == null || pairs.Length < 1)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Нет Пар!");
+                Console.ForegroundColor = ConsoleColor.White;
+                return;
+            }
+            int padId = pairs.Max(x => x.PairId.ToString().Length);
+            int padName = pairs.Max(x => x.NameThePair.Length);
+            int padNumber = pairs.Max(x => x.NumberThePair.ToString().Length);
+            foreach (var pair in pairs)
+            {
+                string id = pair.PairId.ToString().PadRight(padId);
+                string name = pair.NameThePair.ToString().PadRight(padName);
+                string number = pair.NumberThePair.ToString().PadRight(padNumber);
+
+                Console.CursorLeft = pos + 1 * posit;
+                Console.WriteLine($"ID:{id}, Название пары :{name}, Номер пары:{number}.");
+
+            }
+        }
+
+
+        private static void ConsoleStudyDay(StudyDay[] studyDays, int pos = 0)
+        {
+
+            Console.ForegroundColor = ConsoleColor.Cyan;
+            Console.CursorLeft = pos + 0 * posit;
+
+            Console.WriteLine($"Учебные дни ({studyDays.Length}):");
+            Console.ForegroundColor = ConsoleColor.White;
+            if (studyDays == null || studyDays.Length < 1)
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Нет Учебных дней!");
+                Console.ForegroundColor = ConsoleColor.White;
+                return;
+            }
+            int padId = studyDays.Max(x => x.StudyDayId.ToString().Length);
+            int padName = studyDays.Max(x => x.NameDayOfWeek.Length);
+            int padNumber = studyDays.Max(x => x.NumberOfWeek.ToString().Length);
+            foreach (var studyDay in studyDays)
+            {
+                string id = studyDay.StudyDayId.ToString().PadRight(padId);
+                string name = studyDay.NameDayOfWeek.ToString().PadRight(padName);
+                string number = studyDay.NumberOfWeek.ToString().PadRight(padNumber);
+
+                Console.CursorLeft = pos + 1 * posit;
+                Console.WriteLine($"ID:{id}, День недели :{name}, Номер недели:{number}.");
 
             }
         }
