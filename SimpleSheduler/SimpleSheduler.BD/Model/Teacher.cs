@@ -31,6 +31,6 @@ namespace SimpleSheduler.BD
         /// <summary>
         /// У каждого преподавателя будет храниться все преподаватели. Т.е. связь с Предметы преподавателей
         /// </summary>
-        public virtual ICollection<SubjectOfTeacher> SubjectsOfTeachers { get; set; }
+        public virtual ICollection<SubjectOfTeacher> SubjectOfTeachers { get; set; }
     }
 }

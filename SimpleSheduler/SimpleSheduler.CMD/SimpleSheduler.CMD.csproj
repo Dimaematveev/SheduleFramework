@@ -57,6 +57,7 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="План.docx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="trebovania_k_raspisaniyu.txt" />

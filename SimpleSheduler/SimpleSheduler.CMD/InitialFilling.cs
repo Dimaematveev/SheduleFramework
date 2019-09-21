@@ -136,7 +136,7 @@ namespace SimpleSheduler.CMD
                 };
 
 
-                context.Curriculums.AddRange(curricula);
+                context.Curricula.AddRange(curricula);
                 context.SubjectsOfTeachers.AddRange(subjectOfTeachers);
                 try
                 {
