@@ -56,6 +56,7 @@
     <Compile Include="Migrations\201909211535214_AddTablePairs.Designer.cs">
       <DependentUpon>201909211535214_AddTablePairs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Model\IName.cs" />
     <Compile Include="Model\StudyDay.cs" />
     <Compile Include="Migrations\201909210938027_InitialCreate.cs" />
     <Compile Include="Migrations\201909210938027_InitialCreate.Designer.cs">

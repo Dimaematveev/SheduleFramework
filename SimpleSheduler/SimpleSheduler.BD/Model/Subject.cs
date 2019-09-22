@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleSheduler.BD.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Предмет
     /// </summary>
-    public class Subject
+    public class Subject : IName
     {
         
         /// <summary>
@@ -36,5 +37,11 @@ namespace SimpleSheduler.BD
         /// У каждого предмета будет храниться все преподаватели. Т.е. связь с Предметы преподавателей
         /// </summary>
         public virtual ICollection<SubjectOfTeacher> SubjectOfTeachers { get; set; }
+
+
+        public string NameString()
+        {
+            return Name;
+        }
     }
 }

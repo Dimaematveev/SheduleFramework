@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleSheduler.BD.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Группа.
     /// </summary>
-    public class Group
+    public class Group : IName
     {
         
         /// <summary>
@@ -39,5 +40,10 @@ namespace SimpleSheduler.BD
         /// </summary>
         public virtual ICollection<Curriculum> Curricula { get; set; }
 
+
+        public string NameString()
+        {
+            return Name;
+        }
     }
 }

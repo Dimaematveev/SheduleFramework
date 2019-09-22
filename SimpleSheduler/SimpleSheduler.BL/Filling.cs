@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace SimpleSheduler.BL
 {
-    public class Filling<T>
+    public class Filling<T> where T: BD.Model.IName
     {
         public Filling(T value, PossibleFilling[] possibleFillings)
         {

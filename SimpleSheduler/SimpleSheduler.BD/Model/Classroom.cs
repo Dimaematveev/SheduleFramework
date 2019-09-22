@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleSheduler.BD.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Аудитория
     /// </summary>
-    public class Classroom
+    public class Classroom : IName
     {
 
         /// <summary>
@@ -31,5 +32,10 @@ namespace SimpleSheduler.BD
         /// </summary>
         [Required]
         public int NumberOfSeats { get; set; }
+
+        public string NameString()
+        {
+            return Name;
+        }
     }
 }

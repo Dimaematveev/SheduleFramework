@@ -1,14 +1,13 @@
 ﻿using SimpleSheduler.BD;
+using SimpleSheduler.BD.Model;
 using SimpleSheduler.BL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SimpleSheduler.CMD
 {
-   
+
     class Program
     {
         /// <summary>
@@ -54,6 +53,7 @@ namespace SimpleSheduler.CMD
 
                 ///Получили когда возможно свободные  пары по дням
                 possibleFillings = GetPossibleFilling(pairs, studyDays);
+                possibleFillings = possibleFillings.OrderBy(x=>x.StudyDay.NameDayOfWeek).ToArray();
                 ///Получили когда возможно свободные  пары по дням и по преподавателям
                 fillingTeachers = GetFilling(teachers, possibleFillings);
                 ///Получили когда возможно свободные  пары по дням и по группам
@@ -62,27 +62,21 @@ namespace SimpleSheduler.CMD
                 fillingClassrooms = GetFilling(classrooms, possibleFillings);
 
 
-                
-
-
-
-
-
-
-                //Todo:Нужно какие группы в какие аудитории поместятся
+                //Todo-:Нужно какие группы в какие аудитории поместятся-необязательно уже фильтруются ниже
                 //Todo:объединение групп
 
                 //Элемент с максимальным числом пар в 2 недели
                 var curriculaMax = curricula.OrderByDescending(x => x.NumberOfPairs).First();
                 while (curriculaMax.NumberOfPairs!=0)
                 {
-                    //беру по одной паре и добавляю преподаватнля 
-                    //todo: подругому сделать поиск преподавателя
+                    //беру по одной паре и добавляю преподавателя 
+                    //todo: по другому сделать поиск преподавателя
                     //todo: сделать указания какие преподаватели уже есть в группе
 
                     //Знаем и преподавателя и предмет и группу осталась аудитория
                     var teacher = subjectOfTeachers.First(x => x.SubjectId == curriculaMax.SubjectId).Teacher;
                     //Массив со всеми аудиториями подходящими и сортированный максимально заполненной
+                    //todo?: Сделать так чтобы добавлялись по парам в один день, потом в эту пару через неделю
                     var oneClass = classrooms.Where(x => x.NumberOfSeats >= curriculaMax.Group.NumberOfPersons)
                                          .OrderBy(x => x.NumberOfSeats - curriculaMax.Group.NumberOfPersons)
                                          .ToArray();
@@ -132,55 +126,77 @@ namespace SimpleSheduler.CMD
                     curriculaMax = curricula.OrderByDescending(x => x.NumberOfPairs).First();
                 }
 
-
-                consoleFilling(fillingClassrooms);
+                //Для вывода лучше сдать таблицу, потом выводить
+                consoleFilling(fillingClassrooms, "РАСПРЕДЕЛЕНИЕ ПО АУДИТОРИЯМ");
+                consoleFilling(fillingTeachers, "РАСПРЕДЕЛЕНИЕ ПО ПРЕПОДАВАТЕЛЯМ");
+                consoleFilling(fillingGroups, "РАСПРЕДЕЛЕНИЕ ПО ГРУППАМ");
+              
             }
 
             Console.ReadLine();
 
         }
 
-        private static void consoleFilling(Filling<Classroom>[] fillingClassrooms)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="fillings"></param>
+        /// <param name="nameTable">Название таблицы(Распределение по...)</param>
+        private static void consoleFilling<T>(Filling<T>[] fillings, string nameTable) where T : IName
         {
-            Console.WriteLine("РАСПРЕДЕЛЕНИЕ ПО АУДИТОРИЯМ");
-            int padOneStolb = " Номер и день недели ".Length;
-            int padTwoStolb = " Номер и пара ".Length;
-            string oneStolb = " Номер и день недели ".PadRight(padOneStolb);
-            string twoStolb = " Номер и пара ".PadRight(padTwoStolb);
-            Console.Write($"{oneStolb}|{twoStolb}|");
-            int padClassroom = fillingClassrooms.Max(x => x.Value.Name.Length);
-            foreach (var fillingClassroom in fillingClassrooms)
+            ConsoleTable consoleTable = new ConsoleTable();
+            consoleTable.Name = nameTable;
+            consoleTable.AddColumn("№");
+            consoleTable.AddColumn("день");
+            consoleTable.AddColumn("пара");
+            foreach (var filling in fillings)
             {
-                string classroom = fillingClassroom.Value.Name.PadRight(padClassroom);
-                Console.Write($"| {classroom} |");
+                consoleTable.AddColumn($"{filling.Value.NameString()}");
             }
-            int countFillingClassrooms = fillingClassrooms[0].PossibleFillings.Length;
-            Console.WriteLine();
-            for (int i = 0; i < fillingClassrooms[0].PossibleFillings.Length; i++)
+
+            for (int i = 0; i < fillings[0].PossibleFillings.Length; i++)
             {
-                var temp = fillingClassrooms[0].PossibleFillings[i];
-                oneStolb = $"{temp.StudyDay.NumberOfWeek}_{temp.StudyDay.NameDayOfWeek}".PadRight(padOneStolb);
-                twoStolb = $"{temp.Pair.NumberThePair}_{temp.Pair.NameThePair}".PadRight(padTwoStolb);
-                Console.Write($"{oneStolb}|{twoStolb}|");
-                foreach (var fillingClassroom in fillingClassrooms)
+                var temp = fillings[0].PossibleFillings[i];
+                var AddTemp = new List<string>();
+                AddTemp.Add($"{temp.StudyDay.NumberOfWeek}");
+                AddTemp.Add($"{temp.StudyDay.NameDayOfWeek}");
+                AddTemp.Add($"{temp.Pair.NumberThePair}");
+                foreach (var filling in fillings)
                 {
-                    var busyPairTemp = fillingClassroom.PossibleFillings[i].BusyPair;
-                    string classroom = " NULL".PadRight(padClassroom);
-                    if (busyPairTemp!=null)
+                    var busyPairTemp = filling.PossibleFillings[i].BusyPair;
+                    string value = "NULL";
+                    if (busyPairTemp != null)
                     {
-                        string teac = busyPairTemp.Teacher.Name.Substring(busyPairTemp.Teacher.Name.Length-1,1);
-                        string group = busyPairTemp.Group.Name.Substring(busyPairTemp.Group.Name.Length - 1, 1);
-                        string subj = busyPairTemp.Subject.Name.Substring(0, 5);
-                        classroom =$"t{teac}_g{group}_{subj}".PadRight(padClassroom);
+                        value = "";
+                       
+                        if (!(fillings is Filling <Classroom>[]))
+                        {
+                            value+= $"C{busyPairTemp.Classroom.Name.Substring(busyPairTemp.Classroom.Name.Length - 1, 1)}_";
+                        }
+                        if (!(fillings is Filling<Teacher>[]))
+                        {
+                            value += $"T{busyPairTemp.Teacher.Name.Substring(busyPairTemp.Teacher.Name.Length - 1, 1)}_";
+                        }
+                        if (!(fillings is Filling<Subject>[]))
+                        {
+                            value += $"S{busyPairTemp.Subject.Name.Substring(0, 5)}_";
+                        }
+                        if (!(fillings is Filling<Group>[]))
+                        {
+                            value += $"G{busyPairTemp.Group.Name.Substring(busyPairTemp.Group.Name.Length - 1, 1)}_";
+                        }
                     }
-                    
-                    Console.Write($"| {classroom} |");
+                    AddTemp.Add(value);
                 }
-                Console.WriteLine();
+                consoleTable.Add(AddTemp.ToArray());
             }
-          
+
+
+            consoleTable.ToConsole();
         }
 
+       
 
         /// <summary>
         /// Получить заполнение по каждому (преподавателю,группе,аудитории)
@@ -189,7 +205,7 @@ namespace SimpleSheduler.CMD
         /// <param name="array">массив (преподавателю,группе,аудитории)</param>
         /// <param name="possibleFillings">массив свободных дней</param>
         /// <returns>массив заполнение по каждому (преподавателю,группе,аудитории)</returns>
-        private static Filling<T>[] GetFilling<T>(T[] array, PossibleFilling[] possibleFillings)
+        private static Filling<T>[] GetFilling<T>(T[] array, PossibleFilling[] possibleFillings) where T:IName
         {
             var result = new List<Filling<T>>();
 
