@@ -26,7 +26,7 @@ namespace SimpleSheduler.CMD
             //InitialFilling.Filling1();
             Filling<Teacher>[] fillingTeachers;
             Filling<Group>[] fillingGroups;
-            Filling<Classroom>[] fillingClassroom;
+            Filling<Classroom>[] fillingClassrooms;
             PossibleFilling[] possibleFillings;
             using (var context = new MyDbContext())
             {
@@ -38,6 +38,8 @@ namespace SimpleSheduler.CMD
                 var subjectOfTeachers = context.SubjectsOfTeachers.ToArray();
                 var pairs = context.Pairs.ToArray();
                 var studyDays = context.StudyDays.ToArray();
+
+                /*
                 ConsoleClassroom(classrooms, 0, false);
                 ConsoleGroup(groups, 0, false);
                 ConsoleSubject(subjects, 0, false);
@@ -48,20 +50,145 @@ namespace SimpleSheduler.CMD
 
                 ConsolePair(pairs);
                 ConsoleStudyDay(studyDays);
+                */
 
+                ///Получили когда возможно свободные  пары по дням
                 possibleFillings = GetPossibleFilling(pairs, studyDays);
+                ///Получили когда возможно свободные  пары по дням и по преподавателям
                 fillingTeachers = GetFilling(teachers, possibleFillings);
+                ///Получили когда возможно свободные  пары по дням и по группам
                 fillingGroups = GetFilling(groups, possibleFillings);
-                fillingClassroom = GetFilling(classrooms, possibleFillings);
+                ///Получили когда возможно свободные  пары по дням и по аудиториям
+                fillingClassrooms = GetFilling(classrooms, possibleFillings);
 
+
+                
+
+
+
+
+
+
+                //Todo:Нужно какие группы в какие аудитории поместятся
+                //Todo:объединение групп
+
+                //Элемент с максимальным числом пар в 2 недели
+                var curriculaMax = curricula.OrderByDescending(x => x.NumberOfPairs).First();
+                while (curriculaMax.NumberOfPairs!=0)
+                {
+                    //беру по одной паре и добавляю преподаватнля 
+                    //todo: подругому сделать поиск преподавателя
+                    //todo: сделать указания какие преподаватели уже есть в группе
+
+                    //Знаем и преподавателя и предмет и группу осталась аудитория
+                    var teacher = subjectOfTeachers.First(x => x.SubjectId == curriculaMax.SubjectId).Teacher;
+                    //Массив со всеми аудиториями подходящими и сортированный максимально заполненной
+                    var oneClass = classrooms.Where(x => x.NumberOfSeats >= curriculaMax.Group.NumberOfPersons)
+                                         .OrderBy(x => x.NumberOfSeats - curriculaMax.Group.NumberOfPersons)
+                                         .ToArray();
+                    var fillingTeacher = fillingTeachers.First(x => x.Value.TeacherId == teacher.TeacherId);
+                    var fillingGroup = fillingGroups.First(x => x.Value.GroupId == curriculaMax.GroupId);
+                    var fillingClassroom = fillingClassrooms.First(x => x.Value.ClassroomId == oneClass[0].ClassroomId);
+                    
+                    //Успешноли добавилось?
+                    bool success = false;
+                    //Цикл для success
+                    bool wh = true;
+                    // С какая  аудитория проверяется из oneClass
+                    int numberClass = 0;
+                    while (wh)
+                    {
+                        for (int i = 0; i < possibleFillings.Length; i++)
+                        {
+                            //Условия что в этот день в эту пару Преподватель группа и классная комната не заняты
+                            bool FT = fillingTeacher.PossibleFillings[i].BusyPair == null;
+                            bool FG = fillingGroup.PossibleFillings[i].BusyPair == null;
+                            bool FC = fillingClassroom.PossibleFillings[i].BusyPair == null;
+                            if (FT && FG && FC)
+                            {
+                                BusyPair busyPair = new BusyPair(oneClass[numberClass], teacher, curriculaMax.Subject, curriculaMax.Group);
+                                fillingTeacher.PossibleFillings[i].BusyPair = busyPair;
+                                fillingGroup.PossibleFillings[i].BusyPair = busyPair;
+                                fillingClassroom.PossibleFillings[i].BusyPair = busyPair;
+                                success = true;
+                                wh = false;
+                                break;
+                            }
+                        }
+                        if (success == false)
+                        {
+                            numberClass++;
+                            if (numberClass> oneClass.Length)
+                            {
+                                wh = false;
+                            }
+                        }
+                    }
+                    if (success == false)
+                    {
+                        Console.WriteLine($"Не получилось((subj={curriculaMax.Subject.Name} group={curriculaMax.Group.Name}");
+                    }
+                    curriculaMax.NumberOfPairs--;
+                    curriculaMax = curricula.OrderByDescending(x => x.NumberOfPairs).First();
+                }
+
+
+                consoleFilling(fillingClassrooms);
             }
 
             Console.ReadLine();
 
         }
 
+        private static void consoleFilling(Filling<Classroom>[] fillingClassrooms)
+        {
+            Console.WriteLine("РАСПРЕДЕЛЕНИЕ ПО АУДИТОРИЯМ");
+            int padOneStolb = " Номер и день недели ".Length;
+            int padTwoStolb = " Номер и пара ".Length;
+            string oneStolb = " Номер и день недели ".PadRight(padOneStolb);
+            string twoStolb = " Номер и пара ".PadRight(padTwoStolb);
+            Console.Write($"{oneStolb}|{twoStolb}|");
+            int padClassroom = fillingClassrooms.Max(x => x.Value.Name.Length);
+            foreach (var fillingClassroom in fillingClassrooms)
+            {
+                string classroom = fillingClassroom.Value.Name.PadRight(padClassroom);
+                Console.Write($"| {classroom} |");
+            }
+            int countFillingClassrooms = fillingClassrooms[0].PossibleFillings.Length;
+            Console.WriteLine();
+            for (int i = 0; i < fillingClassrooms[0].PossibleFillings.Length; i++)
+            {
+                var temp = fillingClassrooms[0].PossibleFillings[i];
+                oneStolb = $"{temp.StudyDay.NumberOfWeek}_{temp.StudyDay.NameDayOfWeek}".PadRight(padOneStolb);
+                twoStolb = $"{temp.Pair.NumberThePair}_{temp.Pair.NameThePair}".PadRight(padTwoStolb);
+                Console.Write($"{oneStolb}|{twoStolb}|");
+                foreach (var fillingClassroom in fillingClassrooms)
+                {
+                    var busyPairTemp = fillingClassroom.PossibleFillings[i].BusyPair;
+                    string classroom = " NULL".PadRight(padClassroom);
+                    if (busyPairTemp!=null)
+                    {
+                        string teac = busyPairTemp.Teacher.Name.Substring(busyPairTemp.Teacher.Name.Length-1,1);
+                        string group = busyPairTemp.Group.Name.Substring(busyPairTemp.Group.Name.Length - 1, 1);
+                        string subj = busyPairTemp.Subject.Name.Substring(0, 5);
+                        classroom =$"t{teac}_g{group}_{subj}".PadRight(padClassroom);
+                    }
+                    
+                    Console.Write($"| {classroom} |");
+                }
+                Console.WriteLine();
+            }
+          
+        }
 
 
+        /// <summary>
+        /// Получить заполнение по каждому (преподавателю,группе,аудитории)
+        /// </summary>
+        /// <typeparam name="T">(преподавателю,группе,аудитории)</typeparam>
+        /// <param name="array">массив (преподавателю,группе,аудитории)</param>
+        /// <param name="possibleFillings">массив свободных дней</param>
+        /// <returns>массив заполнение по каждому (преподавателю,группе,аудитории)</returns>
         private static Filling<T>[] GetFilling<T>(T[] array, PossibleFilling[] possibleFillings)
         {
             var result = new List<Filling<T>>();
@@ -78,25 +205,32 @@ namespace SimpleSheduler.CMD
             return result.ToArray();
         }
 
-
+        /// <summary>
+        /// Все  возможные свободные дни с парами
+        /// </summary>
+        /// <param name="pairs">Какие пары в этот день</param>
+        /// <param name="studyDays">Какие дни</param>
+        /// <returns>Массив возможные свободные дни с парами</returns>
         private static PossibleFilling[] GetPossibleFilling(Pair[] pairs, StudyDay[] studyDays)
         {
-            PossibleFilling[] possibleFillings;
+            var possibleFillings = new List<PossibleFilling>();
+            foreach (var studyDay in studyDays)
             {
-                var tempPossibleFillings = new List<PossibleFilling>();
-                foreach (var studyDay in studyDays)
+                foreach (var pair in pairs)
                 {
-                    foreach (var pair in pairs)
-                    {
-                        tempPossibleFillings.Add(new PossibleFilling(pair, studyDay));
-                    }
+                    possibleFillings.Add(new PossibleFilling(pair, studyDay));
                 }
-                possibleFillings = tempPossibleFillings.ToArray();
             }
-
-            return possibleFillings;
+            return possibleFillings.ToArray();
         }
 
+
+        /// <summary>
+        /// Вывод на консоль Аудиторий
+        /// </summary>
+        /// <param name="classrooms">Массив аудиторий</param>
+        /// <param name="pos">на сколько отступить с начала строки</param>
+        /// <param name="All">True -Надо ли выводить подтаблицы; false - не надо</param>
         private static void ConsoleClassroom(Classroom[] classrooms,int pos=0, bool All=true)
         {
             Console.ForegroundColor = ConsoleColor.Cyan;
@@ -122,7 +256,12 @@ namespace SimpleSheduler.CMD
                 Console.WriteLine($"ID:{id}, Название:{name}, Мест:{numberOfSeats}.");
             }
         }
-
+        /// <summary>
+        /// Вывод на консоль групп
+        /// </summary>
+        /// <param name="groups">Массив групп</param>
+        /// <param name="pos">на сколько отступить с начала строки</param>
+        /// <param name="All">True -Надо ли выводить подтаблицы; false - не надо</param>
         private static void ConsoleGroup(Group[] groups, int pos = 0, bool All = true)
         {
 
@@ -153,15 +292,16 @@ namespace SimpleSheduler.CMD
                 if (All)
                 {
                     ConsoleCurriculum(group.Curricula.ToArray(), pos + 2 * posit);
-                    //foreach (var curriculum in group.Curricula)
-                    //{
-                    //    Console.CursorLeft = pos + 2 * posit;
-                    //    Console.WriteLine($"ID:{ curriculum.CurriculumId}, Название предмета:{curriculum.Subject.Name}, Количество пар:{curriculum.NumberOfPairs}.");
-                    //}
                 }
             }
         }
 
+        /// <summary>
+        /// Вывод на консоль предметов
+        /// </summary>
+        /// <param name="subjects">Массив предметов</param>
+        /// <param name="pos">на сколько отступить с начала строки</param>
+        /// <param name="All">True -Надо ли выводить подтаблицы; false - не надо</param>
         private static void ConsoleSubject(Subject[] subjects, int pos = 0, bool All = true)
         {
 
@@ -195,22 +335,19 @@ namespace SimpleSheduler.CMD
                 {
                   
                     ConsoleCurriculum(subject.Curricula.ToArray(), pos + 2 * posit);
-                    //foreach (var curriculum in subject.Curricula)
-                    //{
-                    //    Console.CursorLeft = pos + 2 * posit;
-                    //    Console.WriteLine($"ID:{ curriculum.CurriculumId}, Название группы:{curriculum.Group.Name}, Количество пар:{curriculum.NumberOfPairs}.");
-                    //}
+                   
                     Console.WriteLine();
                     ConsoleSubjectOfTeacher(subject.SubjectOfTeachers.ToArray(), pos + 2 * posit);
-                    //foreach (var subjectOfTeacher in subject.SubjectOfTeachers)
-                    //{
-                    //    Console.CursorLeft = pos + 2 * posit;
-                    //    Console.WriteLine($"ID:{ subjectOfTeacher.SubjectOfTeacherId}, Имя преподавателя:{subjectOfTeacher.Teacher.Name}.");
-                    //}
+                    
                 }
             }
         }
-
+        /// <summary>
+        /// Вывод на консоль Преподавателей
+        /// </summary>
+        /// <param name="teachers">Массив преподавателей</param>
+        /// <param name="pos">на сколько отступить с начала строки</param>
+        /// <param name="All">True -Надо ли выводить подтаблицы; false - не надо</param>
         private static void ConsoleTeacher(Teacher[] teachers, int pos = 0, bool All = true)
         {
 
@@ -241,16 +378,15 @@ namespace SimpleSheduler.CMD
                 if (All)
                 {
                     ConsoleSubjectOfTeacher(teacher.SubjectOfTeachers.ToArray(), pos + 2 * posit);
-                    //foreach (var subjectOfTeacher in teacher.SubjectOfTeachers)
-                    //{
-                    //    Console.CursorLeft = pos + 2 * posit;
-                    //    Console.WriteLine($"ID:{ subjectOfTeacher.SubjectOfTeacherId}, Название предмета:{subjectOfTeacher.Subject.Name}.");
-                    //}
                 }
             }
         }
 
-
+        /// <summary>
+        /// Вывод на консоль Плана занятий
+        /// </summary>
+        /// <param name="curricula">Массив плана занятий</param>
+        /// <param name="pos">на сколько отступить с начала строки</param>
         private static void ConsoleCurriculum(Curriculum[] curricula, int pos = 0)
         {
 
@@ -283,7 +419,11 @@ namespace SimpleSheduler.CMD
             }
         }
 
-
+        /// <summary>
+        /// Вывод на консоль предметов преподавателей
+        /// </summary>
+        /// <param name="subjectOfTeachers">Массив предметов преподавателей</param>
+        /// <param name="pos">на сколько отступить с начала строки</param>
         private static void ConsoleSubjectOfTeacher(SubjectOfTeacher[] subjectOfTeachers, int pos = 0)
         {
 
@@ -313,7 +453,11 @@ namespace SimpleSheduler.CMD
 
             }
         }
-
+        /// <summary>
+        /// Вывод на консоль пар
+        /// </summary>
+        /// <param name="pairs">Массив пар</param>
+        /// <param name="pos">на сколько отступить с начала строки</param>
         private static void ConsolePair(Pair[] pairs, int pos = 0)
         {
 
@@ -344,7 +488,11 @@ namespace SimpleSheduler.CMD
             }
         }
 
-
+        /// <summary>
+        /// Вывод на консоль учебных дней
+        /// </summary>
+        /// <param name="studyDays">Массив учебных дней</param>
+        /// <param name="pos">на сколько отступить с начала строки</param>
         private static void ConsoleStudyDay(StudyDay[] studyDays, int pos = 0)
         {
 
