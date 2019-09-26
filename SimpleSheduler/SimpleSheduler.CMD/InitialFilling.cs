@@ -215,5 +215,63 @@ namespace SimpleSheduler.CMD
 
             }
         }
+
+
+        public static void Filling2()
+        {
+            using (var context = new MyDbContext())
+            {
+
+                var groups = context.Groups.ToArray();
+                var classrooms = context.Classrooms.ToArray();
+                var teachers = context.Teachers.ToArray();
+                var subjects = context.Subjects.ToArray();
+                int[][] ClassYear = new int[][]
+                 {
+                    new int[] { 165, 132, 0, 0, 0, 0, 132, 66, 0, 33, 33, 33, 99 },
+                    new int[] { 136, 102, 34, 34, 68, 0, 136, 68, 0, 34, 34, 34, 102 },
+                    new int[] { 170, 136, 0, 0, 68, 0, 136, 68, 0, 34, 34, 34, 102 },
+                    new int[] { 170, 102, 0, 0, 68, 0, 136, 68, 34, 34, 34, 34, 102 },
+                 };
+                var curricula = new List<Curriculum>();
+                for (int i = 0; i < groups.Length; i++)
+                {
+                    for (int j = 0; j < subjects.Length; j++)
+                    {
+                        if (ClassYear[i][j] / 8 > 0)
+                        {
+                            var curriculum = new Curriculum()
+                            {
+                                GroupId = groups[i].GroupId,
+                                SubjectId = subjects[j].SubjectId,
+                                NumberOfPairs = ClassYear[i][j] / 8
+                            };
+                            curricula.Add(curriculum);
+                        }
+                    }
+                }
+
+                context.Curricula.AddRange(curricula);
+                try
+                {
+
+                    context.SaveChanges();
+
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    foreach (DbEntityValidationResult validationError in ex.EntityValidationErrors)
+                    {
+                        Console.Write("Object: " + validationError.Entry.Entity.ToString());
+                        Console.Write("");
+                        foreach (DbValidationError err in validationError.ValidationErrors)
+                        {
+                            Console.Write(err.ErrorMessage + "");
+                        }
+                        Console.WriteLine();
+                    }
+                }
+            }
+        }
     }
 }

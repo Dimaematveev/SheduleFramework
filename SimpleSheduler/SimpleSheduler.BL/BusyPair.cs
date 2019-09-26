@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace SimpleSheduler.BL
 {
+    /// <summary>
+    /// Заолненая пара.
+    /// </summary>
     public class BusyPair
     {
         public Classroom Classroom{get;set;}

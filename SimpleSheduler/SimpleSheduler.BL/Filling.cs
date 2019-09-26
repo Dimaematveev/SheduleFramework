@@ -1,4 +1,5 @@
 ﻿using SimpleSheduler.BD;
+using SimpleSheduler.BD.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,11 @@ using System.Threading.Tasks;
 
 namespace SimpleSheduler.BL
 {
-    public class Filling<T> where T: BD.Model.IName
+    /// <summary>
+    /// Заполнение по 
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    public class Filling<T> where T: IName
     {
         public Filling(T value, PossibleFilling[] possibleFillings)
         {

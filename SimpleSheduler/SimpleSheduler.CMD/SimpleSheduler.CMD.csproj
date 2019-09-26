@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConsoleOut.cs" />
     <Compile Include="ConsoleTable.cs" />
     <Compile Include="InitialFilling.cs" />
     <Compile Include="Program.cs" />
