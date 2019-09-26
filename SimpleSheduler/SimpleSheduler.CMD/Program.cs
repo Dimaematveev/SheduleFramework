@@ -61,7 +61,8 @@ namespace SimpleSheduler.CMD
                 fillingClassrooms = GetFilling(classrooms, possibleFillings);
 
 
-                var NotFill = FillingMaxNumberPair(fillingTeachers, fillingGroups, fillingClassrooms, possibleFillings, classrooms, curricula, subjectOfTeachers);
+                var NotFill = SetSchedule(fillingTeachers, fillingGroups, fillingClassrooms, classrooms, curricula, subjectOfTeachers);
+                //var Not1Fill = FillingMaxNumberPair(fillingTeachers, fillingGroups, fillingClassrooms,possibleFillings, classrooms, curricula, subjectOfTeachers);
 
                 //Для вывода лучше сдать таблицу, потом выводить
                 ConsoleOut.ConsoleFilling(fillingClassrooms, "РАСПРЕДЕЛЕНИЕ ПО АУДИТОРИЯМ");
@@ -74,123 +75,145 @@ namespace SimpleSheduler.CMD
 
         }
 
+
         /// <summary>
-        /// Метод заполнения пар преподавателю, группе, аудитории.
-        /// Заполнение идет в порядке уменьшения количества пар у всех групп
+        /// Функция задание расписания:
         /// </summary>
         /// <param name="fillingTeachers"> занятость преподавателя </param>
         /// <param name="fillingGroups"> занятость группы </param>
         /// <param name="fillingClassrooms"> занятость аудитории </param>
-        /// <param name="possibleFillings">  занятость (скопирована для всех) </param>
         /// <param name="classrooms"> аудитория </param>
         /// <param name="curricula"> План занятий </param>
         /// <param name="subjectOfTeachers"> Предмет и преподаватель</param>
-        private static Curriculum[] FillingMaxNumberPair(Filling<Teacher>[] fillingTeachers,
-                                                 Filling<Group>[] fillingGroups,
-                                                 Filling<Classroom>[] fillingClassrooms,
-                                                 PossibleFilling[] possibleFillings,
-                                                 Classroom[] classrooms,
-                                                 Curriculum[] curricula,
-                                                 SubjectOfTeacher[] subjectOfTeachers)
+        /// <returns>Массив план не заполненный </returns>
+        private static Curriculum[] SetSchedule(
+            Filling<Teacher>[] fillingTeachers,
+            Filling<Group>[] fillingGroups,
+            Filling<Classroom>[] fillingClassrooms,
+            Classroom[] classrooms,
+            Curriculum[] curricula,
+            SubjectOfTeacher[] subjectOfTeachers)
         {
-            //Todo-:Нужно какие группы в какие аудитории поместятся-необязательно уже фильтруются ниже
-            //Todo:объединение групп
-
+            //1. Аудитории сортированы по количеству мест
+            classrooms = classrooms.OrderBy(x => x.NumberOfSeats).ToArray();
+            //Номер Аудитории из массива которая сейчас будет рассматриваться
+            int NumClassroom =0;
+            //2. Сортируем план занятий по кол-во пар(макс первый)
+            curricula = curricula.OrderByDescending(x => x.NumberOfPairs).ToArray();
             //план который не вошел
             var curriculaNot = new List<Curriculum>();
-            //Элемент с максимальным числом пар в 2 недели
-            var curriculaMax = curricula.OrderByDescending(x => x.NumberOfPairs).First();
-            while (curriculaMax.NumberOfPairs != 0)
+            //3. Цикл по плану занятий пока первый элемент он же максимальный не равен 0
+            while (curricula[0].NumberOfPairs!=0)
             {
-                //беру по одной паре и добавляю преподавателя 
-                //todo: по другому сделать поиск преподавателя
-                //todo: сделать указания какие преподаватели уже есть в группе
+               
+                //a. Из первого элемента плана понимаем что за предмет и какая группа
+                var group = curricula[0].Group;
+                var subject = curricula[0].Subject;
+                //b. Ищем на предмет первого преподавателя
+                var teacher = subjectOfTeachers.First(x => x.Subject == subject).Teacher;
+                //c. Выбираем аудитории с кол-во мест больше чем в группе 
+                //(так как они отсортированы по возрастанию то просто номер первой подходящей аудитории)
+                NumClassroom = Array.FindIndex(classrooms,x => x.NumberOfSeats >= group.NumberOfPersons);
 
-                //Знаем и преподавателя и предмет и группу осталась аудитория
-                var teacher = subjectOfTeachers.First(x => x.SubjectId == curriculaMax.SubjectId).Teacher;
-                //Массив со всеми аудиториями подходящими и сортированный максимально заполненной
-                //todo?: Сделать так чтобы добавлялись по парам в один день, потом в эту пару через неделю
-                var oneClass = classrooms.Where(x => x.NumberOfSeats >= curriculaMax.Group.NumberOfPersons)
-                                     .OrderBy(x => x.NumberOfSeats - curriculaMax.Group.NumberOfPersons)
-                                     .ToArray();
+                //Теперь для каждой  группы, преподавателя подцепляем занятость
                 var fillingTeacher = fillingTeachers.First(x => x.Value.TeacherId == teacher.TeacherId);
-                var fillingGroup = fillingGroups.First(x => x.Value.GroupId == curriculaMax.GroupId);
-                var fillingClassroom = fillingClassrooms.First(x => x.Value.ClassroomId == oneClass[0].ClassroomId);
+                var fillingGroup = fillingGroups.First(x => x.Value.GroupId == curricula[0].GroupId);
+              
 
-                //Успешноли добавилось?
+                //Лучше циклы по аудиториям и по расписаниями поменять местами
+                //Добавилась ли пара
                 bool success = false;
-                //Цикл для success
-                bool wh = true;
-                // С какая  аудитория проверяется из oneClass
-                int numberClass = 0;
-                while (wh)
+                //i. Цикл по расписанию
+                for (int cu = 0; cu < fillingTeacher.PossibleFillings.Length; cu++)
                 {
-                    for (int i = 0; i < possibleFillings.Length; i++)
+                   
+                    //d. Цикл по аудиториям
+                    for (int cl = NumClassroom; cl < classrooms.Length; cl++)
                     {
+                        //Теперь для аудитории подцепляем занятость
+                        var fillingClassroom = fillingClassrooms.First(x => x.Value.ClassroomId == classrooms[cl].ClassroomId);
                         //Условия что в этот день в эту пару Преподаватель группа и классная комната не заняты
-                        bool FT = fillingTeacher.PossibleFillings[i].BusyPair == null;
-                        bool FG = fillingGroup.PossibleFillings[i].BusyPair == null;
-                        bool FC = fillingClassroom.PossibleFillings[i].BusyPair == null;
+                        bool FT = fillingTeacher.PossibleFillings[cu].BusyPair == null;
+                        bool FG = fillingGroup.PossibleFillings[cu].BusyPair == null;
+                        bool FC = fillingClassroom.PossibleFillings[cu].BusyPair == null;
+                        //1. Если в этот день свободна и группа и преподаватель и аудитория
                         if (FT && FG && FC)
                         {
-                            BusyPair busyPair = new BusyPair(oneClass[numberClass], teacher, curriculaMax.Subject, curriculaMax.Group);
-                            fillingTeacher.PossibleFillings[i].BusyPair = busyPair;
-                            fillingGroup.PossibleFillings[i].BusyPair = busyPair;
-                            fillingClassroom.PossibleFillings[i].BusyPair = busyPair;
+                            
+                            BusyPair busyPair = new BusyPair(classrooms[cl], teacher, subject, group);
+                            //a. Добавляем им пару
+                            fillingTeacher.PossibleFillings[cu].BusyPair = busyPair;
+                            fillingGroup.PossibleFillings[cu].BusyPair = busyPair;
+                            fillingClassroom.PossibleFillings[cu].BusyPair = busyPair;
+                            //b. Заканчиваем 2 цикла(по расписанию и по аудиториям)
                             success = true;
-                            wh = false;
                             break;
                         }
-                    }
-                    if (success == false)
-                    {
-                        numberClass++;
-                        if (numberClass >= oneClass.Length)
+
+                        //b. Заканчиваем 2 цикла(по расписанию и по аудиториям) если пара добавилась
+                        if (success)
                         {
-                            wh = false;
+                            break;
                         }
-                        else
-                        {
-                            fillingClassroom = fillingClassrooms.First(x => x.Value.ClassroomId == oneClass[numberClass].ClassroomId);
-                        }
+                        
+                        //Если закончено
                     }
+
+                    //Цикл по расписанию закончен
                 }
-                if (success == false)
+                //Цикл аудиторий закончен
+
+                //e. Если не смогли добавить то
+                if (!success)
                 {
-                    int ind = curriculaNot.FindIndex(x => x.CurriculumId == curriculaMax.CurriculumId);
+                    
+                    int ind = curriculaNot.FindIndex(x => x.CurriculumId == curricula[0].CurriculumId);
+                    //i. Если был  такой элемент
+                   
                     if (ind == -1)
                     {
+                        //1. Сохраняем что не смогли добавить в кол-ве 1 пара
                         curriculaNot.Add(
                             new Curriculum()
                             {
-                                CurriculumId = curriculaMax.CurriculumId,
-                                Group = curriculaMax.Group,
-                                GroupId = curriculaMax.GroupId,
-                                Subject = curriculaMax.Subject,
-                                SubjectId = curriculaMax.SubjectId,
+                                CurriculumId = curricula[0].CurriculumId,
+                                Group = curricula[0].Group,
+                                GroupId = curricula[0].GroupId,
+                                Subject = curricula[0].Subject,
+                                SubjectId = curricula[0].SubjectId,
                                 NumberOfPairs = 1
                             }
                         );
                     }
+                    //Иначе если не было такого элемента
                     else
                     {
+                        //1. Добавляем к элементу 1 пару
                         curriculaNot[ind].NumberOfPairs++;
                     }
-                    
+                    //Если закончено
                 }
-                curriculaMax.NumberOfPairs--;
-                curriculaMax = curricula.OrderByDescending(x => x.NumberOfPairs).First();
+                //Если закончено
+                //f. Убираем у первого элемента 1 пару
+                curricula[0].NumberOfPairs--;
+                //g. Сортируем план занятий по кол-во пар(макс первый)
+                curricula = curricula.OrderByDescending(x => x.NumberOfPairs).ToArray();
             }
+            //Цикл плана закончен
             foreach (var item in curriculaNot)
             {
-                Console.WriteLine($"Не получилось((group={item.Group.Name}  Number pair ={item.NumberOfPairs,3} subj={item.Subject.Name} " );
+                Console.WriteLine($"Не получилось((group={item.Group.Name}  Number pair ={item.NumberOfPairs,3} subj={item.Subject.Name} ");
             }
+            //4. На выход отдаём что не смогли добавить из п.3, e, i
             return curriculaNot.ToArray();
+            //Конец функции задание расписания
+
         }
 
-       
 
-       
+
+
+
 
         /// <summary>
         /// Получить заполнение по каждому (преподавателю,группе,аудитории)
