@@ -39,7 +39,9 @@ namespace ShedulerFromExcel.BL
 
         public void ConsoleOut()
         {
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"Поток:{Potok}, \nГод начала: {YearBegin}, \nНаправление: {Napravl}, \nПрофиль: {Profil}, \nКафедра: {Kafedra}.");
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         //Получит поток из Титул ->из названия файла беру поток и пытаюсь его найти
