@@ -13,14 +13,19 @@ namespace ShedulerFromExcel.BL
 {
     public class EasyExcel
     {
-
-        public void Sta()
+        public Title Title { get; private set; } = new Title();
+        public List<Kurs> Kurs { get; private set; } = new List<Kurs>();
+        public EasyExcel(string FilePath)
         {
-            var filePath19 = "..\\..\\..\\ShedulerFromExcel.CMD\\Need\\09.03.02_АПиМОБИС_ИКБСП_2019.plx.xls";
-            var filePath17 = "..\\..\\..\\ShedulerFromExcel.CMD\\Need\\09.03.02_АПиМОБИС_ИКБСП_2017.plm.xml.xls";
+            Sta(FilePath);
+        }
 
-            var filePath = filePath19;
-            var kurs = new List<Kurs>();
+        private void Sta(string filePath)
+        {
+            //    var filePath19 = "..\\..\\..\\ShedulerFromExcel.CMD\\Need\\09.03.02_АПиМОБИС_ИКБСП_2019.plx.xls";
+            //    var filePath17 = "..\\..\\..\\ShedulerFromExcel.CMD\\Need\\09.03.02_АПиМОБИС_ИКБСП_2017.plm.xml.xls";
+
+            //    var filePath = filePath19;
             //Сюда сохраняем все листы
             List< DataTable> AllList = new List<DataTable>();
             
@@ -75,25 +80,25 @@ namespace ShedulerFromExcel.BL
             {
                 if (regex.IsMatch(item.TableName))
                 {
-                    kurs.Add(new Kurs(item, item.TableName));
+                    Kurs.Add(new Kurs(item, item.TableName));
 
                 }
             }
 
             //Для листов Титул
             regex = new Regex(@"^Титул");
-            Title title;
+           
             foreach (var item in AllList)
             {
                 if (regex.IsMatch(item.TableName))
                 {
-                    title= new Title(item, filePath.Split('\\').Last());
+                    Title = new Title(item, filePath.Split('\\').Last());
 
                 }
             }
 
-
-            foreach (var item in kurs)
+            Title.ConsoleOut();
+            foreach (var item in Kurs)
             {
                 item.ConsoleOutSemester1();
                 Console.WriteLine();

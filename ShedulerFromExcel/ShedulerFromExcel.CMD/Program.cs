@@ -12,9 +12,11 @@ namespace ShedulerFromExcel.CMD
         static void Main()
         {
             Console.WriteLine("Hello!");
-            EasyExcel easyExcel = new EasyExcel();
+            var filePath19 = "..\\..\\..\\ShedulerFromExcel.CMD\\Need\\09.03.02_АПиМОБИС_ИКБСП_2019.plx.xls";
+            var filePath17 = "..\\..\\..\\ShedulerFromExcel.CMD\\Need\\09.03.02_АПиМОБИС_ИКБСП_2017.plm.xml.xls";
+            EasyExcel easyExcel17 = new EasyExcel(filePath17);
+            EasyExcel easyExcel19 = new EasyExcel(filePath19);
             
-            easyExcel.Sta();
             Console.ReadLine();
         }
     }

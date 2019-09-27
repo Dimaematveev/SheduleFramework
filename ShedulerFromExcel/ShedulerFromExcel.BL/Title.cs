@@ -33,6 +33,14 @@ namespace ShedulerFromExcel.BL
             GetKafedra(ListKurs);
         }
 
+        public Title()
+        {
+        }
+
+        public void ConsoleOut()
+        {
+            Console.WriteLine($"Поток:{Potok}, \nГод начала: {YearBegin}, \nНаправление: {Napravl}, \nПрофиль: {Profil}, \nКафедра: {Kafedra}.");
+        }
 
         //Получит поток из Титул ->из названия файла беру поток и пытаюсь его найти
         private void GetPotok(DataTable dataTable, string potok)
@@ -55,13 +63,11 @@ namespace ShedulerFromExcel.BL
                 }
             }
         }
-
-        //Получит год из Титул ->из названия файла беру год и сравниваю с тем что нашел
-        private void GetYear(DataTable dataTable, string year)
+        //Получить строку и столбец с элементом
+        private void GetRowColPoisk(DataTable dataTable, string poisk, out int row,out int col)
         {
-            string poisk = "Год начала";
-            int row = -1;
-            int col = -1;
+            row = -1;
+            col = -1;
             for (int i = 0; i < dataTable.Rows.Count; i++)
             {
                 for (int j = 0; j < dataTable.Columns.Count; j++)
@@ -79,67 +85,50 @@ namespace ShedulerFromExcel.BL
                         break;
                     }
                 }
-                if (row>0 && col>0)
+                if (row > 0 && col > 0)
                 {
                     break;
                 }
             }
-            string yearPoisk = "";
+
+        }
+        //Получит год из Титул ->из названия файла беру год и сравниваю с тем что нашел по ""Год начала""
+        private void GetYear(DataTable dataTable, string year)
+        {
+            GetRowColPoisk(dataTable, "Год начала", out int row, out int col);
+
+            string Poisk = "";
             for (int j = col+1; j < dataTable.Columns.Count; j++)
             {
                 if (dataTable.Rows[row][j] != null && dataTable.Rows[row][j].ToString()!="")
                 {
-                    yearPoisk = dataTable.Rows[row][j].ToString();
+                    Poisk = dataTable.Rows[row][j].ToString();
                     break;
                 }
 
             }
-            Console.WriteLine($"Нашел {yearPoisk}  был {year}");
-            if (yearPoisk == year)
+            //Console.WriteLine($"Нашел {Poisk}  был {year}");
+            if (Poisk == year)
             {
-                YearBegin = yearPoisk;
+                YearBegin = Poisk;
             }
         }
         //Получит Направление из Титул -> Ищу строку содерж "Направление:"
         private void GetNapravl(DataTable dataTable)
         {
-            string poisk = "Направление:";
-            string Naiden = "";
-            for (int i = 0; i < dataTable.Rows.Count; i++)
+            GetRowColPoisk(dataTable, "Направление:", out int row, out int col);
+           
+            if (row!=-1 && col!=-1)
             {
-                for (int j = 0; j < dataTable.Columns.Count; j++)
-                {
-                    if (dataTable.Rows[i][j] == null)
-                    {
-                        continue;
-                    }
-
-                    if (dataTable.Rows[i][j].ToString().Contains(poisk))
-                    {
-                        Naiden = dataTable.Rows[i][j].ToString();
-                        break;
-                    }
-                }
-                if (Naiden != "")
-                {
-                    break;
-                }
-            }
-
-            if (Naiden != "")
-            {
+                string Naiden = dataTable.Rows[row][col].ToString();
                 Naiden = Naiden.Split('"')[1];
                 Napravl = Naiden;
-                Console.WriteLine($"Нашел {Naiden}  ");
+                //Console.WriteLine($"Нашел {Naiden}  ");
             }
             else
             {
                 GetNapravlPotok(dataTable);
             }
-            
-
-            
-           
         }
         //Получит Направление из Титул -> Ищу строку содерж поток
         private void GetNapravlPotok(DataTable dataTable)
@@ -176,7 +165,7 @@ namespace ShedulerFromExcel.BL
             {
                 Naiden = Naiden.Substring(Potok.Length).Trim();
                 Napravl = Naiden;
-                Console.WriteLine($"Нашел {Naiden}  ");
+                //Console.WriteLine($"Нашел {Naiden}  ");
             }
             else
             {
@@ -186,34 +175,14 @@ namespace ShedulerFromExcel.BL
         //Получит Профиль из Титул -> Ищу строку содерж "Профиль:"
         private void GetProfil(DataTable dataTable)
         {
-            string poisk = "Профиль:";
             string Naiden = "";
-            for (int i = 0; i < dataTable.Rows.Count; i++)
+            GetRowColPoisk(dataTable, "Профиль:", out int row, out int col);
+            if (row>0 && col>0)
             {
-                for (int j = 0; j < dataTable.Columns.Count; j++)
-                {
-                    if (dataTable.Rows[i][j] == null)
-                    {
-                        continue;
-                    }
-
-                    if (dataTable.Rows[i][j].ToString().Contains(poisk))
-                    {
-                        Naiden = dataTable.Rows[i][j].ToString();
-                        break;
-                    }
-                }
-                if (Naiden != "")
-                {
-                    break;
-                }
-            }
-
-            if (Naiden != "")
-            {
+                Naiden = dataTable.Rows[row][col].ToString();
                 Naiden = Naiden.Split('"')[1];
                 Profil = Naiden;
-                Console.WriteLine($"Нашел {Naiden}  ");
+                //Console.WriteLine($"Нашел {Naiden}  ");
             }
             else
             {
@@ -223,31 +192,7 @@ namespace ShedulerFromExcel.BL
         //Получит Профиль из Титул -> Ищу строку содерж Профиль и перехожу правее
         private void GetProfilSmesh(DataTable dataTable)
         {
-            string poisk = "Профиль";
-            int row = -1;
-            int col = -1;
-            for (int i = 0; i < dataTable.Rows.Count; i++)
-            {
-                for (int j = 0; j < dataTable.Columns.Count; j++)
-                {
-                    if (dataTable.Rows[i][j] == null)
-                    {
-                        continue;
-                    }
-
-                    if (dataTable.Rows[i][j].ToString().Contains(poisk))
-                    {
-                        row = i;
-                        col = j;
-
-                        break;
-                    }
-                }
-                if (row > 0 && col > 0)
-                {
-                    break;
-                }
-            }
+            GetRowColPoisk(dataTable, "Профиль", out int row, out int col);
             string Poisk = "";
             for (int j = col + 1; j < dataTable.Columns.Count; j++)
             {
@@ -258,10 +203,9 @@ namespace ShedulerFromExcel.BL
                 }
 
             }
-           
             if (Poisk!="")
             {
-                Console.WriteLine($"Нашел {Poisk} ");
+                //Console.WriteLine($"Нашел {Poisk} ");
                 Profil = Poisk;
             }
             else
@@ -274,31 +218,8 @@ namespace ShedulerFromExcel.BL
         //Получит Профиль из Титул -> Ищу строку содерж "Профиль:"
         private void GetKafedra(DataTable dataTable)
         {
-            string poisk = "Кафедра:";
-            int row = -1;
-            int col = -1;
-            for (int i = 0; i < dataTable.Rows.Count; i++)
-            {
-                for (int j = 0; j < dataTable.Columns.Count; j++)
-                {
-                    if (dataTable.Rows[i][j] == null)
-                    {
-                        continue;
-                    }
-
-                    if (dataTable.Rows[i][j].ToString().Contains(poisk))
-                    {
-                        row = i;
-                        col = j;
-
-                        break;
-                    }
-                }
-                if (row > 0 && col > 0)
-                {
-                    break;
-                }
-            }
+            GetRowColPoisk(dataTable, "Кафедра:", out int row, out int col);
+            
             string Poisk = "";
             for (int j = col + 1; j < dataTable.Columns.Count; j++)
             {
@@ -312,7 +233,7 @@ namespace ShedulerFromExcel.BL
 
             if (Poisk != "")
             {
-                Console.WriteLine($"Нашел {Poisk} ");
+                //Console.WriteLine($"Нашел {Poisk} ");
                 Kafedra = Poisk;
             }
             else
