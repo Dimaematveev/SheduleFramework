@@ -11,8 +11,8 @@ namespace ShedulerFromExcel.BL
 {
     public class Kurs
     {
-        DataTable Semester1;
-        DataTable Semester2;
+        public DataTable Semester1 { get; private set; }
+        public DataTable Semester2 { get; private set; }
 
         public Kurs(DataTable ListKurs, string nameList)
         {
@@ -32,9 +32,9 @@ namespace ShedulerFromExcel.BL
             int[] dlinastroki = new int[table.Columns.Count];
             for (int i = 0; i < table.Columns.Count; i++)
             {
-                if (table.Columns[i].ColumnName.Length > dlinastroki[i])
+                if (table.Columns[i].Caption.Length > dlinastroki[i])
                 {
-                    dlinastroki[i] = table.Columns[i].ColumnName.Length;
+                    dlinastroki[i] = table.Columns[i].Caption.Length;
                 }
                 for (int j = 0; j < table.Rows.Count; j++)
                 {
@@ -45,23 +45,27 @@ namespace ShedulerFromExcel.BL
                 }
             }
 
-
-            Console.WriteLine(table.TableName);
+            int lengTable = dlinastroki.Sum();
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.WriteLine(table.TableName.PadLeft((lengTable+ table.TableName.Length) /2));
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
             for (int i = 0; i < table.Columns.Count; i++)
             {
-                string str = table.Columns[i].ColumnName.PadRight(dlinastroki[i]);
-                Console.Write("|" + str + "|");
+                string str = table.Columns[i].Caption.PadRight(dlinastroki[i]);
+                Console.Write( str + "|");
 
             }
+            Console.ForegroundColor = ConsoleColor.White;
             for (int i = 0; i < table.Rows.Count; i++)
             {
                 Console.WriteLine();
                 for (int j = 0; j < table.Columns.Count; j++)
                 {
                     string str = table.Rows[i][j].ToString().PadRight(dlinastroki[j]);
-                    Console.Write("|" + str + "|");
+                    Console.Write( str + "|");
                 }
             }
+            Console.WriteLine();
             Console.WriteLine();
         }
         private void Semester(DataTable dataTable,string nameList)
@@ -120,6 +124,7 @@ namespace ShedulerFromExcel.BL
 
             Semester2 = TableSem(dataTable, Sem2Beg, Sem2End, tableGeneral, nameList+ sem[1]);
 
+            tableGeneral.Dispose();
         }
 
         private static DataTable TableSem(DataTable dataTable, int SemBeg, int SemEnd, DataTable tableGeneral, string nameTable)
@@ -127,22 +132,33 @@ namespace ShedulerFromExcel.BL
             DataTable tableSem = tableGeneral.Copy();
             tableSem.TableName = nameTable;
             DataColumn columnSem;
-            DataRow rowSem;
-            columnSem = new DataColumn();
-            columnSem.DataType = System.Type.GetType("System.String");
-            columnSem.ColumnName = "Контроль";
+            columnSem = new DataColumn
+            {
+                DataType = System.Type.GetType("System.String"),
+                ColumnName = "Контроль"
+            };
             tableSem.Columns.Add(columnSem);
-            columnSem = new DataColumn();
-            columnSem.DataType = System.Type.GetType("System.String");
-            columnSem.ColumnName = "Лекции";
+            columnSem = new DataColumn
+            {
+                DataType = System.Type.GetType("System.String"),
+                ColumnName = "Лекции",
+                Caption ="Лек"
+                
+            };
             tableSem.Columns.Add(columnSem);
-            columnSem = new DataColumn();
-            columnSem.DataType = System.Type.GetType("System.String");
-            columnSem.ColumnName = "Лабораторные";
+            columnSem = new DataColumn
+            {
+                DataType = System.Type.GetType("System.String"),
+                ColumnName = "Лабораторные",
+                Caption = "Лаб"
+            };
             tableSem.Columns.Add(columnSem);
-            columnSem = new DataColumn();
-            columnSem.DataType = System.Type.GetType("System.String");
-            columnSem.ColumnName = "Практические";
+            columnSem = new DataColumn
+            {
+                DataType = System.Type.GetType("System.String"),
+                ColumnName = "Практические",
+                Caption = "Прак"
+            };
             tableSem.Columns.Add(columnSem);
             int colLek = -1;
             int colLab = -1;
@@ -226,18 +242,26 @@ namespace ShedulerFromExcel.BL
             DataTable tableGeneral = new DataTable("General");
             DataColumn columnGeneral;
             DataRow rowGeneral;
-            columnGeneral = new DataColumn();
-
-            columnGeneral.DataType = System.Type.GetType("System.String");
-            columnGeneral.ColumnName = "№";
+            columnGeneral = new DataColumn
+            {
+                DataType = System.Type.GetType("System.String"),
+                ColumnName = "№",
+                Caption = "№"
+            };
             tableGeneral.Columns.Add(columnGeneral);
-            columnGeneral = new DataColumn();
-            columnGeneral.DataType = System.Type.GetType("System.String");
-            columnGeneral.ColumnName = "Индекс";
+            columnGeneral = new DataColumn
+            {
+                DataType = System.Type.GetType("System.String"),
+                ColumnName = "Индекс",
+                Caption = "Инд"
+            };
             tableGeneral.Columns.Add(columnGeneral);
-            columnGeneral = new DataColumn();
-            columnGeneral.DataType = System.Type.GetType("System.String");
-            columnGeneral.ColumnName = "Наименование";
+            columnGeneral = new DataColumn
+            {
+                DataType = System.Type.GetType("System.String"),
+                ColumnName = "Наименование",
+                Caption = "Наим"
+            };
             tableGeneral.Columns.Add(columnGeneral);
 
 

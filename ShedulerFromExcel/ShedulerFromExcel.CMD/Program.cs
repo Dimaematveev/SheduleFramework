@@ -14,7 +14,7 @@ namespace ShedulerFromExcel.CMD
             Console.WriteLine("Hello!");
             EasyExcel easyExcel = new EasyExcel();
             
-            easyExcel.sta();
+            easyExcel.Sta();
             Console.ReadLine();
         }
     }

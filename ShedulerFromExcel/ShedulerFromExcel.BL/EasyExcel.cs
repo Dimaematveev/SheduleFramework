@@ -14,58 +14,89 @@ namespace ShedulerFromExcel.BL
     public class EasyExcel
     {
 
-        public void sta()
+        public void Sta()
         {
             var filePath = "..\\..\\..\\ShedulerFromExcel.CMD\\Need\\09.03.02_АПиМОБИС_ИКБСП_2019.plx.xls";
+            filePath = "..\\..\\..\\ShedulerFromExcel.CMD\\Need\\09.03.02_АПиМОБИС_ИКБСП_2017.plm.xml.xls";
 
+          
             var kurs = new List<Kurs>();
+            //Сюда сохраняем все листы
+            List< DataTable> AllList = new List<DataTable>();
+            var NameTable = filePath.Split('\\').Last();
+            var infoFromNameTable = NameTable.Split('_');
+            string Potok = infoFromNameTable[0];
+            string Profil = infoFromNameTable[1];
+            string NoSavvy = infoFromNameTable[2];
+            string Year = infoFromNameTable[3];
             using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
             {
                 using (var reader = ExcelReaderFactory.CreateReader(stream))
                 {
+                    int numList = 0;
                     do
                     {
+
                         var nameList = reader.Name;
-                        Regex regex = new Regex(@"^Курс\d");
-                        if (regex.IsMatch(nameList))
+                        AllList.Add(new DataTable(nameList));
+                       
+                        DataColumn columnList;
+                        DataRow rowList;
+                        var row = reader.RowCount;
+                        var col = reader.FieldCount;
+                        for (int i = 0; i < col; i++)
                         {
-                            DataTable ListKurs = new DataTable("List");
-                            DataColumn columnList;
-                            DataRow rowList;
-                            var row = reader.RowCount;
-                            var col = reader.FieldCount;
+                            columnList = new DataColumn
+                            {
+                                DataType = System.Type.GetType("System.String"),
+                                ColumnName = "A" + (i + 1)
+                            };
+                            AllList[numList].Columns.Add(columnList);
+                        }
+
+
+                        while (reader.Read())
+                        {
+
+                            rowList = AllList[numList].NewRow();
                             for (int i = 0; i < col; i++)
                             {
-                                columnList = new DataColumn();
-                                columnList.DataType = System.Type.GetType("System.String");
-                                columnList.ColumnName = "A" + (i + 1);
-                                ListKurs.Columns.Add(columnList);
-                            }
-
-
-                            while (reader.Read())
-                            {
-
-                                rowList = ListKurs.NewRow();
-                                for (int i = 0; i < col; i++)
+                                string str = "";
+                                if (reader.GetValue(i)!=null)
                                 {
-                                    string str = "";
-                                    if (reader.GetValue(i)!=null)
-                                    {
-                                        str = reader.GetValue(i).ToString().Trim();
-                                    }
-                                    rowList["A" + (i + 1)] = str;
+                                    str = reader.GetValue(i).ToString().Trim();
                                 }
-                                ListKurs.Rows.Add(rowList);
+                                rowList["A" + (i + 1)] = str;
                             }
-                            kurs.Add(new Kurs(ListKurs,nameList));
-
+                            AllList[numList].Rows.Add(rowList);
                         }
+                        numList++;
                     } while (reader.NextResult());
+                }
+            }
+            //Для листов курс*
+            Regex regex = new Regex(@"^Курс\d");
+            foreach (var item in AllList)
+            {
+                if (regex.IsMatch(item.TableName))
+                {
+                    kurs.Add(new Kurs(item, item.TableName));
 
                 }
-
             }
+
+            //Для листов Титул
+            regex = new Regex(@"^Титул");
+            Title title;
+            foreach (var item in AllList)
+            {
+                if (regex.IsMatch(item.TableName))
+                {
+                    title= new Title(item));
+
+                }
+            }
+
 
             foreach (var item in kurs)
             {
