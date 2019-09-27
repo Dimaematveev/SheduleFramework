@@ -16,19 +16,14 @@ namespace ShedulerFromExcel.BL
 
         public void Sta()
         {
-            var filePath = "..\\..\\..\\ShedulerFromExcel.CMD\\Need\\09.03.02_АПиМОБИС_ИКБСП_2019.plx.xls";
-            filePath = "..\\..\\..\\ShedulerFromExcel.CMD\\Need\\09.03.02_АПиМОБИС_ИКБСП_2017.plm.xml.xls";
+            var filePath19 = "..\\..\\..\\ShedulerFromExcel.CMD\\Need\\09.03.02_АПиМОБИС_ИКБСП_2019.plx.xls";
+            var filePath17 = "..\\..\\..\\ShedulerFromExcel.CMD\\Need\\09.03.02_АПиМОБИС_ИКБСП_2017.plm.xml.xls";
 
-          
+            var filePath = filePath19;
             var kurs = new List<Kurs>();
             //Сюда сохраняем все листы
             List< DataTable> AllList = new List<DataTable>();
-            var NameTable = filePath.Split('\\').Last();
-            var infoFromNameTable = NameTable.Split('_');
-            string Potok = infoFromNameTable[0];
-            string Profil = infoFromNameTable[1];
-            string NoSavvy = infoFromNameTable[2];
-            string Year = infoFromNameTable[3];
+            
             using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
             {
                 using (var reader = ExcelReaderFactory.CreateReader(stream))
@@ -92,7 +87,7 @@ namespace ShedulerFromExcel.BL
             {
                 if (regex.IsMatch(item.TableName))
                 {
-                    title= new Title(item));
+                    title= new Title(item, filePath.Split('\\').Last());
 
                 }
             }

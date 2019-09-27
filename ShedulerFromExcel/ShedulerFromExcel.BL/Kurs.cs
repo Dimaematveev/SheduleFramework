@@ -118,11 +118,11 @@ namespace ShedulerFromExcel.BL
                 }
             }
 
-            DataTable tableGeneral = TableGeneral(dataTable, Sem1Beg);
+            DataTable tableGeneral = TableGeneral(dataTable, Sem1Beg,Sem2End);
 
-            Semester1 = TableSem(dataTable, Sem1Beg, Sem2Beg - 1, tableGeneral, nameList+ sem[0]);
+            Semester1 = TableSem(dataTable, Sem1Beg, Sem2Beg - 1, tableGeneral, $"{nameList} {sem[0]}");
 
-            Semester2 = TableSem(dataTable, Sem2Beg, Sem2End, tableGeneral, nameList+ sem[1]);
+            Semester2 = TableSem(dataTable, Sem2Beg, Sem2End, tableGeneral, $"{nameList} {sem[1]}");
 
             tableGeneral.Dispose();
         }
@@ -237,7 +237,7 @@ namespace ShedulerFromExcel.BL
             return tableSem;
         }
 
-        private static DataTable TableGeneral(DataTable dataTable, int Sem1Beg)
+        private static DataTable TableGeneral(DataTable dataTable, int sem1Beg,int sem2End)
         {
             DataTable tableGeneral = new DataTable("General");
             DataColumn columnGeneral;
@@ -263,14 +263,21 @@ namespace ShedulerFromExcel.BL
                 Caption = "Наим"
             };
             tableGeneral.Columns.Add(columnGeneral);
-
+            columnGeneral = new DataColumn
+            {
+                DataType = System.Type.GetType("System.String"),
+                ColumnName = "Кафедра",
+                Caption = "Каф"
+            };
+            tableGeneral.Columns.Add(columnGeneral);
 
             int colNum = -1;
             int colInd = -1;
             int colName = -1;
+            int colKaf = -1;
             for (int i = 0; i < dataTable.Rows.Count; i++)
             {
-                for (int j = 0; j < Sem1Beg; j++)
+                for (int j = 0; j < sem1Beg; j++)
                 {
                     if (dataTable.Rows[i][j] == null)
                     {
@@ -290,7 +297,20 @@ namespace ShedulerFromExcel.BL
                         colName = j;
                     }
                 }
-                if (colNum >= 0 && colInd >= 0 && colName >= 0)
+                for (int j = sem2End; j < dataTable.Columns.Count; j++)
+                {
+                    if (dataTable.Rows[i][j] == null)
+                    {
+                        continue;
+                    }
+
+                    
+                    if (string.Compare("Каф.", dataTable.Rows[i][j].ToString(), true) == 0)
+                    {
+                        colKaf = j;
+                    }
+                }
+                if (colNum >= 0 && colInd >= 0 && colName >= 0 && colKaf >= 0)
                 {
                     break;
                 }
@@ -301,6 +321,7 @@ namespace ShedulerFromExcel.BL
                 rowGeneral["№"] = dataTable.Rows[i][colNum].ToString().Trim();
                 rowGeneral["Индекс"] = dataTable.Rows[i][colInd].ToString().Trim();
                 rowGeneral["Наименование"] = dataTable.Rows[i][colName].ToString().Trim();
+                rowGeneral["Кафедра"] = dataTable.Rows[i][colKaf].ToString().Trim();
                 tableGeneral.Rows.Add(rowGeneral);
             }
             return tableGeneral;
