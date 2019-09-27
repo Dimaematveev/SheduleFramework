@@ -53,5 +53,11 @@
     <None Include="Need\НУжно.docx" />
     <None Include="Need\Получаем.xlsx" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ShedulerFromExcel.BL\ShedulerFromExcel.BL.csproj">
+      <Project>{1265e2d9-bdaf-4015-87e6-8bf8bbc52129}</Project>
+      <Name>ShedulerFromExcel.BL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

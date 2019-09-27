@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ShedulerFromExcel.BL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,10 @@ namespace ShedulerFromExcel.CMD
         static void Main(string[] args)
         {
             Console.WriteLine("Hello!");
-            Console.ReadLine()
+            EasyExcel easyExcel = new EasyExcel();
+            
+            easyExcel.sta();
+            Console.ReadLine();
         }
     }
 }
