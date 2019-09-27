@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29230.47
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SchedulerC++ToCSharp.CMD", "SchedulerC++ToCSharp.CMD\SchedulerC++ToCSharp.CMD.csproj", "{AE0E4358-5D5D-45FE-892A-62397A10B639}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scheduler.CMD", "Scheduler.CMD\Scheduler.CMD.csproj", "{2EBC0995-600E-4854-9AF0-1FFC2EF538D1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Scheduler.BL", "Scheduler.BL\Scheduler.BL.csproj", "{28B3D771-4727-402B-9BA7-C2D777144039}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +13,14 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{AE0E4358-5D5D-45FE-892A-62397A10B639}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{AE0E4358-5D5D-45FE-892A-62397A10B639}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{AE0E4358-5D5D-45FE-892A-62397A10B639}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{AE0E4358-5D5D-45FE-892A-62397A10B639}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EBC0995-600E-4854-9AF0-1FFC2EF538D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EBC0995-600E-4854-9AF0-1FFC2EF538D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EBC0995-600E-4854-9AF0-1FFC2EF538D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EBC0995-600E-4854-9AF0-1FFC2EF538D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28B3D771-4727-402B-9BA7-C2D777144039}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28B3D771-4727-402B-9BA7-C2D777144039}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28B3D771-4727-402B-9BA7-C2D777144039}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28B3D771-4727-402B-9BA7-C2D777144039}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
