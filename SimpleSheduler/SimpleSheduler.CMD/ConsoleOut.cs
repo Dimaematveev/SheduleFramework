@@ -71,7 +71,12 @@ namespace SimpleSheduler.CMD
                         }
                         if (!(fillings is Filling<Group>[]))
                         {
-                            value += $"G{busyPairTemp.Group.Name.Substring(busyPairTemp.Group.Name.Length - 1, 1)}_";
+                            value += $"G:";
+                            foreach (var group in busyPairTemp.Groups)
+                            {
+                                value += $"{group.Name.Substring(group.Name.Length - 1, 1)},";
+                            }
+                            value += "_";
                         }
                     }
                     AddTemp.Add(value);

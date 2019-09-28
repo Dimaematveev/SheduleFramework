@@ -43,5 +43,10 @@ namespace SimpleSheduler.BD
         {
             return Name;
         }
+
+        public override string ToString()
+        {
+            return $"ID:{SubjectId}, N:{Name}.";
+        }
     }
 }

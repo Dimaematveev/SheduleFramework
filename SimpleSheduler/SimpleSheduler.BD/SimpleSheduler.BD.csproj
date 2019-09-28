@@ -56,6 +56,14 @@
     <Compile Include="Migrations\201909211535214_AddTablePairs.Designer.cs">
       <DependentUpon>201909211535214_AddTablePairs.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909281319140_AddSeminarAndPotokToGroups.cs" />
+    <Compile Include="Migrations\201909281319140_AddSeminarAndPotokToGroups.Designer.cs">
+      <DependentUpon>201909281319140_AddSeminarAndPotokToGroups.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909281332155_SeminarAndPotokIsRequired.cs" />
+    <Compile Include="Migrations\201909281332155_SeminarAndPotokIsRequired.Designer.cs">
+      <DependentUpon>201909281332155_SeminarAndPotokIsRequired.cs</DependentUpon>
+    </Compile>
     <Compile Include="Model\IName.cs" />
     <Compile Include="Model\StudyDay.cs" />
     <Compile Include="Migrations\201909210938027_InitialCreate.cs" />
@@ -93,6 +101,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909211535214_AddTablePairs.resx">
       <DependentUpon>201909211535214_AddTablePairs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909281319140_AddSeminarAndPotokToGroups.resx">
+      <DependentUpon>201909281319140_AddSeminarAndPotokToGroups.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909281332155_SeminarAndPotokIsRequired.resx">
+      <DependentUpon>201909281332155_SeminarAndPotokIsRequired.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

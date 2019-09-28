@@ -28,5 +28,11 @@ namespace SimpleSheduler.BD
         /// </summary>
         [Required]
         public int NumberOfWeek { get; set; }
+
+
+        public override string ToString()
+        {
+            return $"ID:{StudyDayId}, N:{NameDayOfWeek}, Num:{NumberOfWeek}.";
+        }
     }
 }

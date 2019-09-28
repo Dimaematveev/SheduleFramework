@@ -25,13 +25,26 @@ namespace SimpleSheduler.BD
         [Required]
         [StringLength(20)]
         public string Name { get; set; }
+
+        
         /// <summary>
         /// Кол-во человек в группе. ?значит может быть нуль
         /// </summary>
         [Required]
         public int NumberOfPersons { get; set; }
 
-
+        /// <summary>
+        /// Семинар группы
+        /// </summary>
+        [Required]
+        [StringLength(20)]
+        public string Seminar { get; set; }
+        /// <summary>
+        /// Поток группы
+        /// </summary>
+        [Required]
+        [StringLength(20)]
+        public string Potok { get; set; }
 
 
         ///Свойство для EntityFramework
@@ -44,6 +57,10 @@ namespace SimpleSheduler.BD
         public string NameString()
         {
             return Name;
+        }
+        public override string ToString()
+        {
+            return $"ID:{GroupId}, N:{Name}, P:{Potok}, S:{Seminar}, Num:{NumberOfPersons}.";
         }
     }
 }

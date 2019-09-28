@@ -38,5 +38,11 @@ namespace SimpleSheduler.BD
         /// Для связи с Предметом.
         /// </summary>
         public virtual Subject Subject { get; set; }
+
+
+        public override string ToString()
+        {
+            return $"ID:{SubjectOfTeacherId}, T:{Teacher.Name}, S:{Subject.Name}.";
+        }
     }
 }

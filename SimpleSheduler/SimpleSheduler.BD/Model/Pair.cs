@@ -28,5 +28,10 @@ namespace SimpleSheduler.BD
         /// </summary>
         [Required]
         public int NumberThePair { get; set; }
+
+        public override string ToString()
+        {
+            return $"ID:{PairId}, N:{NameThePair}, Num:{NumberThePair}.";
+        }
     }
 }
