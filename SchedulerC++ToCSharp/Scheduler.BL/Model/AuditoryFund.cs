@@ -63,14 +63,17 @@ namespace Scheduler.BL.Model
             {
                 NumLess[i] = G[i].RetNumberLesons();
             }
-
+            //Неделя
             for (int w = 0; w < 2; w++)
             {
+                //Время
                 for (int t1 = 0; t1 < BT[0].RetKol(); t1++)
                 {
                     F.Var(ch);
+                    //Вудитория
                     for (int a1 = 0; a1 < A[0].RetKol(); a1++)
                     {
+
                         for (int vv3 = 0; vv3 < vecsp[a1].Count; vv3++)
                         {
                             for (int v4 = 0; v4 < vecsp[a1][vv3].Count; v4++)

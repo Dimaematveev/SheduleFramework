@@ -21,7 +21,7 @@ namespace Scheduler.BL.Model
         //TODO:
         public override void GetVar1()
         {
-            Console.WriteLine(Time);
+            Console.Write(Time);
 
         }
         //TODO:

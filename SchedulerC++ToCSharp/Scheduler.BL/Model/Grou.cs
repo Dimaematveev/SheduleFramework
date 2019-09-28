@@ -25,10 +25,8 @@ namespace Scheduler.BL.Model
         public override void GetVar1()
         {
             //TODO:
-            //stringstream out;
-            //out << NameGroup << "(" << NumberPersons << ")";
-            //cout << setw(10) << out.str();
-            throw new NotImplementedException();
+
+            Console.Write(NameGroup + "(" + NumberPersons + ")");
         }
         //TODO:
         public override void SetVar(MyFile file, int line)

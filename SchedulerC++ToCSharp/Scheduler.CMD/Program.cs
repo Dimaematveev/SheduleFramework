@@ -21,16 +21,19 @@ namespace Scheduler.CMD
         //List<int> Group.sgi(1);
         static void Main(string[] args)
         {
-
+            //Количество файлов
             int N = 3;//Number files
             
 
+            //Список файлов
             string[] file = new string[]
             {
                 "group_kol.txt",
                 "aud_mest.txt",
                 "par_nach.txt"
             };
+
+            //Массив файлов
             MyFile[] bp = new MyFile[N];
             for (int i = 0; i < N; i++)
             {
@@ -40,18 +43,21 @@ namespace Scheduler.CMD
             /*********************************************************************************/
 
             //START creating an array of abstract classes
+            //Массив групп из файла
             Group[] g = new Group[bp[0].RetNumberLines()];
             for (int j = 0; j < bp[0].RetNumberLines(); j++)
             {
                 g[j] = new Group();
                 g[j].SetVar(bp[0], j);
             }
+            //Массив аудиторий из файла
             Auditory[] a = new Auditory[bp[1].RetNumberLines()];
             for (int j = 0; j < bp[1].RetNumberLines(); j++)
             {
                 a[j] = new Auditory();
                 a[j].SetVar(bp[1], j);
             }
+            //Массив начала пары из группы
             BeginTime[] t = new BeginTime[bp[2].RetNumberLines()];
             for (int j = 0; j < bp[2].RetNumberLines(); j++)
             {
@@ -63,6 +69,7 @@ namespace Scheduler.CMD
 
             /*********************************************************************************/
             //START constructor class Filling
+            //Выбор подсчета по потокам или семинарам
             Console.WriteLine("Enter potok\'p\' or Seminar \'s\':");
             char ch;// = 'p';//s or p
             do
@@ -70,9 +77,12 @@ namespace Scheduler.CMD
                 ch = Console.ReadKey().KeyChar;
             } while (ch != 'p' && ch != 's');
             Console.WriteLine();
+
+            //Заполнение аудиторий
             Filling1 Fil = new Filling1();
             Fil.SetVar(a, t, g);
             Fil.Var(ch);
+            Fil.GetVec();
             Fil.SetMass();
             closeAnswer(Fil);
 
@@ -122,9 +132,7 @@ namespace Scheduler.CMD
             };
             for (int i = 1; i <= N; i++)
             {
-                //stringstream out;
-                //out << setw(2) << i % N << " | " << str1[i % N];
-                //Console.WriteLine(left + "|" + setw(m - 1) + out.str() + "|");
+                Console.WriteLine( "|" +i % N + " | " + str1[i % N] + "|");
                 for (int j = 0; j <= m; j++) 
                 {
                     Console.Write( "-");

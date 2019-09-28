@@ -84,5 +84,10 @@ namespace Scheduler.BL.Model
 
         }
 
+        public override string ToString()
+        {
+            return NameGroup;
+        }
+
     }
 }

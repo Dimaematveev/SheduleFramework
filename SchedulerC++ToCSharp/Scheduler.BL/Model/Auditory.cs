@@ -22,7 +22,7 @@ namespace Scheduler.BL.Model
         //TODO:
         public override void GetVar1()
         {
-            Console.WriteLine(NumberClassroom + "(" + PeopleClassroom + ")");
+            Console.Write(NumberClassroom + "(" + PeopleClassroom + ")");
 
         }
         //todo:

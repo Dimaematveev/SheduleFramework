@@ -18,14 +18,19 @@ namespace Scheduler.BL.Model
             AuditoryFund.SetVar(A, BT, G, this);
         }
 
+        //УДаляем с разными семинарами
         private void VarS()
         {
-            AuditoryFund.vecsp = vec;
-            AuditoryFund.zapsp = zap;
+
+            AuditoryFund.vecsp = new List<List<List<Group>>> (vec);
+            AuditoryFund.zapsp = new List<List<int>>(zap);
+            //По аудиториям
             for (int a1 = 0; a1 < audit[0].RetKol(); a1++)
             {
+                //По AuditoryFund.vecsp - аудитории кол-во
                 for (int i = 0; i < AuditoryFund.vecsp[a1].Count; i++)
                 {
+                    //AuditoryFund.vecsp - 
                     for (int j = 1; j < AuditoryFund.vecsp[a1][i].Count; j++)
                     {
                         if (AuditoryFund.vecsp[a1][i][0].RetNameSeminar() != AuditoryFund.vecsp[a1][i][j].RetNameSeminar())
@@ -40,16 +45,20 @@ namespace Scheduler.BL.Model
             }
 
         }
+        //Удааляем с разными потоками
         private void VarP()
         {
             AuditoryFund.vecsp = vec;
             AuditoryFund.zapsp = zap;
+            //по аудиториям
             for (int a1 = 0; a1 < audit[0].RetKol(); a1++)
             {
+                //заполненность
                 for (int v3 = 0; v3 < AuditoryFund.vecsp[a1].Count; v3++)
                 {
                     for (int v4 = 1; v4 < AuditoryFund.vecsp[a1][v3].Count; v4++)
                     {
+                        //если есть ращ=зличие то удаляем элемент
                         if (AuditoryFund.vecsp[a1][v3][0].RetNameSteam() != AuditoryFund.vecsp[a1][v3][v4].RetNameSteam())
                         {
                             AuditoryFund.vecsp[a1].RemoveAt(v3);
@@ -59,9 +68,11 @@ namespace Scheduler.BL.Model
                         }
                     }
                 }
+                //заполненность
                 for (int v3 = 0; v3 < AuditoryFund.vecsp[a1].Count; v3++)
                 {
                     bool p = false;
+                    //непонятно
                     for (int v4 = 0; v4 < Group.pgs.Count; v4++)
                     {
                         if (AuditoryFund.vecsp[a1][v3][0].RetNameSteam() == Group.pgs[v4] && AuditoryFund.zapsp[a1][v3] == Group.pgi[v4])
@@ -102,7 +113,7 @@ namespace Scheduler.BL.Model
 
         public void GetTable(int k)
         {
-            throw new NotImplementedException();
+            AuditoryFund.GetTable(k);
         }
 
 
