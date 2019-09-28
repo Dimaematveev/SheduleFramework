@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BusyPair.cs" />
+    <Compile Include="CreateScheduler.cs" />
     <Compile Include="Filling.cs" />
     <Compile Include="PossibleFilling.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

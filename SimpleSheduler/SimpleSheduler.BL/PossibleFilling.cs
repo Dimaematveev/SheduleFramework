@@ -12,6 +12,7 @@ namespace SimpleSheduler.BL
     /// </summary>
     public class PossibleFilling:ICloneable
     {
+        //Для красивого вывода
         static int padNameThePair = 0;
         static int padNumberThePair = 0;
         static int padNameDayOfWeek = 0;
