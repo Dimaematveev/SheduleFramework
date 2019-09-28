@@ -55,12 +55,13 @@ namespace SimpleSheduler.BD
         }
         public override bool Equals(object obj)
         {
-            bool result = false;
+            bool result = true;
             if (obj is Subject newSubject)
             {
                 result = result && newSubject.SubjectId.Equals(SubjectId);
+                return result;
             }
-            return result;
+            return false;
         }
         public override string ToString()
         {

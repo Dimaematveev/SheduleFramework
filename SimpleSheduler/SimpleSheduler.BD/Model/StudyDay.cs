@@ -41,12 +41,13 @@ namespace SimpleSheduler.BD
         }
         public override bool Equals(object obj)
         {
-            bool result = false;
+            bool result = true;
             if (obj is StudyDay newStudyDay)
             {
                 result = result && newStudyDay.StudyDayId.Equals(StudyDayId);
+                return result;
             }
-            return result;
+            return false;
         }
         public override string ToString()
         {

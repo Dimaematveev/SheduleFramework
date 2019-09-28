@@ -51,13 +51,13 @@ namespace SimpleSheduler.BD
 
         public override bool Equals(object obj)
         {
-            bool result = false;
+            bool result = true;
             if (obj is Teacher newTeacher)
             {
                 result = result && newTeacher.TeacherId.Equals(TeacherId);
-               
+                return result;
             }
-            return result;
+            return false;
         }
         public override string ToString()
         {

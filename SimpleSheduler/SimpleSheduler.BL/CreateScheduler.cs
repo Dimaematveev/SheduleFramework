@@ -94,14 +94,14 @@ namespace SimpleSheduler.BL
                 var group = Curricula[0].Group;
                 var subject = Curricula[0].Subject;
                 //b. Ищем на предмет первого преподавателя
-                var teacher = SubjectOfTeachers.First(x => x.Subject == subject).Teacher;
+                var teacher = SubjectOfTeachers.First(x => x.Subject.Equals(subject)).Teacher;
                 //c. Выбираем аудитории с кол-во мест больше чем в группе 
                 //(так как они отсортированы по возрастанию то просто номер первой подходящей аудитории)
                 NumClassroom = Array.FindIndex(Classrooms, x => x.NumberOfSeats >= group.NumberOfPersons);
 
                 //Теперь для каждой  группы, преподавателя подцепляем занятость
-                var fillingTeacher = FillingTeachers.First(x => x.Value.TeacherId == teacher.TeacherId);
-                var fillingGroup = FillingGroups.First(x => x.Value.GroupId == Curricula[0].GroupId);
+                var fillingTeacher = FillingTeachers.First(x => x.Value.Equals(teacher));
+                var fillingGroup = FillingGroups.First(x => x.Value.Equals(Curricula[0].Group));
 
 
                 //Лучше циклы по аудиториям и по расписаниями поменять местами
@@ -115,7 +115,7 @@ namespace SimpleSheduler.BL
                     for (int cl = NumClassroom; cl < Classrooms.Length; cl++)
                     {
                         //Теперь для аудитории подцепляем занятость
-                        var fillingClassroom = FillingClassrooms.First(x => x.Value.ClassroomId == Classrooms[cl].ClassroomId);
+                        var fillingClassroom = FillingClassrooms.First(x => x.Value.Equals(Classrooms[cl]));
                         //Условия что в этот день в эту пару Преподаватель группа и классная комната не заняты
                         bool FT = fillingTeacher[cu].BusyPair == null;
                         bool FG = fillingGroup[cu].BusyPair == null;
@@ -153,7 +153,7 @@ namespace SimpleSheduler.BL
                 if (!success)
                 {
 
-                    int ind = curriculaNot.FindIndex(x => x.CurriculumId == Curricula[0].CurriculumId);
+                    int ind = curriculaNot.FindIndex(x => x.Equals(Curricula[0]));
                     //i. Если был  такой элемент
 
                     if (ind == -1)
@@ -241,7 +241,7 @@ namespace SimpleSheduler.BL
                 //прохожу по предметам с планами
                 foreach (var plansInSubject in SubjectIncludePlans)
                 {
-                    Console.WriteLine("Предмет - " + plansInSubject[0].Subject + " И план:");
+                   // Console.WriteLine("Предмет - " + plansInSubject[0].Subject + " И план:");
                     //unionGroup
 
                     //прохожу по объединению групп где объединение >1
@@ -249,7 +249,7 @@ namespace SimpleSheduler.BL
                     {
                         //если plansInSubject содержит все groups то объединяем по этому предмету эти группы 
                         // правда ли  что для всех групп -> хотябы один план содежит группу
-                        bool ContainsAllGroups = groups.All(x => plansInSubject.Any(y => y.Group == x));
+                        bool ContainsAllGroups = groups.All(x => plansInSubject.Any(y => y.Group.Equals( x)));
                         if (ContainsAllGroups)
                         {
                             Curriculum[] curricula1 = plansInSubject.Where(x => groups.Contains(x.Group)).ToArray();
@@ -269,10 +269,10 @@ namespace SimpleSheduler.BL
                     foreach (var plan in plansInSubject)
                     {
 
-                        Console.WriteLine(plan);
+                        //Console.WriteLine(plan);
 
                     }
-                    Console.WriteLine();
+                    //Console.WriteLine();
                 }
                 //Сортируем план занятий по кол-во пар(макс первый)
                 newCurricula = newCurricula.OrderByDescending(x => x[0].NumberOfPairs).ToList();
@@ -289,7 +289,7 @@ namespace SimpleSheduler.BL
                 var group = newCurricula[0].Select(x => x.Group).ToArray();
                 var subject = newCurricula[0][0].Subject;
                 //b. Ищем на предмет первого преподавателя
-                var teacher = SubjectOfTeachers.First(x => x.Subject == subject).Teacher;
+                var teacher = SubjectOfTeachers.First(x => x.Subject.Equals( subject)).Teacher;
                 //c. Выбираем аудитории с кол-во мест больше чем в группе 
                 //(так как они отсортированы по возрастанию то просто номер первой подходящей аудитории)
                 NumClassroom = Array.FindIndex(Classrooms, x => x.NumberOfSeats >= group.Sum(y => y.NumberOfPersons));
@@ -310,7 +310,7 @@ namespace SimpleSheduler.BL
                     for (int cl = NumClassroom; cl < Classrooms.Length; cl++)
                     {
                         //Теперь для аудитории подцепляем занятость
-                        var fillingClassroom = FillingClassrooms.First(x => x.Value.ClassroomId == Classrooms[cl].ClassroomId);
+                        var fillingClassroom = FillingClassrooms.First(x => x.Value.Equals( Classrooms[cl]));
                         //Условия что в этот день в эту пару Преподаватель не занят
                         bool FT = fillingTeacher[cu].BusyPair == null;
                         //Условия что в этот день в эту пару группы не заняты
@@ -361,7 +361,7 @@ namespace SimpleSheduler.BL
                     foreach (var curriculum in newCurricula[0])
                     {
                         //curricula
-                        int ind = curriculaNot.FindIndex(x => x.CurriculumId == curriculum.CurriculumId);
+                        int ind = curriculaNot.FindIndex(x => x.Equals(curriculum));
                         //i. Если не было  такого элемента
 
                         if (ind == -1)
@@ -445,12 +445,12 @@ namespace SimpleSheduler.BL
         //Сравнение групп по потокам
         private static bool GroupComparisonPotok(Group group1, Group group2)
         {
-            return group1.Potok == group2.Potok;
+            return group1.Potok.Equals(group2.Potok);
         }
         //Сравнение групп по семинарам
         private static bool GroupComparisonSeminar(Group group1, Group group2)
         {
-            return group1.Seminar == group2.Seminar;
+            return group1.Seminar.Equals(group2.Seminar);
         }
         private static List<Group[]> GetUniouGroup(Group[] groups)
         {

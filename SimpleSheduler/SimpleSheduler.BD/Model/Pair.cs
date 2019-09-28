@@ -40,12 +40,13 @@ namespace SimpleSheduler.BD
         }
         public override bool Equals(object obj)
         {
-            bool result = false;
+            bool result = true;
             if (obj is Pair newPair)
             {
                 result = result && newPair.PairId.Equals(PairId);
+                return result;
             }
-            return result;
+            return false;
         }
         public override string ToString()
         {
