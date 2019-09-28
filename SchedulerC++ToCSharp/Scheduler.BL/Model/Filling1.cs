@@ -128,12 +128,12 @@ namespace Scheduler.BL.Model
 
         public void SetMass()
         {
-            throw new NotImplementedException();
+            AuditoryFund.SetMass();
         }
 
         public void SetTable()
         {
-            throw new NotImplementedException();
+            AuditoryFund.SetTable();
         }
 
         public void Var(char ch)
