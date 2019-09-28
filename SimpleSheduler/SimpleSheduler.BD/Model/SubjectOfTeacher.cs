@@ -10,7 +10,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Предметы преподавателей
     /// </summary>
-    public class SubjectOfTeacher
+    public class SubjectOfTeacher:ICloneable
     {
        
         /// <summary>
@@ -39,7 +39,27 @@ namespace SimpleSheduler.BD
         /// </summary>
         public virtual Subject Subject { get; set; }
 
-
+        public object Clone()
+        {
+            SubjectOfTeacher newSubjectOfTeacher = new SubjectOfTeacher()
+            {
+                SubjectOfTeacherId = this.SubjectOfTeacherId,
+                Subject = this.Subject,
+                SubjectId = this.SubjectId,
+                TeacherId = this.TeacherId,
+                Teacher = this.Teacher
+            };
+            return newSubjectOfTeacher;
+        }
+        public override bool Equals(object obj)
+        {
+            bool result = false;
+            if (obj is SubjectOfTeacher newSubjectOfTeacher)
+            {
+                result = result && newSubjectOfTeacher.SubjectOfTeacherId.Equals(SubjectOfTeacherId);
+            }
+            return result;
+        }
         public override string ToString()
         {
             return $"ID:{SubjectOfTeacherId}, T:{Teacher.Name}, S:{Subject.Name}.";

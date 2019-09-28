@@ -11,7 +11,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Преподаватель
     /// </summary>
-    public class Teacher:IName
+    public class Teacher:IName,ICloneable
     {
         
 
@@ -34,13 +34,31 @@ namespace SimpleSheduler.BD
         /// </summary>
         public virtual ICollection<SubjectOfTeacher> SubjectOfTeachers { get; set; }
 
-
+        public object Clone()
+        {
+            Teacher newTeacher = new Teacher()
+            {
+                Name = this.Name,
+                SubjectOfTeachers = this.SubjectOfTeachers,
+                TeacherId = this.TeacherId
+            };
+            return newTeacher;
+        }
         public string NameString()
         {
             return Name;
         }
 
-
+        public override bool Equals(object obj)
+        {
+            bool result = false;
+            if (obj is Teacher newTeacher)
+            {
+                result = result && newTeacher.TeacherId.Equals(TeacherId);
+               
+            }
+            return result;
+        }
         public override string ToString()
         {
             return $"ID:{TeacherId}, N:{Name}.";
