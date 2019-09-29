@@ -59,7 +59,7 @@ namespace SimpleSheduler.BL
 
         }
 
-
+        //полная копия объекта
         private T[] GetDeepClone<T>(T[] oldObject) where T : class, ICloneable
         {
             var newObject = new T[oldObject.Length];
@@ -72,118 +72,23 @@ namespace SimpleSheduler.BL
 
 
         /// <summary>
-        /// Функция задание расписания без объединения групп:
+        /// Функция задание расписания без объединения групп:и 
         /// </summary>
         /// <returns>Массив план не заполненный </returns>
         public Curriculum[] SetSchedule()
         {
             //1. Аудитории сортированы по количеству мест
             Classroom[] Classrooms = FillingClassrooms.Select(x=>x.Value).OrderBy(x => x.NumberOfSeats).ToArray();
-            //Номер Аудитории из массива которая сейчас будет рассматриваться
-            int NumClassroom = 0;
-            //2. Сортируем план занятий по кол-во пар(макс первый)
+            
+            //2. Сортируем план занятий по кол-во пар(макс первый) мой алгоритм берет из массива первый элемент и пытается его добавить в расписание
             Curricula = Curricula.OrderByDescending(x => x.NumberOfPairs).ToArray();
 
-            //план который не вошел
+            //план который не вошел все элементы которые не вошли в расписание
             var curriculaNot = new List<Curriculum>();
             //3. Цикл по плану занятий пока первый элемент он же максимальный не равен 0
             while (Curricula[0].NumberOfPairs != 0)
             {
-
-                //a. Из первого элемента плана понимаем что за предмет и какая группа
-                var group = Curricula[0].Group;
-                var subject = Curricula[0].Subject;
-                //b. Ищем на предмет первого преподавателя
-                var teacher = SubjectOfTeachers.First(x => x.Subject.Equals(subject)).Teacher;
-                //c. Выбираем аудитории с кол-во мест больше чем в группе 
-                //(так как они отсортированы по возрастанию то просто номер первой подходящей аудитории)
-                NumClassroom = Array.FindIndex(Classrooms, x => x.NumberOfSeats >= group.NumberOfPersons);
-
-                //Теперь для каждой  группы, преподавателя подцепляем занятость
-                var fillingTeacher = FillingTeachers.First(x => x.Value.Equals(teacher));
-                var fillingGroup = FillingGroups.First(x => x.Value.Equals(Curricula[0].Group));
-
-
-                //Лучше циклы по аудиториям и по расписаниями поменять местами
-                //Добавилась ли пара
-                bool success = false;
-                //i. Цикл по расписанию
-                for (int cu = 0; cu < fillingTeacher.Length; cu++)
-                {
-
-                    //d. Цикл по аудиториям
-                    for (int cl = NumClassroom; cl < Classrooms.Length; cl++)
-                    {
-                        //Теперь для аудитории подцепляем занятость
-                        var fillingClassroom = FillingClassrooms.First(x => x.Value.Equals(Classrooms[cl]));
-                        //Условия что в этот день в эту пару Преподаватель группа и классная комната не заняты
-                        bool FT = fillingTeacher[cu].BusyPair == null;
-                        bool FG = fillingGroup[cu].BusyPair == null;
-                        bool FC = fillingClassroom[cu].BusyPair == null;
-                        //1. Если в этот день свободна и группа и преподаватель и аудитория
-                        if (FT && FG && FC)
-                        {
-
-                            BusyPair busyPair = new BusyPair(Classrooms[cl], teacher, subject, group);
-                            //a. Добавляем им пару
-                            fillingTeacher[cu].BusyPair = busyPair;
-                            fillingGroup[cu].BusyPair = busyPair;
-                            fillingClassroom[cu].BusyPair = busyPair;
-                            //b. Заканчиваем 2 цикла(по расписанию и по аудиториям)
-                            success = true;
-                            break;
-                        }
-
-
-
-                        //Если закончено
-                    }
-
-                    //Цикл по расписанию закончен
-
-                    //b. Заканчиваем 2 цикла(по расписанию и по аудиториям) если пара добавилась
-                    if (success)
-                    {
-                        break;
-                    }
-                }
-                //Цикл аудиторий закончен
-
-                //e. Если не смогли добавить то
-                if (!success)
-                {
-
-                    int ind = curriculaNot.FindIndex(x => x.Equals(Curricula[0]));
-                    //i. Если был  такой элемент
-
-                    if (ind == -1)
-                    {
-                        //1. Сохраняем что не смогли добавить в кол-ве 1 пара
-                        curriculaNot.Add(
-                            new Curriculum()
-                            {
-                                CurriculumId = Curricula[0].CurriculumId,
-                                Group = Curricula[0].Group,
-                                GroupId = Curricula[0].GroupId,
-                                Subject = Curricula[0].Subject,
-                                SubjectId = Curricula[0].SubjectId,
-                                NumberOfPairs = 1
-                            }
-                        );
-                    }
-                    //Иначе если не было такого элемента
-                    else
-                    {
-                        //1. Добавляем к элементу 1 пару
-                        curriculaNot[ind].NumberOfPairs++;
-                    }
-                    //Если закончено
-                }
-                //Если закончено
-                //f. Убираем у первого элемента 1 пару
-                Curricula[0].NumberOfPairs--;
-                //g. Сортируем план занятий по кол-во пар(макс первый)
-                Curricula = Curricula.OrderByDescending(x => x.NumberOfPairs).ToArray();
+                curriculaNot.AddRange( AddPairIntoScheduler(Classrooms));
             }
             //Цикл плана закончен
             foreach (var item in curriculaNot)
@@ -196,6 +101,122 @@ namespace SimpleSheduler.BL
 
         }
 
+        private List<Curriculum> AddPairIntoScheduler(Classroom[] Classrooms)
+        {
+            var curriculaNot = new List<Curriculum>();
+             
+            //a. Из первого элемента плана понимаем что за предмет и какая группа
+            var group = Curricula[0].Group;
+            var subject = Curricula[0].Subject;
+            //b. Ищем на предмет первого преподавателя
+            var teacher = SubjectOfTeachers.First(x => x.Subject.Equals(subject)).Teacher;
+            //c. Выбираем аудитории с кол-во мест больше чем в группе 
+            //(так как они отсортированы по возрастанию то просто номер первой подходящей аудитории)
+            int NumClassroom = Array.FindIndex(Classrooms, x => x.NumberOfSeats >= group.NumberOfPersons);
+
+            //Теперь для каждой  группы, преподавателя подцепляем занятость
+            var fillingTeacher = FillingTeachers.First(x => x.Value.Equals(teacher));
+            var fillingGroup = FillingGroups.First(x => x.Value.Equals(Curricula[0].Group));
+
+
+            //Лучше циклы по аудиториям и по расписаниями поменять местами
+            //Добавилась ли пара
+            bool success = false;
+            //i. Цикл по расписанию FillingClassrooms.Length так как у всех одинаковое кол-во элементов в массиве
+            for (int cu = 0; cu < FillingClassrooms.Length; cu++)
+            {
+
+                //d. Цикл по аудиториям
+                for (int cl = NumClassroom; cl < Classrooms.Length; cl++)
+                {
+                    //Теперь для аудитории подцепляем занятость
+                    var fillingClassroom = FillingClassrooms.First(x => x.Value.Equals(Classrooms[cl]));
+
+                    // проверка что в эту пару все свободны и присваивание пары преподавателю группе и аудитории
+                    List<BusyPair> busyPairs = new List<BusyPair>();
+                    busyPairs.Add( fillingTeacher[cu].BusyPair);
+                    busyPairs.Add(fillingGroup[cu].BusyPair);
+                    busyPairs.Add(fillingClassroom[cu].BusyPair);
+                    success = CheckAndAddPairIntoSchedule( busyPairs, teacher, subject, group, Classrooms[cl]);
+                    
+                }
+
+                //Цикл по расписанию закончен
+
+                //b. Заканчиваем 2 цикла(по расписанию и по аудиториям) если пара добавилась
+                if (success)
+                {
+                    break;
+                }
+            }
+            //Цикл аудиторий закончен
+
+            //e. Если не смогли добавить то
+            if (!success)
+            {
+
+                int ind = curriculaNot.FindIndex(x => x.Equals(Curricula[0]));
+                //i. Если был  такой элемент
+
+                if (ind == -1)
+                {
+                    //1. Сохраняем что не смогли добавить в кол-ве 1 пара
+                    curriculaNot.Add(
+                        new Curriculum()
+                        {
+                            CurriculumId = Curricula[0].CurriculumId,
+                            Group = Curricula[0].Group,
+                            GroupId = Curricula[0].GroupId,
+                            Subject = Curricula[0].Subject,
+                            SubjectId = Curricula[0].SubjectId,
+                            NumberOfPairs = 1
+                        }
+                    );
+                }
+                //Иначе если не было такого элемента
+                else
+                {
+                    //1. Добавляем к элементу 1 пару
+                    curriculaNot[ind].NumberOfPairs++;
+                }
+                //Если закончено
+            }
+            //Если закончено
+            //f. Убираем у первого элемента 1 пару
+            Curricula[0].NumberOfPairs--;
+            //g. Сортируем план занятий по кол-во пар(макс первый)
+            Curricula = Curricula.OrderByDescending(x => x.NumberOfPairs).ToArray();
+            return curriculaNot;
+        }
+
+        // проверка что в эту пару все свободны и присваивание пары преподавателю группе и аудитории
+        private bool CheckAndAddPairIntoSchedule(
+            List< BusyPair> busyPairs,
+            Teacher teacher,
+            Subject subject,
+            Group group,
+            Classroom classroom)
+        {
+            bool check = true;
+            //Условия что в этот день в эту пару Преподаватель группа и классная комната не заняты
+            foreach (var busyPair1 in busyPairs)
+            {
+                check = check && (busyPair1 == null);
+            }
+            //1. Если в этот день свободна и группа и преподаватель и аудитория
+            if (check)
+            {
+                BusyPair busyPair = new BusyPair(classroom, teacher, subject, group);
+                //a. Добавляем им пару
+                for (int i = 0; i < busyPairs.Count; i++)
+                {
+                    busyPairs[i] = busyPair;
+                }
+                //b. Заканчиваем 2 цикла(по расписанию и по аудиториям)
+                return  true;
+            }
+            return false;
+        }
 
         /// <summary>
         /// Функция задание расписания с объединение групп:
