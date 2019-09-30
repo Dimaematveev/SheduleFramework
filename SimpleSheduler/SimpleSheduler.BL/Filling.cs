@@ -20,6 +20,12 @@ namespace SimpleSheduler.BL
             Value = value;
             PossibleFillings = possibleFillings;
         }
+        public Filling(T value,Pair[] pairs, StudyDay[] studyDays)
+        {
+            Value = value;
+
+            PossibleFillings = GetPossibleFilling( pairs,  studyDays);
+        }
 
         public T Value { get; set; }
         public PossibleFilling[] PossibleFillings { get; set; }
@@ -27,6 +33,26 @@ namespace SimpleSheduler.BL
         public IEnumerator GetEnumerator()
         {
             return PossibleFillings.GetEnumerator();
+        }
+
+
+        /// <summary>
+        /// Все  возможные свободные дни с парами
+        /// </summary>
+        /// <param name="pairs">Какие пары в этот день</param>
+        /// <param name="studyDays">Какие дни</param>
+        /// <returns>Массив возможные свободные дни с парами</returns>
+        private PossibleFilling[] GetPossibleFilling(Pair[] pairs, StudyDay[] studyDays)
+        {
+            var possibleFillings = new List<PossibleFilling>();
+            foreach (var studyDay in studyDays)
+            {
+                foreach (var pair in pairs)
+                {
+                    possibleFillings.Add(new PossibleFilling(pair, studyDay));
+                }
+            }
+            return possibleFillings.OrderBy(x => x.StudyDay.NameDayOfWeek).ToArray().ToArray();
         }
 
 

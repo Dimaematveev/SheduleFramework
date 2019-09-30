@@ -24,7 +24,6 @@ namespace SimpleSheduler.CMD
             Filling<Teacher>[] fillingTeachers;
             Filling<Group>[] fillingGroups;
             Filling<Classroom>[] fillingClassrooms;
-            PossibleFilling[] possibleFillings;
             using (var context = new MyDbContext())
             {
                 var classrooms = context.Classrooms.ToArray();
@@ -39,7 +38,7 @@ namespace SimpleSheduler.CMD
 
                 //Выводы на консоль
                 //ConsoleOut.ConsoleClassroom(classrooms, 0);
-          
+
                 //ConsoleOut.ConsoleGroup(groups, 0, false);
                 //ConsoleOut.ConsoleSubject(subjects, 0, false);
                 //ConsoleOut.ConsoleTeacher(teachers, 0, false);
@@ -50,86 +49,61 @@ namespace SimpleSheduler.CMD
                 //ConsoleOut.ConsolePair(pairs);
                 //ConsoleOut.ConsoleStudyDay(studyDays);
 
-                ///Получили когда возможно свободные  пары по дням
-                possibleFillings = GetPossibleFilling(pairs, studyDays);
-                possibleFillings = possibleFillings.OrderBy(x => x.StudyDay.NameDayOfWeek).ToArray();
                 ///Получили когда возможно свободные  пары по дням и по преподавателям
-                fillingTeachers = GetFilling(teachers, possibleFillings);
+                fillingTeachers = GetFilling(teachers, pairs, studyDays);
                 ///Получили когда возможно свободные  пары по дням и по группам
-                fillingGroups = GetFilling(groups, possibleFillings);
+                fillingGroups = GetFilling(groups, pairs, studyDays);
                 ///Получили когда возможно свободные  пары по дням и по аудиториям
-                fillingClassrooms = GetFilling(classrooms, possibleFillings);
+                fillingClassrooms = GetFilling(classrooms, pairs, studyDays);
 
                 //TODO: первый без объединения групп второй с объединением
-                CreateScheduler createScheduler = new CreateScheduler();
-                CreateScheduler createScheduler1 = new CreateScheduler(teachers,groups,classrooms,subjects,curricula,subjectOfTeachers);
-                //var NotFill = createScheduler.SetSchedule(fillingTeachers, fillingGroups, fillingClassrooms, classrooms, curricula, subjectOfTeachers);
-                CreateScheduler createSchedulerUnion = new CreateScheduler();
-                var NotFillUnion = createSchedulerUnion.SetScheduleWithUniouGroup(fillingTeachers, fillingGroups, fillingClassrooms, classrooms, curricula, subjectOfTeachers);
-                //CreateScheduler createScheduler = new CreateScheduler();
-                ////var NotFill = createScheduler.SetSchedule(fillingTeachers, fillingGroups, fillingClassrooms, classrooms, curricula, subjectOfTeachers);
-                //var NotFillUnion = createScheduler.SetScheduleWithUniouGroup(fillingTeachers, fillingGroups, fillingClassrooms, classrooms, curricula, subjectOfTeachers);
-                ////var Not1Fill = FillingMaxNumberPair(fillingTeachers, fillingGroups, fillingClassrooms,possibleFillings, classrooms, curricula, subjectOfTeachers);
-
-                //Для вывода лучше сдать таблицу, потом выводить
-                ConsoleOut.ConsoleFilling(fillingClassrooms, "РАСПРЕДЕЛЕНИЕ ПО АУДИТОРИЯМ");
-                ConsoleOut.ConsoleFilling(fillingTeachers, "РАСПРЕДЕЛЕНИЕ ПО ПРЕПОДАВАТЕЛЯМ");
-                ConsoleOut.ConsoleFilling(fillingGroups, "РАСПРЕДЕЛЕНИЕ ПО ГРУППАМ");
-
-                //ConsoleOut.ConsoleFilling(createSchedulerUnion.FillingClassrooms, "РАСПРЕДЕЛЕНИЕ ПО АУДИТОРИЯМ");
-                //ConsoleOut.ConsoleFilling(createSchedulerUnion.FillingTeachers, "РАСПРЕДЕЛЕНИЕ ПО ПРЕПОДАВАТЕЛЯМ");
-                //ConsoleOut.ConsoleFilling(createSchedulerUnion.FillingGroups, "РАСПРЕДЕЛЕНИЕ ПО ГРУППАМ");
+                CreateScheduler createScheduler1 = new CreateScheduler(teachers, groups, classrooms, subjects, curricula, subjectOfTeachers, fillingTeachers, fillingGroups, fillingClassrooms);
 
             }
+
+            //TODO: первый без объединения групп второй с объединением
+            //CreateScheduler createScheduler = new CreateScheduler();
+           
+            //var NotFill = createScheduler.SetSchedule(fillingTeachers, fillingGroups, fillingClassrooms, classrooms, curricula, subjectOfTeachers);
+            //CreateScheduler createSchedulerUnion = new CreateScheduler();
+            //var NotFillUnion = createSchedulerUnion.SetScheduleWithUniouGroup(fillingTeachers, fillingGroups, fillingClassrooms, classrooms, curricula, subjectOfTeachers);
+            //CreateScheduler createScheduler = new CreateScheduler();
+            ////var NotFill = createScheduler.SetSchedule(fillingTeachers, fillingGroups, fillingClassrooms, classrooms, curricula, subjectOfTeachers);
+            //var NotFillUnion = createScheduler.SetScheduleWithUniouGroup(fillingTeachers, fillingGroups, fillingClassrooms, classrooms, curricula, subjectOfTeachers);
+            ////var Not1Fill = FillingMaxNumberPair(fillingTeachers, fillingGroups, fillingClassrooms,possibleFillings, classrooms, curricula, subjectOfTeachers);
+
+            //Для вывода лучше сдать таблицу, потом выводить
+            ConsoleOut.ConsoleFilling(fillingClassrooms, "РАСПРЕДЕЛЕНИЕ ПО АУДИТОРИЯМ");
+            ConsoleOut.ConsoleFilling(fillingTeachers, "РАСПРЕДЕЛЕНИЕ ПО ПРЕПОДАВАТЕЛЯМ");
+            ConsoleOut.ConsoleFilling(fillingGroups, "РАСПРЕДЕЛЕНИЕ ПО ГРУППАМ");
+
+            //ConsoleOut.ConsoleFilling(createSchedulerUnion.FillingClassrooms, "РАСПРЕДЕЛЕНИЕ ПО АУДИТОРИЯМ");
+            //ConsoleOut.ConsoleFilling(createSchedulerUnion.FillingTeachers, "РАСПРЕДЕЛЕНИЕ ПО ПРЕПОДАВАТЕЛЯМ");
+            //ConsoleOut.ConsoleFilling(createSchedulerUnion.FillingGroups, "РАСПРЕДЕЛЕНИЕ ПО ГРУППАМ");
 
             Console.ReadLine();
 
         }
 
-
-
-         
         /// <summary>
         /// Получить заполнение по каждому (преподавателю,группе,аудитории)
         /// </summary>
         /// <typeparam name="T">(преподавателю,группе,аудитории)</typeparam>
         /// <param name="array">массив (преподавателю,группе,аудитории)</param>
-        /// <param name="possibleFillings">массив свободных дней</param>
+        /// <param name="pairs"> массив пар</param>
+        /// <param name="studyDays">Массив учебных дней</param>
         /// <returns>массив заполнение по каждому (преподавателю,группе,аудитории)</returns>
-        private static Filling<T>[] GetFilling<T>(T[] array, PossibleFilling[] possibleFillings) where T:class,IName
+        private static Filling<T>[] GetFilling<T>(T[] array, Pair[] pairs , StudyDay[] studyDays) where T:class,IName
         {
             var result = new List<Filling<T>>();
-
             foreach (var item in array)
             {
-                var tempPossibleFillings = new List<PossibleFilling>();
-                foreach (var possibleFilling in possibleFillings)
-                {
-                    tempPossibleFillings.Add(possibleFilling.Clone() as PossibleFilling);
-                }
-                result.Add(new Filling<T>(item, tempPossibleFillings.ToArray()));
+                result.Add(new Filling<T>(item, pairs , studyDays));
             }
             return result.ToArray();
         }
 
-        /// <summary>
-        /// Все  возможные свободные дни с парами
-        /// </summary>
-        /// <param name="pairs">Какие пары в этот день</param>
-        /// <param name="studyDays">Какие дни</param>
-        /// <returns>Массив возможные свободные дни с парами</returns>
-        private static PossibleFilling[] GetPossibleFilling(Pair[] pairs, StudyDay[] studyDays)
-        {
-            var possibleFillings = new List<PossibleFilling>();
-            foreach (var studyDay in studyDays)
-            {
-                foreach (var pair in pairs)
-                {
-                    possibleFillings.Add(new PossibleFilling(pair, studyDay));
-                }
-            }
-            return possibleFillings.ToArray();
-        }
+        
 
 
         

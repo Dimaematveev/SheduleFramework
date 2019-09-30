@@ -1,4 +1,5 @@
 ﻿using SimpleSheduler.BD;
+using SimpleSheduler.BD.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,6 +34,12 @@ namespace SimpleSheduler.BL
         /// Массив Предметов к преподавателям
         /// </summary>
         private SubjectOfTeacher[] SubjectOfTeachers { get; set; }
+
+        /// <summary>
+        /// Все возможные заполнения
+        /// </summary>
+        private PossibleFilling[] PossibleFillings { get; set; }
+
         /// <summary>
         /// Заполнение преподавателей
         /// </summary>
@@ -49,13 +56,28 @@ namespace SimpleSheduler.BL
         {
         }
 
+        /// <summary>
+        /// Для создания расписания мы подаем
+        /// </summary>
+        /// <param name="teachers">Всех преподавателей</param>
+        /// <param name="groups">Все Группы</param>
+        /// <param name="classrooms">Все аудитории</param>
+        /// <param name="subjects">Все предметы</param>
+        /// <param name="curricula">Полный учебный план</param>
+        /// <param name="subjectOfTeachers">Какие преподаватели какие предметы ведут</param>
+        /// <param name="fillingTeachers">По каждому преподавателю массив дней когда может работать</param>
+        /// <param name="fillingGroups">По каждой группе массив дней когда может учиться</param>
+        /// <param name="fillingClassrooms">По каждой аудитории массив дней когда свободна</param>
         public CreateScheduler(
             Teacher[] teachers,
             Group[] groups,
             Classroom[] classrooms,
             Subject[] subjects,
             Curriculum[] curricula,
-            SubjectOfTeacher[] subjectOfTeachers)
+            SubjectOfTeacher[] subjectOfTeachers,
+            Filling<Teacher>[] fillingTeachers,
+            Filling<Group>[] fillingGroups,
+            Filling<Classroom>[] fillingClassrooms )
         {
             ExceptionIfArrayNullorEmpty(teachers, nameof(teachers));
             ExceptionIfArrayNullorEmpty(groups, nameof(groups));
@@ -63,12 +85,18 @@ namespace SimpleSheduler.BL
             ExceptionIfArrayNullorEmpty(subjects, nameof(subjects));
             ExceptionIfArrayNullorEmpty(curricula, nameof(curricula));
             ExceptionIfArrayNullorEmpty(subjectOfTeachers, nameof(subjectOfTeachers));
+            ExceptionIfArrayNullorEmpty(fillingTeachers, nameof(fillingTeachers));
+            ExceptionIfArrayNullorEmpty(fillingGroups, nameof(fillingGroups));
+            ExceptionIfArrayNullorEmpty(fillingClassrooms, nameof(fillingClassrooms));
             Teachers = teachers;
             Groups = groups;
             Classrooms = classrooms;
             Subjects = subjects;
             Curricula = curricula;
             SubjectOfTeachers = subjectOfTeachers;
+            FillingTeachers = fillingTeachers;
+            FillingGroups = fillingGroups;
+            FillingClassrooms = fillingClassrooms;
         }
         /// <summary>
         /// Создает ArgumentNullException массиву если он пуст или null
@@ -83,7 +111,6 @@ namespace SimpleSheduler.BL
                 throw new ArgumentNullException($"Массив  {array.GetType().Name} null или пуст!", nameParam);
             }
         }
-
 
         /// <summary>
         /// Функция задание расписания без объединения групп:
