@@ -9,88 +9,15 @@ namespace SimpleSheduler.BL
 {
     public class CreateScheduler
     {
-        //занятость преподавателя 
-        public Filling<Teacher>[] FillingTeachers { get; private set; }
-        //занятость группы 
-        public Filling<Group>[] FillingGroups { get; private set; }
-        //занятость аудитории 
-        public Filling<Classroom>[] FillingClassrooms { get; private set; }
-
-        //План занятий 
-        private Curriculum[] Curricula;
-        // Предмет и преподаватель
-        private SubjectOfTeacher[] SubjectOfTeachers;
-
-        public CreateScheduler(
-            Filling<Teacher>[] fillingTeachers,
-            Filling<Group>[] fillingGroups,
-            Filling<Classroom>[] fillingClassrooms,
-            Curriculum[] curricula,
-            SubjectOfTeacher[] subjectOfTeachers)
-        {
-            if (fillingTeachers == null || fillingTeachers.Length < 1)
-            {
-                throw new ArgumentNullException("Массив заполнения преподавателей не должен быть пустым!", nameof(fillingTeachers));
-            }
-            if (fillingGroups == null || fillingGroups.Length < 1)
-            {
-                throw new ArgumentNullException("Массив заполнения групп не должен быть пустым!", nameof(fillingGroups));
-            }
-            if (fillingClassrooms == null || fillingClassrooms.Length < 1)
-            {
-                throw new ArgumentNullException("Массив заполнения аудиторий не должен быть пустым!", nameof(fillingClassrooms));
-            }
-
-            if (curricula == null || curricula.Length < 1)
-            {
-                throw new ArgumentNullException("Массив плана занятий не должен быть пустым!", nameof(curricula));
-            }
-            if (subjectOfTeachers == null || subjectOfTeachers.Length < 1)
-            {
-                throw new ArgumentNullException("Массив предметов преподавателей не должен быть пустым!", nameof(subjectOfTeachers));
-            }
-
-            FillingTeachers = GetDeepClone(fillingTeachers);
-            FillingGroups = GetDeepClone(fillingGroups);
-            FillingClassrooms = GetDeepClone(fillingClassrooms);
-
-            Curricula = GetDeepClone(curricula);
-            SubjectOfTeachers = GetDeepClone(subjectOfTeachers);
-
-        }
-
-
-        private T[] GetDeepClone<T>(T[] oldObject) where T : class, ICloneable
-        {
-            var newObject = new T[oldObject.Length];
-            for (int i = 0; i < oldObject.Length; i++)
-            {
-                newObject[i] = oldObject[i].Clone() as T;
-            }
-            return newObject;
-        }
-
-        public CreateScheduler() 
+        public CreateScheduler()
         {
         }
 
 
->>>>>>> 3334538... Создан класс для Создания рассписания!
 
         /// <summary>
         /// Функция задание расписания без объединения групп:
         /// </summary>
-<<<<<<< HEAD
-        /// <returns>Массив план не заполненный </returns>
-        public Curriculum[] SetSchedule()
-        {
-            //1. Аудитории сортированы по количеству мест
-            Classroom[] Classrooms = FillingClassrooms.Select(x => x.Value).OrderBy(x => x.NumberOfSeats).ToArray();
-            //Номер Аудитории из массива которая сейчас будет рассматриваться
-            int NumClassroom = 0;
-            //2. Сортируем план занятий по кол-во пар(макс первый)
-            Curricula = Curricula.OrderByDescending(x => x.NumberOfPairs).ToArray();
-=======
         /// <param name="fillingTeachers"> занятость преподавателя </param>
         /// <param name="fillingGroups"> занятость группы </param>
         /// <param name="fillingClassrooms"> занятость аудитории </param>
@@ -112,28 +39,10 @@ namespace SimpleSheduler.BL
             int NumClassroom = 0;
             //2. Сортируем план занятий по кол-во пар(макс первый)
             curricula = curricula.OrderByDescending(x => x.NumberOfPairs).ToArray();
->>>>>>> 3334538... Создан класс для Создания рассписания!
 
             //план который не вошел
             var curriculaNot = new List<Curriculum>();
             //3. Цикл по плану занятий пока первый элемент он же максимальный не равен 0
-<<<<<<< HEAD
-            while (Curricula[0].NumberOfPairs != 0)
-            {
-
-                //a. Из первого элемента плана понимаем что за предмет и какая группа
-                var group = Curricula[0].Group;
-                var subject = Curricula[0].Subject;
-                //b. Ищем на предмет первого преподавателя
-                var teacher = SubjectOfTeachers.First(x => x.Subject.Equals(subject)).Teacher;
-                //c. Выбираем аудитории с кол-во мест больше чем в группе 
-                //(так как они отсортированы по возрастанию то просто номер первой подходящей аудитории)
-                NumClassroom = Array.FindIndex(Classrooms, x => x.NumberOfSeats >= group.NumberOfPersons);
-
-                //Теперь для каждой  группы, преподавателя подцепляем занятость
-                var fillingTeacher = FillingTeachers.First(x => x.Value.Equals(teacher));
-                var fillingGroup = FillingGroups.First(x => x.Value.Equals(Curricula[0].Group));
-=======
             while (curricula[0].NumberOfPairs != 0)
             {
 
@@ -149,7 +58,6 @@ namespace SimpleSheduler.BL
                 //Теперь для каждой  группы, преподавателя подцепляем занятость
                 var fillingTeacher = fillingTeachers.First(x => x.Value.TeacherId == teacher.TeacherId);
                 var fillingGroup = fillingGroups.First(x => x.Value.GroupId == curricula[0].GroupId);
->>>>>>> 3334538... Создан класс для Создания рассписания!
 
 
                 //Лучше циклы по аудиториям и по расписаниями поменять местами
@@ -160,17 +68,10 @@ namespace SimpleSheduler.BL
                 {
 
                     //d. Цикл по аудиториям
-<<<<<<< HEAD
-                    for (int cl = NumClassroom; cl < Classrooms.Length; cl++)
-                    {
-                        //Теперь для аудитории подцепляем занятость
-                        var fillingClassroom = FillingClassrooms.First(x => x.Value.Equals(Classrooms[cl]));
-=======
                     for (int cl = NumClassroom; cl < classrooms.Length; cl++)
                     {
                         //Теперь для аудитории подцепляем занятость
                         var fillingClassroom = fillingClassrooms.First(x => x.Value.ClassroomId == classrooms[cl].ClassroomId);
->>>>>>> 3334538... Создан класс для Создания рассписания!
                         //Условия что в этот день в эту пару Преподаватель группа и классная комната не заняты
                         bool FT = fillingTeacher[cu].BusyPair == null;
                         bool FG = fillingGroup[cu].BusyPair == null;
@@ -179,11 +80,7 @@ namespace SimpleSheduler.BL
                         if (FT && FG && FC)
                         {
 
-<<<<<<< HEAD
-                            BusyPair busyPair = new BusyPair(Classrooms[cl], teacher, subject, group);
-=======
                             BusyPair busyPair = new BusyPair(classrooms[cl], teacher, subject, group);
->>>>>>> 3334538... Создан класс для Создания рассписания!
                             //a. Добавляем им пару
                             fillingTeacher[cu].BusyPair = busyPair;
                             fillingGroup[cu].BusyPair = busyPair;
@@ -212,11 +109,7 @@ namespace SimpleSheduler.BL
                 if (!success)
                 {
 
-<<<<<<< HEAD
-                    int ind = curriculaNot.FindIndex(x => x.Equals(Curricula[0]));
-=======
                     int ind = curriculaNot.FindIndex(x => x.CurriculumId == curricula[0].CurriculumId);
->>>>>>> 3334538... Создан класс для Создания рассписания!
                     //i. Если был  такой элемент
 
                     if (ind == -1)
@@ -225,19 +118,11 @@ namespace SimpleSheduler.BL
                         curriculaNot.Add(
                             new Curriculum()
                             {
-<<<<<<< HEAD
-                                CurriculumId = Curricula[0].CurriculumId,
-                                Group = Curricula[0].Group,
-                                GroupId = Curricula[0].GroupId,
-                                Subject = Curricula[0].Subject,
-                                SubjectId = Curricula[0].SubjectId,
-=======
                                 CurriculumId = curricula[0].CurriculumId,
                                 Group = curricula[0].Group,
                                 GroupId = curricula[0].GroupId,
                                 Subject = curricula[0].Subject,
                                 SubjectId = curricula[0].SubjectId,
->>>>>>> 3334538... Создан класс для Создания рассписания!
                                 NumberOfPairs = 1
                             }
                         );
@@ -252,15 +137,9 @@ namespace SimpleSheduler.BL
                 }
                 //Если закончено
                 //f. Убираем у первого элемента 1 пару
-<<<<<<< HEAD
-                Curricula[0].NumberOfPairs--;
-                //g. Сортируем план занятий по кол-во пар(макс первый)
-                Curricula = Curricula.OrderByDescending(x => x.NumberOfPairs).ToArray();
-=======
                 curricula[0].NumberOfPairs--;
                 //g. Сортируем план занятий по кол-во пар(макс первый)
                 curricula = curricula.OrderByDescending(x => x.NumberOfPairs).ToArray();
->>>>>>> 3334538... Создан класс для Создания рассписания!
             }
             //Цикл плана закончен
             foreach (var item in curriculaNot)
@@ -277,10 +156,6 @@ namespace SimpleSheduler.BL
         /// <summary>
         /// Функция задание расписания с объединение групп:
         /// </summary>
-<<<<<<< HEAD
-        /// <returns>Массив план не заполненный </returns>
-        public Curriculum[] SetScheduleWithUniouGroup()
-=======
         /// <param name="fillingTeachers"> занятость преподавателя </param>
         /// <param name="fillingGroups"> занятость группы </param>
         /// <param name="fillingClassrooms"> занятость аудитории </param>
@@ -295,17 +170,12 @@ namespace SimpleSheduler.BL
             Classroom[] classrooms,
             Curriculum[] curricula,
             SubjectOfTeacher[] subjectOfTeachers)
->>>>>>> 3334538... Создан класс для Создания рассписания!
         {
             //Объединение групп которое сейчас используется
             List<Group[]> unionGroup;
             {
                 // Все группы
-<<<<<<< HEAD
-                var groups = FillingGroups.Select(x => x.Value).ToArray();
-=======
                 var groups = fillingGroups.Select(x => x.Value).ToArray();
->>>>>>> 3334538... Создан класс для Создания рассписания!
                 // все возможные объединения групп мак кол-во человек первый
                 List<Group[]> unionGroups = GetUniouGroup(groups);
                 // Объединения по потокам мак кол-во человек первый
@@ -317,11 +187,7 @@ namespace SimpleSheduler.BL
             }
 
             //1. Аудитории сортированы по количеству мест
-<<<<<<< HEAD
-            Classroom[] Classrooms = FillingClassrooms.Select(x => x.Value).OrderBy(x => x.NumberOfSeats).ToArray();
-=======
             classrooms = classrooms.OrderBy(x => x.NumberOfSeats).ToArray();
->>>>>>> 3334538... Создан класс для Создания рассписания!
             //Номер Аудитории из массива которая сейчас будет рассматриваться
             int NumClassroom = 0;
             //2. Сортируем план занятий по кол-во пар(макс первый)
@@ -332,17 +198,11 @@ namespace SimpleSheduler.BL
 
 
                 //Произведена группировка по предметам. Каждый Предмет включает План для нескольких групп по нему
-<<<<<<< HEAD
-                var SubjectIncludePlans = Curricula.OrderByDescending(x => x.NumberOfPairs).GroupBy(x => x.Subject).Select(g => g.ToList()).ToList();
-=======
                 var SubjectIncludePlans = curricula.OrderByDescending(x => x.NumberOfPairs).GroupBy(x => x.Subject).Select(g => g.ToList()).ToList();
->>>>>>> 3334538... Создан класс для Создания рассписания!
                 // Можно сразу выкинуть из плана если количество элементов в предмете =1
                 newCurricula.AddRange(SubjectIncludePlans.Where(x => x.Count == 1).Select(x => x.ToArray()).ToArray());
                 SubjectIncludePlans = SubjectIncludePlans.Where(x => x.Count > 1).ToList();
 
-<<<<<<< HEAD
-=======
                 //TODO: дальше по этому проверка
                 //// Можно сразу выкинуть из плана если количество пар в предмете встречается только 1 раз.
                 //foreach (var plans in SubjectIncludePlans)
@@ -359,18 +219,13 @@ namespace SimpleSheduler.BL
                 //    }
                 //}
 
->>>>>>> 3334538... Создан класс для Создания рассписания!
                 // Подбираются планы из группировки по предметам (там теперь нет одиночных) и пытаюсь объединить
                 //TODO: Просто просто делаю
 
                 //прохожу по предметам с планами
                 foreach (var plansInSubject in SubjectIncludePlans)
                 {
-<<<<<<< HEAD
-                    // Console.WriteLine("Предмет - " + plansInSubject[0].Subject + " И план:");
-=======
                     Console.WriteLine("Предмет - " + plansInSubject[0].Subject + " И план:");
->>>>>>> 3334538... Создан класс для Создания рассписания!
                     //unionGroup
 
                     //прохожу по объединению групп где объединение >1
@@ -378,11 +233,7 @@ namespace SimpleSheduler.BL
                     {
                         //если plansInSubject содержит все groups то объединяем по этому предмету эти группы 
                         // правда ли  что для всех групп -> хотябы один план содежит группу
-<<<<<<< HEAD
-                        bool ContainsAllGroups = groups.All(x => plansInSubject.Any(y => y.Group.Equals(x)));
-=======
                         bool ContainsAllGroups = groups.All(x => plansInSubject.Any(y => y.Group == x));
->>>>>>> 3334538... Создан класс для Создания рассписания!
                         if (ContainsAllGroups)
                         {
                             Curriculum[] curricula1 = plansInSubject.Where(x => groups.Contains(x.Group)).ToArray();
@@ -402,17 +253,10 @@ namespace SimpleSheduler.BL
                     foreach (var plan in plansInSubject)
                     {
 
-<<<<<<< HEAD
-                        //Console.WriteLine(plan);
-
-                    }
-                    //Console.WriteLine();
-=======
                         Console.WriteLine(plan);
 
                     }
                     Console.WriteLine();
->>>>>>> 3334538... Создан класс для Создания рассписания!
                 }
                 //Сортируем план занятий по кол-во пар(макс первый)
                 newCurricula = newCurricula.OrderByDescending(x => x[0].NumberOfPairs).ToList();
@@ -429,16 +273,6 @@ namespace SimpleSheduler.BL
                 var group = newCurricula[0].Select(x => x.Group).ToArray();
                 var subject = newCurricula[0][0].Subject;
                 //b. Ищем на предмет первого преподавателя
-<<<<<<< HEAD
-                var teacher = SubjectOfTeachers.First(x => x.Subject.Equals(subject)).Teacher;
-                //c. Выбираем аудитории с кол-во мест больше чем в группе 
-                //(так как они отсортированы по возрастанию то просто номер первой подходящей аудитории)
-                NumClassroom = Array.FindIndex(Classrooms, x => x.NumberOfSeats >= group.Sum(y => y.NumberOfPersons));
-
-                //Теперь для каждой  группы, преподавателя подцепляем занятость
-                var fillingTeacher = FillingTeachers.First(x => x.Value.Equals(teacher));
-                var fillingGroup = FillingGroups.Where(x => group.Contains(x.Value)).ToList();
-=======
                 var teacher = subjectOfTeachers.First(x => x.Subject == subject).Teacher;
                 //c. Выбираем аудитории с кол-во мест больше чем в группе 
                 //(так как они отсортированы по возрастанию то просто номер первой подходящей аудитории)
@@ -447,7 +281,6 @@ namespace SimpleSheduler.BL
                 //Теперь для каждой  группы, преподавателя подцепляем занятость
                 var fillingTeacher = fillingTeachers.First(x => x.Value == teacher);
                 var fillingGroup = fillingGroups.Where(x => group.Contains(x.Value)).ToList();
->>>>>>> 3334538... Создан класс для Создания рассписания!
                 //curricula
 
                 //Лучше циклы по аудиториям и по расписаниями поменять местами
@@ -458,17 +291,10 @@ namespace SimpleSheduler.BL
                 {
 
                     //d. Цикл по аудиториям
-<<<<<<< HEAD
-                    for (int cl = NumClassroom; cl < Classrooms.Length; cl++)
-                    {
-                        //Теперь для аудитории подцепляем занятость
-                        var fillingClassroom = FillingClassrooms.First(x => x.Value.Equals(Classrooms[cl]));
-=======
                     for (int cl = NumClassroom; cl < classrooms.Length; cl++)
                     {
                         //Теперь для аудитории подцепляем занятость
                         var fillingClassroom = fillingClassrooms.First(x => x.Value.ClassroomId == classrooms[cl].ClassroomId);
->>>>>>> 3334538... Создан класс для Создания рассписания!
                         //Условия что в этот день в эту пару Преподаватель не занят
                         bool FT = fillingTeacher[cu].BusyPair == null;
                         //Условия что в этот день в эту пару группы не заняты
@@ -489,11 +315,7 @@ namespace SimpleSheduler.BL
                         if (FT && FG && FC)
                         {
 
-<<<<<<< HEAD
-                            BusyPair busyPair = new BusyPair(Classrooms[cl], teacher, subject, group);
-=======
                             BusyPair busyPair = new BusyPair(classrooms[cl], teacher, subject, group);
->>>>>>> 3334538... Создан класс для Создания рассписания!
                             //a. Добавляем им пару
                             fillingTeacher[cu].BusyPair = busyPair;
                             foreach (var fillingGroup1 in fillingGroup)
@@ -523,11 +345,7 @@ namespace SimpleSheduler.BL
                     foreach (var curriculum in newCurricula[0])
                     {
                         //curricula
-<<<<<<< HEAD
-                        int ind = curriculaNot.FindIndex(x => x.Equals(curriculum));
-=======
                         int ind = curriculaNot.FindIndex(x => x.CurriculumId == curriculum.CurriculumId);
->>>>>>> 3334538... Создан класс для Создания рассписания!
                         //i. Если не было  такого элемента
 
                         if (ind == -1)
@@ -611,20 +429,12 @@ namespace SimpleSheduler.BL
         //Сравнение групп по потокам
         private static bool GroupComparisonPotok(Group group1, Group group2)
         {
-<<<<<<< HEAD
-            return group1.Potok.Equals(group2.Potok);
-=======
             return group1.Potok == group2.Potok;
->>>>>>> 3334538... Создан класс для Создания рассписания!
         }
         //Сравнение групп по семинарам
         private static bool GroupComparisonSeminar(Group group1, Group group2)
         {
-<<<<<<< HEAD
-            return group1.Seminar.Equals(group2.Seminar);
-=======
             return group1.Seminar == group2.Seminar;
->>>>>>> 3334538... Создан класс для Создания рассписания!
         }
         private static List<Group[]> GetUniouGroup(Group[] groups)
         {
