@@ -16,7 +16,7 @@ namespace SimpleSheduler.BL
         public Filling<Group>[] FillingGroups { get; private set; }
         //занятость аудитории 
         public Filling<Classroom>[] FillingClassrooms { get; private set; }
-   
+
         //План занятий 
         private Curriculum[] Curricula;
         // Предмет и преподаватель
@@ -29,7 +29,7 @@ namespace SimpleSheduler.BL
             Curriculum[] curricula,
             SubjectOfTeacher[] subjectOfTeachers)
         {
-            if (fillingTeachers==null || fillingTeachers.Length<1)
+            if (fillingTeachers == null || fillingTeachers.Length < 1)
             {
                 throw new ArgumentNullException("Массив заполнения преподавателей не должен быть пустым!", nameof(fillingTeachers));
             }
@@ -41,7 +41,7 @@ namespace SimpleSheduler.BL
             {
                 throw new ArgumentNullException("Массив заполнения аудиторий не должен быть пустым!", nameof(fillingClassrooms));
             }
-           
+
             if (curricula == null || curricula.Length < 1)
             {
                 throw new ArgumentNullException("Массив плана занятий не должен быть пустым!", nameof(curricula));
@@ -50,7 +50,7 @@ namespace SimpleSheduler.BL
             {
                 throw new ArgumentNullException("Массив предметов преподавателей не должен быть пустым!", nameof(subjectOfTeachers));
             }
-            
+
             FillingTeachers = GetDeepClone(fillingTeachers);
             FillingGroups = GetDeepClone(fillingGroups);
             FillingClassrooms = GetDeepClone(fillingClassrooms);
@@ -87,7 +87,7 @@ namespace SimpleSheduler.BL
         public Curriculum[] SetSchedule()
         {
             //1. Аудитории сортированы по количеству мест
-            Classroom[] Classrooms = FillingClassrooms.Select(x=>x.Value).OrderBy(x => x.NumberOfSeats).ToArray();
+            Classroom[] Classrooms = FillingClassrooms.Select(x => x.Value).OrderBy(x => x.NumberOfSeats).ToArray();
             //Номер Аудитории из массива которая сейчас будет рассматриваться
             int NumClassroom = 0;
             //2. Сортируем план занятий по кол-во пар(макс первый)
@@ -369,7 +369,7 @@ namespace SimpleSheduler.BL
                 foreach (var plansInSubject in SubjectIncludePlans)
                 {
 <<<<<<< HEAD
-                   // Console.WriteLine("Предмет - " + plansInSubject[0].Subject + " И план:");
+                    // Console.WriteLine("Предмет - " + plansInSubject[0].Subject + " И план:");
 =======
                     Console.WriteLine("Предмет - " + plansInSubject[0].Subject + " И план:");
 >>>>>>> 3334538... Создан класс для Создания рассписания!
@@ -381,7 +381,7 @@ namespace SimpleSheduler.BL
                         //если plansInSubject содержит все groups то объединяем по этому предмету эти группы 
                         // правда ли  что для всех групп -> хотябы один план содежит группу
 <<<<<<< HEAD
-                        bool ContainsAllGroups = groups.All(x => plansInSubject.Any(y => y.Group.Equals( x)));
+                        bool ContainsAllGroups = groups.All(x => plansInSubject.Any(y => y.Group.Equals(x)));
 =======
                         bool ContainsAllGroups = groups.All(x => plansInSubject.Any(y => y.Group == x));
 >>>>>>> 3334538... Создан класс для Создания рассписания!
@@ -432,7 +432,7 @@ namespace SimpleSheduler.BL
                 var subject = newCurricula[0][0].Subject;
                 //b. Ищем на предмет первого преподавателя
 <<<<<<< HEAD
-                var teacher = SubjectOfTeachers.First(x => x.Subject.Equals( subject)).Teacher;
+                var teacher = SubjectOfTeachers.First(x => x.Subject.Equals(subject)).Teacher;
                 //c. Выбираем аудитории с кол-во мест больше чем в группе 
                 //(так как они отсортированы по возрастанию то просто номер первой подходящей аудитории)
                 NumClassroom = Array.FindIndex(Classrooms, x => x.NumberOfSeats >= group.Sum(y => y.NumberOfPersons));
@@ -464,7 +464,7 @@ namespace SimpleSheduler.BL
                     for (int cl = NumClassroom; cl < Classrooms.Length; cl++)
                     {
                         //Теперь для аудитории подцепляем занятость
-                        var fillingClassroom = FillingClassrooms.First(x => x.Value.Equals( Classrooms[cl]));
+                        var fillingClassroom = FillingClassrooms.First(x => x.Value.Equals(Classrooms[cl]));
 =======
                     for (int cl = NumClassroom; cl < classrooms.Length; cl++)
                     {
