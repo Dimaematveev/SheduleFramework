@@ -61,26 +61,24 @@ namespace SimpleSheduler.CMD
                 fillingClassrooms = GetFilling(classrooms, possibleFillings);
 
                 //TODO: первый без объединения групп второй с объединением
-                CreateScheduler createScheduler = new CreateScheduler(fillingTeachers, fillingGroups, fillingClassrooms, curricula, subjectOfTeachers);
-                var NotFill = createScheduler.SetSchedule();
-                CreateScheduler createSchedulerUnion = new CreateScheduler(fillingTeachers, fillingGroups, fillingClassrooms, curricula, subjectOfTeachers);
-                var NotFillUnion = createSchedulerUnion.SetScheduleWithUniouGroup();
                 CreateScheduler createScheduler = new CreateScheduler();
                 //var NotFill = createScheduler.SetSchedule(fillingTeachers, fillingGroups, fillingClassrooms, classrooms, curricula, subjectOfTeachers);
-                var NotFillUnion = createScheduler.SetScheduleWithUniouGroup(fillingTeachers, fillingGroups, fillingClassrooms, classrooms, curricula, subjectOfTeachers);
-                //var Not1Fill = FillingMaxNumberPair(fillingTeachers, fillingGroups, fillingClassrooms,possibleFillings, classrooms, curricula, subjectOfTeachers);
+                CreateScheduler createSchedulerUnion = new CreateScheduler();
+                var NotFillUnion = createSchedulerUnion.SetScheduleWithUniouGroup(fillingTeachers, fillingGroups, fillingClassrooms, classrooms, curricula, subjectOfTeachers);
+                //CreateScheduler createScheduler = new CreateScheduler();
+                ////var NotFill = createScheduler.SetSchedule(fillingTeachers, fillingGroups, fillingClassrooms, classrooms, curricula, subjectOfTeachers);
+                //var NotFillUnion = createScheduler.SetScheduleWithUniouGroup(fillingTeachers, fillingGroups, fillingClassrooms, classrooms, curricula, subjectOfTeachers);
+                ////var Not1Fill = FillingMaxNumberPair(fillingTeachers, fillingGroups, fillingClassrooms,possibleFillings, classrooms, curricula, subjectOfTeachers);
 
                 //Для вывода лучше сдать таблицу, потом выводить
-                ConsoleOut.ConsoleFilling(createScheduler.FillingClassrooms, "РАСПРЕДЕЛЕНИЕ ПО АУДИТОРИЯМ");
-                ConsoleOut.ConsoleFilling(createScheduler.FillingTeachers, "РАСПРЕДЕЛЕНИЕ ПО ПРЕПОДАВАТЕЛЯМ");
-                ConsoleOut.ConsoleFilling(createScheduler.FillingGroups, "РАСПРЕДЕЛЕНИЕ ПО ГРУППАМ");
+                ConsoleOut.ConsoleFilling(fillingClassrooms, "РАСПРЕДЕЛЕНИЕ ПО АУДИТОРИЯМ");
+                ConsoleOut.ConsoleFilling(fillingTeachers, "РАСПРЕДЕЛЕНИЕ ПО ПРЕПОДАВАТЕЛЯМ");
+                ConsoleOut.ConsoleFilling(fillingGroups, "РАСПРЕДЕЛЕНИЕ ПО ГРУППАМ");
 
-                ConsoleOut.ConsoleFilling(createSchedulerUnion.FillingClassrooms, "РАСПРЕДЕЛЕНИЕ ПО АУДИТОРИЯМ");
-                ConsoleOut.ConsoleFilling(createSchedulerUnion.FillingTeachers, "РАСПРЕДЕЛЕНИЕ ПО ПРЕПОДАВАТЕЛЯМ");
-                ConsoleOut.ConsoleFilling(createSchedulerUnion.FillingGroups, "РАСПРЕДЕЛЕНИЕ ПО ГРУППАМ");
+                //ConsoleOut.ConsoleFilling(createSchedulerUnion.FillingClassrooms, "РАСПРЕДЕЛЕНИЕ ПО АУДИТОРИЯМ");
+                //ConsoleOut.ConsoleFilling(createSchedulerUnion.FillingTeachers, "РАСПРЕДЕЛЕНИЕ ПО ПРЕПОДАВАТЕЛЯМ");
+                //ConsoleOut.ConsoleFilling(createSchedulerUnion.FillingGroups, "РАСПРЕДЕЛЕНИЕ ПО ГРУППАМ");
 
-=======
->>>>>>> 3334538... Создан класс для Создания рассписания!
             }
 
             Console.ReadLine();

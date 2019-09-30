@@ -13,7 +13,7 @@ namespace SimpleSheduler.BL
     /// Заполнение по 
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class Filling<T> : IEnumerable where T : IName
+    public class Filling<T> : IEnumerable where T : class,IName
     {
         public Filling(T value, PossibleFilling[] possibleFillings)
         {
@@ -30,7 +30,7 @@ namespace SimpleSheduler.BL
         }
 
 
-        public object Clone()
+        public object Clone() 
         {
 
             T newValue = Value.Clone() as T;
