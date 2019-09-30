@@ -10,7 +10,7 @@ namespace SimpleSheduler.BL
     /// <summary>
     /// Заолненая пара.
     /// </summary>
-    public class BusyPair
+    public class BusyPair:ICloneable
     {
         public Classroom Classroom{get;set;}
         public Teacher Teacher { get; set; }
@@ -31,7 +31,17 @@ namespace SimpleSheduler.BL
             Subject = subject;
             Groups = group;
         }
+        public object Clone()
+        {
+            var newClassroom = Classroom.Clone() as Classroom;
+            var newTeacher = Teacher.Clone() as Teacher;
+            var newSubject = Subject.Clone() as Subject;
+            var newGroups = Groups.Clone() as Group[];
 
+            BusyPair newBusyPair = new BusyPair(newClassroom, newTeacher, newSubject, newGroups);
+           
+            return newBusyPair;
+        }
         public override string ToString()
         {
             string str = $"C:{Classroom}, T:{Teacher}, S:{Subject}, G:";

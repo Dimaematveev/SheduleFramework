@@ -10,7 +10,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Учебные дни за 2 недели
     /// </summary>
-    public class StudyDay
+    public class StudyDay:ICloneable
     {
         /// <summary>
         /// Ключ Учебного дня
@@ -29,7 +29,26 @@ namespace SimpleSheduler.BD
         [Required]
         public int NumberOfWeek { get; set; }
 
-
+        public object Clone()
+        {
+            StudyDay newStudyDay = new StudyDay()
+            {
+                StudyDayId = this.StudyDayId,
+                NameDayOfWeek = this.NameDayOfWeek,
+                NumberOfWeek = this.NumberOfWeek
+            };
+            return newStudyDay;
+        }
+        public override bool Equals(object obj)
+        {
+            bool result = true;
+            if (obj is StudyDay newStudyDay)
+            {
+                result = result && newStudyDay.StudyDayId.Equals(StudyDayId);
+                return result;
+            }
+            return false;
+        }
         public override string ToString()
         {
             return $"ID:{StudyDayId}, N:{NameDayOfWeek}, Num:{NumberOfWeek}.";

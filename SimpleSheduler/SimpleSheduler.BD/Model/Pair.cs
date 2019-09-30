@@ -10,7 +10,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Пары 
     /// </summary>
-    public class Pair
+    public class Pair:ICloneable
     {
         /// <summary>
         /// Ключ Пары
@@ -28,7 +28,26 @@ namespace SimpleSheduler.BD
         /// </summary>
         [Required]
         public int NumberThePair { get; set; }
-
+        public object Clone()
+        {
+            Pair newPair = new Pair()
+            {
+                PairId = this.PairId,
+                NameThePair = this.NameThePair,
+                NumberThePair = this.NumberThePair
+            };
+            return newPair;
+        }
+        public override bool Equals(object obj)
+        {
+            bool result = true;
+            if (obj is Pair newPair)
+            {
+                result = result && newPair.PairId.Equals(PairId);
+                return result;
+            }
+            return false;
+        }
         public override string ToString()
         {
             return $"ID:{PairId}, N:{NameThePair}, Num:{NumberThePair}.";
