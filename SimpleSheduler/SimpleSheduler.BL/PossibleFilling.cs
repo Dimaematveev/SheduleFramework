@@ -10,7 +10,7 @@ namespace SimpleSheduler.BL
     /// <summary>
     /// Когда возможно заполнить пару. список свободных дней и пар.
     /// </summary>
-    public class PossibleFilling:ICloneable
+    public class PossibleFilling: ICloneable
     {
         //Для красивого вывода
         static int padNameThePair = 0;
@@ -59,10 +59,14 @@ namespace SimpleSheduler.BL
         {
             return OutputStudyDay()+","+ OutputPair();
         }
-
         public object Clone()
         {
-            return new PossibleFilling(Pair, StudyDay);
+
+            Pair newPair = Pair.Clone() as Pair;
+            StudyDay newStudyDay = StudyDay.Clone() as StudyDay;
+            PossibleFilling newPossibleFilling = new PossibleFilling(newPair, newStudyDay);
+            return newPossibleFilling;
+
         }
     }
 }
