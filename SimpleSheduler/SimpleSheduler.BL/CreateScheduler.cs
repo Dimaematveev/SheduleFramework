@@ -9,6 +9,7 @@ namespace SimpleSheduler.BL
 {
     public class CreateScheduler
     {
+
         public CreateScheduler()
         {
         }
