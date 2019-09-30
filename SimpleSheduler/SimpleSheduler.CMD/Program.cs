@@ -89,7 +89,7 @@ namespace SimpleSheduler.CMD
 
 
 
-
+         
         /// <summary>
         /// Получить заполнение по каждому (преподавателю,группе,аудитории)
         /// </summary>
