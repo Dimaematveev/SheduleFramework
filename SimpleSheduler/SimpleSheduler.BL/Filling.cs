@@ -13,7 +13,11 @@ namespace SimpleSheduler.BL
     /// Заполнение по 
     /// </summary>
     /// <typeparam name="T"></typeparam>
+<<<<<<< HEAD
+    public class Filling<T> : ICloneable, IEnumerable where T : class, IName
+=======
     public class Filling<T> : IEnumerable where T : IName
+>>>>>>> 3334538... Создан класс для Создания рассписания!
     {
         public Filling(T value, PossibleFilling[] possibleFillings)
         {
@@ -28,6 +32,27 @@ namespace SimpleSheduler.BL
         {
             return PossibleFillings.GetEnumerator();
         }
+<<<<<<< HEAD
+
+
+        public object Clone()
+        {
+
+            T newValue = Value.Clone() as T;
+
+            PossibleFilling[] newPossibleFillings = new PossibleFilling[PossibleFillings.Length];
+            for (int i = 0; i < PossibleFillings.Length; i++)
+            {
+                newPossibleFillings[i] = PossibleFillings[i].Clone() as PossibleFilling;
+            }
+            Filling<T> newFilling = new Filling<T>(newValue, newPossibleFillings);
+            return newFilling;
+
+        }
+      
+
+=======
+>>>>>>> 3334538... Создан класс для Создания рассписания!
         public PossibleFilling this[int index]
         {
             get

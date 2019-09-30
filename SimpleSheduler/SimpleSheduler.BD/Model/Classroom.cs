@@ -11,7 +11,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Аудитория
     /// </summary>
-    public class Classroom : IName
+    public class Classroom : IName,ICloneable
     {
 
         /// <summary>
@@ -33,11 +33,31 @@ namespace SimpleSheduler.BD
         [Required]
         public int NumberOfSeats { get; set; }
 
+        public object Clone()
+        {
+            Classroom newClassroom = new Classroom()
+            {
+                ClassroomId = this.ClassroomId,
+                Name = this.Name,
+                NumberOfSeats = this.NumberOfSeats
+            };
+            return newClassroom;
+        }
+
         public string NameString()
         {
             return Name;
         }
-
+        public override bool Equals(object obj)
+        {
+            bool result = true;
+            if (obj is Classroom newClassroom)
+            {
+                result = result && newClassroom.ClassroomId.Equals(ClassroomId);
+                return result;
+            }
+            return false;
+        }
         public override string ToString()
         {
             return $"ID:{ClassroomId}, N:{Name}, Num:{NumberOfSeats}.";

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace SimpleSheduler.BD.Model
 {
-    public interface IName
+    public interface IName:ICloneable
     {
         string NameString();
     }

@@ -11,7 +11,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Группа.
     /// </summary>
-    public class Group : IName
+    public class Group : IName,ICloneable
     {
         
         /// <summary>
@@ -53,7 +53,29 @@ namespace SimpleSheduler.BD
         /// </summary>
         public virtual ICollection<Curriculum> Curricula { get; set; }
 
-
+        public override bool Equals(object obj)
+        {
+            bool result = true;
+            if (obj is Group newGroup)
+            {
+                result = result && newGroup.GroupId.Equals(GroupId);
+                return result;
+            }
+            return false;
+        }
+        public object Clone()
+        {
+            Group newGroup = new Group()
+            {
+                GroupId = this.GroupId,
+                Curricula = this.Curricula,
+                Name = this.Name,
+                NumberOfPersons = this.NumberOfPersons,
+                Potok = this.Potok,
+                Seminar = this.Seminar
+            };
+            return newGroup;
+        }
         public string NameString()
         {
             return Name;
