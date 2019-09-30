@@ -70,7 +70,7 @@ namespace SimpleSheduler.BL
             return newObject;
         }
 
-        public CreateScheduler()
+        public CreateScheduler() 
         {
         }
 
