@@ -9,10 +9,80 @@ namespace SimpleSheduler.BL
 {
     public class CreateScheduler
     {
+        /// <summary>
+        /// Массив преподавателей
+        /// </summary>
+        private Teacher[] Teachers { get; set; }
+        /// <summary>
+        /// Массив групп
+        /// </summary>
+        private Group[] Groups { get; set; }
+        /// <summary>
+        /// Массив аудиторий
+        /// </summary>
+        private Classroom[] Classrooms { get; set; }
+        /// <summary>
+        /// Массив предметов
+        /// </summary>
+        private Subject[] Subjects { get; set; }
+        /// <summary>
+        /// Массив плана занятий
+        /// </summary>
+        private Curriculum[] Curricula { get; set; }
+        /// <summary>
+        /// Массив Предметов к преподавателям
+        /// </summary>
+        private SubjectOfTeacher[] SubjectOfTeachers { get; set; }
+        /// <summary>
+        /// Заполнение преподавателей
+        /// </summary>
+        private Filling<Teacher>[] FillingTeachers { get; set; }
+        /// <summary>
+        /// Заполнение групп
+        /// </summary>
+        private Filling<Group>[] FillingGroups { get; set; }
+        /// <summary>
+        /// Заполнение Аудиторий
+        /// </summary>
+        private Filling<Classroom>[] FillingClassrooms { get; set; }
         public CreateScheduler()
         {
         }
 
+        public CreateScheduler(
+            Teacher[] teachers,
+            Group[] groups,
+            Classroom[] classrooms,
+            Subject[] subjects,
+            Curriculum[] curricula,
+            SubjectOfTeacher[] subjectOfTeachers)
+        {
+            ExceptionIfArrayNullorEmpty(teachers, nameof(teachers));
+            ExceptionIfArrayNullorEmpty(groups, nameof(groups));
+            ExceptionIfArrayNullorEmpty(classrooms, nameof(classrooms));
+            ExceptionIfArrayNullorEmpty(subjects, nameof(subjects));
+            ExceptionIfArrayNullorEmpty(curricula, nameof(curricula));
+            ExceptionIfArrayNullorEmpty(subjectOfTeachers, nameof(subjectOfTeachers));
+            Teachers = teachers;
+            Groups = groups;
+            Classrooms = classrooms;
+            Subjects = subjects;
+            Curricula = curricula;
+            SubjectOfTeachers = subjectOfTeachers;
+        }
+        /// <summary>
+        /// Создает ArgumentNullException массиву если он пуст или null
+        /// </summary>
+        /// <typeparam name="T">Тип массива</typeparam>
+        /// <param name="array">Массив для проверки</param>
+        /// <param name="nameParam">Название параметра вызывающего его обычно задается nameof()</param>
+        private void ExceptionIfArrayNullorEmpty<T>(T[] array, string nameParam)
+        {
+            if (array == null || array.Length == 0)
+            {
+                throw new ArgumentNullException($"Массив  {array.GetType().Name} null или пуст!", nameParam);
+            }
+        }
 
 
         /// <summary>

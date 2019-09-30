@@ -62,6 +62,7 @@ namespace SimpleSheduler.CMD
 
                 //TODO: первый без объединения групп второй с объединением
                 CreateScheduler createScheduler = new CreateScheduler();
+                CreateScheduler createScheduler1 = new CreateScheduler(teachers,groups,classrooms,subjects,curricula,subjectOfTeachers);
                 //var NotFill = createScheduler.SetSchedule(fillingTeachers, fillingGroups, fillingClassrooms, classrooms, curricula, subjectOfTeachers);
                 CreateScheduler createSchedulerUnion = new CreateScheduler();
                 var NotFillUnion = createSchedulerUnion.SetScheduleWithUniouGroup(fillingTeachers, fillingGroups, fillingClassrooms, classrooms, curricula, subjectOfTeachers);
