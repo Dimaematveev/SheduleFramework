@@ -61,16 +61,13 @@ namespace SimpleSheduler.CMD
                 fillingClassrooms = GetFilling(classrooms, possibleFillings);
 
                 //TODO: первый без объединения групп второй с объединением
-<<<<<<< HEAD
                 CreateScheduler createScheduler = new CreateScheduler(fillingTeachers, fillingGroups, fillingClassrooms, curricula, subjectOfTeachers);
                 var NotFill = createScheduler.SetSchedule();
                 CreateScheduler createSchedulerUnion = new CreateScheduler(fillingTeachers, fillingGroups, fillingClassrooms, curricula, subjectOfTeachers);
                 var NotFillUnion = createSchedulerUnion.SetScheduleWithUniouGroup();
-=======
                 CreateScheduler createScheduler = new CreateScheduler();
                 //var NotFill = createScheduler.SetSchedule(fillingTeachers, fillingGroups, fillingClassrooms, classrooms, curricula, subjectOfTeachers);
                 var NotFillUnion = createScheduler.SetScheduleWithUniouGroup(fillingTeachers, fillingGroups, fillingClassrooms, classrooms, curricula, subjectOfTeachers);
->>>>>>> 3334538... Создан класс для Создания рассписания!
                 //var Not1Fill = FillingMaxNumberPair(fillingTeachers, fillingGroups, fillingClassrooms,possibleFillings, classrooms, curricula, subjectOfTeachers);
 
                 //Для вывода лучше сдать таблицу, потом выводить
@@ -78,8 +75,6 @@ namespace SimpleSheduler.CMD
                 ConsoleOut.ConsoleFilling(createScheduler.FillingTeachers, "РАСПРЕДЕЛЕНИЕ ПО ПРЕПОДАВАТЕЛЯМ");
                 ConsoleOut.ConsoleFilling(createScheduler.FillingGroups, "РАСПРЕДЕЛЕНИЕ ПО ГРУППАМ");
 
-<<<<<<< HEAD
-                //Для вывода лучше сдать таблицу, потом выводить
                 ConsoleOut.ConsoleFilling(createSchedulerUnion.FillingClassrooms, "РАСПРЕДЕЛЕНИЕ ПО АУДИТОРИЯМ");
                 ConsoleOut.ConsoleFilling(createSchedulerUnion.FillingTeachers, "РАСПРЕДЕЛЕНИЕ ПО ПРЕПОДАВАТЕЛЯМ");
                 ConsoleOut.ConsoleFilling(createSchedulerUnion.FillingGroups, "РАСПРЕДЕЛЕНИЕ ПО ГРУППАМ");
