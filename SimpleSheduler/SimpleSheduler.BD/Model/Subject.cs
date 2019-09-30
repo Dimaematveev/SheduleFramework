@@ -11,7 +11,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Предмет
     /// </summary>
-    public class Subject : IName
+    public class Subject : IName,ICloneable
     {
         
         /// <summary>
@@ -38,12 +38,31 @@ namespace SimpleSheduler.BD
         /// </summary>
         public virtual ICollection<SubjectOfTeacher> SubjectOfTeachers { get; set; }
 
-
+        public object Clone()
+        {
+            Subject newSubject = new Subject()
+            {
+                Curricula = this.Curricula,
+                Name = this.Name,
+                SubjectId = this.SubjectId,
+                SubjectOfTeachers = this.SubjectOfTeachers
+            };
+            return newSubject;
+        }
         public string NameString()
         {
             return Name;
         }
-
+        public override bool Equals(object obj)
+        {
+            bool result = true;
+            if (obj is Subject newSubject)
+            {
+                result = result && newSubject.SubjectId.Equals(SubjectId);
+                return result;
+            }
+            return false;
+        }
         public override string ToString()
         {
             return $"ID:{SubjectId}, N:{Name}.";

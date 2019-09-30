@@ -61,15 +61,21 @@ namespace SimpleSheduler.CMD
                 fillingClassrooms = GetFilling(classrooms, possibleFillings);
 
                 //TODO: первый без объединения групп второй с объединением
-                CreateScheduler createScheduler = new CreateScheduler();
-                //var NotFill = createScheduler.SetSchedule(fillingTeachers, fillingGroups, fillingClassrooms, classrooms, curricula, subjectOfTeachers);
-                var NotFillUnion = createScheduler.SetScheduleWithUniouGroup(fillingTeachers, fillingGroups, fillingClassrooms, classrooms, curricula, subjectOfTeachers);
+                CreateScheduler createScheduler = new CreateScheduler(fillingTeachers, fillingGroups, fillingClassrooms, curricula, subjectOfTeachers);
+                var NotFill = createScheduler.SetSchedule();
+                CreateScheduler createSchedulerUnion = new CreateScheduler(fillingTeachers, fillingGroups, fillingClassrooms, curricula, subjectOfTeachers);
+                var NotFillUnion = createSchedulerUnion.SetScheduleWithUniouGroup();
                 //var Not1Fill = FillingMaxNumberPair(fillingTeachers, fillingGroups, fillingClassrooms,possibleFillings, classrooms, curricula, subjectOfTeachers);
 
                 //Для вывода лучше сдать таблицу, потом выводить
-                ConsoleOut.ConsoleFilling(fillingClassrooms, "РАСПРЕДЕЛЕНИЕ ПО АУДИТОРИЯМ");
-                ConsoleOut.ConsoleFilling(fillingTeachers, "РАСПРЕДЕЛЕНИЕ ПО ПРЕПОДАВАТЕЛЯМ");
-                ConsoleOut.ConsoleFilling(fillingGroups, "РАСПРЕДЕЛЕНИЕ ПО ГРУППАМ");
+                ConsoleOut.ConsoleFilling(createScheduler.FillingClassrooms, "РАСПРЕДЕЛЕНИЕ ПО АУДИТОРИЯМ");
+                ConsoleOut.ConsoleFilling(createScheduler.FillingTeachers, "РАСПРЕДЕЛЕНИЕ ПО ПРЕПОДАВАТЕЛЯМ");
+                ConsoleOut.ConsoleFilling(createScheduler.FillingGroups, "РАСПРЕДЕЛЕНИЕ ПО ГРУППАМ");
+
+                //Для вывода лучше сдать таблицу, потом выводить
+                ConsoleOut.ConsoleFilling(createSchedulerUnion.FillingClassrooms, "РАСПРЕДЕЛЕНИЕ ПО АУДИТОРИЯМ");
+                ConsoleOut.ConsoleFilling(createSchedulerUnion.FillingTeachers, "РАСПРЕДЕЛЕНИЕ ПО ПРЕПОДАВАТЕЛЯМ");
+                ConsoleOut.ConsoleFilling(createSchedulerUnion.FillingGroups, "РАСПРЕДЕЛЕНИЕ ПО ГРУППАМ");
 
             }
 
@@ -87,7 +93,7 @@ namespace SimpleSheduler.CMD
         /// <param name="array">массив (преподавателю,группе,аудитории)</param>
         /// <param name="possibleFillings">массив свободных дней</param>
         /// <returns>массив заполнение по каждому (преподавателю,группе,аудитории)</returns>
-        private static Filling<T>[] GetFilling<T>(T[] array, PossibleFilling[] possibleFillings) where T:IName
+        private static Filling<T>[] GetFilling<T>(T[] array, PossibleFilling[] possibleFillings) where T:class,IName
         {
             var result = new List<Filling<T>>();
 

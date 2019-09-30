@@ -26,7 +26,7 @@ namespace SimpleSheduler.CMD
         /// <param name="fillings"></param>
         /// <param name="nameTable">Название таблицы(Распределение по...)</param>
         public static void ConsoleFilling<T>(Filling<T>[] fillings,
-                                             string nameTable) where T : IName
+                                             string nameTable) where T : class,IName
         {
             ConsoleTable consoleTable = new ConsoleTable
             {

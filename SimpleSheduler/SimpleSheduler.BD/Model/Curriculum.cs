@@ -10,7 +10,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Учебный план на 2 недели
     /// </summary>
-    public class Curriculum
+    public class Curriculum: ICloneable
     {
        
         /// <summary>
@@ -45,6 +45,29 @@ namespace SimpleSheduler.BD
         /// </summary>
         public virtual Subject Subject { get; set; }
 
+        public object Clone()
+        {
+            Curriculum newCurriculum = new Curriculum()
+            {
+                CurriculumId = this.CurriculumId,
+                NumberOfPairs = this.NumberOfPairs,
+                Group = this.Group,
+                GroupId = this.GroupId,
+                Subject = this.Subject,
+                SubjectId = this.SubjectId
+            };
+            return newCurriculum;
+        }
+        public override bool Equals(object obj)
+        {
+            bool result = true;
+            if (obj is Curriculum newCurriculum)
+            {
+                result = result && newCurriculum.CurriculumId.Equals(CurriculumId);
+                return result;
+            }
+            return false;
+        }
         public override string ToString()
         {
             return $"ID:{CurriculumId}, G:{Group.Name}, S:{Subject.Name}, Num:{NumberOfPairs}.";
