@@ -43,9 +43,11 @@
   <ItemGroup>
     <Compile Include="BusyPair.cs" />
     <Compile Include="CreateScheduler.cs" />
+    <Compile Include="CurriculaWithAmountPair.cs" />
     <Compile Include="Filling.cs" />
     <Compile Include="PossibleFilling.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Temp.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SimpleSheduler.BD\SimpleSheduler.BD.csproj">
