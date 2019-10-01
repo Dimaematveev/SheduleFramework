@@ -59,7 +59,7 @@ namespace SimpleSheduler.BL
         {
             foreach (var curriculum in curricula)
             {
-                if (CheckAdd(curriculum))
+                if (!CheckAdd(curriculum))
                 {
                     return false;
                 }
@@ -118,6 +118,14 @@ namespace SimpleSheduler.BL
             };
             return newcul;
         }
+        /// <summary>
+        /// Получить количество планов
+        /// </summary>
+        /// <returns></returns>
+        public int GetNumberPlan()
+        {
+            return Curricula.Length;
+        }
 
         /// <summary>
         /// Убираем одну пару. т.е. она была заполнена
@@ -139,7 +147,7 @@ namespace SimpleSheduler.BL
         private bool CheckAdd(Curriculum curriculum)
         {
             //Кол-во пар должно совпадать
-            if (curriculum.NumberOfPairs != Curricula[0].NumberOfPairs)
+            if (curriculum.NumberOfPairs != NumberOfPair)
             {
                 return false;
             }
