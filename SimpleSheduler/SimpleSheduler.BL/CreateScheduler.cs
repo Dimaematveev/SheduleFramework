@@ -13,7 +13,7 @@ namespace SimpleSheduler.BL
         /// <summary>
         /// Массив преподавателей
         /// </summary>
-        private Teacher[] Teachers { get; set; }
+       // private Teacher[] Teachers { get; set; }
         /// <summary>
         /// Массив групп
         /// </summary>
@@ -33,7 +33,7 @@ namespace SimpleSheduler.BL
         /// <summary>
         /// Массив Предметов к преподавателям
         /// </summary>
-        private SubjectOfTeacher[] SubjectOfTeachers { get; set; }
+       // private SubjectOfTeacher[] SubjectOfTeachers { get; set; }
 
         /// <summary>
         /// Все возможные заполнения
@@ -43,7 +43,7 @@ namespace SimpleSheduler.BL
         /// <summary>
         /// Заполнение преподавателей
         /// </summary>
-        private Filling<Teacher>[] FillingTeachers { get; set; }
+       // private Filling<Teacher>[] FillingTeachers { get; set; }
         /// <summary>
         /// Заполнение групп
         /// </summary>
@@ -59,47 +59,35 @@ namespace SimpleSheduler.BL
         /// <summary>
         /// Для создания расписания мы подаем
         /// </summary>
-        /// <param name="teachers">Всех преподавателей</param>
         /// <param name="groups">Все Группы</param>
         /// <param name="classrooms">Все аудитории</param>
         /// <param name="subjects">Все предметы</param>
         /// <param name="curricula">Полный учебный план</param>
-        /// <param name="subjectOfTeachers">Какие преподаватели какие предметы ведут</param>
-        /// <param name="fillingTeachers">По каждому преподавателю массив дней когда может работать</param>
         /// <param name="fillingGroups">По каждой группе массив дней когда может учиться</param>
         /// <param name="fillingClassrooms">По каждой аудитории массив дней когда свободна</param>
         public CreateScheduler(
-            Teacher[] teachers,
             Group[] groups,
             Classroom[] classrooms,
             Subject[] subjects,
             Curriculum[] curricula,
-            SubjectOfTeacher[] subjectOfTeachers,
-            Filling<Teacher>[] fillingTeachers,
             Filling<Group>[] fillingGroups,
             Filling<Classroom>[] fillingClassrooms )
         {
-            ExceptionIfArrayNullorEmpty(teachers, nameof(teachers));
             ExceptionIfArrayNullorEmpty(groups, nameof(groups));
             ExceptionIfArrayNullorEmpty(classrooms, nameof(classrooms));
             ExceptionIfArrayNullorEmpty(subjects, nameof(subjects));
             ExceptionIfArrayNullorEmpty(curricula, nameof(curricula));
-            ExceptionIfArrayNullorEmpty(subjectOfTeachers, nameof(subjectOfTeachers));
-            ExceptionIfArrayNullorEmpty(fillingTeachers, nameof(fillingTeachers));
             ExceptionIfArrayNullorEmpty(fillingGroups, nameof(fillingGroups));
             ExceptionIfArrayNullorEmpty(fillingClassrooms, nameof(fillingClassrooms));
-            Teachers = teachers;
             Groups = groups;
             Classrooms = classrooms;
             Subjects = subjects;
             Curricula = curricula;
-            SubjectOfTeachers = subjectOfTeachers;
-            FillingTeachers = fillingTeachers;
-            FillingGroups = fillingGroups;
-            FillingClassrooms = fillingClassrooms;
+            FillingGroups = (new List<Filling<Group>>( fillingGroups)).ToArray();
+            FillingClassrooms = (new List<Filling<Classroom>>(fillingClassrooms)).ToArray();
 
-
-            var sss = SetScheduleWithUniouGroup();
+            var ss = SetSchedule();
+            //var sss = SetScheduleWithUniouGroup();
         }
         /// <summary>
         /// Создает ArgumentNullException массиву если он пуст или null
@@ -144,13 +132,13 @@ namespace SimpleSheduler.BL
                 var group = MaxCurricula.GetGroups()[0];
                 var subject = MaxCurricula.GetSubject();
                 //b. Ищем на предмет первого преподавателя
-                var teacher = SubjectOfTeachers.First(x => x.Subject == subject).Teacher;
+               // var teacher = SubjectOfTeachers.First(x => x.Subject == subject).Teacher;
                 //c. Выбираем аудитории с кол-во мест больше чем в группе 
                 //(так как они отсортированы по возрастанию то просто номер первой подходящей аудитории)
                 NumClassroom = Array.FindIndex(Classrooms, x => x.NumberOfSeats >= group.NumberOfPersons);
 
                 //Теперь для каждой  группы, преподавателя подцепляем занятость
-                var fillingTeacher = FillingTeachers.First(x => x.Value.TeacherId == teacher.TeacherId);
+               // var fillingTeacher = FillingTeachers.First(x => x.Value.TeacherId == teacher.TeacherId);
                 var fillingGroup = FillingGroups.First(x => x.Value.GroupId == group.GroupId);
 
 
@@ -158,7 +146,7 @@ namespace SimpleSheduler.BL
                 //Добавилась ли пара
                 bool success = false;
                 //i. Цикл по расписанию
-                for (int cu = 0; cu < fillingTeacher.Length; cu++)
+                for (int cu = 0; cu < FillingClassrooms.Length; cu++)
                 {
 
                     //d. Цикл по аудиториям
@@ -167,16 +155,16 @@ namespace SimpleSheduler.BL
                         //Теперь для аудитории подцепляем занятость
                         var fillingClassroom = FillingClassrooms.First(x => x.Value.ClassroomId == Classrooms[cl].ClassroomId);
                         //Условия что в этот день в эту пару Преподаватель группа и классная комната не заняты
-                        bool FT = fillingTeacher[cu].BusyPair == null;
+                       // bool FT = fillingTeacher[cu].BusyPair == null;
                         bool FG = fillingGroup[cu].BusyPair == null;
                         bool FC = fillingClassroom[cu].BusyPair == null;
                         //1. Если в этот день свободна и группа и преподаватель и аудитория
-                        if (FT && FG && FC)
+                        if ( FG && FC)
                         {
 
-                            BusyPair busyPair = new BusyPair(Classrooms[cl], teacher, subject, group);
+                            BusyPair busyPair = new BusyPair(Classrooms[cl], subject, group);
                             //a. Добавляем им пару
-                            fillingTeacher[cu].BusyPair = busyPair;
+                            
                             fillingGroup[cu].BusyPair = busyPair;
                             fillingClassroom[cu].BusyPair = busyPair;
                             //b. Заканчиваем 2 цикла(по расписанию и по аудиториям)
@@ -351,13 +339,13 @@ namespace SimpleSheduler.BL
                 var group = MaxCurricula.GetGroups();
                 var subject = MaxCurricula.GetSubject();
                 //b. Ищем на предмет первого преподавателя
-                var teacher = SubjectOfTeachers.First(x => x.Subject == subject).Teacher;
+               // var teacher = SubjectOfTeachers.First(x => x.Subject == subject).Teacher;
                 //c. Выбираем аудитории с кол-во мест больше чем в группе 
                 //(так как они отсортированы по возрастанию то просто номер первой подходящей аудитории)
                 NumClassroom = Array.FindIndex(Classrooms, x => x.NumberOfSeats >= group.Sum(y => y.NumberOfPersons));
 
                 //Теперь для каждой  группы, преподавателя подцепляем занятость
-                var fillingTeacher = FillingTeachers.First(x => x.Value == teacher);
+                //var fillingTeacher = FillingTeachers.First(x => x.Value == teacher);
                 var fillingGroup = FillingGroups.Where(x => group.Contains(x.Value)).ToList();
                 //curricula
 
@@ -365,7 +353,7 @@ namespace SimpleSheduler.BL
                 //Добавилась ли пара
                 bool success = false;
                 //i. Цикл по расписанию
-                for (int cu = 0; cu < fillingTeacher.Length; cu++)
+                for (int cu = 0; cu < FillingClassrooms.Length; cu++)
                 {
 
                     //d. Цикл по аудиториям
@@ -374,7 +362,7 @@ namespace SimpleSheduler.BL
                         //Теперь для аудитории подцепляем занятость
                         var fillingClassroom = FillingClassrooms.First(x => x.Value.ClassroomId == Classrooms[cl].ClassroomId);
                         //Условия что в этот день в эту пару Преподаватель не занят
-                        bool FT = fillingTeacher[cu].BusyPair == null;
+                       // bool FT = fillingTeacher[cu].BusyPair == null;
                         //Условия что в этот день в эту пару группы не заняты
                         bool FG = true;
                         foreach (var fillingGroup1 in fillingGroup)
@@ -390,12 +378,12 @@ namespace SimpleSheduler.BL
                         bool FC = fillingClassroom[cu].BusyPair == null;
 
                         //1. Если в этот день свободна и группа и преподаватель и аудитория
-                        if (FT && FG && FC)
+                        if (FG && FC)
                         {
 
-                            BusyPair busyPair = new BusyPair(Classrooms[cl], teacher, subject, group);
+                            BusyPair busyPair = new BusyPair(Classrooms[cl],  subject, group);
                             //a. Добавляем им пару
-                            fillingTeacher[cu].BusyPair = busyPair;
+                            //fillingTeacher[cu].BusyPair = busyPair;
                             foreach (var fillingGroup1 in fillingGroup)
                             {
                                 fillingGroup1[cu].BusyPair = busyPair;

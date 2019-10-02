@@ -61,10 +61,10 @@ namespace SimpleSheduler.CMD
                         {
                             value += $"C{busyPairTemp.Classroom.Name.Substring(busyPairTemp.Classroom.Name.Length - 1, 1)}_";
                         }
-                        if (!(fillings is Filling<Teacher>[]))
-                        {
-                            value += $"T{busyPairTemp.Teacher.Name.Substring(busyPairTemp.Teacher.Name.Length - 1, 1)}_";
-                        }
+                       // if (!(fillings is Filling<Teacher>[]))
+                       // {
+                       //     value += $"T{busyPairTemp.Teacher.Name.Substring(busyPairTemp.Teacher.Name.Length - 1, 1)}_";
+                       // }
                         if (!(fillings is Filling<Subject>[]))
                         {
                             value += $"S{busyPairTemp.Subject.Name.Substring(0, 5)}_";
@@ -212,6 +212,10 @@ namespace SimpleSheduler.CMD
                 }
             }
         }
+
+
+
+
         /// <summary>
         /// Вывод на консоль Преподавателей
         /// </summary>

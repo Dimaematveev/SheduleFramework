@@ -21,7 +21,7 @@ namespace SimpleSheduler.CMD
             //InitialFilling.Filling1();
             // InitialFilling.Filling2();
 
-            Filling<Teacher>[] fillingTeachers;
+           // Filling<Teacher>[] fillingTeachers;
             Filling<Group>[] fillingGroups;
             Filling<Classroom>[] fillingClassrooms;
             using (var context = new MyDbContext())
@@ -29,9 +29,9 @@ namespace SimpleSheduler.CMD
                 var classrooms = context.Classrooms.ToArray();
                 var groups = context.Groups.ToArray();
                 var subjects = context.Subjects.ToArray();
-                var teachers = context.Teachers.ToArray();
+               // var teachers = context.Teachers.ToArray();
                 var curricula = context.Curricula.ToArray();
-                var subjectOfTeachers = context.SubjectsOfTeachers.ToArray();
+               // var subjectOfTeachers = context.SubjectsOfTeachers.ToArray();
                 var pairs = context.Pairs.ToArray();
                 var studyDays = context.StudyDays.ToArray();
 
@@ -50,14 +50,14 @@ namespace SimpleSheduler.CMD
                 //ConsoleOut.ConsoleStudyDay(studyDays);
 
                 ///Получили когда возможно свободные  пары по дням и по преподавателям
-                fillingTeachers = GetFilling(teachers, pairs, studyDays);
+                //fillingTeachers = GetFilling(teachers, pairs, studyDays);
                 ///Получили когда возможно свободные  пары по дням и по группам
                 fillingGroups = GetFilling(groups, pairs, studyDays);
                 ///Получили когда возможно свободные  пары по дням и по аудиториям
                 fillingClassrooms = GetFilling(classrooms, pairs, studyDays);
 
                 //TODO: первый без объединения групп второй с объединением
-                CreateScheduler createScheduler1 = new CreateScheduler(teachers, groups, classrooms, subjects, curricula, subjectOfTeachers, fillingTeachers, fillingGroups, fillingClassrooms);
+                CreateScheduler createScheduler1 = new CreateScheduler( groups, classrooms, subjects, curricula, fillingGroups, fillingClassrooms);
 
             }
 
@@ -74,7 +74,7 @@ namespace SimpleSheduler.CMD
 
             //Для вывода лучше сдать таблицу, потом выводить
             ConsoleOut.ConsoleFilling(fillingClassrooms, "РАСПРЕДЕЛЕНИЕ ПО АУДИТОРИЯМ");
-            ConsoleOut.ConsoleFilling(fillingTeachers, "РАСПРЕДЕЛЕНИЕ ПО ПРЕПОДАВАТЕЛЯМ");
+            //ConsoleOut.ConsoleFilling(fillingTeachers, "РАСПРЕДЕЛЕНИЕ ПО ПРЕПОДАВАТЕЛЯМ");
             ConsoleOut.ConsoleFilling(fillingGroups, "РАСПРЕДЕЛЕНИЕ ПО ГРУППАМ");
 
             //ConsoleOut.ConsoleFilling(createSchedulerUnion.FillingClassrooms, "РАСПРЕДЕЛЕНИЕ ПО АУДИТОРИЯМ");
