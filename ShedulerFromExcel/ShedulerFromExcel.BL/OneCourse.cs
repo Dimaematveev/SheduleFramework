@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace ShedulerFromExcel.BL
 {
-    public class Kurs
+    public class OneCourse
     {
         public DataTable Semester1 { get; private set; }
         public DataTable Semester2 { get; private set; }
 
-        public Kurs(DataTable ListKurs, string nameList)
+        public OneCourse(DataTable ListKurs, string nameList)
         {
             Semester(ListKurs, nameList);
         }

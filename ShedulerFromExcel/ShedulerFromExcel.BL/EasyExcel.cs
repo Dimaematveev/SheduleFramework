@@ -11,100 +11,177 @@ using System.Threading.Tasks;
 
 namespace ShedulerFromExcel.BL
 {
+    /// <summary>
+    /// Парсер планов.
+    /// </summary>
     public class EasyExcel
     {
+        /// <summary>
+        /// Путь к файлу
+        /// </summary>
+        private readonly string FilePath;
+        /// <summary>
+        /// Титульный лист.
+        /// </summary>
         public Title Title { get; private set; } = new Title();
-        public List<Kurs> Kurs { get; private set; } = new List<Kurs>();
-        public EasyExcel(string FilePath)
+        /// <summary>
+        /// Массив курсов.
+        /// </summary>
+        public List<OneCourse> AllCourses { get; private set; } = new List<OneCourse>();
+
+        /// <summary>
+        /// Конструктор
+        /// </summary>
+        /// <param name="filePath"> Путь к фалу Excel</param>
+        public EasyExcel(string filePath)
         {
-            Sta(FilePath);
+            FilePath = filePath;
+            Sta();
         }
 
-        private void Sta(string filePath)
-        {
-            //    var filePath19 = "..\\..\\..\\ShedulerFromExcel.CMD\\Need\\09.03.02_АПиМОБИС_ИКБСП_2019.plx.xls";
-            //    var filePath17 = "..\\..\\..\\ShedulerFromExcel.CMD\\Need\\09.03.02_АПиМОБИС_ИКБСП_2017.plm.xml.xls";
 
-            //    var filePath = filePath19;
-            //Сюда сохраняем все листы
-            List< DataTable> AllList = new List<DataTable>();
-            
-            using (var stream = File.Open(filePath, FileMode.Open, FileAccess.Read))
+        /// <summary>
+        /// Основная функция для вытягивания из Excel нужных данных
+        /// </summary>
+        private void Sta()
+        {
+            //Сюда сохраняем все листы. Создаем таблицу для всех Листов с названием этого листа.
+            List<DataTable> AllSheets = new List<DataTable>();
+
+            //Открываем для чтения наш файл
+            using (var stream = File.Open(FilePath, FileMode.Open, FileAccess.Read))
             {
+                //Наш открытый поток читаем как файл Excel
                 using (var reader = ExcelReaderFactory.CreateReader(stream))
                 {
-                    int numList = 0;
+                    //Номер листа
+                    int sheetNumber = 0;
+                    //Читаем по листам
                     do
                     {
-
+                        //Название листа
                         var nameList = reader.Name;
-                        AllList.Add(new DataTable(nameList));
-                       
-                        DataColumn columnList;
-                        DataRow rowList;
-                        var row = reader.RowCount;
-                        var col = reader.FieldCount;
-                        for (int i = 0; i < col; i++)
+
+                        //Таблица для текущего листа
+                        DataTable currentSheet = new DataTable(nameList);
+
+                        //Количество столбцов
+                        var columnCount = reader.FieldCount;
+                        //Добавляем в таблицу пустые столбцы с названием А+"номер"
+                        for (int i = 0; i < columnCount; i++)
                         {
-                            columnList = new DataColumn
+                            //Новый столбец
+                            DataColumn columnNew = new DataColumn
                             {
                                 DataType = System.Type.GetType("System.String"),
                                 ColumnName = "A" + (i + 1)
                             };
-                            AllList[numList].Columns.Add(columnList);
+                            //Добавляем столбец в таблицу
+                            currentSheet.Columns.Add(columnNew);
                         }
 
-
+                        //Читаем построчно!
                         while (reader.Read())
                         {
-
-                            rowList = AllList[numList].NewRow();
-                            for (int i = 0; i < col; i++)
+                            //Новая строка
+                            DataRow rowNew = currentSheet.NewRow();
+                            //Проходим по всем столбцам
+                            for (int i = 0; i < columnCount; i++)
                             {
-                                string str = "";
-                                if (reader.GetValue(i)!=null)
+                                //Значение ячейки
+                                string cellValue = "";
+
+                                //Проверка что текущая ячейка не пуста
+                                if (reader.GetValue(i) != null)
                                 {
-                                    str = reader.GetValue(i).ToString().Trim();
+                                    //Удаляем лишние пробелы
+                                    cellValue = reader.GetValue(i).ToString().Trim();
                                 }
-                                rowList["A" + (i + 1)] = str;
+
+                                //Добавляем в строку с название столбца А+"номер"
+                                rowNew["A" + (i + 1)] = cellValue;
                             }
-                            AllList[numList].Rows.Add(rowList);
+
+                            //Добавляем готовую стоку в таблицу
+                            currentSheet.Rows.Add(rowNew);
                         }
-                        numList++;
+
+                        //Добавляем готовую таблицу листа в Список всех листов
+                        AllSheets.Add(currentSheet);
+                        //Кол-во листов +1
+                        sheetNumber++;
+                        //Читаем следующий лист
                     } while (reader.NextResult());
                 }
             }
-            //Для листов курс*
-            Regex regex = new Regex(@"^Курс\d");
-            foreach (var item in AllList)
-            {
-                if (regex.IsMatch(item.TableName))
-                {
-                    Kurs.Add(new Kurs(item, item.TableName));
+            //Получит готовые Курсы
+            GetCourses(AllSheets);
+            //Получить готовый титульный лист
+            GetTitle(AllSheets);
 
-                }
-            }
+            //Вывод на консоль
+            ConsoleOut();
+        }
 
-            //Для листов Титул
-            regex = new Regex(@"^Титул");
-           
-            foreach (var item in AllList)
-            {
-                if (regex.IsMatch(item.TableName))
-                {
-                    Title = new Title(item, filePath.Split('\\').Last());
-
-                }
-            }
-
+        /// <summary>
+        /// Вывод на консоль
+        /// </summary>
+        private void ConsoleOut()
+        {
+            //Вывод титульного листа
             Title.ConsoleOut();
-            foreach (var item in Kurs)
+
+            //Вывод по курсам
+            foreach (var item in AllCourses)
             {
+                //Вывод семестра 1 в году
                 item.ConsoleOutSemester1();
                 Console.WriteLine();
+                //Вывод семестра 2 в году
                 item.ConsoleOutSemester2();
-
             }
         }
+        /// <summary>
+        /// Получить готовый титульный лист
+        /// </summary>
+        /// <param name="AllSheets"> список Таблиц со всеми листами </param>
+        private void GetTitle(List<DataTable> AllSheets)
+        {
+            //Название листа(Таблицы) должно быть - "Титул"
+            Regex regex = new Regex(@"^Титул");
+            //Проходим по всем таблицам
+            foreach (var item in AllSheets)
+            {
+                //Если название сходится то создаем готовый титульный лист
+                if (regex.IsMatch(item.TableName))
+                {
+                    //Создаем титульный лист
+                    Title = new Title(item, FilePath.Split('\\').Last());
+
+                }
+            }
+        }
+        /// <summary>
+        /// Получить готовые листы с курсами
+        /// </summary>
+        /// <param name="AllSheets"> список Таблиц со всеми листами </param>
+        private void GetCourses(List<DataTable> AllSheets)
+        {
+            //Название листа(Таблицы) должно  начинаться на "Курс" и после одна цифра
+            Regex regex = new Regex(@"^Курс\d");
+            //Проходим по всем таблицам
+            foreach (var item in AllSheets)
+            {
+                //Если название сходится то добавляем в Курсы еще один курс
+                if (regex.IsMatch(item.TableName))
+                {
+                    //Создаем новый один курс
+                    OneCourse newOneCourse = new OneCourse(item, item.TableName);
+                    //Добавляем курс во все курсы
+                    AllCourses.Add(newOneCourse);
+                }
+            }
+        }
+
     }
 }
