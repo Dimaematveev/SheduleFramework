@@ -89,13 +89,18 @@ namespace ShedulerFromExcel.BL
                             for (int i = 0; i < columnCount; i++)
                             {
                                 //Значение ячейки
-                                string cellValue = "";
+                                string cellValue = null;
 
                                 //Проверка что текущая ячейка не пуста
                                 if (reader.GetValue(i) != null)
                                 {
                                     //Удаляем лишние пробелы
                                     cellValue = reader.GetValue(i).ToString().Trim();
+                                }
+
+                                if (string.IsNullOrWhiteSpace(cellValue))
+                                {
+                                    cellValue = null;
                                 }
 
                                 //Добавляем в строку с название столбца А+"номер"
@@ -129,8 +134,9 @@ namespace ShedulerFromExcel.BL
         private void ConsoleOut()
         {
             //Вывод титульного листа
+            Console.ForegroundColor = ConsoleColor.Red;
             Title.ConsoleOut();
-
+            Console.ForegroundColor = ConsoleColor.White;
             //Вывод по курсам
             foreach (var item in AllCourses)
             {
