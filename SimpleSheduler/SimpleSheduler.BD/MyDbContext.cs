@@ -17,6 +17,7 @@ namespace SimpleSheduler.BD
         /// </summary>
         public MyDbContext() :base("test")
         {
+            Database.SetInitializer<MyDbContext>(new CreateDatabaseIfNotExists<MyDbContext>());
         }
 
         ///Надо указать коллекции наборы данных которые будем использовать.

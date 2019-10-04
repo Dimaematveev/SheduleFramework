@@ -72,10 +72,10 @@ namespace SimpleSheduler.CMD
 
                 var Addgroups = new List<Group>
                 {
-                    new Group(){Name="Класс-1",NumberOfPersons= 8 },
-                    new Group(){Name="Класс-2",NumberOfPersons= 59 },
-                    new Group(){Name="Класс-3",NumberOfPersons= 10 },
-                    new Group(){Name="Класс-4",NumberOfPersons= 11 },
+                    new Group(){Name="Класс-1",NumberOfPersons= 8, Potok="1",Seminar="a" },
+                    new Group(){Name="Класс-2",NumberOfPersons= 59, Potok="2",Seminar="b"  },
+                    new Group(){Name="Класс-3",NumberOfPersons= 10, Potok="1",Seminar="b"  },
+                    new Group(){Name="Класс-4",NumberOfPersons= 11, Potok="3",Seminar="a"  },
                 };
 
                 var Addclassrooms = new List<Classroom>

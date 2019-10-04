@@ -17,9 +17,9 @@ namespace SimpleSheduler.CMD
             ///Создаем подключение к БД
             ///т.к. работает с внешним хранилищем и за безопасность
             ///
-            //InitialFilling.Filling();
-            //InitialFilling.Filling1();
-            // InitialFilling.Filling2();
+           // InitialFilling.Filling();
+           // InitialFilling.Filling1();
+           // InitialFilling.Filling2();
 
            // Filling<Teacher>[] fillingTeachers;
             Filling<Group>[] fillingGroups;

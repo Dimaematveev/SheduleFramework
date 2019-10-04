@@ -12,6 +12,8 @@
     <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,10 +34,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>..\packages\EntityFramework.6.0.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -48,33 +50,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201909211524306_AddTableStudyDays.cs" />
-    <Compile Include="Migrations\201909211524306_AddTableStudyDays.Designer.cs">
-      <DependentUpon>201909211524306_AddTableStudyDays.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201909211535214_AddTablePairs.cs" />
-    <Compile Include="Migrations\201909211535214_AddTablePairs.Designer.cs">
-      <DependentUpon>201909211535214_AddTablePairs.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201909281319140_AddSeminarAndPotokToGroups.cs" />
-    <Compile Include="Migrations\201909281319140_AddSeminarAndPotokToGroups.Designer.cs">
-      <DependentUpon>201909281319140_AddSeminarAndPotokToGroups.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201909281332155_SeminarAndPotokIsRequired.cs" />
-    <Compile Include="Migrations\201909281332155_SeminarAndPotokIsRequired.Designer.cs">
-      <DependentUpon>201909281332155_SeminarAndPotokIsRequired.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Model\IName.cs" />
-    <Compile Include="Model\StudyDay.cs" />
-    <Compile Include="Migrations\201909210938027_InitialCreate.cs" />
-    <Compile Include="Migrations\201909210938027_InitialCreate.Designer.cs">
-      <DependentUpon>201909210938027_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201909211011140_PropNameBigSubject.cs" />
-    <Compile Include="Migrations\201909211011140_PropNameBigSubject.Designer.cs">
-      <DependentUpon>201909211011140_PropNameBigSubject.cs</DependentUpon>
+    <Compile Include="Migrations\201910042114401_Init.cs" />
+    <Compile Include="Migrations\201910042114401_Init.Designer.cs">
+      <DependentUpon>201910042114401_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\IName.cs" />
+    <Compile Include="Model\StudyDay.cs" />
     <Compile Include="Model\Classroom.cs" />
     <Compile Include="Model\Curriculum.cs" />
     <Compile Include="Model\Group.cs" />
@@ -90,23 +72,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201909210938027_InitialCreate.resx">
-      <DependentUpon>201909210938027_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201909211011140_PropNameBigSubject.resx">
-      <DependentUpon>201909211011140_PropNameBigSubject.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201909211524306_AddTableStudyDays.resx">
-      <DependentUpon>201909211524306_AddTableStudyDays.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201909211535214_AddTablePairs.resx">
-      <DependentUpon>201909211535214_AddTablePairs.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201909281319140_AddSeminarAndPotokToGroups.resx">
-      <DependentUpon>201909281319140_AddSeminarAndPotokToGroups.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201909281332155_SeminarAndPotokIsRequired.resx">
-      <DependentUpon>201909281332155_SeminarAndPotokIsRequired.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201910042114401_Init.resx">
+      <DependentUpon>201910042114401_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
