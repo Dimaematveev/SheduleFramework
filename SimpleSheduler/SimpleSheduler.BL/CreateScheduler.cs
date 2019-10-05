@@ -11,10 +11,6 @@ namespace SimpleSheduler.BL
     public class CreateScheduler
     {
         /// <summary>
-        /// Массив преподавателей
-        /// </summary>
-       // private Teacher[] Teachers { get; set; }
-        /// <summary>
         /// Массив групп
         /// </summary>
         private Group[] Groups { get; set; }
@@ -30,20 +26,12 @@ namespace SimpleSheduler.BL
         /// Массив плана занятий
         /// </summary>
         private Curriculum[] Curricula { get; set; }
-        /// <summary>
-        /// Массив Предметов к преподавателям
-        /// </summary>
-       // private SubjectOfTeacher[] SubjectOfTeachers { get; set; }
 
         /// <summary>
         /// Все возможные заполнения
         /// </summary>
         private PossibleFilling[] PossibleFillings { get; set; }
 
-        /// <summary>
-        /// Заполнение преподавателей
-        /// </summary>
-       // private Filling<Teacher>[] FillingTeachers { get; set; }
         /// <summary>
         /// Заполнение групп
         /// </summary>
@@ -103,8 +91,6 @@ namespace SimpleSheduler.BL
             }
         }
 
-       
-
 
         /// <summary>
         /// Функция задание расписания с объединение групп:
@@ -142,10 +128,7 @@ namespace SimpleSheduler.BL
             //2. Сортируем план занятий по кол-во пар(макс первый)
             //Новый план занятий который включает n групп
             //Создал пару по учебному плану с ключем Учебный план и значением равным количеству оставшихся пар
-            //Dictionary<Curriculum, int> curriculaAndNumPairs = Curricula.ToDictionary(c => c, c => c.NumberOfPairs);
             //Максимальный элемент в паре
-            //var MaxKey = curriculaAndNumPairs.Aggregate((l, r) => l.Value > r.Value ? l : r).Key;
-            //var MaxValue = curriculaAndNumPairs[MaxKey];
             //план который не вошел
             //Новый план занятий который включает n групп
             CurriculaWithAmountPair[] curriculaAndNumPairs;
@@ -224,14 +207,11 @@ namespace SimpleSheduler.BL
                 //a. Из первого элемента плана понимаем что за предмет и какая группа
                 var group = MaxCurricula.GetGroups();
                 var subject = MaxCurricula.GetSubject();
-                //b. Ищем на предмет первого преподавателя
-               // var teacher = SubjectOfTeachers.First(x => x.Subject == subject).Teacher;
                 //c. Выбираем аудитории с кол-во мест больше чем в группе 
                 //(так как они отсортированы по возрастанию то просто номер первой подходящей аудитории)
                 NumClassroom = Array.FindIndex(Classrooms, x => x.NumberOfSeats >= group.Sum(y => y.NumberOfPersons));
 
-                //Теперь для каждой  группы, преподавателя подцепляем занятость
-                //var fillingTeacher = FillingTeachers.First(x => x.Value == teacher);
+                //Теперь для каждой  группы подцепляем занятость
                 var fillingGroup = FillingGroups.Where(x => group.Contains(x.Value)).ToList();
                 //curricula
 
@@ -247,8 +227,6 @@ namespace SimpleSheduler.BL
                     {
                         //Теперь для аудитории подцепляем занятость
                         var fillingClassroom = FillingClassrooms.First(x => x.Value.ClassroomId == Classrooms[cl].ClassroomId);
-                        //Условия что в этот день в эту пару Преподаватель не занят
-                       // bool FT = fillingTeacher[cu].BusyPair == null;
                         //Условия что в этот день в эту пару группы не заняты
                         bool FG = true;
                         foreach (var fillingGroup1 in fillingGroup)
@@ -278,7 +256,7 @@ namespace SimpleSheduler.BL
 
                             BusyPair busyPair = new BusyPair(Classrooms[cl],  subject, group);
                             //a. Добавляем им пару
-                            //fillingTeacher[cu].BusyPair = busyPair;
+                            
                             foreach (var fillingGroup1 in fillingGroup)
                             {
                                 fillingGroup1[cu].BusyPair = busyPair;
