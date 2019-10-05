@@ -112,13 +112,13 @@ namespace SimpleSheduler.BL
 
 
                 // Без объединения
-                List<Group[]> notUnionGroups = Groups.Select(x=>new Group[] { x }).ToList();
+                List<Group[]> notUnionGroups = GetUnionGroupBy(tempUnionGroups, GroupNotComparison);
                 // Объединения по потокам мак кол-во человек первый
                 List<Group[]> unionGroupsPotok = GetUnionGroupBy(tempUnionGroups, GroupComparisonPotok);
                 // Объединения по Семинарам мак кол-во человек первый
                 List<Group[]> unionGroupsSeminar = GetUnionGroupBy(tempUnionGroups, GroupComparisonSeminar);
 
-                unionGroups = unionGroupsPotok;
+                unionGroups = notUnionGroups;
             }
 
             //1. Аудитории сортированы по количеству мест
@@ -131,70 +131,9 @@ namespace SimpleSheduler.BL
             //Максимальный элемент в паре
             //план который не вошел
             //Новый план занятий который включает n групп
-            CurriculaWithAmountPair[] curriculaAndNumPairs;
-            //newCurricula = curricula.OrderByDescending(x => x.NumberOfPairs).Select(x => new Curriculum[] { x }).ToList();
-            {
-                //Я хочу!
-                ///план занятий включающий несколько групп
-                ///добавить к нему поле с кол-вом пар оставшихся
-                ///
-                ///Учебный план для групп
+            CurriculaWithAmountPair[] curriculaAndNumPairs = CurriculaWithUnionGroupsAndNumberOfPairs(unionGroups);
 
-                //Произведена группировка по предметам. Каждый Предмет включает План для нескольких групп по нему
-                var SubjectIncludePlans = Curricula.OrderByDescending(x => x.NumberOfPairs).GroupBy(x => x.Subject).Select(g => g.ToList()).ToList();
-                // Можно сразу выкинуть из плана если количество элементов в предмете =1
-                List< CurriculaWithAmountPair> tempCurriculaAndNumPairs = SubjectIncludePlans.Where(x => x.Count == 1).Select(c=> new CurriculaWithAmountPair(c[0])).ToList();
-                SubjectIncludePlans = SubjectIncludePlans.Where(x => x.Count > 1).ToList();
-
-                // Подбираются планы из группировки по предметам (там теперь нет одиночных) и пытаюсь объединить
-                //TODO: Просто просто делаю
-
-                //прохожу по предметам с планами
-                foreach (var plansInSubject in SubjectIncludePlans)
-                {
-                    Console.WriteLine("Предмет - " + plansInSubject[0].Subject + " И план:");
-                    //unionGroup
-
-                    //прохожу по объединению групп где объединение >1
-                    foreach (var groups in unionGroups.Where(x => x.Length > 1))
-                    {
-                        //если plansInSubject содержит все groups то объединяем по этому предмету эти группы 
-                        // правда ли  что для всех групп -> хотябы один план содежит группу
-                        bool ContainsAllGroups = groups.All(x => plansInSubject.Any(y => y.Group == x));
-                        if (ContainsAllGroups)
-                        {
-                            Curriculum[] curricula1 = plansInSubject.Where(x => groups.Contains(x.Group)).ToArray();
-                            //Проверям что у всех кто объединитсь одинаковое количество пар
-                            if (curricula1.All(x => x.NumberOfPairs == curricula1[0].NumberOfPairs))
-                            {
-                                //Добавляем в массив с 
-                                CurriculaWithAmountPair tempCurriculaWithAmountPair = new CurriculaWithAmountPair(curricula1[0]);
-                                bool add = tempCurriculaWithAmountPair.AddCurriculum(curricula1.Skip(1).ToArray());
-                                if (add)
-                                { 
-                                    tempCurriculaAndNumPairs.Add(tempCurriculaWithAmountPair);
-                                    plansInSubject.RemoveAll(x => curricula1.Contains(x));
-                                }
-                            }
-
-                        }
-                    }
-
-                    //Добавляю юставшиеся планы в Главный план
-                    tempCurriculaAndNumPairs.AddRange(plansInSubject.Select(x => new CurriculaWithAmountPair(x)).ToArray());
-                    //Прохожу по планам занятий в планах предметов
-                    foreach (var plan in plansInSubject)
-                    {
-
-                        Console.WriteLine("\t" + plan);
-
-                    }
-                    Console.WriteLine();
-
-                }
-                curriculaAndNumPairs = tempCurriculaAndNumPairs.ToArray();
-
-            }
+          
             var MaxCurricula = curriculaAndNumPairs.Aggregate((l, r) => l.NumberOfPair > r.NumberOfPair ? l : r);
 
             //TODO: При объединении групп учитывать что хотябы одна аудитория может быть заполнена! т.е. кол-во чел в объединении < Кол-во мест в аудитории
@@ -320,6 +259,73 @@ namespace SimpleSheduler.BL
         }
 
 
+        //Создает План занятий с объединением групп и количеством пар
+        private CurriculaWithAmountPair[] CurriculaWithUnionGroupsAndNumberOfPairs(List<Group[]> unionGroups)
+        {
+            CurriculaWithAmountPair[] curriculaAndNumPairs;
+            //Я хочу!
+            ///план занятий включающий несколько групп
+            ///добавить к нему поле с кол-вом пар оставшихся
+            ///
+            ///Учебный план для групп
+
+            //Произведена группировка по предметам. Каждый Предмет включает План для нескольких групп по нему
+            var SubjectIncludePlans = Curricula.OrderByDescending(x => x.NumberOfPairs).GroupBy(x => x.Subject).Select(g => g.ToList()).ToList();
+            // Можно сразу выкинуть из плана если количество элементов в предмете =1
+            List<CurriculaWithAmountPair> tempCurriculaAndNumPairs = SubjectIncludePlans.Where(x => x.Count == 1).Select(c => new CurriculaWithAmountPair(c[0])).ToList();
+            SubjectIncludePlans = SubjectIncludePlans.Where(x => x.Count > 1).ToList();
+
+            // Подбираются планы из группировки по предметам (там теперь нет одиночных) и пытаюсь объединить
+            //TODO: Просто просто делаю
+
+            //прохожу по предметам с планами
+            foreach (var plansInSubject in SubjectIncludePlans)
+            {
+                Console.WriteLine("Предмет - " + plansInSubject[0].Subject + " И план:");
+                //unionGroup
+
+                //прохожу по объединению групп где объединение >1
+                foreach (var groups in unionGroups.Where(x => x.Length > 1))
+                {
+                    //если plansInSubject содержит все groups то объединяем по этому предмету эти группы 
+                    // правда ли  что для всех групп -> хотябы один план содежит группу
+                    bool ContainsAllGroups = groups.All(x => plansInSubject.Any(y => y.Group == x));
+                    if (ContainsAllGroups)
+                    {
+                        Curriculum[] curricula1 = plansInSubject.Where(x => groups.Contains(x.Group)).ToArray();
+                        //Проверям что у всех кто объединитсь одинаковое количество пар
+                        if (curricula1.All(x => x.NumberOfPairs == curricula1[0].NumberOfPairs))
+                        {
+                            //Добавляем в массив с 
+                            CurriculaWithAmountPair tempCurriculaWithAmountPair = new CurriculaWithAmountPair(curricula1[0]);
+                            bool add = tempCurriculaWithAmountPair.AddCurriculum(curricula1.Skip(1).ToArray());
+                            if (add)
+                            {
+                                tempCurriculaAndNumPairs.Add(tempCurriculaWithAmountPair);
+                                plansInSubject.RemoveAll(x => curricula1.Contains(x));
+                            }
+                        }
+
+                    }
+                }
+
+                //Добавляю оставшиеся планы в Главный план
+                tempCurriculaAndNumPairs.AddRange(plansInSubject.Select(x => new CurriculaWithAmountPair(x)).ToArray());
+                //Прохожу по планам занятий в планах предметов
+                foreach (var plan in plansInSubject)
+                {
+
+                    Console.WriteLine("\t" + plan);
+
+                }
+                Console.WriteLine();
+
+            }
+            curriculaAndNumPairs = tempCurriculaAndNumPairs.ToArray();
+            return curriculaAndNumPairs;
+        }
+
+
 
         //Получить объединение групп по  функции 
         private List<Group[]> GetUnionGroupBy(List<Group[]> unionGroups, Func<Group, Group, bool> FuncCompareGroup)
@@ -360,6 +366,11 @@ namespace SimpleSheduler.BL
         private bool GroupComparisonSeminar(Group group1, Group group2)
         {
             return group1.Seminar == group2.Seminar;
+        }
+        //Без сравнения, только отдельные группы
+        private bool GroupNotComparison(Group group1, Group group2)
+        {
+            return false;
         }
 
         //Все возможные объединения групп
