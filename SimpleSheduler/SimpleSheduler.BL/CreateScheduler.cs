@@ -86,8 +86,8 @@ namespace SimpleSheduler.BL
             FillingGroups = (new List<Filling<Group>>( fillingGroups)).ToArray();
             FillingClassrooms = (new List<Filling<Classroom>>(fillingClassrooms)).ToArray();
 
-            var ss = SetSchedule();
-            //var sss = SetScheduleWithUniouGroup();
+            //var ss = SetSchedule();
+            var sss = SetScheduleWithUniouGroup();
         }
         /// <summary>
         /// Создает ArgumentNullException массиву если он пуст или null
@@ -146,7 +146,7 @@ namespace SimpleSheduler.BL
                 //Добавилась ли пара
                 bool success = false;
                 //i. Цикл по расписанию
-                for (int cu = 0; cu < FillingClassrooms.Length; cu++)
+                for (int cu = 0; cu < FillingClassrooms[0].Length; cu++)
                 {
 
                     //d. Цикл по аудиториям
@@ -155,7 +155,10 @@ namespace SimpleSheduler.BL
                         //Теперь для аудитории подцепляем занятость
                         var fillingClassroom = FillingClassrooms.First(x => x.Value.ClassroomId == Classrooms[cl].ClassroomId);
                         //Условия что в этот день в эту пару Преподаватель группа и классная комната не заняты
-                       // bool FT = fillingTeacher[cu].BusyPair == null;
+                        // bool FT = fillingTeacher[cu].BusyPair == null;
+                        //TODO: отладка
+                        var otlFillgroup = fillingGroup[cu];
+                        var otlFillclass = fillingClassroom[cu];
                         bool FG = fillingGroup[cu].BusyPair == null;
                         bool FC = fillingClassroom[cu].BusyPair == null;
                         //1. Если в этот день свободна и группа и преподаватель и аудитория
@@ -353,7 +356,7 @@ namespace SimpleSheduler.BL
                 //Добавилась ли пара
                 bool success = false;
                 //i. Цикл по расписанию
-                for (int cu = 0; cu < FillingClassrooms.Length; cu++)
+                for (int cu = 0; cu < FillingClassrooms[0].Length; cu++)
                 {
 
                     //d. Цикл по аудиториям

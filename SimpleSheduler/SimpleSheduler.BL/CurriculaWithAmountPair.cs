@@ -158,5 +158,15 @@ namespace SimpleSheduler.BL
             }
             return true;
         }
+
+        public override string ToString()
+        {
+            string str = $"{NumberOfPair.ToString()} ({Curricula.Length})";
+            foreach (var curriculum in Curricula)
+            {
+                str += $" {curriculum.ToString()}";
+            }
+            return str;
+        }
     }
 }
