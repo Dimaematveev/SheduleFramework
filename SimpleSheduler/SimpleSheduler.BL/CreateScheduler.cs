@@ -332,6 +332,8 @@ namespace SimpleSheduler.BL
 
             }
             var MaxCurricula = curriculaAndNumPairs.Aggregate((l, r) => l.NumberOfPair > r.NumberOfPair ? l : r);
+
+            //TODO: При объединении групп учитывать что хотябы одна аудитория может быть заполнена! т.е. кол-во чел в объединении < Кол-во мест в аудитории
             //план который не вошел
             var curriculaNot = new List<Curriculum>();
             //3. Цикл по плану занятий пока первый элемент он же максимальный не равен 0
@@ -379,9 +381,18 @@ namespace SimpleSheduler.BL
                         }
                         //Условия что в этот день в эту пару классная комната не занята
                         bool FC = fillingClassroom[cu].BusyPair == null;
-
+                        //ToDO: в день не должно быть более 2-х одинаковых пар
+                        //все пары в этот день у этой группы
+                        var allPairsInGroup = fillingGroup[0].PossibleFillings.Where(x => x.StudyDay == fillingGroup[0].PossibleFillings[cu].StudyDay).ToArray();
+                        //одинаковые пары в день
+                        int numOfThisLesson = allPairsInGroup.Where(x => x.BusyPair!=null && x.BusyPair.Subject == subject).Count();
+                        bool FNT = true;
+                        if (numOfThisLesson>=2)
+                        {
+                            FNT = false;
+                        }
                         //1. Если в этот день свободна и группа и преподаватель и аудитория
-                        if (FG && FC)
+                        if (FNT && FG && FC)
                         {
 
                             BusyPair busyPair = new BusyPair(Classrooms[cl],  subject, group);
