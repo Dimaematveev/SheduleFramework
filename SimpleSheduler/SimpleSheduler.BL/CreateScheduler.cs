@@ -421,19 +421,30 @@ namespace SimpleSheduler.BL
         /// <returns> Список со все возможными объединениями групп.</returns>
         private List<Group[]> GetUniouGroup()
         {
+            //Пустой список объединения групп
             List<Group[]> unionGroups = new List<Group[]>();
+            //Проходим по группам
             foreach (var group in Groups)
             {
+                //Количество объединенных групп
                 int numGroupings = unionGroups.Count;
+                // Цикл по всем объединениям до этого момента
                 for (int i = 0; i < numGroupings; i++)
                 {
+                    // Новая группировка содержащая объединение по i
                     List<Group> newGrouping = new List<Group>(unionGroups[i]);
+                    //И добавляем к этой новой группировке нашу группу
                     newGrouping.Add(group);
+
+                    //Добавляем эту новую группировку в общий список
                     unionGroups.Add(newGrouping.ToArray());
                 }
+                //Добавляем к общему списку нашу одну группу 
                 unionGroups.Add(new Group[] { group });
             }
+            // Сортируем от максимального кол-во человек в объединении
             unionGroups = unionGroups.OrderByDescending(x => x.Sum(y => y.NumberOfPersons)).ToList();
+
             return unionGroups;
         }
 
