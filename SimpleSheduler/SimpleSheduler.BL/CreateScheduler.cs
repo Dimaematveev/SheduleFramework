@@ -28,9 +28,9 @@ namespace SimpleSheduler.BL
         private Curriculum[] Curricula { get; set; }
 
         /// <summary>
-        /// Все возможные заполнения
+        /// Количество учебных дней
         /// </summary>
-        private PossibleFilling[] PossibleFillings { get; set; }
+        private int NumberStudyDays { get; set; }
 
         /// <summary>
         /// Заполнение групп
@@ -73,8 +73,8 @@ namespace SimpleSheduler.BL
             Curricula = curricula;
             FillingGroups = (new List<Filling<Group>>( fillingGroups)).ToArray();
             FillingClassrooms = (new List<Filling<Classroom>>(fillingClassrooms)).ToArray();
+            NumberStudyDays = FillingClassrooms[0].Length;
 
-        
             var sss = SetScheduleWithUniouGroup();
         }
         /// <summary>
@@ -118,25 +118,22 @@ namespace SimpleSheduler.BL
                 // Объединения по Семинарам мак кол-во человек первый
                 List<Group[]> unionGroupsSeminar = GetUnionGroupBy(tempUnionGroups, GroupComparisonSeminar);
 
-                unionGroups = notUnionGroups;
+                unionGroups = unionGroupsPotok;
             }
 
             //1. Аудитории сортированы по количеству мест
             Classrooms = Classrooms.OrderBy(x => x.NumberOfSeats).ToArray();
             
-            //2. Сортируем план занятий по кол-во пар(макс первый)
-            //Новый план занятий который включает n групп
-            //Создал пару по учебному плану с ключем Учебный план и значением равным количеству оставшихся пар
-            //Максимальный элемент в паре
-            //план который не вошел
-            //Новый план занятий который включает n групп
+            ///2.Новый план занятий который включает: 
+                /// несколько планов из объединения n групп и 
+                /// значением равным количеству оставшихся пар 
+                /// также переменная bool Показывающая стоит дальше проверять или нет  - пока не реализовано
             CurriculaWithAmountPair[] curriculaAndNumPairs = CurriculaWithUnionGroupsAndNumberOfPairs(unionGroups);
 
 
-
-
-            //TODO: При объединении групп учитывать что хотябы одна аудитория может быть заполнена! т.е. кол-во чел в объединении < Кол-во мест в аудитории
-            var curriculaNot = GetCurriculum(curriculaAndNumPairs);
+            // TODO: При объединении групп учитывать что хотябы одна аудитория может быть заполнена! 
+            // т.е. кол-во чел в объединении < Кол-во мест в аудитории
+            var curriculaNot = CreateCurriculum(curriculaAndNumPairs);
             //Цикл плана закончен
             foreach (var item in curriculaNot)
             {
@@ -148,140 +145,159 @@ namespace SimpleSheduler.BL
 
         }
 
-        private List<Curriculum> GetCurriculum( CurriculaWithAmountPair[] curriculaAndNumPairs)
+        /// <summary>
+        /// Создать учебный план.
+        /// </summary>
+        /// <param name="curriculaAndNumPairs"> Учебный план с объединением </param>
+        /// <returns> План который не вошел </returns>
+        private List<Curriculum> CreateCurriculum( CurriculaWithAmountPair[] curriculaAndNumPairs)
         {
-            //план который не вошел
+            //план который не вошел пустой
             var curriculaNot = new List<Curriculum>();
-
+            //Элемент который будет проверятся у меня это макс число оставшихся пар
             var MaxCurricula = curriculaAndNumPairs.Aggregate((l, r) => l.NumberOfPair > r.NumberOfPair ? l : r);
-            //3. Цикл по плану занятий пока первый элемент он же максимальный не равен 0
+            //3. Цикл по плану занятий не равен 0
             while (MaxCurricula.NumberOfPair != 0)
             {
+                // Добавить один предмет в учебный план и выводит которые не получилось добавить
+                var tempCurriculaNot = AddOneSubjectInCurriculum(MaxCurricula);
 
-                //a. Из первого элемента плана понимаем что за предмет и какая группа
-                var group = MaxCurricula.GetGroups();
-                var subject = MaxCurricula.GetSubject();
-                //c. Выбираем аудитории с кол-во мест больше чем в группе 
-                //(так как они отсортированы по возрастанию то просто номер первой подходящей аудитории)
-                //Номер Аудитории из массива которая сейчас будет рассматриваться
-                int NumClassroom = Array.FindIndex(Classrooms, x => x.NumberOfSeats >= group.Sum(y => y.NumberOfPersons));
-
-                //Теперь для каждой  группы подцепляем занятость
-                var fillingGroup = FillingGroups.Where(x => group.Contains(x.Value)).ToList();
-                //curricula
-
-                //Лучше циклы по аудиториям и по расписаниями поменять местами
-                //Добавилась ли пара
-                bool success = false;
-                //i. Цикл по расписанию
-                for (int cu = 0; cu < FillingClassrooms[0].Length; cu++)
-                {
-
-                    //d. Цикл по аудиториям
-                    for (int cl = NumClassroom; cl < Classrooms.Length; cl++)
-                    {
-                        //Теперь для аудитории подцепляем занятость
-                        var fillingClassroom = FillingClassrooms.First(x => x.Value.ClassroomId == Classrooms[cl].ClassroomId);
-                        //Условия что в этот день в эту пару группы не заняты
-                        bool FG = true;
-                        foreach (var fillingGroup1 in fillingGroup)
-                        {
-                            bool FG1 = fillingGroup1[cu].BusyPair == null;
-                            if (!FG1)
-                            {
-                                FG = false;
-                                break;
-                            }
-                        }
-                        //Условия что в этот день в эту пару классная комната не занята
-                        bool FC = fillingClassroom[cu].BusyPair == null;
-                        //ToDO: в день не должно быть более 2-х одинаковых пар
-                        //все пары в этот день у этой группы
-                        var allPairsInGroup = fillingGroup[0].PossibleFillings.Where(x => x.StudyDay == fillingGroup[0].PossibleFillings[cu].StudyDay).ToArray();
-                        //одинаковые пары в день
-                        int numOfThisLesson = allPairsInGroup.Where(x => x.BusyPair != null && x.BusyPair.Subject == subject).Count();
-                        bool FNT = true;
-                        if (numOfThisLesson >= 2)
-                        {
-                            FNT = false;
-                        }
-                        //1. Если в этот день свободна и группа и преподаватель и аудитория
-                        if (FNT && FG && FC)
-                        {
-
-                            BusyPair busyPair = new BusyPair(Classrooms[cl], subject, group);
-                            //a. Добавляем им пару
-
-                            foreach (var fillingGroup1 in fillingGroup)
-                            {
-                                fillingGroup1[cu].BusyPair = busyPair;
-                            }
-                            fillingClassroom[cu].BusyPair = busyPair;
-                            //b. Заканчиваем 2 цикла(по расписанию и по аудиториям)
-                            success = true;
-                            break;
-                        }
-                        //Если закончено
-                    }
-
-                    //Цикл по расписанию закончен
-                    //b. Заканчиваем 2 цикла(по расписанию и по аудиториям) если пара добавилась
-                    if (success)
-                    {
-                        break;
-                    }
-                }
-                //Цикл аудиторий закончен
-
-                //e. Если не смогли добавить то
-                if (!success)
-                {
-                    //Так как несколько планов то проходим по всем
-                    for (int i = 0; i < MaxCurricula.GetNumberPlan(); i++)
-                    {
-                        //индекс в учебном плане
-                        int ind = curriculaNot.FindIndex(x => x.CurriculumId == MaxCurricula.GetCurriculumId()[i]);
-                        //i. Если был  такой элемент
-
-                        if (ind == -1)
-                        {
-                            //1. Сохраняем что не смогли добавить в кол-ве 1 пара
-                            curriculaNot.Add(MaxCurricula.NewCurriculum(i, 1));
-                        }
-                        //Иначе если не было такого элемента
-                        else
-                        {
-                            //1. Добавляем к элементу 1 пару
-                            curriculaNot[ind].NumberOfPairs++;
-                        }
-                        //Если закончено
-                    }
-                }
-                //Если закончено
+                //Добавляем не получившиеся добавить в общий список
+                curriculaNot.AddRange(tempCurriculaNot);
                 //f. Убираем у первого элемента 1 пару
                 MaxCurricula.RemoveOnePair();
                 //g. Сортируем план занятий по кол-во пар(макс первый)
                 MaxCurricula = curriculaAndNumPairs.Aggregate((l, r) => l.NumberOfPair > r.NumberOfPair ? l : r);
             }
 
+            //план не получившийся добавить
+            return curriculaNot;
+        }
+
+        /// <summary>
+        /// Добавить один предмет в учебный план и выводит которые не получилось добавить
+        /// </summary>
+        /// <param name="MaxCurricula"> План для добавления предмета </param>
+        /// <returns> Выводить список планов которые не удалось добавить</returns>
+        private List<Curriculum> AddOneSubjectInCurriculum( CurriculaWithAmountPair MaxCurricula)
+        {
+            //Пустой план не получившийся добавить
+            List<Curriculum> curriculaNot = new List<Curriculum>();
+            //a. Из элемента плана понимаем что за предмет и какая группа
+            var group = MaxCurricula.GetGroups();
+            var subject = MaxCurricula.GetSubject();
+            //c. Выбираем аудитории с кол-во мест больше чем в группе 
+            //(так как они отсортированы по возрастанию то просто номер первой подходящей аудитории)
+            //Номер Аудитории из массива которая сейчас будет рассматриваться
+            int NumClassroom = Array.FindIndex(Classrooms, x => x.NumberOfSeats >= group.Sum(y => y.NumberOfPersons));
+            //Теперь для каждой  группы подцепляем занятость
+            var fillingGroup = FillingGroups.Where(x => group.Contains(x.Value)).ToList();
+            //Добавилась ли пара
+            bool success = false;
+            //i. Цикл по расписанию
+            for (int cu = 0; cu < NumberStudyDays; cu++)
+            {
+                //d. Цикл по аудиториям
+                for (int cl = NumClassroom; cl < Classrooms.Length; cl++)
+                {
+                    //Теперь для аудитории подцепляем занятость
+                    var fillingClassroom = FillingClassrooms.First(x => x.Value.ClassroomId == Classrooms[cl].ClassroomId);
+                    //Условия что в этот день в эту пару группы не заняты
+                    bool FG = true;
+                    foreach (var fillingGroup1 in fillingGroup)
+                    {
+                        bool FG1 = fillingGroup1[cu].BusyPair == null;
+                        if (!FG1)
+                        {
+                            FG = false;
+                            break;
+                        }
+                    }
+                    //Условия что в этот день в эту пару классная комната не занята
+                    bool FC = fillingClassroom[cu].BusyPair == null;
+                    //ToDO: в день не должно быть более 2-х одинаковых пар
+                    //все пары в этот день у этой группы
+                    var allPairsInGroup = fillingGroup[0].PossibleFillings.Where(x => x.StudyDay == fillingGroup[0].PossibleFillings[cu].StudyDay).ToArray();
+                    //одинаковые пары в день
+                    int numOfThisLesson = allPairsInGroup.Where(x => x.BusyPair != null && x.BusyPair.Subject == subject).Count();
+                    bool FNT = true;
+                    if (numOfThisLesson >= 2)
+                    {
+                        FNT = false;
+                    }
+                    //1. Если в этот день свободна и группа и преподаватель и аудитория
+                    if (FNT && FG && FC)
+                    {
+
+                        BusyPair busyPair = new BusyPair(Classrooms[cl], subject, group);
+                        //a. Добавляем им пару
+
+                        foreach (var fillingGroup1 in fillingGroup)
+                        {
+                            fillingGroup1[cu].BusyPair = busyPair;
+                        }
+                        fillingClassroom[cu].BusyPair = busyPair;
+                        //b. Заканчиваем 2 цикла(по расписанию и по аудиториям)
+                        success = true;
+                        break;
+                    }
+                    //Если закончено
+                }
+
+                //Цикл по расписанию закончен
+                //b. Заканчиваем 2 цикла(по расписанию и по аудиториям) если пара добавилась
+                if (success)
+                {
+                    break;
+                }
+            }
+            //Цикл аудиторий закончен
+
+            //e. Если не смогли добавить то
+            if (!success)
+            {
+                //Так как несколько планов то проходим по всем
+                for (int i = 0; i < MaxCurricula.GetNumberPlan(); i++)
+                {
+                    //индекс в учебном плане
+                    int ind = curriculaNot.FindIndex(x => x.CurriculumId == MaxCurricula.GetCurriculumId()[i]);
+                    //i. Если был  такой элемент
+
+                    if (ind == -1)
+                    {
+                        //1. Сохраняем что не смогли добавить в кол-ве 1 пара
+                        curriculaNot.Add(MaxCurricula.NewCurriculum(i, 1));
+                    }
+                    //Иначе если не было такого элемента
+                    else
+                    {
+                        //1. Добавляем к элементу 1 пару
+                        curriculaNot[ind].NumberOfPairs++;
+                    }
+                    //Если закончено
+                }
+            }
+            //Если закончено
+            //план не получившийся добавить
             return curriculaNot;
         }
 
 
-        //Создает План занятий с объединением групп и количеством пар
+
+        /// <summary>
+        /// Создает План занятий с объединением планов групп и количеством пар которые можно изменить
+        /// </summary>
+        /// <param name="unionGroups"> Возможные объедиения групп</param>
+        /// <returns>Объединенный план занятий</returns>
         private CurriculaWithAmountPair[] CurriculaWithUnionGroupsAndNumberOfPairs(List<Group[]> unionGroups)
         {
-            CurriculaWithAmountPair[] curriculaAndNumPairs;
-            //Я хочу!
-            ///план занятий включающий несколько групп
-            ///добавить к нему поле с кол-вом пар оставшихся
-            ///
-            ///Учебный план для групп
-
+            
             //Произведена группировка по предметам. Каждый Предмет включает План для нескольких групп по нему
             var SubjectIncludePlans = Curricula.OrderByDescending(x => x.NumberOfPairs).GroupBy(x => x.Subject).Select(g => g.ToList()).ToList();
-            // Можно сразу выкинуть из плана если количество элементов в предмете =1
-            List<CurriculaWithAmountPair> tempCurriculaAndNumPairs = SubjectIncludePlans.Where(x => x.Count == 1).Select(c => new CurriculaWithAmountPair(c[0])).ToList();
+            // Можно сразу выкинуть из объединенного плана если количество элементов в предмете =1 так как не с чем объединять
+            //Добавляем эти одиночные предметы в объединенный план
+            List<CurriculaWithAmountPair> CurriculaAndNumPairs = SubjectIncludePlans.Where(x => x.Count == 1).Select(c => new CurriculaWithAmountPair(c[0])).ToList();
+            //Убираем из группировки по предметам одиночные предметы
             SubjectIncludePlans = SubjectIncludePlans.Where(x => x.Count > 1).ToList();
 
             // Подбираются планы из группировки по предметам (там теперь нет одиночных) и пытаюсь объединить
@@ -290,28 +306,30 @@ namespace SimpleSheduler.BL
             //прохожу по предметам с планами
             foreach (var plansInSubject in SubjectIncludePlans)
             {
-                Console.WriteLine("Предмет - " + plansInSubject[0].Subject + " И план:");
-                //unionGroup
-
                 //прохожу по объединению групп где объединение >1
                 foreach (var groups in unionGroups.Where(x => x.Length > 1))
                 {
-                    //если plansInSubject содержит все groups то объединяем по этому предмету эти группы 
+                    //если план по предмету содержит все объединенные группы то объединяем по этому предмету эти группы 
                     // правда ли  что для всех групп -> хотябы один план содежит группу
                     bool ContainsAllGroups = groups.All(x => plansInSubject.Any(y => y.Group == x));
                     if (ContainsAllGroups)
                     {
-                        Curriculum[] curricula1 = plansInSubject.Where(x => groups.Contains(x.Group)).ToArray();
+                        //Выбираю планы, только для объединенных групп
+                        Curriculum[] curriculaUnionGroup = plansInSubject.Where(x => groups.Contains(x.Group)).ToArray();
                         //Проверям что у всех кто объединитсь одинаковое количество пар
-                        if (curricula1.All(x => x.NumberOfPairs == curricula1[0].NumberOfPairs))
+                        if (curriculaUnionGroup.All(x => x.NumberOfPairs == curriculaUnionGroup[0].NumberOfPairs))
                         {
-                            //Добавляем в массив с 
-                            CurriculaWithAmountPair tempCurriculaWithAmountPair = new CurriculaWithAmountPair(curricula1[0]);
-                            bool add = tempCurriculaWithAmountPair.AddCurriculum(curricula1.Skip(1).ToArray());
+                            //Создаем план с возможностью изменения кол-во пар только для первой группы
+                            CurriculaWithAmountPair tempCurriculaWithAmountPair = new CurriculaWithAmountPair(curriculaUnionGroup[0]);
+                            //добавляем в этот объединенный план все остальные группы и если удалось то add->true
+                            bool add = tempCurriculaWithAmountPair.AddCurriculum(curriculaUnionGroup.Skip(1).ToArray());
+                            //Если удалось добавить
                             if (add)
                             {
-                                tempCurriculaAndNumPairs.Add(tempCurriculaWithAmountPair);
-                                plansInSubject.RemoveAll(x => curricula1.Contains(x));
+                                //Добавляем этот план в объединенный план
+                                CurriculaAndNumPairs.Add(tempCurriculaWithAmountPair);
+                                //Удаляем из плана добавления в предмете что уже добавили тоесть все группы объединенные удаляем.
+                                plansInSubject.RemoveAll(x => curriculaUnionGroup.Contains(x));
                             }
                         }
 
@@ -319,24 +337,21 @@ namespace SimpleSheduler.BL
                 }
 
                 //Добавляю оставшиеся планы в Главный план
-                tempCurriculaAndNumPairs.AddRange(plansInSubject.Select(x => new CurriculaWithAmountPair(x)).ToArray());
-                //Прохожу по планам занятий в планах предметов
-                foreach (var plan in plansInSubject)
-                {
-
-                    Console.WriteLine("\t" + plan);
-
-                }
-                Console.WriteLine();
+                CurriculaAndNumPairs.AddRange(plansInSubject.Select(x => new CurriculaWithAmountPair(x)).ToArray());
 
             }
-            curriculaAndNumPairs = tempCurriculaAndNumPairs.ToArray();
-            return curriculaAndNumPairs;
+            //План занятий с объединенными планами и кол-вом пар
+            return CurriculaAndNumPairs.ToArray();
         }
 
 
 
-        //Получить объединение групп по  функции 
+        /// <summary>
+        /// Получить объединение групп по  функции 
+        /// </summary>
+        /// <param name="unionGroups"> Список все возможных групп которые были объединены</param>
+        /// <param name="FuncCompareGroup"> Функция по которой будут сравниваться группы </param>
+        /// <returns> Список объединения групп по нашей функции </returns>
         private List<Group[]> GetUnionGroupBy(List<Group[]> unionGroups, Func<Group, Group, bool> FuncCompareGroup)
         {
             List<Group[]> unionGroupsBy = new List<Group[]>(unionGroups);
@@ -366,23 +381,44 @@ namespace SimpleSheduler.BL
             }
             return unionGroupsBy;
         }
-        //Сравнение групп по потокам
+        /// <summary>
+        /// Функция Сравнение групп по потокам
+        /// </summary>
+        /// <param name="group1"> Первая группа для сравнения </param>
+        /// <param name="group2"> Вторая группа для сравнения </param>
+        /// <returns> True если потоки одинаковы, False  если разные</returns>
         private bool GroupComparisonPotok(Group group1, Group group2)
         {
             return group1.Potok == group2.Potok;
         }
-        //Сравнение групп по семинарам
+
+        /// <summary>
+        /// Функция Сравнение групп по семинарам
+        /// </summary>
+        /// <param name="group1"> Первая группа для сравнения </param>
+        /// <param name="group2"> Вторая группа для сравнения </param>
+        /// <returns> True если семинары одинаковы, False  если разные</returns>
         private bool GroupComparisonSeminar(Group group1, Group group2)
         {
             return group1.Seminar == group2.Seminar;
         }
-        //Без сравнения, только отдельные группы
+
+        /// <summary>
+        /// Функция Сравнение групп нет сравнения, только отдельные группы
+        /// </summary>
+        /// <param name="group1"> Первая группа для сравнения </param>
+        /// <param name="group2"> Вторая группа для сравнения </param>
+        /// <returns> False  всегда</returns>
         private bool GroupNotComparison(Group group1, Group group2)
         {
             return false;
         }
 
-        //Все возможные объединения групп
+
+        /// <summary>
+        /// получить Все возможные объединения групп. Каждая с каждой. Упорядоченно по убывания
+        /// </summary>
+        /// <returns> Список со все возможными объединениями групп.</returns>
         private List<Group[]> GetUniouGroup()
         {
             List<Group[]> unionGroups = new List<Group[]>();
@@ -397,7 +433,6 @@ namespace SimpleSheduler.BL
                 }
                 unionGroups.Add(new Group[] { group });
             }
-            //Макс первый
             unionGroups = unionGroups.OrderByDescending(x => x.Sum(y => y.NumberOfPersons)).ToList();
             return unionGroups;
         }
