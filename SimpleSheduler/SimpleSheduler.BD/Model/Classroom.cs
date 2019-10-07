@@ -58,6 +58,12 @@ namespace SimpleSheduler.BD
             }
             return false;
         }
+
+        public override int GetHashCode()
+        {
+            return ClassroomId;
+        }
+
         public override string ToString()
         {
             return $"ID:{ClassroomId}, N:{Name}, Num:{NumberOfSeats}.";

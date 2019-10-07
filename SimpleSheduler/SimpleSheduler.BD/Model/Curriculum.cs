@@ -68,6 +68,13 @@ namespace SimpleSheduler.BD
             }
             return false;
         }
+
+        public override int GetHashCode()
+        {
+            return CurriculumId * GroupId * SubjectId * NumberOfPairs;
+        }
+
+
         public override string ToString()
         {
             return $"ID:{CurriculumId}, G:{Group.Name}, S:{Subject.Name}, Num:{NumberOfPairs}.";

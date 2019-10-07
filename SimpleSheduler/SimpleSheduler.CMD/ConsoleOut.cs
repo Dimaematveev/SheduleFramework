@@ -189,25 +189,24 @@ namespace SimpleSheduler.CMD
             }
             int padId = subjects.Max(x => x.SubjectId.ToString().Length);
             int padName = subjects.Max(x => x.Name.Length);
-            int padSubjectOfTeacherCount = subjects.Max(x => x.SubjectOfTeachers.Count.ToString().Length);
+           
             int padAllPairs = subjects.Max(x => x.Curricula.Aggregate(0, (x1, x2) => x1 + x2.NumberOfPairs).ToString().Length);
 
             foreach (var subject in subjects)
             {
                 string id = subject.SubjectId.ToString().PadRight(padId);
                 string name = subject.Name.ToString().PadRight(padName);
-                string subjectOfTeacherCount = subject.SubjectOfTeachers.Count.ToString().PadRight(padSubjectOfTeacherCount);
+               
                 string allPairs = subject.Curricula.Aggregate(0, (x1, x2) => x1 + x2.NumberOfPairs).ToString().PadRight(padAllPairs);
 
                 Console.CursorLeft = pos + 1 * posit;
-                Console.WriteLine($"ID:{ id}, Название:{name}, Количество преподавателей:{subjectOfTeacherCount}, Всего пар {allPairs}.");
+                Console.WriteLine($"ID:{ id}, Название:{name}, Всего пар {allPairs}.");
                 if (All)
                 {
 
                     ConsoleCurriculum(subject.Curricula.ToArray(), pos + 2 * posit);
 
                     Console.WriteLine();
-                    ConsoleSubjectOfTeacher(subject.SubjectOfTeachers.ToArray(), pos + 2 * posit);
 
                 }
             }
@@ -216,48 +215,7 @@ namespace SimpleSheduler.CMD
 
 
 
-        /// <summary>
-        /// Вывод на консоль Преподавателей
-        /// </summary>
-        /// <param name="teachers">Массив преподавателей</param>
-        /// <param name="pos">на сколько отступить с начала строки</param>
-        /// <param name="All">True -Надо ли выводить подтаблицы; false - не надо</param>
-        public static void ConsoleTeacher(Teacher[] teachers,
-                                          int pos = 0,
-                                          bool All = true)
-        {
-
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.CursorLeft = pos + 0 * posit;
-
-            Console.WriteLine($"ПРЕПОДАВАТЕЛИ ({teachers.Length}):");
-            Console.ForegroundColor = ConsoleColor.White;
-            if (teachers == null || teachers.Length < 1)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Нет Преподавателей!");
-                Console.ForegroundColor = ConsoleColor.White;
-                return;
-            }
-            int padId = teachers.Max(x => x.TeacherId.ToString().Length);
-            int padName = teachers.Max(x => x.Name.Length);
-            int padSubjectOfTeacherCount = teachers.Max(x => x.SubjectOfTeachers.Count.ToString().Length);
-
-            foreach (var teacher in teachers)
-            {
-                string id = teacher.TeacherId.ToString().PadRight(padId);
-                string name = teacher.Name.ToString().PadRight(padName);
-                string subjectOfTeacherCount = teacher.SubjectOfTeachers.Count.ToString().PadRight(padSubjectOfTeacherCount);
-                string subjectOfTeacherPair = teacher.SubjectOfTeachers.Aggregate(0, (x, y) => x + y.Subject.Curricula.Aggregate(0, (x1, x2) => x1 + x2.NumberOfPairs)).ToString().PadRight(3);
-
-                Console.CursorLeft = pos + 1 * posit;
-                Console.WriteLine($"ID:{ id}, Имя преподавателя :{name}, Количество предметов:{subjectOfTeacherCount} Всего пар {subjectOfTeacherPair}.");
-                if (All)
-                {
-                    ConsoleSubjectOfTeacher(teacher.SubjectOfTeachers.ToArray(), pos + 2 * posit);
-                }
-            }
-        }
+    
 
         /// <summary>
         /// Вывод на консоль Плана занятий
@@ -297,41 +255,7 @@ namespace SimpleSheduler.CMD
             }
         }
 
-        /// <summary>
-        /// Вывод на консоль предметов преподавателей
-        /// </summary>
-        /// <param name="subjectOfTeachers">Массив предметов преподавателей</param>
-        /// <param name="pos">на сколько отступить с начала строки</param>
-        public static void ConsoleSubjectOfTeacher(SubjectOfTeacher[] subjectOfTeachers,
-                                                   int pos = 0)
-        {
-
-            Console.ForegroundColor = ConsoleColor.Cyan;
-            Console.CursorLeft = pos + 0 * posit;
-
-            Console.WriteLine($"Предметы преподавателей ({subjectOfTeachers.Length}):");
-            Console.ForegroundColor = ConsoleColor.White;
-            if (subjectOfTeachers == null || subjectOfTeachers.Length < 1)
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Нет Предмета у преподавателя!");
-                Console.ForegroundColor = ConsoleColor.White;
-                return;
-            }
-            int padId = subjectOfTeachers.Max(x => x.SubjectOfTeacherId.ToString().Length);
-            int padTeacher = subjectOfTeachers.Max(x => x.Teacher.Name.Length);
-            int padSubject = subjectOfTeachers.Max(x => x.Subject.Name.Length);
-            foreach (var subjectOfTeacher in subjectOfTeachers)
-            {
-                string id = subjectOfTeacher.SubjectOfTeacherId.ToString().PadRight(padId);
-                string teacher = subjectOfTeacher.Teacher.Name.ToString().PadRight(padTeacher);
-                string subject = subjectOfTeacher.Subject.Name.ToString().PadRight(padSubject);
-
-                Console.CursorLeft = pos + 1 * posit;
-                Console.WriteLine($"ID:{id}, Имя преподавателя :{teacher}, Название предмета:{subject}.");
-
-            }
-        }
+        
         /// <summary>
         /// Вывод на консоль пар
         /// </summary>

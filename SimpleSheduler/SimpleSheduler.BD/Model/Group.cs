@@ -80,6 +80,12 @@ namespace SimpleSheduler.BD
         {
             return Name;
         }
+
+        public override int GetHashCode()
+        {
+            return GroupId;
+        }
+
         public override string ToString()
         {
             return $"ID:{GroupId}, N:{Name}, P:{Potok}, S:{Seminar}, Num:{NumberOfPersons}.";

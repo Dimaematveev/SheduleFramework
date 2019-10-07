@@ -48,6 +48,12 @@ namespace SimpleSheduler.BD
             }
             return false;
         }
+
+        public override int GetHashCode()
+        {
+            return PairId;
+        }
+
         public override string ToString()
         {
             return $"ID:{PairId}, N:{NameThePair}, Num:{NumberThePair}.";

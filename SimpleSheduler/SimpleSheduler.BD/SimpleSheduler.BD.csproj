@@ -69,6 +69,10 @@
     <Compile Include="Migrations\201910042114401_Init.Designer.cs">
       <DependentUpon>201910042114401_Init.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910071735351_DeleteTeacher.cs" />
+    <Compile Include="Migrations\201910071735351_DeleteTeacher.Designer.cs">
+      <DependentUpon>201910071735351_DeleteTeacher.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\IName.cs" />
     <Compile Include="Model\StudyDay.cs" />
@@ -79,8 +83,6 @@
     <Compile Include="Model\Pair.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\Subject.cs" />
-    <Compile Include="Model\SubjectOfTeacher.cs" />
-    <Compile Include="Model\Teacher.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -89,6 +91,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201910042114401_Init.resx">
       <DependentUpon>201910042114401_Init.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910071735351_DeleteTeacher.resx">
+      <DependentUpon>201910071735351_DeleteTeacher.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

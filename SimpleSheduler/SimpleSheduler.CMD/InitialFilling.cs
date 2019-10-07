@@ -86,14 +86,7 @@ namespace SimpleSheduler.CMD
                     new Classroom(){Name="Аудитория №4",NumberOfSeats= 23 },
                     new Classroom(){Name="Аудитория №5",NumberOfSeats= 45 },
                 };
-                var Addteachers = new List<Teacher>
-                {            
-                    new Teacher(){Name="Преподаватель-1" },
-                    new Teacher(){Name="Преподаватель-2" },
-                    new Teacher(){Name="Преподаватель-3" },
-                    new Teacher(){Name="Преподаватель-4" },
-                    new Teacher(){Name="Преподаватель-5" },
-                };
+             
                 var Addsubjects = new List<Subject>
                 {
                     new Subject(){Name="Русский язык" },
@@ -113,7 +106,7 @@ namespace SimpleSheduler.CMD
                 ///Добавляем запись в наш КЭШ но пока не отправили в БД
                 context.Groups.AddRange(Addgroups);
                 context.Classrooms.AddRange(Addclassrooms);
-                context.Teachers.AddRange(Addteachers);
+               
                 context.Subjects.AddRange(Addsubjects);
                 ///Все изменения из локального хранилища в БД
                 ///
@@ -140,7 +133,7 @@ namespace SimpleSheduler.CMD
 
                 var groups = context.Groups.ToArray();
                 var classrooms = context.Classrooms.ToArray();
-                var teachers = context.Teachers.ToArray();
+               
                 var subjects = context.Subjects.ToArray();
                 //Сколько часов по парам у классов
                 //У меня на  несколько месяцев что бы было для 2-х недель разделим на 8
@@ -170,26 +163,9 @@ namespace SimpleSheduler.CMD
                 }
 
 
-                var subjectOfTeachers = new List<SubjectOfTeacher>()
-                {
-                    new SubjectOfTeacher(){SubjectId= subjects.First(x=>x.Name=="Русский язык").SubjectId,TeacherId= teachers[0].TeacherId },
-                    new SubjectOfTeacher(){SubjectId= subjects.First(x=>x.Name=="Литературное чтение").SubjectId,TeacherId= teachers[0].TeacherId },
-                    new SubjectOfTeacher(){SubjectId= subjects.First(x=>x.Name=="Русский родной язык").SubjectId,TeacherId= teachers[0].TeacherId },
-                    new SubjectOfTeacher(){SubjectId= subjects.First(x=>x.Name=="Литературное чтение на русском родном языке").SubjectId,TeacherId= teachers[0].TeacherId },
-                    new SubjectOfTeacher(){SubjectId= subjects.First(x=>x.Name=="Иностранный язык (англ.)").SubjectId,TeacherId= teachers[1].TeacherId },
-                    new SubjectOfTeacher(){SubjectId= subjects.First(x=>x.Name=="Второй язык").SubjectId,TeacherId= teachers[1].TeacherId },
-                    new SubjectOfTeacher(){SubjectId= subjects.First(x=>x.Name=="Математика").SubjectId,TeacherId= teachers[2].TeacherId },
-                    new SubjectOfTeacher(){SubjectId= subjects.First(x=>x.Name=="Окружающий мир").SubjectId,TeacherId= teachers[3].TeacherId },
-                    new SubjectOfTeacher(){SubjectId= subjects.First(x=>x.Name=="Основы религиозных культур и светской этики").SubjectId,TeacherId= teachers[3].TeacherId },
-                    new SubjectOfTeacher(){SubjectId= subjects.First(x=>x.Name=="Музыка").SubjectId,TeacherId= teachers[3].TeacherId },
-                    new SubjectOfTeacher(){SubjectId= subjects.First(x=>x.Name=="Изобразительное искусство").SubjectId,TeacherId= teachers[3].TeacherId },
-                    new SubjectOfTeacher(){SubjectId= subjects.First(x=>x.Name=="Технология ").SubjectId,TeacherId= teachers[2].TeacherId },
-                    new SubjectOfTeacher(){SubjectId= subjects.First(x=>x.Name=="Физическая культура").SubjectId,TeacherId= teachers[4].TeacherId },
-                };
-
-
+               
                 context.Curricula.AddRange(curricula);
-                context.SubjectsOfTeachers.AddRange(subjectOfTeachers);
+               
                 try
                 {
 
@@ -224,7 +200,6 @@ namespace SimpleSheduler.CMD
 
                 var groups = context.Groups.ToArray();
                 var classrooms = context.Classrooms.ToArray();
-                var teachers = context.Teachers.ToArray();
                 var subjects = context.Subjects.ToArray();
                 int[][] ClassYear = new int[][]
                  {

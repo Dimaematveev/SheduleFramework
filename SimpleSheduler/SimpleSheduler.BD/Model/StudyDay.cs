@@ -49,6 +49,13 @@ namespace SimpleSheduler.BD
             }
             return false;
         }
+
+        public override int GetHashCode()
+        {
+            return StudyDayId;
+        }
+
+
         public override string ToString()
         {
             return $"ID:{StudyDayId}, N:{NameDayOfWeek}, Num:{NumberOfWeek}.";

@@ -32,12 +32,7 @@ namespace SimpleSheduler.BD
         /// </summary>
         public virtual ICollection<Curriculum> Curricula { get; set; }
 
-        ///Свойство для EntityFramework
-        /// <summary>
-        /// У каждого предмета будет храниться все преподаватели. Т.е. связь с Предметы преподавателей
-        /// </summary>
-        public virtual ICollection<SubjectOfTeacher> SubjectOfTeachers { get; set; }
-
+       
         public object Clone()
         {
             Subject newSubject = new Subject()
@@ -45,7 +40,7 @@ namespace SimpleSheduler.BD
                 Curricula = this.Curricula,
                 Name = this.Name,
                 SubjectId = this.SubjectId,
-                SubjectOfTeachers = this.SubjectOfTeachers
+               
             };
             return newSubject;
         }
@@ -62,6 +57,10 @@ namespace SimpleSheduler.BD
                 return result;
             }
             return false;
+        }
+        public override int GetHashCode()
+        {
+            return SubjectId;
         }
         public override string ToString()
         {
