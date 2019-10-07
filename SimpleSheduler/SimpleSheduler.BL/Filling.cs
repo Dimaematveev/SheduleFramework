@@ -52,7 +52,7 @@ namespace SimpleSheduler.BL
                     possibleFillings.Add(new PossibleFilling(pair, studyDay));
                 }
             }
-            return possibleFillings.OrderBy(x => x.StudyDay.NameDayOfWeek).ToArray().ToArray();
+            return possibleFillings.OrderBy(x => x.StudyDay.NumberDayOfWeek).ToArray().ToArray();
         }
 
 

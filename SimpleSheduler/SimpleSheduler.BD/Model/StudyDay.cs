@@ -17,12 +17,19 @@ namespace SimpleSheduler.BD
         /// </summary>
         [Key]
         public int StudyDayId { get; set; }
+        
         /// <summary>
         /// Название дня недели
         /// </summary>
         [Required]
         [StringLength(20)]
         public string NameDayOfWeek { get; set; }
+
+        /// <summary>
+        /// Название дня недели
+        /// </summary>
+      
+        public int? NumberDayOfWeek { get; set; }
         /// <summary>
         /// Номер недели
         /// </summary>
@@ -35,6 +42,7 @@ namespace SimpleSheduler.BD
             {
                 StudyDayId = this.StudyDayId,
                 NameDayOfWeek = this.NameDayOfWeek,
+                NumberDayOfWeek = this.NumberDayOfWeek,
                 NumberOfWeek = this.NumberOfWeek
             };
             return newStudyDay;
@@ -58,7 +66,7 @@ namespace SimpleSheduler.BD
 
         public override string ToString()
         {
-            return $"ID:{StudyDayId}, N:{NameDayOfWeek}, Num:{NumberOfWeek}.";
+            return $"ID:{StudyDayId}, NumDay:{NumberDayOfWeek}, N:{NameDayOfWeek}, NumWeek:{NumberOfWeek}.";
         }
     }
 }

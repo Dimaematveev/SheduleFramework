@@ -45,8 +45,8 @@ namespace SimpleSheduler.CMD
                 var temp = fillings[0].PossibleFillings[i];
                 var AddTemp = new List<string>
                 {
-                    $"{temp.StudyDay.NumberOfWeek}",
                     $"{temp.StudyDay.NameDayOfWeek}",
+                    $"{temp.StudyDay.NumberDayOfWeek}",
                     $"{temp.Pair.NumberThePair}"
                 };
                 foreach (var filling in fillings)
@@ -319,7 +319,7 @@ namespace SimpleSheduler.CMD
             foreach (var studyDay in studyDays)
             {
                 string id = studyDay.StudyDayId.ToString().PadRight(padId);
-                string name = studyDay.NameDayOfWeek.ToString().PadRight(padName);
+                string name = studyDay.NumberDayOfWeek.ToString().PadRight(padName);
                 string number = studyDay.NumberOfWeek.ToString().PadRight(padNumber);
 
                 Console.CursorLeft = pos + 1 * posit;

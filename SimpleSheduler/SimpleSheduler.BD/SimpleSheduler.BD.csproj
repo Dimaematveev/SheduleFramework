@@ -73,6 +73,26 @@
     <Compile Include="Migrations\201910071735351_DeleteTeacher.Designer.cs">
       <DependentUpon>201910071735351_DeleteTeacher.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910071757270_StudyDayRe.cs" />
+    <Compile Include="Migrations\201910071757270_StudyDayRe.Designer.cs">
+      <DependentUpon>201910071757270_StudyDayRe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910072018354_DelStudyDayNumWeek.cs" />
+    <Compile Include="Migrations\201910072018354_DelStudyDayNumWeek.Designer.cs">
+      <DependentUpon>201910072018354_DelStudyDayNumWeek.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910072021551_DelStudyDayNumWeek1.cs" />
+    <Compile Include="Migrations\201910072021551_DelStudyDayNumWeek1.Designer.cs">
+      <DependentUpon>201910072021551_DelStudyDayNumWeek1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910072028290_DelStudyDayNumWeek2.cs" />
+    <Compile Include="Migrations\201910072028290_DelStudyDayNumWeek2.Designer.cs">
+      <DependentUpon>201910072028290_DelStudyDayNumWeek2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910072030365_DelStudyDayNumWeek21.cs" />
+    <Compile Include="Migrations\201910072030365_DelStudyDayNumWeek21.Designer.cs">
+      <DependentUpon>201910072030365_DelStudyDayNumWeek21.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\IName.cs" />
     <Compile Include="Model\StudyDay.cs" />
@@ -94,6 +114,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910071735351_DeleteTeacher.resx">
       <DependentUpon>201910071735351_DeleteTeacher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910071757270_StudyDayRe.resx">
+      <DependentUpon>201910071757270_StudyDayRe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910072018354_DelStudyDayNumWeek.resx">
+      <DependentUpon>201910072018354_DelStudyDayNumWeek.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910072021551_DelStudyDayNumWeek1.resx">
+      <DependentUpon>201910072021551_DelStudyDayNumWeek1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910072028290_DelStudyDayNumWeek2.resx">
+      <DependentUpon>201910072028290_DelStudyDayNumWeek2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910072030365_DelStudyDayNumWeek21.resx">
+      <DependentUpon>201910072030365_DelStudyDayNumWeek21.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

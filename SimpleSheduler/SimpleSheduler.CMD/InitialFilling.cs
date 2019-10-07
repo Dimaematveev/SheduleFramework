@@ -19,16 +19,17 @@ namespace SimpleSheduler.CMD
             {
                 var AddStudyDays = new List<StudyDay>
                 {
-                    new StudyDay(){NameDayOfWeek="Понедельник", NumberOfWeek=1},
-                    new StudyDay(){NameDayOfWeek="Вторник", NumberOfWeek=1},
-                    new StudyDay(){NameDayOfWeek="Среда", NumberOfWeek=1},
-                    new StudyDay(){NameDayOfWeek="Четверг", NumberOfWeek=1},
-                    new StudyDay(){NameDayOfWeek="Пятница", NumberOfWeek=1},
-                    new StudyDay(){NameDayOfWeek="Понедельник", NumberOfWeek=2},
-                    new StudyDay(){NameDayOfWeek="Вторник", NumberOfWeek=2},
-                    new StudyDay(){NameDayOfWeek="Среда", NumberOfWeek=2},
-                    new StudyDay(){NameDayOfWeek="Четверг", NumberOfWeek=2},
-                    new StudyDay(){NameDayOfWeek="Пятница", NumberOfWeek=2},
+                    new StudyDay(){NumberDayOfWeek=1, NameDayOfWeek="Понедельник", NumberOfWeek=1},
+                    new StudyDay(){NumberDayOfWeek=2,NameDayOfWeek="Вторник", NumberOfWeek=1},
+                    new StudyDay(){NumberDayOfWeek=3,NameDayOfWeek="Среда", NumberOfWeek=1},
+                    new StudyDay(){NumberDayOfWeek=4,NameDayOfWeek="Четверг", NumberOfWeek=1},
+                    new StudyDay(){NumberDayOfWeek=5,NameDayOfWeek="Пятница", NumberOfWeek=1},
+
+                    new StudyDay(){NumberDayOfWeek=1,NameDayOfWeek="Понедельник", NumberOfWeek=2},
+                    new StudyDay(){NumberDayOfWeek=2,NameDayOfWeek="Вторник", NumberOfWeek=2},
+                    new StudyDay(){NumberDayOfWeek=3,NameDayOfWeek="Среда", NumberOfWeek=2},
+                    new StudyDay(){NumberDayOfWeek=4,NameDayOfWeek="Четверг", NumberOfWeek=2},
+                    new StudyDay(){NumberDayOfWeek=5,NameDayOfWeek="Пятница", NumberOfWeek=2},
                 };
                 var AddPairs = new List<Pair>
                 {
