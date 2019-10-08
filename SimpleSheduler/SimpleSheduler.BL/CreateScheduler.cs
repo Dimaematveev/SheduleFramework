@@ -220,6 +220,7 @@ namespace SimpleSheduler.BL
                     var allPairsInGroup = fillingGroup[0].PossibleFillings.Where(x => x.StudyDay == fillingGroup[0].PossibleFillings[cu].StudyDay).ToArray();
                     //одинаковые пары в день
                     int numOfThisLesson = allPairsInGroup.Where(x => x.BusyPair != null && x.BusyPair.Subject == subject).Count();
+                    //Кол-во пар в день не более 2
                     bool FNT = true;
                     if (numOfThisLesson >= 2)
                     {
