@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleSheduler.BD.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -30,6 +31,11 @@ namespace SimpleSheduler.BD
         [Required]
         public int SubjectId { get; set; }
         /// <summary>
+        /// Тип пары
+        /// </summary>
+        [Required]
+        public int TypePairId { get; set; }
+        /// <summary>
         /// Количество пар за 2 недели
         /// </summary>
         [Required]
@@ -44,6 +50,10 @@ namespace SimpleSheduler.BD
         /// Для связи с Предметом.
         /// </summary>
         public virtual Subject Subject { get; set; }
+        /// <summary>
+        /// Для связи с Типом пары.
+        /// </summary>
+        public virtual TypePair TypePair { get; set; }
 
         public object Clone()
         {
@@ -54,7 +64,9 @@ namespace SimpleSheduler.BD
                 Group = this.Group,
                 GroupId = this.GroupId,
                 Subject = this.Subject,
-                SubjectId = this.SubjectId
+                SubjectId = this.SubjectId,
+                TypePair = this.TypePair,
+                TypePairId = this.TypePairId
             };
             return newCurriculum;
         }
@@ -77,7 +89,7 @@ namespace SimpleSheduler.BD
 
         public override string ToString()
         {
-            return $"ID:{CurriculumId}, G:{Group.Name}, S:{Subject.Name}, Num:{NumberOfPairs}.";
+            return $"ID:{CurriculumId}, G:{Group.Name}, S:{Subject.Name}, TP:{TypePair.Name}, Num:{NumberOfPairs}.";
         }
     }
 }

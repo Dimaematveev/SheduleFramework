@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleSheduler.BD.Model;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -30,5 +31,7 @@ namespace SimpleSheduler.BD
         public DbSet<Curriculum> Curricula { get; set; }
         public DbSet<StudyDay> StudyDays { get; set; }
         public DbSet<Pair> Pairs { get; set; }
+
+        public DbSet<TypePair> TypePairs { get; set; }
     }
 }

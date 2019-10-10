@@ -23,7 +23,7 @@ namespace SimpleSheduler.BD
         /// Название группы
         /// </summary>
         [Required]
-        [StringLength(20)]
+        [StringLength(50)]
         public string Name { get; set; }
 
         

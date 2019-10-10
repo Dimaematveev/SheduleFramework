@@ -69,12 +69,21 @@
     <Compile Include="Migrations\201910101306495_NewBase.Designer.cs">
       <DependentUpon>201910101306495_NewBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910101441018_BigNameGroupAndSubject.cs" />
+    <Compile Include="Migrations\201910101441018_BigNameGroupAndSubject.Designer.cs">
+      <DependentUpon>201910101441018_BigNameGroupAndSubject.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910101909215_AddTypePair.cs" />
+    <Compile Include="Migrations\201910101909215_AddTypePair.Designer.cs">
+      <DependentUpon>201910101909215_AddTypePair.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\IName.cs" />
     <Compile Include="Model\StudyDay.cs" />
     <Compile Include="Model\Classroom.cs" />
     <Compile Include="Model\Curriculum.cs" />
     <Compile Include="Model\Group.cs" />
+    <Compile Include="Model\TypePair.cs" />
     <Compile Include="MyDbContext.cs" />
     <Compile Include="Model\Pair.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -108,6 +117,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201910101306495_NewBase.resx">
       <DependentUpon>201910101306495_NewBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910101441018_BigNameGroupAndSubject.resx">
+      <DependentUpon>201910101441018_BigNameGroupAndSubject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910101909215_AddTypePair.resx">
+      <DependentUpon>201910101909215_AddTypePair.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

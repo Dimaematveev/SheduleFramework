@@ -23,7 +23,7 @@ namespace SimpleSheduler.BD
         /// Название Предмета
         /// </summary>
         [Required]
-        [StringLength(50)]
+        [StringLength(100)]
         public string Name { get; set; }
 
         ///Свойство для EntityFramework

@@ -17,11 +17,12 @@ namespace SimpleSheduler.CMD
             ///Создаем подключение к БД
             ///т.к. работает с внешним хранилищем и за безопасность
             ///
-           // InitialFilling.Filling();
-           // InitialFilling.Filling1();
-           // InitialFilling.Filling2();
+            //InitialFilling.FillingAll();
+            //InitialFilling.FillingCurriculum();
+            
 
-           // Filling<Teacher>[] fillingTeachers;
+            // Filling<Teacher>[] fillingTeachers;
+
             Filling<Group>[] fillingGroups;
             Filling<Classroom>[] fillingClassrooms;
             using (var context = new MyDbContext())
