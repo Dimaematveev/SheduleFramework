@@ -9,6 +9,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleSheduler.BD", "Simple
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleSheduler.BL", "SimpleSheduler.BL\SimpleSheduler.BL.csproj", "{30FFD8C4-8C26-4080-8F65-06E4B7F508A5}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SQL", "SQL", "{4E769645-3BAB-4CE8-9CBD-4C020CC7E812}"
+	ProjectSection(SolutionItems) = preProject
+		..\SQL\ShedulerTest.mdf = ..\SQL\ShedulerTest.mdf
+		..\SQL\ShedulerTest_log.ldf = ..\SQL\ShedulerTest_log.ldf
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
