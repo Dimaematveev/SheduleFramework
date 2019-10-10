@@ -3,7 +3,7 @@ namespace SimpleSheduler.BD.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Init : DbMigration
+    public partial class NewBase : DbMigration
     {
         public override void Up()
         {
@@ -54,29 +54,6 @@ namespace SimpleSheduler.BD.Migrations
                 .PrimaryKey(t => t.SubjectId);
             
             CreateTable(
-                "dbo.SubjectOfTeachers",
-                c => new
-                    {
-                        SubjectOfTeacherId = c.Int(nullable: false, identity: true),
-                        TeacherId = c.Int(nullable: false),
-                        SubjectId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.SubjectOfTeacherId)
-                .ForeignKey("dbo.Subjects", t => t.SubjectId, cascadeDelete: true)
-                .ForeignKey("dbo.Teachers", t => t.TeacherId, cascadeDelete: true)
-                .Index(t => t.SubjectId)
-                .Index(t => t.TeacherId);
-            
-            CreateTable(
-                "dbo.Teachers",
-                c => new
-                    {
-                        TeacherId = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false, maxLength: 20),
-                    })
-                .PrimaryKey(t => t.TeacherId);
-            
-            CreateTable(
                 "dbo.Pairs",
                 c => new
                     {
@@ -92,6 +69,7 @@ namespace SimpleSheduler.BD.Migrations
                     {
                         StudyDayId = c.Int(nullable: false, identity: true),
                         NameDayOfWeek = c.String(nullable: false, maxLength: 20),
+                        NumberDayOfWeek = c.Int(),
                         NumberOfWeek = c.Int(nullable: false),
                     })
                 .PrimaryKey(t => t.StudyDayId);
@@ -100,18 +78,12 @@ namespace SimpleSheduler.BD.Migrations
         
         public override void Down()
         {
-            DropForeignKey("dbo.SubjectOfTeachers", "TeacherId", "dbo.Teachers");
-            DropForeignKey("dbo.SubjectOfTeachers", "SubjectId", "dbo.Subjects");
             DropForeignKey("dbo.Curricula", "SubjectId", "dbo.Subjects");
             DropForeignKey("dbo.Curricula", "GroupId", "dbo.Groups");
-            DropIndex("dbo.SubjectOfTeachers", new[] { "TeacherId" });
-            DropIndex("dbo.SubjectOfTeachers", new[] { "SubjectId" });
             DropIndex("dbo.Curricula", new[] { "SubjectId" });
             DropIndex("dbo.Curricula", new[] { "GroupId" });
             DropTable("dbo.StudyDays");
             DropTable("dbo.Pairs");
-            DropTable("dbo.Teachers");
-            DropTable("dbo.SubjectOfTeachers");
             DropTable("dbo.Subjects");
             DropTable("dbo.Groups");
             DropTable("dbo.Curricula");

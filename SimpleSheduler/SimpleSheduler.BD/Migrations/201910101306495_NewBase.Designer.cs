@@ -7,13 +7,13 @@ namespace SimpleSheduler.BD.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.0.0-20911")]
-    public sealed partial class StudyDayRe : IMigrationMetadata
+    public sealed partial class NewBase : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(StudyDayRe));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(NewBase));
         
         string IMigrationMetadata.Id
         {
-            get { return "201910071757270_StudyDayRe"; }
+            get { return "201910101306495_NewBase"; }
         }
         
         string IMigrationMetadata.Source
