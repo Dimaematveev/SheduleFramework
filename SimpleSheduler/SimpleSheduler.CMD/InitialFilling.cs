@@ -48,10 +48,11 @@ namespace SimpleSheduler.CMD
         {
             var AddGroups = new List<Group>
                 {
-                    new Group(){Name="Класс-1",NumberOfPersons= 8, Potok="1",Seminar="a" },
-                    new Group(){Name="Класс-2",NumberOfPersons= 59, Potok="2",Seminar="b"  },
-                    new Group(){Name="Класс-3",NumberOfPersons= 10, Potok="1",Seminar="b"  },
-                    new Group(){Name="Класс-4",NumberOfPersons= 11, Potok="3",Seminar="a"  },
+                    new Group(){Name="09.03.02_ИСиТ_АПиМОБИС_2017",NumberOfPersons= 32, Potok="09.03.02",Seminar="09.03_2017" },
+                    new Group(){Name="09.03.02_ИСиТ_АПиМОБИС_2019",NumberOfPersons= 42, Potok="09.03.02",Seminar="09.03_2019" },
+
+                    new Group(){Name="09.03.01_ИСиТ_АПиМОБИС_2017",NumberOfPersons= 21, Potok="09.03.01",Seminar="09.03_2017" },
+                    new Group(){Name="09.03.01_ИСиТ_АПиМОБИС_2019",NumberOfPersons= 66, Potok="09.03.01",Seminar="09.03_2019" },
                 };
             return AddGroups;
         }
@@ -59,9 +60,9 @@ namespace SimpleSheduler.CMD
         {
             var AddClassrooms = new List<Classroom>
                 {
-                    new Classroom(){Name="Аудитория №1",NumberOfSeats= 101 },
-                    new Classroom(){Name="Аудитория №2",NumberOfSeats= 101 },
-                    new Classroom(){Name="Аудитория №3",NumberOfSeats= 59 },
+                    new Classroom(){Name="Аудитория №1",NumberOfSeats= 77 },
+                    new Classroom(){Name="Аудитория №2",NumberOfSeats= 31 },
+                    new Classroom(){Name="Аудитория №3",NumberOfSeats= 40 },
                     new Classroom(){Name="Аудитория №4",NumberOfSeats= 23 },
                     new Classroom(){Name="Аудитория №5",NumberOfSeats= 45 },
                 };
