@@ -30,7 +30,7 @@ namespace SimpleSheduler.BL
         public CurriculaWithAmountPair(Curriculum curriculum)
         {
             Curricula = new Curriculum[] { curriculum };
-            NumberOfPair = curriculum.NumberOfPairs;
+            NumberOfPair = curriculum.NumberOfLectures;
             if (NumberOfPair>0)
             {
                 MaybeAdd = true;
@@ -107,15 +107,9 @@ namespace SimpleSheduler.BL
         /// <returns></returns>
         public Curriculum NewCurriculum(int ind,int numberOfPairs)
         {
-            var newcul = new Curriculum()
-            {
-                CurriculumId = Curricula[ind].CurriculumId,
-                Group = Curricula[ind].Group,
-                GroupId = Curricula[ind].GroupId,
-                Subject = Curricula[ind].Subject,
-                SubjectId = Curricula[ind].SubjectId,
-                NumberOfPairs = numberOfPairs
-            };
+            Curriculum newcul = Curricula[ind].Clone() as Curriculum;
+            newcul.NumberOfLectures = numberOfPairs;
+            
             return newcul;
         }
         /// <summary>
@@ -147,7 +141,7 @@ namespace SimpleSheduler.BL
         private bool CheckAdd(Curriculum curriculum)
         {
             //Кол-во пар должно совпадать
-            if (curriculum.NumberOfPairs != NumberOfPair)
+            if (curriculum.NumberOfLectures != NumberOfPair)
             {
                 return false;
             }

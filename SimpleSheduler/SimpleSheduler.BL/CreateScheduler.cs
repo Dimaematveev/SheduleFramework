@@ -135,9 +135,9 @@ namespace SimpleSheduler.BL
             // т.е. кол-во чел в объединении < Кол-во мест в аудитории
             var curriculaNot = CreateCurriculum(curriculaAndNumPairs);
             //Цикл плана закончен
-            foreach (var item in curriculaNot)
+            foreach (var curriculumNot in curriculaNot)
             {
-                Console.WriteLine($"Не получилось((group={item.Group.Name}  Number pair ={item.NumberOfPairs,3} subj={item.Subject.Name} ");
+                Console.WriteLine($"Не получилось(( {curriculumNot.ToString()}");
             }
             //4. На выход отдаём что не смогли добавить из п.3, e, i
             return curriculaNot.ToArray();
@@ -273,7 +273,7 @@ namespace SimpleSheduler.BL
                     else
                     {
                         //1. Добавляем к элементу 1 пару
-                        curriculaNot[ind].NumberOfPairs++;
+                        curriculaNot[ind].NumberOfLectures++;
                     }
                     //Если закончено
                 }
@@ -294,7 +294,7 @@ namespace SimpleSheduler.BL
         {
             
             //Произведена группировка по предметам. Каждый Предмет включает План для нескольких групп по нему
-            var SubjectIncludePlans = Curricula.OrderByDescending(x => x.NumberOfPairs).GroupBy(x => x.Subject).Select(g => g.ToList()).ToList();
+            var SubjectIncludePlans = Curricula.OrderByDescending(x => x.NumberOfLectures).GroupBy(x => x.Subject).Select(g => g.ToList()).ToList();
             // Можно сразу выкинуть из объединенного плана если количество элементов в предмете =1 так как не с чем объединять
             //Добавляем эти одиночные предметы в объединенный план
             List<CurriculaWithAmountPair> CurriculaAndNumPairs = SubjectIncludePlans.Where(x => x.Count == 1).Select(c => new CurriculaWithAmountPair(c[0])).ToList();
@@ -318,7 +318,7 @@ namespace SimpleSheduler.BL
                         //Выбираю планы, только для объединенных групп
                         Curriculum[] curriculaUnionGroup = plansInSubject.Where(x => groups.Contains(x.Group)).ToArray();
                         //Проверям что у всех кто объединитсь одинаковое количество пар
-                        if (curriculaUnionGroup.All(x => x.NumberOfPairs == curriculaUnionGroup[0].NumberOfPairs))
+                        if (curriculaUnionGroup.All(x => x.NumberOfLectures == curriculaUnionGroup[0].NumberOfLectures))
                         {
                             //Создаем план с возможностью изменения кол-во пар только для первой группы
                             CurriculaWithAmountPair tempCurriculaWithAmountPair = new CurriculaWithAmountPair(curriculaUnionGroup[0]);
