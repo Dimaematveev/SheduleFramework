@@ -142,7 +142,7 @@ namespace SimpleSheduler.CMD
         {
             var AddCurricula = new List<Curriculum>
             {
-            
+                new Curriculum(){GroupId=1, SubjectId=1, NumberOfLectures=1, NumberOfLaboratory=1, NumberOfPractical=1},
             };
             return AddCurricula;
         }
