@@ -17,7 +17,7 @@ namespace SimpleSheduler.CMD
             ///Создаем подключение к БД
             ///т.к. работает с внешним хранилищем и за безопасность
             ///
-            //InitialFilling.FillingAll();
+            InitialFilling.FillingAll();
             //InitialFilling.FillingCurriculum();
             
 
