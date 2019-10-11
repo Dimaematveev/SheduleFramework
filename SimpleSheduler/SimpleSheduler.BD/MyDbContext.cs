@@ -31,7 +31,5 @@ namespace SimpleSheduler.BD
         public DbSet<Curriculum> Curricula { get; set; }
         public DbSet<StudyDay> StudyDays { get; set; }
         public DbSet<Pair> Pairs { get; set; }
-
-        public DbSet<TypePair> TypePairs { get; set; }
     }
 }
