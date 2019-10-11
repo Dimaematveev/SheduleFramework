@@ -137,81 +137,12 @@ namespace SimpleSheduler.CMD
             return AddSubjects;
         }
 
-        private static List<TypePair> CreateTypePair()
-        {
-            var AddTypePairs = new List<TypePair>
-            {
-                new TypePair(){Name="Лекция"},
-                new TypePair(){Name="Лабораторная"},
-                new TypePair(){Name="Практика"},
-            };
-            return AddTypePairs;
-        }
+      
         private static List<Curriculum> CreateCurricula()
         {
             var AddCurricula = new List<Curriculum>
             {
-                new Curriculum(){ GroupId = 1,TypePairId = 1,SubjectId = 23,NumberOfPairs = 16},new Curriculum(){ GroupId = 1,TypePairId = 3,SubjectId = 23,NumberOfPairs = 32},
-                new Curriculum(){ GroupId = 1,TypePairId = 1,SubjectId = 25,NumberOfPairs = 16},new Curriculum(){ GroupId = 1,TypePairId = 2,SubjectId = 25,NumberOfPairs = 8},new Curriculum(){ GroupId = 1,TypePairId = 3,SubjectId = 25,NumberOfPairs = 16},
-                new Curriculum(){ GroupId = 1,TypePairId = 1,SubjectId = 26,NumberOfPairs = 16},new Curriculum(){ GroupId = 1,TypePairId = 2,SubjectId = 26,NumberOfPairs = 4},new Curriculum(){ GroupId = 1,TypePairId = 3,SubjectId = 26,NumberOfPairs = 16},
-                new Curriculum(){ GroupId = 1,TypePairId = 1,SubjectId = 27,NumberOfPairs = 16},new Curriculum(){ GroupId = 1,TypePairId = 2,SubjectId = 27,NumberOfPairs = 4},new Curriculum(){ GroupId = 1,TypePairId = 3,SubjectId = 27,NumberOfPairs = 16},
-                new Curriculum(){ GroupId = 1,TypePairId = 1,SubjectId = 28,NumberOfPairs = 16},new Curriculum(){ GroupId = 1,TypePairId = 2,SubjectId = 28,NumberOfPairs = 8},new Curriculum(){ GroupId = 1,TypePairId = 3,SubjectId = 28,NumberOfPairs = 16},
-                new Curriculum(){ GroupId = 1,TypePairId = 1,SubjectId = 29,NumberOfPairs = 16},new Curriculum(){ GroupId = 1,TypePairId = 3,SubjectId = 29,NumberOfPairs = 16},
-                new Curriculum(){ GroupId = 1,TypePairId = 3,SubjectId = 19,NumberOfPairs = 54},
-                new Curriculum(){ GroupId = 1,TypePairId = 1,SubjectId = 30,NumberOfPairs = 8},new Curriculum(){ GroupId = 1,TypePairId = 3,SubjectId = 30,NumberOfPairs = 8},
-                new Curriculum(){ GroupId = 1,TypePairId = 1,SubjectId = 31,NumberOfPairs = 8},new Curriculum(){ GroupId = 1,TypePairId = 3,SubjectId = 31,NumberOfPairs = 8},
-                new Curriculum(){ GroupId = 1,TypePairId = 1,SubjectId = 32,NumberOfPairs = 8},new Curriculum(){ GroupId = 1,TypePairId = 3,SubjectId = 32,NumberOfPairs = 8},
-                new Curriculum(){ GroupId = 1,TypePairId = 1,SubjectId = 36,NumberOfPairs = 16},new Curriculum(){ GroupId = 1,TypePairId = 2,SubjectId = 36,NumberOfPairs = 8},new Curriculum(){ GroupId = 1,TypePairId = 3,SubjectId = 36,NumberOfPairs = 16},
-                new Curriculum(){ GroupId = 1,TypePairId = 1,SubjectId = 37,NumberOfPairs = 16},new Curriculum(){ GroupId = 1,TypePairId = 2,SubjectId = 37,NumberOfPairs = 8},new Curriculum(){ GroupId = 1,TypePairId = 3,SubjectId = 37,NumberOfPairs = 16},
-                new Curriculum(){ GroupId = 1,TypePairId = 1,SubjectId = 38,NumberOfPairs = 16},new Curriculum(){ GroupId = 1,TypePairId = 2,SubjectId = 38,NumberOfPairs = 8},new Curriculum(){ GroupId = 1,TypePairId = 3,SubjectId = 38,NumberOfPairs = 16},
-                new Curriculum(){ GroupId = 1,TypePairId = 1,SubjectId = 39,NumberOfPairs = 16},new Curriculum(){ GroupId = 1,TypePairId = 2,SubjectId = 39,NumberOfPairs = 12},new Curriculum(){ GroupId = 1,TypePairId = 3,SubjectId = 39,NumberOfPairs = 32},
-                new Curriculum(){ GroupId = 1,TypePairId = 1,SubjectId = 40,NumberOfPairs = 16},new Curriculum(){ GroupId = 1,TypePairId = 2,SubjectId = 40,NumberOfPairs = 12},new Curriculum(){ GroupId = 1,TypePairId = 3,SubjectId = 40,NumberOfPairs = 32},
-                new Curriculum(){ GroupId = 1,TypePairId = 1,SubjectId = 41,NumberOfPairs = 16},new Curriculum(){ GroupId = 1,TypePairId = 2,SubjectId = 41,NumberOfPairs = 12},new Curriculum(){ GroupId = 1,TypePairId = 3,SubjectId = 41,NumberOfPairs = 32},
-                new Curriculum(){ GroupId = 1,TypePairId = 1,SubjectId = 45,NumberOfPairs = 16},new Curriculum(){ GroupId = 1,TypePairId = 2,SubjectId = 45,NumberOfPairs = 4},new Curriculum(){ GroupId = 1,TypePairId = 3,SubjectId = 45,NumberOfPairs = 32},
-                new Curriculum(){ GroupId = 1,TypePairId = 1,SubjectId = 46,NumberOfPairs = 16},new Curriculum(){ GroupId = 1,TypePairId = 2,SubjectId = 46,NumberOfPairs = 4},new Curriculum(){ GroupId = 1,TypePairId = 3,SubjectId = 46,NumberOfPairs = 32},
-                new Curriculum(){ GroupId = 1,TypePairId = 1,SubjectId = 47,NumberOfPairs = 16},new Curriculum(){ GroupId = 1,TypePairId = 2,SubjectId = 47,NumberOfPairs = 4},new Curriculum(){ GroupId = 1,TypePairId = 3,SubjectId = 47,NumberOfPairs = 32},
-
-
-
-                new Curriculum(){ GroupId = 2,TypePairId = 3,SubjectId = 3,NumberOfPairs = 32},
-                new Curriculum(){ GroupId = 2,TypePairId = 1,SubjectId = 2,NumberOfPairs = 8},new Curriculum(){ GroupId = 2,TypePairId = 3,SubjectId = 2,NumberOfPairs = 8},
-                new Curriculum(){ GroupId = 2,TypePairId = 1,SubjectId = 51,NumberOfPairs = 16},new Curriculum(){ GroupId = 2,TypePairId = 3,SubjectId = 51,NumberOfPairs = 16},
-                new Curriculum(){ GroupId = 2,TypePairId = 1,SubjectId = 7,NumberOfPairs = 16},new Curriculum(){ GroupId = 2,TypePairId = 2,SubjectId = 7,NumberOfPairs = 16},new Curriculum(){ GroupId = 2,TypePairId = 3,SubjectId = 7,NumberOfPairs = 32},
-                new Curriculum(){ GroupId = 2,TypePairId = 1,SubjectId = 53,NumberOfPairs = 32},new Curriculum(){ GroupId = 2,TypePairId = 3,SubjectId = 53,NumberOfPairs = 32},
-                new Curriculum(){ GroupId = 2,TypePairId = 1,SubjectId = 4,NumberOfPairs = 32},new Curriculum(){ GroupId = 2,TypePairId = 3,SubjectId = 4,NumberOfPairs = 32},
-                new Curriculum(){ GroupId = 2,TypePairId = 1,SubjectId = 54,NumberOfPairs = 16},new Curriculum(){ GroupId = 2,TypePairId = 3,SubjectId = 54,NumberOfPairs = 32},
-                new Curriculum(){ GroupId = 2,TypePairId = 1,SubjectId = 56,NumberOfPairs = 32},new Curriculum(){ GroupId = 2,TypePairId = 3,SubjectId = 56,NumberOfPairs = 16},
-                new Curriculum(){ GroupId = 2,TypePairId = 1,SubjectId = 57,NumberOfPairs = 16},new Curriculum(){ GroupId = 2,TypePairId = 3,SubjectId = 57,NumberOfPairs = 32},
-                new Curriculum(){ GroupId = 2,TypePairId = 3,SubjectId = 58,NumberOfPairs = 64},
-
-
-
-                new Curriculum(){ GroupId = 3,TypePairId = 1,SubjectId = 20,NumberOfPairs = 24},new Curriculum(){ GroupId = 3,TypePairId = 2,SubjectId = 20,NumberOfPairs = 16},new Curriculum(){ GroupId = 3,TypePairId = 3,SubjectId = 20,NumberOfPairs = 8},
-                new Curriculum(){ GroupId = 3,TypePairId = 1,SubjectId = 21,NumberOfPairs = 32},new Curriculum(){ GroupId = 3,TypePairId = 2,SubjectId = 21,NumberOfPairs = 8},new Curriculum(){ GroupId = 3,TypePairId = 3,SubjectId = 21,NumberOfPairs = 16},
-                new Curriculum(){ GroupId = 3,TypePairId = 1,SubjectId = 22,NumberOfPairs = 16},new Curriculum(){ GroupId = 3,TypePairId = 3,SubjectId = 22,NumberOfPairs = 32},
-                new Curriculum(){ GroupId = 3,TypePairId = 1,SubjectId = 24,NumberOfPairs = 16},new Curriculum(){ GroupId = 3,TypePairId = 2,SubjectId = 24,NumberOfPairs = 16},new Curriculum(){ GroupId = 3,TypePairId = 3,SubjectId = 24,NumberOfPairs = 8},
-                new Curriculum(){ GroupId = 3,TypePairId = 1,SubjectId = 25,NumberOfPairs = 16},new Curriculum(){ GroupId = 3,TypePairId = 2,SubjectId = 25,NumberOfPairs = 12},new Curriculum(){ GroupId = 3,TypePairId = 3,SubjectId = 25,NumberOfPairs = 16},
-                new Curriculum(){ GroupId = 3,TypePairId = 1,SubjectId = 26,NumberOfPairs = 16},new Curriculum(){ GroupId = 3,TypePairId = 2,SubjectId = 26,NumberOfPairs = 8},new Curriculum(){ GroupId = 3,TypePairId = 3,SubjectId = 26,NumberOfPairs = 32},
-                new Curriculum(){ GroupId = 3,TypePairId = 3,SubjectId = 19,NumberOfPairs = 54},
-                new Curriculum(){ GroupId = 3,TypePairId = 1,SubjectId = 33,NumberOfPairs = 16},new Curriculum(){ GroupId = 3,TypePairId = 2,SubjectId = 33,NumberOfPairs = 8},new Curriculum(){ GroupId = 3,TypePairId = 3,SubjectId = 33,NumberOfPairs = 16},
-                new Curriculum(){ GroupId = 3,TypePairId = 1,SubjectId = 34,NumberOfPairs = 16},new Curriculum(){ GroupId = 3,TypePairId = 2,SubjectId = 34,NumberOfPairs = 8},new Curriculum(){ GroupId = 3,TypePairId = 3,SubjectId = 34,NumberOfPairs = 16},
-                new Curriculum(){ GroupId = 3,TypePairId = 1,SubjectId = 35,NumberOfPairs = 16},new Curriculum(){ GroupId = 3,TypePairId = 2,SubjectId = 35,NumberOfPairs = 8},new Curriculum(){ GroupId = 3,TypePairId = 3,SubjectId = 35,NumberOfPairs = 16},
-                new Curriculum(){ GroupId = 3,TypePairId = 1,SubjectId = 42,NumberOfPairs = 16},new Curriculum(){ GroupId = 3,TypePairId = 2,SubjectId = 42,NumberOfPairs = 16},
-                new Curriculum(){ GroupId = 3,TypePairId = 1,SubjectId = 43,NumberOfPairs = 16},new Curriculum(){ GroupId = 3,TypePairId = 2,SubjectId = 43,NumberOfPairs = 16},
-                new Curriculum(){ GroupId = 3,TypePairId = 1,SubjectId = 44,NumberOfPairs = 16},new Curriculum(){ GroupId = 3,TypePairId = 2,SubjectId = 44,NumberOfPairs = 16},
-                new Curriculum(){ GroupId = 3,TypePairId = 1,SubjectId = 48,NumberOfPairs = 16},new Curriculum(){ GroupId = 3,TypePairId = 3,SubjectId = 48,NumberOfPairs = 16},
-                new Curriculum(){ GroupId = 3,TypePairId = 1,SubjectId = 49,NumberOfPairs = 16},new Curriculum(){ GroupId = 3,TypePairId = 3,SubjectId = 49,NumberOfPairs = 16},
-
-
-                new Curriculum(){ GroupId = 4,TypePairId = 3,SubjectId = 9,NumberOfPairs = 62},
-                new Curriculum(){ GroupId = 4,TypePairId = 3,SubjectId = 3,NumberOfPairs = 32},
-                new Curriculum(){ GroupId = 4,TypePairId = 1,SubjectId = 50,NumberOfPairs = 16},new Curriculum(){ GroupId = 4,TypePairId = 3,SubjectId = 50,NumberOfPairs = 16},
-                new Curriculum(){ GroupId = 4,TypePairId = 1,SubjectId = 52,NumberOfPairs = 16},new Curriculum(){ GroupId = 4,TypePairId = 3,SubjectId = 52,NumberOfPairs = 32},
-                new Curriculum(){ GroupId = 4,TypePairId = 1,SubjectId = 7,NumberOfPairs = 16},new Curriculum(){ GroupId = 4,TypePairId = 2,SubjectId = 7,NumberOfPairs = 16},new Curriculum(){ GroupId = 4,TypePairId = 3,SubjectId = 7,NumberOfPairs = 32},
-                new Curriculum(){ GroupId = 4,TypePairId = 1,SubjectId = 53,NumberOfPairs = 32},new Curriculum(){ GroupId = 4,TypePairId = 3,SubjectId = 53,NumberOfPairs = 32},
-                new Curriculum(){ GroupId = 4,TypePairId = 1,SubjectId = 4,NumberOfPairs = 32},new Curriculum(){ GroupId = 4,TypePairId = 3,SubjectId = 4,NumberOfPairs = 32},
-                new Curriculum(){ GroupId = 4,TypePairId = 1,SubjectId = 55,NumberOfPairs = 16},
-                new Curriculum(){ GroupId = 4,TypePairId = 1,SubjectId = 57,NumberOfPairs = 32},new Curriculum(){ GroupId = 4,TypePairId = 3,SubjectId = 57,NumberOfPairs = 32},
+            
             };
             return AddCurricula;
         }
@@ -225,14 +156,12 @@ namespace SimpleSheduler.CMD
                 var addSubjects = CreateSubjects();
                 var AddStudyDays = CreateStudyDays();
                 var AddPairs = CreatePairs();
-                var AddTypePairs = CreateTypePair();
                 ///Добавляем запись в наш КЭШ но пока не отправили в БД
                 context.StudyDays.AddRange(AddStudyDays);
                 context.Pairs.AddRange(AddPairs);
                 context.Groups.AddRange(addGroups);
                 context.Classrooms.AddRange(addClassrooms);
                 context.Subjects.AddRange(addSubjects);
-                context.TypePairs.AddRange(AddTypePairs);
                 ///Все изменения из локального хранилища в БД
                 ///
                 try

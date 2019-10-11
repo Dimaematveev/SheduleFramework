@@ -30,16 +30,22 @@ namespace SimpleSheduler.BD
         /// </summary>
         [Required]
         public int SubjectId { get; set; }
+
         /// <summary>
-        /// Тип пары
+        /// Количество Лекций за 2 недели
         /// </summary>
         [Required]
-        public int TypePairId { get; set; }
+        public int NumberOfLectures { get; set; }
         /// <summary>
-        /// Количество пар за 2 недели
+        /// Количество Практических за 2 недели
         /// </summary>
         [Required]
-        public int NumberOfPairs { get; set; }
+        public int NumberOfPractical { get; set; }
+        /// <summary>
+        /// Количество Лабораторных за 2 недели
+        /// </summary>
+        [Required]
+        public int NumberOfLaboratory { get; set; }
 
 
         /// <summary>
@@ -50,23 +56,20 @@ namespace SimpleSheduler.BD
         /// Для связи с Предметом.
         /// </summary>
         public virtual Subject Subject { get; set; }
-        /// <summary>
-        /// Для связи с Типом пары.
-        /// </summary>
-        public virtual TypePair TypePair { get; set; }
+     
 
         public object Clone()
         {
             Curriculum newCurriculum = new Curriculum()
             {
                 CurriculumId = this.CurriculumId,
-                NumberOfPairs = this.NumberOfPairs,
+                NumberOfLectures = this.NumberOfLectures,
+                NumberOfLaboratory = this.NumberOfLaboratory,
+                NumberOfPractical = this.NumberOfPractical,
                 Group = this.Group,
                 GroupId = this.GroupId,
                 Subject = this.Subject,
                 SubjectId = this.SubjectId,
-                TypePair = this.TypePair,
-                TypePairId = this.TypePairId
             };
             return newCurriculum;
         }
@@ -83,13 +86,13 @@ namespace SimpleSheduler.BD
 
         public override int GetHashCode()
         {
-            return CurriculumId * GroupId * SubjectId * NumberOfPairs;
+            return CurriculumId;
         }
 
 
         public override string ToString()
         {
-            return $"ID:{CurriculumId}, G:{Group.Name}, S:{Subject.Name}, TP:{TypePair.Name}, Num:{NumberOfPairs}.";
+            return $"ID:{CurriculumId}, G:{Group.Name}, S:{Subject.Name}, NLec:{NumberOfLectures}, NLab:{NumberOfLaboratory}, NPr:{NumberOfPractical}.";
         }
     }
 }
