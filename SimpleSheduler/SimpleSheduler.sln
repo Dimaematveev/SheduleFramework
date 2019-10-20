@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleSheduler.BL", "Simple
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleSheduler.WPF", "SimpleSheduler.WPF\SimpleSheduler.WPF.csproj", "{85673722-BD62-4C8C-A6F8-0C2376332449}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleSheduler.WPF.BL", "SimpleSheduler.WPF.BL\SimpleSheduler.WPF.BL.csproj", "{46DA7BED-C91A-4DCB-AB35-9B0618785682}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{85673722-BD62-4C8C-A6F8-0C2376332449}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85673722-BD62-4C8C-A6F8-0C2376332449}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{85673722-BD62-4C8C-A6F8-0C2376332449}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46DA7BED-C91A-4DCB-AB35-9B0618785682}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46DA7BED-C91A-4DCB-AB35-9B0618785682}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46DA7BED-C91A-4DCB-AB35-9B0618785682}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46DA7BED-C91A-4DCB-AB35-9B0618785682}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

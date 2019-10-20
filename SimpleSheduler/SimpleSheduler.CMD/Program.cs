@@ -12,14 +12,15 @@ namespace SimpleSheduler.CMD
     {
         static void Main()
         {
+            WorkToMyDbContext.RepositoryBase();
             Console.WriteLine("Привет мир!");
 
             ///Создаем подключение к БД
             ///т.к. работает с внешним хранилищем и за безопасность
             ///
-            //InitialFilling.FillingAll();
-            //InitialFilling.FillingCurriculum();
             
+            //WorkToMyDbContext.AddNewBD()
+
 
             // Filling<Teacher>[] fillingTeachers;
 
@@ -32,16 +33,15 @@ namespace SimpleSheduler.CMD
             Curriculum[] curricula;
             Pair[] pairs;
             StudyDay[] studyDays;
-            using (var context = new MyDbContext())
             {
-                classrooms = context.Classrooms.ToArray();
-                groups = context.Groups.ToArray();
-                subjects = context.Subjects.ToArray();
-                // var teachers = context.Teachers.ToArray();
-                curricula = context.Curricula.ToArray();
-                // var subjectOfTeachers = context.SubjectsOfTeachers.ToArray();
-                pairs = context.Pairs.ToArray();
-                studyDays = context.StudyDays.ToArray();
+                WorkToMyDbContext.ReadDB();
+                classrooms = WorkToMyDbContext.classrooms;
+                groups = WorkToMyDbContext.groups;
+                subjects = WorkToMyDbContext.subjects;
+                curricula = WorkToMyDbContext.curricula;
+                pairs = WorkToMyDbContext.pairs;
+                studyDays = WorkToMyDbContext.studyDays;
+                
             }
 
             //Выводы на консоль

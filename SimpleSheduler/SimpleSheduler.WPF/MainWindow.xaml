@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Button x:Name="ButtonGetDataFromBD" Content="Считать данные из БД" HorizontalAlignment="Left" Margin="48,48,0,0" VerticalAlignment="Top" Width="161" />
+        <TextBox x:Name="TexboxFromBD" HorizontalAlignment="Left" Height="62" Margin="214,48,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="570"/>
+        <Button x:Name="ButtonOpenGroup" Content="Group" HorizontalAlignment="Left" Margin="95,158,0,0" VerticalAlignment="Top" Width="75"/>
+
     </Grid>
 </Window>

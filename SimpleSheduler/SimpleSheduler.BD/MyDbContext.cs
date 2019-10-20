@@ -21,6 +21,10 @@ namespace SimpleSheduler.BD
             Database.SetInitializer<MyDbContext>(new CreateDatabaseIfNotExists<MyDbContext>());
         }
 
+        ~MyDbContext()
+        {
+            
+        }
         ///Надо указать коллекции наборы данных которые будем использовать.
         ///Все таблицы что будем реализовывать
         ///
