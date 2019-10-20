@@ -17,7 +17,7 @@ namespace SimpleSheduler.CMD
             ///Создаем подключение к БД
             ///т.к. работает с внешним хранилищем и за безопасность
             ///
-            InitialFilling.FillingAll();
+            //InitialFilling.FillingAll();
             //InitialFilling.FillingCurriculum();
             
 
@@ -25,42 +25,49 @@ namespace SimpleSheduler.CMD
 
             Filling<Group>[] fillingGroups;
             Filling<Classroom>[] fillingClassrooms;
+
+            Classroom[] classrooms;
+            Group[] groups;
+            Subject[] subjects;
+            Curriculum[] curricula;
+            Pair[] pairs;
+            StudyDay[] studyDays;
             using (var context = new MyDbContext())
             {
-                var classrooms = context.Classrooms.ToArray();
-                var groups = context.Groups.ToArray();
-                var subjects = context.Subjects.ToArray();
-               // var teachers = context.Teachers.ToArray();
-                var curricula = context.Curricula.ToArray();
-               // var subjectOfTeachers = context.SubjectsOfTeachers.ToArray();
-                var pairs = context.Pairs.ToArray();
-                var studyDays = context.StudyDays.ToArray();
-
-
-                //Выводы на консоль
-                //ConsoleOut.ConsoleClassroom(classrooms, 0);
-
-                //ConsoleOut.ConsoleGroup(groups, 0, false);
-                //ConsoleOut.ConsoleSubject(subjects, 0, false);
-                //ConsoleOut.ConsoleTeacher(teachers, 0, false);
-
-                //ConsoleOut.ConsoleCurriculum(curricula);
-                //ConsoleOut.ConsoleSubjectOfTeacher(subjectOfTeachers);
-
-                //ConsoleOut.ConsolePair(pairs);
-                //ConsoleOut.ConsoleStudyDay(studyDays);
-
-                ///Получили когда возможно свободные  пары по дням и по преподавателям
-                //fillingTeachers = GetFilling(teachers, pairs, studyDays);
-                ///Получили когда возможно свободные  пары по дням и по группам
-                fillingGroups = GetFilling(groups, pairs, studyDays);
-                ///Получили когда возможно свободные  пары по дням и по аудиториям
-                fillingClassrooms = GetFilling(classrooms, pairs, studyDays);
-
-                //TODO: первый без объединения групп второй с объединением
-                CreateScheduler createScheduler1 = new CreateScheduler( groups, classrooms, subjects, curricula, fillingGroups, fillingClassrooms);
-
+                classrooms = context.Classrooms.ToArray();
+                groups = context.Groups.ToArray();
+                subjects = context.Subjects.ToArray();
+                // var teachers = context.Teachers.ToArray();
+                curricula = context.Curricula.ToArray();
+                // var subjectOfTeachers = context.SubjectsOfTeachers.ToArray();
+                pairs = context.Pairs.ToArray();
+                studyDays = context.StudyDays.ToArray();
             }
+
+            //Выводы на консоль
+            //ConsoleOut.ConsoleClassroom(classrooms, 0);
+
+            //ConsoleOut.ConsoleGroup(groups, 0, false);
+            //ConsoleOut.ConsoleSubject(subjects, 0, false);
+            //ConsoleOut.ConsoleTeacher(teachers, 0, false);
+
+            //ConsoleOut.ConsoleCurriculum(curricula);
+            //ConsoleOut.ConsoleSubjectOfTeacher(subjectOfTeachers);
+
+            //ConsoleOut.ConsolePair(pairs);
+            //ConsoleOut.ConsoleStudyDay(studyDays);
+
+            ///Получили когда возможно свободные  пары по дням и по преподавателям
+            //fillingTeachers = GetFilling(teachers, pairs, studyDays);
+            ///Получили когда возможно свободные  пары по дням и по группам
+            fillingGroups = GetFilling(groups, pairs, studyDays);
+            ///Получили когда возможно свободные  пары по дням и по аудиториям
+            fillingClassrooms = GetFilling(classrooms, pairs, studyDays);
+
+            //TODO: первый без объединения групп второй с объединением
+            CreateScheduler createScheduler1 = new CreateScheduler( groups, classrooms, subjects, curricula, fillingGroups, fillingClassrooms);
+
+            
 
             //TODO: первый без объединения групп второй с объединением
             //CreateScheduler createScheduler = new CreateScheduler();
