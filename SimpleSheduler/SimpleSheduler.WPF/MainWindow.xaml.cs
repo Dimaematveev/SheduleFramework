@@ -29,6 +29,24 @@ namespace SimpleSheduler.WPF
             InitializeComponent();
             ButtonGetDataFromBD.Click += ButtonGetDataFromBD_Click;
             ButtonOpenGroup.Click += ButtonOpenGroup_Click;
+            ButtonOpenCurricila.Click += ButtonOpenCurricila_Click;
+            ButtonOpenSubject.Click += ButtonOpenSubject_Click;
+            ButtonOpenClassroom.Click += ButtonOpenClassroom_Click;
+        }
+
+        private void ButtonOpenClassroom_Click(object sender, RoutedEventArgs e)
+        {
+            OpenGrid(getDataFromBD.classrooms);
+        }
+
+        private void ButtonOpenSubject_Click(object sender, RoutedEventArgs e)
+        {
+            OpenGrid(getDataFromBD.subjects);
+        }
+
+        private void ButtonOpenCurricila_Click(object sender, RoutedEventArgs e)
+        {
+            OpenGrid(getDataFromBD.curricula);
         }
 
         private void ButtonGetDataFromBD_Click(object sender, RoutedEventArgs e)
@@ -43,13 +61,34 @@ namespace SimpleSheduler.WPF
             ret += $"Пар в день={getDataFromBD.pairs.Length}, ";
             ret += $"Учебных дней за 2 недели={getDataFromBD.studyDays.Length}.";
             TexboxFromBD.Text = ret;
+
+            if (getDataFromBD.groups != null)
+            {
+                ButtonOpenGroup.IsEnabled = true;
+            }
+            if (getDataFromBD.classrooms != null)
+            {
+                ButtonOpenClassroom.IsEnabled = true;
+            }
+            if (getDataFromBD.subjects != null)
+            {
+                ButtonOpenSubject.IsEnabled = true;
+            }
+            if (getDataFromBD.curricula != null)
+            {
+                ButtonOpenCurricila.IsEnabled = true;
+            }
         }
         private void ButtonOpenGroup_Click(object sender, RoutedEventArgs e)
         {
-            OutGroup outGroup = new OutGroup();
-            outGroup.List = getDataFromBD.groups.Select(x=>(object)x).ToList();
-            outGroup.ShowDialog();
+            OpenGrid(getDataFromBD.groups);
+        }
 
+        private void OpenGrid<T>(ICollection<T> collection)
+        {
+            OutGroup outGroup = new OutGroup();
+            outGroup.List = collection.Select(x => (object)x).ToList(); 
+            outGroup.ShowDialog();
         }
     }
 }
