@@ -13,7 +13,6 @@
         <Button x:Name="ButtonOpenClassroom" Content="Classroom" HorizontalAlignment="Left" Margin="175,158,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False"/>
         <Button x:Name="ButtonOpenSubject" Content="Subject" HorizontalAlignment="Left" Margin="255,158,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False"/>
         <Button x:Name="ButtonOpenCurricila" Content="Curricila" HorizontalAlignment="Left" Margin="335,158,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False"/>
-        <Button x:Name="BUT" Content="Button" HorizontalAlignment="Left" Height="36" Margin="123,248,0,0" VerticalAlignment="Top" Width="127"/>
 
     </Grid>
 </Window>

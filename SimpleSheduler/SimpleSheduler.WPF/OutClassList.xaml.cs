@@ -28,8 +28,12 @@ namespace SimpleSheduler.WPF
         private void Load(object sender, RoutedEventArgs e)
         {
             DataGridGroup.ItemsSource = List;
-            Type typeList = List[0].GetType();
-            this.Title = typeList.GetType().Name;
+            List<Type> typeList = new List<Type>() { List[0].GetType() };
+            while (typeList[0] != null)
+            {
+                typeList.Insert(0, typeList[0].BaseType);
+            }
+            this.Title = typeList[2].Name;
         }
 
     }
