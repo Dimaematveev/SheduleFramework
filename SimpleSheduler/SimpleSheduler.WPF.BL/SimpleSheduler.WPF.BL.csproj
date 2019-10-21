@@ -42,12 +42,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="GetDataFromBD.cs" />
+    <Compile Include="GetFillingClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SimpleSheduler.BD\SimpleSheduler.BD.csproj">
       <Project>{e56cc290-5a77-4fe7-8a37-d7ddacc4c190}</Project>
       <Name>SimpleSheduler.BD</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimpleSheduler.BL\SimpleSheduler.BL.csproj">
+      <Project>{30FFD8C4-8C26-4080-8F65-06E4B7F508A5}</Project>
+      <Name>SimpleSheduler.BL</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

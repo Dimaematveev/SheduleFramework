@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SimpleSheduler.BD;
+using SimpleSheduler.BL;
 using SimpleSheduler.WPF.BL;
 
 namespace SimpleSheduler.WPF
@@ -23,6 +25,8 @@ namespace SimpleSheduler.WPF
     {
         //Данные из БД
         GetDataFromBD getDataFromBD = new GetDataFromBD();
+        Filling<Group>[] fillingGroups;
+        Filling<Classroom>[] fillingClassrooms;
         public MainWindow()
         {
             GetDataFromBD.RepositoryBase();
@@ -32,7 +36,28 @@ namespace SimpleSheduler.WPF
             ButtonOpenCurricila.Click += ButtonOpenCurricila_Click;
             ButtonOpenSubject.Click += ButtonOpenSubject_Click;
             ButtonOpenClassroom.Click += ButtonOpenClassroom_Click;
-      
+
+
+            GetFilling.Click += GetFilling_Click;
+            FillingClassrooms.Click += FillingClassrooms_Click;
+            FillingGroups.Click += FillingGroups_Click;
+        }
+
+        private void FillingGroups_Click(object sender, RoutedEventArgs e)
+        {
+            OpenGrid(fillingGroups);
+        }
+
+        private void FillingClassrooms_Click(object sender, RoutedEventArgs e)
+        {
+            OpenGrid(fillingClassrooms);
+        }
+
+        private void GetFilling_Click(object sender, RoutedEventArgs e)
+        {
+            fillingGroups = GetFillingClass.GetFilling(getDataFromBD.groups, getDataFromBD.pairs, getDataFromBD.studyDays);
+            fillingClassrooms = GetFillingClass.GetFilling(getDataFromBD.classrooms, getDataFromBD.pairs, getDataFromBD.studyDays);
+
         }
 
         private void ButtonOpenClassroom_Click(object sender, RoutedEventArgs e)

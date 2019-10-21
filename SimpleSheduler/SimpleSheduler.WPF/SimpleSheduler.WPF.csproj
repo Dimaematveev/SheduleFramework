@@ -106,6 +106,10 @@
       <Project>{e56cc290-5a77-4fe7-8a37-d7ddacc4c190}</Project>
       <Name>SimpleSheduler.BD</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SimpleSheduler.BL\SimpleSheduler.BL.csproj">
+      <Project>{30FFD8C4-8C26-4080-8F65-06E4B7F508A5}</Project>
+      <Name>SimpleSheduler.BL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SimpleSheduler.WPF.BL\SimpleSheduler.WPF.BL.csproj">
       <Project>{46da7bed-c91a-4dcb-ab35-9b0618785682}</Project>
       <Name>SimpleSheduler.WPF.BL</Name>
