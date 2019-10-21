@@ -249,6 +249,13 @@ namespace SimpleSheduler.BD
                 //Сколько часов по парам у классов
                 //У меня на  несколько месяцев что бы было для 2-х недель разделим на 8
                 var curricula = CreateCurricula();
+                foreach (var item in curricula)
+                {
+                    item.NumberOfLaboratory = item.NumberOfLaboratory/8;
+                    item.NumberOfLectures = item.NumberOfLectures/8;
+                    item.NumberOfPractical = item.NumberOfPractical/8;
+
+                }
                 context.Curricula.AddRange(curricula);
                 try
                 {

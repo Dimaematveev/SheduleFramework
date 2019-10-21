@@ -67,9 +67,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InitialFilling.cs" />
-    <Compile Include="Migrations\201910111906064_NewBase.cs" />
-    <Compile Include="Migrations\201910111906064_NewBase.Designer.cs">
-      <DependentUpon>201910111906064_NewBase.cs</DependentUpon>
+    <Compile Include="Migrations\201910210906308_newBD.cs" />
+    <Compile Include="Migrations\201910210906308_newBD.designer.cs">
+      <DependentUpon>201910210906308_newBD.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\IName.cs" />
@@ -100,10 +100,9 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201910111906064_NewBase.resx">
-      <DependentUpon>201910111906064_NewBase.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201910210906308_newBD.resx">
+      <DependentUpon>201910210906308_newBD.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

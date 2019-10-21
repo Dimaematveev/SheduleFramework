@@ -18,8 +18,8 @@ namespace SimpleSheduler.CMD
             ///Создаем подключение к БД
             ///т.к. работает с внешним хранилищем и за безопасность
             ///
-            
-            //WorkToMyDbContext.AddNewBD()
+
+           // WorkToMyDbContext.AddNewBD();
 
 
             // Filling<Teacher>[] fillingTeachers;

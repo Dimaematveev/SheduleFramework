@@ -38,7 +38,7 @@ namespace SimpleSheduler.BD
             }
         }
 
-        private static void AddNewBD()
+        public static void AddNewBD()
         {
             InitialFilling.FillingAll();
             InitialFilling.FillingCurriculum();

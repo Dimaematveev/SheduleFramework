@@ -1,9 +1,9 @@
-namespace SimpleSheduler.BD.Migrations
+﻿namespace SimpleSheduler.BD.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class NewBase : DbMigration
+    public partial class newBD : DbMigration
     {
         public override void Up()
         {
