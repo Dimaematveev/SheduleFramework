@@ -28,6 +28,9 @@ namespace SimpleSheduler.WPF
         private void Load(object sender, RoutedEventArgs e)
         {
             DataGridGroup.ItemsSource = List;
+            Type typeList = List[0].GetType();
+            this.Title = typeList.BaseType.Name;
         }
+
     }
 }

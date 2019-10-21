@@ -16,7 +16,7 @@ namespace SimpleSheduler.BD
         /// <summary>
         /// Передаем будущую строку подключения
         /// </summary>
-        public MyDbContext() :base("test")
+        public MyDbContext() :base("test_MINI")
         {
             Database.SetInitializer<MyDbContext>(new CreateDatabaseIfNotExists<MyDbContext>());
         }

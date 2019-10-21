@@ -7,7 +7,8 @@
         mc:Ignorable="d"
         Title="OutGroup" Height="450" Width="800">
     <Grid>
-        <DataGrid x:Name="DataGridGroup" HorizontalAlignment="Left" Height="314" Margin="10,0,0,10" VerticalAlignment="Bottom" Width="774"/>
+        <DataGrid x:Name="DataGridGroup" Margin="10,10,9.6,10"/>
+        
 
     </Grid>
 </Window>

@@ -34,6 +34,7 @@ namespace SimpleSheduler.CMD
             Pair[] pairs;
             StudyDay[] studyDays;
             {
+               
                 WorkToMyDbContext.ReadDB();
                 classrooms = WorkToMyDbContext.classrooms;
                 groups = WorkToMyDbContext.groups;
