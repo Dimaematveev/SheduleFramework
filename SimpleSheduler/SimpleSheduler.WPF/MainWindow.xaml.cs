@@ -32,6 +32,12 @@ namespace SimpleSheduler.WPF
             ButtonOpenCurricila.Click += ButtonOpenCurricila_Click;
             ButtonOpenSubject.Click += ButtonOpenSubject_Click;
             ButtonOpenClassroom.Click += ButtonOpenClassroom_Click;
+            BUT.Click += BUT_Click;
+        }
+
+        private void BUT_Click(object sender, RoutedEventArgs e)
+        {
+            Test(getDataFromBD.classrooms, getDataFromBD.groups);
         }
 
         private void ButtonOpenClassroom_Click(object sender, RoutedEventArgs e)
@@ -86,9 +92,15 @@ namespace SimpleSheduler.WPF
 
         private void OpenGrid<T>(ICollection<T> collection)
         {
-            OutGroup outGroup = new OutGroup();
+            OutClassList outGroup = new OutClassList();
             outGroup.List = collection.Select(x => (object)x).ToList(); 
             outGroup.ShowDialog();
+        }
+
+        private void Test<T1,T2>(ICollection<T1> collection1, ICollection<T2> collection2)
+        {
+            var k1 = collection1.Select(x => (object)x).First().GetType();
+            var k2 = collection2.Select(x => (object)x).First().GetType();
         }
     }
 }

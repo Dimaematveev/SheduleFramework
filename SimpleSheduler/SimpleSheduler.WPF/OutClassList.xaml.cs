@@ -17,10 +17,10 @@ namespace SimpleSheduler.WPF
     /// <summary>
     /// Логика взаимодействия для OutGroup.xaml
     /// </summary>
-    public partial class OutGroup : Window
+    public partial class OutClassList : Window
     {
         public List<object> List;
-        public OutGroup()
+        public OutClassList()
         {
             InitializeComponent();
             Loaded += Load;
@@ -29,7 +29,7 @@ namespace SimpleSheduler.WPF
         {
             DataGridGroup.ItemsSource = List;
             Type typeList = List[0].GetType();
-            this.Title = typeList.BaseType.Name;
+            this.Title = typeList.GetType().Name;
         }
 
     }
