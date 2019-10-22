@@ -72,17 +72,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="OutFilling.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="OutClassList.xaml.cs">
       <DependentUpon>OutClassList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="OutFilling.xaml.cs">
-      <DependentUpon>OutFilling.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

@@ -39,12 +39,13 @@ namespace SimpleSheduler.WPF
             ButtonOpenCurricila.Click += ButtonOpenCurricila_Click;
             ButtonOpenSubject.Click += ButtonOpenSubject_Click;
             ButtonOpenClassroom.Click += ButtonOpenClassroom_Click;
-
-
             GetFilling.Click += GetFilling_Click;
             FillingClassrooms.Click += FillingClassrooms_Click;
             FillingGroups.Click += FillingGroups_Click;
         }
+
+
+
 
         private void FillingGroups_Click(object sender, RoutedEventArgs e)
         {
@@ -58,6 +59,83 @@ namespace SimpleSheduler.WPF
             table.TableName = "Заполнение Аудиторий";
             OpenGridBD(table);
         }
+        
+        private void GetFilling_Click(object sender, RoutedEventArgs e)
+        {
+            fillingGroups = GetFillingClass.GetFilling(getDataFromBD.groups, getDataFromBD.pairs, getDataFromBD.studyDays);
+            fillingClassrooms = GetFillingClass.GetFilling(getDataFromBD.classrooms, getDataFromBD.pairs, getDataFromBD.studyDays);
+
+        }
+
+        private void ButtonOpenClassroom_Click(object sender, RoutedEventArgs e)
+        {
+            var table = getDataFromBD.GetDateTableBDClassroom();
+            table.TableName = "Аудитории";
+            OpenGridBD(table);
+        }
+
+        private void ButtonOpenSubject_Click(object sender, RoutedEventArgs e)
+        {
+            var table = getDataFromBD.GetDateTableBDSubject();
+            table.TableName = "Предметы";
+            OpenGridBD(table);
+        }
+        
+        private void ButtonOpenCurricila_Click(object sender, RoutedEventArgs e)
+        {
+            var table = getDataFromBD.GetDateTableBDCurriculum();
+            table.TableName = "План";
+            OpenGridBD(table);
+        }
+        private void ButtonOpenGroup_Click(object sender, RoutedEventArgs e)
+        {
+            var table = getDataFromBD.GetDateTableBDGroup();
+            table.TableName = "Группы";
+            OpenGridBD(table);
+        }
+
+
+        private void ButtonGetDataFromBD_Click(object sender, RoutedEventArgs e)
+        {
+            getDataFromBD.ReadDB();
+            string ret = "";
+            ret += $"Количество:\n";
+            ret += $"Аудиторий={getDataFromBD.classrooms.Length}, ";
+            ret += $"Групп={getDataFromBD.groups.Length}, ";
+            ret += $"Предметов={getDataFromBD.subjects.Length}, ";
+            ret += $"В плане={getDataFromBD.curricula.Length}, ";
+            ret += $"Пар в день={getDataFromBD.pairs.Length}, ";
+            ret += $"Учебных дней за 2 недели={getDataFromBD.studyDays.Length}.";
+            TexboxFromBD.Text = ret;
+
+            if (getDataFromBD.groups != null)
+            {
+                ButtonOpenGroup.IsEnabled = true;
+            }
+            if (getDataFromBD.classrooms != null)
+            {
+                ButtonOpenClassroom.IsEnabled = true;
+            }
+            if (getDataFromBD.subjects != null)
+            {
+                ButtonOpenSubject.IsEnabled = true;
+            }
+            if (getDataFromBD.curricula != null)
+            {
+                ButtonOpenCurricila.IsEnabled = true;
+            }
+        }
+        private void OpenGridBD(DataTable collection)
+        {
+            OutClassList outGroup = new OutClassList();
+            outGroup.DataTable = collection;
+            outGroup.ShowDialog();
+        }
+
+
+
+
+
         private DataTable GetDateTableFilling<T>(Filling<T>[] fillings) where T : class, IName
         {
             DataTable table = new DataTable();
@@ -108,129 +186,6 @@ namespace SimpleSheduler.WPF
                 table.Rows.Add(row);
             }
             return table;
-        }
-        
-        
-        private void GetFilling_Click(object sender, RoutedEventArgs e)
-        {
-            fillingGroups = GetFillingClass.GetFilling(getDataFromBD.groups, getDataFromBD.pairs, getDataFromBD.studyDays);
-            fillingClassrooms = GetFillingClass.GetFilling(getDataFromBD.classrooms, getDataFromBD.pairs, getDataFromBD.studyDays);
-
-        }
-
-
-        
-        private void ButtonOpenClassroom_Click(object sender, RoutedEventArgs e)
-        {
-            var table = GetDateTableBD(getDataFromBD.classrooms);
-            table.TableName = "Аудитории";
-            OpenGridBD(table);
-        }
-
-        private DataTable GetDateTableBD(Classroom[] BDClass)
-        {
-            DataTable table = new DataTable();
-            {
-                DataColumn column;
-                column = new DataColumn();
-                column.DataType = typeof(int);
-                column.Caption = "ID";
-                column.ColumnName = "ClassroomId";
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-
-                column = new DataColumn();
-                column.DataType = typeof(string);
-                column.Caption = "Название Аудитории";
-                column.ColumnName = "Name";
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-
-                column = new DataColumn();
-                column.DataType = typeof(int);
-                column.Caption = "Количество мест";
-                column.ColumnName = "NumberOfSeats";
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-            }
-            foreach (var item in BDClass)
-            {
-                DataRow row;
-                row = table.NewRow();
-
-                row[0] = $"{item.ClassroomId}";
-                row[1] = $"{item.Name}";
-                row[2] = $"{item.NumberOfSeats}";
-                table.Rows.Add(row);
-            }
-            return table;
-        }
-
-        private void ButtonOpenSubject_Click(object sender, RoutedEventArgs e)
-        {
-            OpenGridBD(getDataFromBD.subjects);
-        }
-
-        private void ButtonOpenCurricila_Click(object sender, RoutedEventArgs e)
-        {
-            OpenGridBD(getDataFromBD.curricula);
-        }
-
-        private void ButtonGetDataFromBD_Click(object sender, RoutedEventArgs e)
-        {
-            getDataFromBD.ReadDB();
-            string ret = "";
-            ret += $"Количество:\n";
-            ret += $"Аудиторий={getDataFromBD.classrooms.Length}, ";
-            ret += $"Групп={getDataFromBD.groups.Length}, ";
-            ret += $"Предметов={getDataFromBD.subjects.Length}, ";
-            ret += $"В плане={getDataFromBD.curricula.Length}, ";
-            ret += $"Пар в день={getDataFromBD.pairs.Length}, ";
-            ret += $"Учебных дней за 2 недели={getDataFromBD.studyDays.Length}.";
-            TexboxFromBD.Text = ret;
-
-            if (getDataFromBD.groups != null)
-            {
-                ButtonOpenGroup.IsEnabled = true;
-            }
-            if (getDataFromBD.classrooms != null)
-            {
-                ButtonOpenClassroom.IsEnabled = true;
-            }
-            if (getDataFromBD.subjects != null)
-            {
-                ButtonOpenSubject.IsEnabled = true;
-            }
-            if (getDataFromBD.curricula != null)
-            {
-                ButtonOpenCurricila.IsEnabled = true;
-            }
-        }
-        private void ButtonOpenGroup_Click(object sender, RoutedEventArgs e)
-        {
-            OpenGridBD(getDataFromBD.groups);
-        }
-
-        private void OpenGridBD<T>(ICollection<T> collection)
-        {
-            OutClassList outGroup = new OutClassList();
-            outGroup.List = collection.Select(x => (object)x).ToList();
-            outGroup.ShowDialog();
-        }
-
-        private void OpenGridBD(DataTable collection)
-        {
-            OutClassList outGroup = new OutClassList();
-            outGroup.DataTable = collection;
-            outGroup.ShowDialog();
-        }
-
-        private void OpenGridFilling<T>(ICollection<Filling<T>> collection)where T:class,IName
-        {
-            OutFilling outGroup = new OutFilling();
-
-            outGroup.List = collection.Select(x=>(object)x).ToList();
-            outGroup.ShowDialog();
         }
 
     }
