@@ -26,7 +26,20 @@ namespace SimpleSheduler.WPF
         {
             InitializeComponent();
             Loaded += Load;
+
+            KeyUp += OutClassList_KeyUp;
+
         }
+
+        private void OutClassList_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Escape)
+            {
+                Close();
+            }
+        }
+
+
         private void Load(object sender, RoutedEventArgs e)
         {
            

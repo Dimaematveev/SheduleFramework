@@ -78,6 +78,7 @@ namespace SimpleSheduler.WPF
         {
             fillingGroups = GetFillingClass.GetFilling(getDataFromBD.groups, getDataFromBD.pairs, getDataFromBD.studyDays);
             fillingClassrooms = GetFillingClass.GetFilling(getDataFromBD.classrooms, getDataFromBD.pairs, getDataFromBD.studyDays);
+
             FillingClassrooms.IsEnabled = true;
             FillingGroups.IsEnabled = true;
             CreateScheduler.IsEnabled = true;
@@ -175,7 +176,7 @@ namespace SimpleSheduler.WPF
         {
             OutClassList outGroup = new OutClassList();
             outGroup.DataTable = collection;
-            outGroup.ShowDialog();
+            outGroup.Show();
         }
 
 
@@ -189,19 +190,22 @@ namespace SimpleSheduler.WPF
                 DataColumn column;
                 column = new DataColumn();
                 column.DataType = typeof(int);
-                column.ColumnName = "№";
+                column.ColumnName = "NumberOfWeek";
+                column.Caption = "Номер недели";
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
                 column = new DataColumn();
                 column.DataType = typeof(string);
-                column.ColumnName = "День";
+                column.ColumnName = "NameDayOfWeek";
+                column.Caption = "День недели";
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
                 column = new DataColumn();
                 column.DataType = typeof(int);
-                column.ColumnName = "Пара";
+                column.ColumnName = "NumberThePair";
+                column.Caption = "Номер Пары";
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
@@ -211,6 +215,7 @@ namespace SimpleSheduler.WPF
 
                     column.DataType = typeof(BusyPair);
                     column.ColumnName = $"{filling.Value.NameString()}";
+                    column.Caption = $"{filling.Value.NameString()}";
                     // Add the Column to the DataColumnCollection.
                     table.Columns.Add(column);
                 }
