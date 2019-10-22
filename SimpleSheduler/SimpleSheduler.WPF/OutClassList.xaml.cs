@@ -34,6 +34,7 @@ namespace SimpleSheduler.WPF
             {
                 int width = 1000;
                 DataGridGroup.ItemsSource = DataTable.DefaultView;
+                
                 for (int i = 0; i < DataGridGroup.Columns.Count; i++)
                 {
                     DataGridGroup.Columns[i].Header = DataTable.Columns[i].Caption;

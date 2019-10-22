@@ -46,7 +46,7 @@ namespace SimpleSheduler.BD
 
         public string NameString()
         {
-            return Name;
+            return ClassroomId.ToString();
         }
         public override bool Equals(object obj)
         {

@@ -45,6 +45,16 @@ namespace SimpleSheduler.WPF
             FillingClassrooms.Click += FillingClassrooms_Click;
             FillingGroups.Click += FillingGroups_Click;
             CreateScheduler.Click += CreateScheduler_Click;
+
+            this.Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            ButtonGetDataFromBD_Click(sender,e);
+            GetFilling_Click(sender, e);
+            CreateScheduler_Click(sender, e);
+            FillingGroups_Click(sender, e);
         }
 
         private void CreateScheduler_Click(object sender, RoutedEventArgs e)
@@ -55,13 +65,8 @@ namespace SimpleSheduler.WPF
         private void FillingGroups_Click(object sender, RoutedEventArgs e)
         {
             var table = GetDateTableFilling(fillingGroups);
-            var table2 = GetDateTableFilling(fillingClassrooms);
             table.TableName = "Заполнение Групп";
-            table2.TableName = "Заполнение Аудиторий";
             OpenGridBD(table);
-            
-            
-            OpenGridBD(table2);
         }
         private void FillingClassrooms_Click(object sender, RoutedEventArgs e)
         {
@@ -205,7 +210,7 @@ namespace SimpleSheduler.WPF
                 {
                     column = new DataColumn();
 
-                    column.DataType = typeof(BusyPair);
+                    column.DataType = typeof(string);
                     column.ColumnName = $"{filling.Value.NameString()}";
                     // Add the Column to the DataColumnCollection.
                     table.Columns.Add(column);
@@ -222,7 +227,15 @@ namespace SimpleSheduler.WPF
                 int stolb = 3;
                 foreach (var filling in fillings)
                 {
-                    row[stolb] = filling.PossibleFillings[i].BusyPair;
+                    if (filling.PossibleFillings[i].BusyPair==null)
+                    {
+                        row[stolb] = "";
+                    }
+                    else
+                    {
+                        row[stolb] = filling.PossibleFillings[i].BusyPair.ToString().Substring(0,25);
+                    }
+                    
                     stolb++;
                 }
                 table.Rows.Add(row);

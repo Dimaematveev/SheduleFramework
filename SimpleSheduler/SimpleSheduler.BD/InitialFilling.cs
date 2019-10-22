@@ -49,11 +49,11 @@ namespace SimpleSheduler.BD
         {
             var AddGroups = new List<Group>
             {
-                new Group(){Name="09.03.02_ИСиТ_АПиМОБИС_2017",NumberOfPersons= 32, Potok="09.03.02",Seminar="09.03_2017" },
-                new Group(){Name="09.03.02_ИСиТ_АПиМОБИС_2019",NumberOfPersons= 42, Potok="09.03.02",Seminar="09.03_2019" },
+                new Group(){Name="090302_ИСиТ_АПиМОБИС_2017",NumberOfPersons= 32, Potok="090302",Seminar="0903_2017" },
+                new Group(){Name="090302_ИСиТ_АПиМОБИС_2019",NumberOfPersons= 42, Potok="090302",Seminar="0903_2019" },
 
-                new Group(){Name="09.03.01_ИСиТ_АПиМОБИС_2017",NumberOfPersons= 21, Potok="09.03.01",Seminar="09.03_2017" },
-                new Group(){Name="09.03.01_ИСиТ_АПиМОБИС_2019",NumberOfPersons= 66, Potok="09.03.01",Seminar="09.03_2019" },
+                new Group(){Name="090301_ИСиТ_АПиМОБИС_2017",NumberOfPersons= 21, Potok="090301",Seminar="0903_2017" },
+                new Group(){Name="090301_ИСиТ_АПиМОБИС_2019",NumberOfPersons= 66, Potok="090301",Seminar="0903_2019" },
             };
             return AddGroups;
         }
