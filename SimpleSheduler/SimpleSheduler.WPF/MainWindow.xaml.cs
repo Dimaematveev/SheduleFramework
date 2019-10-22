@@ -55,8 +55,13 @@ namespace SimpleSheduler.WPF
         private void FillingGroups_Click(object sender, RoutedEventArgs e)
         {
             var table = GetDateTableFilling(fillingGroups);
+            var table2 = GetDateTableFilling(fillingClassrooms);
             table.TableName = "Заполнение Групп";
+            table2.TableName = "Заполнение Аудиторий";
             OpenGridBD(table);
+            
+            
+            OpenGridBD(table2);
         }
         private void FillingClassrooms_Click(object sender, RoutedEventArgs e)
         {
@@ -71,6 +76,7 @@ namespace SimpleSheduler.WPF
             fillingClassrooms = GetFillingClass.GetFilling(getDataFromBD.classrooms, getDataFromBD.pairs, getDataFromBD.studyDays);
             FillingClassrooms.IsEnabled = true;
             FillingGroups.IsEnabled = true;
+            CreateScheduler.IsEnabled = true;
 
         }
 
@@ -159,6 +165,8 @@ namespace SimpleSheduler.WPF
                 GetFilling.IsEnabled = true;
             }
         }
+       
+        
         private void OpenGridBD(DataTable collection)
         {
             OutClassList outGroup = new OutClassList();
