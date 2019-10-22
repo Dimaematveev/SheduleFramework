@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,6 +21,7 @@ namespace SimpleSheduler.WPF
     public partial class OutClassList : Window
     {
         public List<object> List;
+        public DataTable DataTable;
         public OutClassList()
         {
             InitializeComponent();
@@ -36,6 +38,10 @@ namespace SimpleSheduler.WPF
                     typeList.Insert(0, typeList[0].BaseType);
                 }
                 this.Title = typeList[2].Name;
+            }
+            if (DataTable!=null)
+            {
+                DataGridGroup.ItemsSource = DataTable.DefaultView;
             }
             
         }

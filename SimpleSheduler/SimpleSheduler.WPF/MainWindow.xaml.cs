@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -47,70 +49,65 @@ namespace SimpleSheduler.WPF
         private void FillingGroups_Click(object sender, RoutedEventArgs e)
         {
 
-            List<string> NameColumn = new List<string>();
-            NameColumn.Add( "№" );
-            NameColumn.Add("день" );
-            NameColumn.Add("пара" );
+
+            DataTable table = new DataTable("Group");
+            DataColumn column;
+            DataRow row;
+
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.String");
+            column.ColumnName = "№";
+            // Add the Column to the DataColumnCollection.
+            table.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.Int32");
+            column.ColumnName = "День";
+            // Add the Column to the DataColumnCollection.
+            table.Columns.Add(column);
+
+            column = new DataColumn();
+            column.DataType = System.Type.GetType("System.Int32");
+            column.ColumnName = "Пара";
+            // Add the Column to the DataColumnCollection.
+            table.Columns.Add(column);
+
             foreach (var filling in fillingGroups)
             {
-                NameColumn.Add($"{filling.Value.NameString()}" ); 
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.String");
+                column.ColumnName = $"{filling.Value.NameString()}";
+                // Add the Column to the DataColumnCollection.
+                table.Columns.Add(column);
             }
-
-            List<List<string>> Rows = new List<List<string>>();
 
             for (int i = 0; i < fillingGroups[0].PossibleFillings.Length; i++)
             {
+                row = table.NewRow();
                 var temp = fillingGroups[0].PossibleFillings[i];
-                var AddTemp = new List<string>
-                {
-                    $"{temp.StudyDay.NameDayOfWeek}",
-                    $"{temp.StudyDay.NumberDayOfWeek}",
-                    $"{temp.Pair.NumberThePair}"
-                };
+                row[0]=$"{temp.StudyDay.NameDayOfWeek}";
+                row[1]=$"{temp.StudyDay.NumberDayOfWeek}";
+                row[2]=$"{temp.Pair.NumberThePair}";
+                int stolb = 3;
                 foreach (var filling in fillingGroups)
                 {
-                    var busyPairTemp = filling.PossibleFillings[i].BusyPair;
-                    string value = "NULL";
-                    if (busyPairTemp != null)
+                    if (filling.PossibleFillings[i].BusyPair==null)
                     {
-                        value = "";
-
-                        if (!(fillingGroups is Filling<Classroom>[]))
-                        {
-                            value += $"C{busyPairTemp.Classroom.Name.Substring(busyPairTemp.Classroom.Name.Length - 1, 1)}_";
-                        }
-                        // if (!(fillings is Filling<Teacher>[]))
-                        // {
-                        //     value += $"T{busyPairTemp.Teacher.Name.Substring(busyPairTemp.Teacher.Name.Length - 1, 1)}_";
-                        // }
-                        if (!(fillingGroups is Filling<Subject>[]))
-                        {
-                            value += $"S{busyPairTemp.Subject.Name.Substring(0, 5)}_";
-                        }
-                        if (!(fillingGroups is Filling<Group>[]))
-                        {
-                            value += $"G:";
-                            foreach (var group in busyPairTemp.Groups)
-                            {
-                                value += $"{group.Name.Substring(group.Name.Length - 1, 1)},";
-                            }
-                            value += "_";
-                        }
+                        row[stolb]="null";
+                        stolb++;
                     }
-                    AddTemp.Add(value);
+                    else
+                    {
+                        
+                        row[stolb] = filling.PossibleFillings[i].BusyPair.ToString();
+                        stolb++;
+                    }
+                    
                 }
-                Rows.Add( AddTemp);
+                table.Rows.Add(row);
             }
 
-            DataGrid dataGrid = new DataGrid();
-            dataGrid.Name = "Group";
-            
-            foreach (var item in NameColumn)
-            {
-                dataGrid.Columns.Add(new DataGridTextColumn() { Header = item });
-            }
-            dataGrid.ItemsSource = Rows;
-            OpenGridBD(dataGrid);
+            OpenGridBD(table);
         }
 
         private void FillingClassrooms_Click(object sender, RoutedEventArgs e)
@@ -182,10 +179,10 @@ namespace SimpleSheduler.WPF
             outGroup.ShowDialog();
         }
 
-        private void OpenGridBD(DataGrid collection)
+        private void OpenGridBD(DataTable collection)
         {
             OutClassList outGroup = new OutClassList();
-            outGroup.DataGridGroup = collection;
+            outGroup.DataTable = collection;
             outGroup.ShowDialog();
         }
 
