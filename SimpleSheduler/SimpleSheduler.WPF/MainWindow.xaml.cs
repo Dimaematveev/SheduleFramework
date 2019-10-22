@@ -54,7 +54,6 @@ namespace SimpleSheduler.WPF
             ButtonGetDataFromBD_Click(sender,e);
             GetFilling_Click(sender, e);
             CreateScheduler_Click(sender, e);
-            FillingGroups_Click(sender, e);
         }
 
         private void CreateScheduler_Click(object sender, RoutedEventArgs e)
@@ -210,7 +209,7 @@ namespace SimpleSheduler.WPF
                 {
                     column = new DataColumn();
 
-                    column.DataType = typeof(string);
+                    column.DataType = typeof(BusyPair);
                     column.ColumnName = $"{filling.Value.NameString()}";
                     // Add the Column to the DataColumnCollection.
                     table.Columns.Add(column);
@@ -227,15 +226,7 @@ namespace SimpleSheduler.WPF
                 int stolb = 3;
                 foreach (var filling in fillings)
                 {
-                    if (filling.PossibleFillings[i].BusyPair==null)
-                    {
-                        row[stolb] = "";
-                    }
-                    else
-                    {
-                        row[stolb] = filling.PossibleFillings[i].BusyPair.ToString().Substring(0,25);
-                    }
-                    
+                    row[stolb] = filling.PossibleFillings[i].BusyPair;
                     stolb++;
                 }
                 table.Rows.Add(row);
