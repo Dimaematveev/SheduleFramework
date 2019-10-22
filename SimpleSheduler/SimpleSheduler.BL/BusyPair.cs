@@ -44,11 +44,11 @@ namespace SimpleSheduler.BL
         }
         public override string ToString()
         {
-            string str = $"C:{Classroom}, S:{Subject}, G:";
+            string str = $"C:{Classroom},\n S:{Subject}, \nG:";
             string groups = "";
             foreach (var group in Groups)
             {
-                groups += $"{group}_";
+                groups += $"{group}_\n";
             }
             str += $"{groups.Remove(groups.Length - 1, 1)}.";
             return str;

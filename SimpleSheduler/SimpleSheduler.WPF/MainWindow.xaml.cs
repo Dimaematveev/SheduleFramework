@@ -39,13 +39,18 @@ namespace SimpleSheduler.WPF
             ButtonOpenCurricila.Click += ButtonOpenCurricila_Click;
             ButtonOpenSubject.Click += ButtonOpenSubject_Click;
             ButtonOpenClassroom.Click += ButtonOpenClassroom_Click;
+            ButtonOpenPair.Click += ButtonOpenPair_Click;
+            ButtonOpenStudyDay.Click += ButtonOpenStudyDays_Click;
             GetFilling.Click += GetFilling_Click;
             FillingClassrooms.Click += FillingClassrooms_Click;
             FillingGroups.Click += FillingGroups_Click;
+            CreateScheduler.Click += CreateScheduler_Click;
         }
 
-
-
+        private void CreateScheduler_Click(object sender, RoutedEventArgs e)
+        {
+            CreateScheduler createScheduler1 = new CreateScheduler(getDataFromBD.groups, getDataFromBD.classrooms, getDataFromBD.subjects, getDataFromBD.curricula, fillingGroups, fillingClassrooms);
+        }
 
         private void FillingGroups_Click(object sender, RoutedEventArgs e)
         {
@@ -64,7 +69,23 @@ namespace SimpleSheduler.WPF
         {
             fillingGroups = GetFillingClass.GetFilling(getDataFromBD.groups, getDataFromBD.pairs, getDataFromBD.studyDays);
             fillingClassrooms = GetFillingClass.GetFilling(getDataFromBD.classrooms, getDataFromBD.pairs, getDataFromBD.studyDays);
+            FillingClassrooms.IsEnabled = true;
+            FillingGroups.IsEnabled = true;
 
+        }
+
+        private void ButtonOpenStudyDays_Click(object sender, RoutedEventArgs e)
+        {
+            var table = getDataFromBD.GetDateTableBDStudyDay();
+            table.TableName = "Учебные дни";
+            OpenGridBD(table);
+        }
+
+        private void ButtonOpenPair_Click(object sender, RoutedEventArgs e)
+        {
+            var table = getDataFromBD.GetDateTableBDPair();
+            table.TableName = "Пары";
+            OpenGridBD(table);
         }
 
         private void ButtonOpenClassroom_Click(object sender, RoutedEventArgs e)
@@ -123,6 +144,19 @@ namespace SimpleSheduler.WPF
             if (getDataFromBD.curricula != null)
             {
                 ButtonOpenCurricila.IsEnabled = true;
+            }
+            if (getDataFromBD.pairs != null)
+            {
+                ButtonOpenPair.IsEnabled = true;
+            }
+            if (getDataFromBD.studyDays != null)
+            {
+                ButtonOpenStudyDay.IsEnabled = true;
+            }
+
+            if (getDataFromBD.groups != null && getDataFromBD.classrooms != null &&  getDataFromBD.pairs != null && getDataFromBD.studyDays != null)
+            {
+                GetFilling.IsEnabled = true;
             }
         }
         private void OpenGridBD(DataTable collection)

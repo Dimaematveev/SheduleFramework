@@ -226,7 +226,95 @@ namespace SimpleSheduler.WPF.BL
             }
             return table;
         }
-       
 
+        public DataTable GetDateTableBDPair()
+        {
+            var BDClass = pairs;
+            DataTable table = new DataTable();
+            {
+                DataColumn column;
+                column = new DataColumn();
+                column.DataType = typeof(int);
+                column.Caption = "ID";
+                column.ColumnName = "PairId";
+                // Add the Column to the DataColumnCollection.
+                table.Columns.Add(column);
+
+                column = new DataColumn();
+                column.DataType = typeof(int);
+                column.Caption = "Номер пары";
+                column.ColumnName = "NumberThePair";
+                // Add the Column to the DataColumnCollection.
+                table.Columns.Add(column);
+
+                column = new DataColumn();
+                column.DataType = typeof(string);
+                column.Caption = "Название пары";
+                column.ColumnName = "NameThePair";
+                // Add the Column to the DataColumnCollection.
+                table.Columns.Add(column);
+
+            }
+            foreach (var item in BDClass)
+            {
+                DataRow row;
+                row = table.NewRow();
+
+                row[0] = $"{item.PairId}";
+                row[1] = $"{item.NumberThePair}";
+                row[2] = $"{item.NameThePair}";
+                table.Rows.Add(row);
+            }
+            return table;
+        }
+
+        public DataTable GetDateTableBDStudyDay()
+        {
+            var BDClass = studyDays;
+            DataTable table = new DataTable();
+            {
+                DataColumn column;
+                column = new DataColumn();
+                column.DataType = typeof(int);
+                column.Caption = "ID";
+                column.ColumnName = "StudyDayId";
+                // Add the Column to the DataColumnCollection.
+                table.Columns.Add(column);
+
+                column = new DataColumn();
+                column.DataType = typeof(int);
+                column.Caption = "Номер недели";
+                column.ColumnName = "NumberOfWeek";
+                // Add the Column to the DataColumnCollection.
+                table.Columns.Add(column);
+
+                column = new DataColumn();
+                column.DataType = typeof(string);
+                column.Caption = "Название дня недели";
+                column.ColumnName = "NameDayOfWeek";
+                // Add the Column to the DataColumnCollection.
+                table.Columns.Add(column);
+
+                column = new DataColumn();
+                column.DataType = typeof(int);
+                column.Caption = "Номер дня недели";
+                column.ColumnName = "NumberDayOfWeek";
+                // Add the Column to the DataColumnCollection.
+                table.Columns.Add(column);
+
+            }
+            foreach (var item in BDClass)
+            {
+                DataRow row;
+                row = table.NewRow();
+
+                row[0] = $"{item.StudyDayId}";
+                row[1] = $"{item.NumberOfWeek}";
+                row[2] = $"{item.NameDayOfWeek}";
+                row[3] = $"{item.NumberDayOfWeek}";
+                table.Rows.Add(row);
+            }
+            return table;
+        }
     }
 }
