@@ -20,7 +20,7 @@ namespace SimpleSheduler.WPF
     /// </summary>
     public partial class OutClassList : Window
     {
-        public List<object> List;
+        
         public DataTable DataTable;
         public OutClassList()
         {
@@ -29,25 +29,19 @@ namespace SimpleSheduler.WPF
         }
         private void Load(object sender, RoutedEventArgs e)
         {
-            if (List!=null)
-            {
-                DataGridGroup.ItemsSource = List;
-                List<Type> typeList = new List<Type>() { List[0].GetType() };
-                while (typeList[0] != null)
-                {
-                    typeList.Insert(0, typeList[0].BaseType);
-                }
-                this.Title = typeList[2].Name;
-            }
+           
             if (DataTable!=null)
             {
+                int width = 1000;
                 DataGridGroup.ItemsSource = DataTable.DefaultView;
                 for (int i = 0; i < DataGridGroup.Columns.Count; i++)
                 {
                     DataGridGroup.Columns[i].Header = DataTable.Columns[i].Caption;
+                    
                 }
-               
+                
                 this.Title = DataTable.TableName;
+                this.Width = width;
             }
             
         }
