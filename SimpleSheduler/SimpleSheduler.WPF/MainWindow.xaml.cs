@@ -48,62 +48,69 @@ namespace SimpleSheduler.WPF
 
         private void FillingGroups_Click(object sender, RoutedEventArgs e)
         {
-            DataTable table = new DataTable("Group");
+            var table = GetDateTableFilling(fillingGroups);
+            table.TableName = "Заполнение Групп";
+            OpenGridBD(table);
+        }
+        private void FillingClassrooms_Click(object sender, RoutedEventArgs e)
+        {
+            var table = GetDateTableFilling(fillingClassrooms);
+            table.TableName = "Заполнение Аудиторий";
+            OpenGridBD(table);
+        }
+        private DataTable GetDateTableFilling<T>(Filling<T>[] fillings) where T : class, IName
+        {
+            DataTable table = new DataTable();
             {
                 DataColumn column;
                 column = new DataColumn();
-                column.DataType = System.Type.GetType("System.String");
+                column.DataType = typeof(int);
                 column.ColumnName = "№";
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
                 column = new DataColumn();
-                column.DataType = System.Type.GetType("System.Int32");
+                column.DataType = typeof(string);
                 column.ColumnName = "День";
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
                 column = new DataColumn();
-                column.DataType = System.Type.GetType("System.Int32");
+                column.DataType = typeof(int);
                 column.ColumnName = "Пара";
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
-                foreach (var filling in fillingGroups)
+                foreach (var filling in fillings)
                 {
                     column = new DataColumn();
-                    
+
                     column.DataType = typeof(BusyPair);
                     column.ColumnName = $"{filling.Value.NameString()}";
                     // Add the Column to the DataColumnCollection.
                     table.Columns.Add(column);
                 }
             }
-            for (int i = 0; i < fillingGroups[0].PossibleFillings.Length; i++)
+            for (int i = 0; i < fillings[0].PossibleFillings.Length; i++)
             {
                 DataRow row;
                 row = table.NewRow();
-                var temp = fillingGroups[0].PossibleFillings[i];
-                row[0]=$"{temp.StudyDay.NameDayOfWeek}";
-                row[1]=$"{temp.StudyDay.NumberDayOfWeek}";
-                row[2]=$"{temp.Pair.NumberThePair}";
+                var temp = fillings[0].PossibleFillings[i];
+                row[0] = $"{temp.StudyDay.NumberOfWeek}";
+                row[1] = $"{temp.StudyDay.NameDayOfWeek}";
+                row[2] = $"{temp.Pair.NumberThePair}";
                 int stolb = 3;
-                foreach (var filling in fillingGroups)
+                foreach (var filling in fillings)
                 {
                     row[stolb] = filling.PossibleFillings[i].BusyPair;
                     stolb++;
                 }
                 table.Rows.Add(row);
             }
-
-            OpenGridBD(table);
+            return table;
         }
-
-        private void FillingClassrooms_Click(object sender, RoutedEventArgs e)
-        {
-            OpenGridBD(fillingClassrooms.Select(x => x.PossibleFillings).ToList());
-        }
-
+        
+        
         private void GetFilling_Click(object sender, RoutedEventArgs e)
         {
             fillingGroups = GetFillingClass.GetFilling(getDataFromBD.groups, getDataFromBD.pairs, getDataFromBD.studyDays);
@@ -111,9 +118,52 @@ namespace SimpleSheduler.WPF
 
         }
 
+
+        
         private void ButtonOpenClassroom_Click(object sender, RoutedEventArgs e)
         {
-            OpenGridBD(getDataFromBD.classrooms);
+            var table = GetDateTableBD(getDataFromBD.classrooms);
+            table.TableName = "Аудитории";
+            OpenGridBD(table);
+        }
+
+        private DataTable GetDateTableBD(Classroom[] BDClass)
+        {
+            DataTable table = new DataTable();
+            {
+                DataColumn column;
+                column = new DataColumn();
+                column.DataType = typeof(int);
+                column.Caption = "ID";
+                column.ColumnName = "ClassroomId";
+                // Add the Column to the DataColumnCollection.
+                table.Columns.Add(column);
+
+                column = new DataColumn();
+                column.DataType = typeof(string);
+                column.Caption = "Название Аудитории";
+                column.ColumnName = "Name";
+                // Add the Column to the DataColumnCollection.
+                table.Columns.Add(column);
+
+                column = new DataColumn();
+                column.DataType = typeof(int);
+                column.Caption = "Количество мест";
+                column.ColumnName = "NumberOfSeats";
+                // Add the Column to the DataColumnCollection.
+                table.Columns.Add(column);
+            }
+            foreach (var item in BDClass)
+            {
+                DataRow row;
+                row = table.NewRow();
+
+                row[0] = $"{item.ClassroomId}";
+                row[1] = $"{item.Name}";
+                row[2] = $"{item.NumberOfSeats}";
+                table.Rows.Add(row);
+            }
+            return table;
         }
 
         private void ButtonOpenSubject_Click(object sender, RoutedEventArgs e)
