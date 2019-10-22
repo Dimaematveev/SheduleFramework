@@ -42,6 +42,7 @@ namespace SimpleSheduler.WPF
             if (DataTable!=null)
             {
                 DataGridGroup.ItemsSource = DataTable.DefaultView;
+                this.Title = DataTable.TableName;
             }
             
         }

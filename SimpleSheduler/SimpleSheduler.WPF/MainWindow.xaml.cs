@@ -48,41 +48,40 @@ namespace SimpleSheduler.WPF
 
         private void FillingGroups_Click(object sender, RoutedEventArgs e)
         {
-
-
             DataTable table = new DataTable("Group");
-            DataColumn column;
-            DataRow row;
-
-            column = new DataColumn();
-            column.DataType = System.Type.GetType("System.String");
-            column.ColumnName = "№";
-            // Add the Column to the DataColumnCollection.
-            table.Columns.Add(column);
-
-            column = new DataColumn();
-            column.DataType = System.Type.GetType("System.Int32");
-            column.ColumnName = "День";
-            // Add the Column to the DataColumnCollection.
-            table.Columns.Add(column);
-
-            column = new DataColumn();
-            column.DataType = System.Type.GetType("System.Int32");
-            column.ColumnName = "Пара";
-            // Add the Column to the DataColumnCollection.
-            table.Columns.Add(column);
-
-            foreach (var filling in fillingGroups)
             {
+                DataColumn column;
                 column = new DataColumn();
                 column.DataType = System.Type.GetType("System.String");
-                column.ColumnName = $"{filling.Value.NameString()}";
+                column.ColumnName = "№";
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
-            }
 
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.Int32");
+                column.ColumnName = "День";
+                // Add the Column to the DataColumnCollection.
+                table.Columns.Add(column);
+
+                column = new DataColumn();
+                column.DataType = System.Type.GetType("System.Int32");
+                column.ColumnName = "Пара";
+                // Add the Column to the DataColumnCollection.
+                table.Columns.Add(column);
+
+                foreach (var filling in fillingGroups)
+                {
+                    column = new DataColumn();
+                    
+                    column.DataType = typeof(BusyPair);
+                    column.ColumnName = $"{filling.Value.NameString()}";
+                    // Add the Column to the DataColumnCollection.
+                    table.Columns.Add(column);
+                }
+            }
             for (int i = 0; i < fillingGroups[0].PossibleFillings.Length; i++)
             {
+                DataRow row;
                 row = table.NewRow();
                 var temp = fillingGroups[0].PossibleFillings[i];
                 row[0]=$"{temp.StudyDay.NameDayOfWeek}";
@@ -91,18 +90,8 @@ namespace SimpleSheduler.WPF
                 int stolb = 3;
                 foreach (var filling in fillingGroups)
                 {
-                    if (filling.PossibleFillings[i].BusyPair==null)
-                    {
-                        row[stolb]="null";
-                        stolb++;
-                    }
-                    else
-                    {
-                        
-                        row[stolb] = filling.PossibleFillings[i].BusyPair.ToString();
-                        stolb++;
-                    }
-                    
+                    row[stolb] = filling.PossibleFillings[i].BusyPair;
+                    stolb++;
                 }
                 table.Rows.Add(row);
             }
