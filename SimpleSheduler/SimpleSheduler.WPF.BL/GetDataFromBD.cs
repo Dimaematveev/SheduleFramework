@@ -83,6 +83,23 @@ namespace SimpleSheduler.WPF.BL
                 return;
             }
 
+            if (namespase == typeof(Subject).FullName)
+            {
+                SetBDSubject(dataTable);
+                return;
+            }
+
+            if (namespase == typeof(Pair).FullName)
+            {
+                SetBDPair(dataTable);
+                return;
+            }
+            if (namespase == typeof(StudyDay).FullName)
+            {
+                SetBDStudyDay(dataTable);
+                return;
+            }
+
         }
 
 
@@ -627,5 +644,195 @@ namespace SimpleSheduler.WPF.BL
             WorkToMyDbContext.SaveDB();
 
         }
+
+
+
+
+        private void SetBDSubject(DataTable dataTable)
+        {
+            List<int> useList = new List<int>();
+            var BDList = subjects;
+
+            for (int i = 0; i < BDList.Count; i++)
+            {
+                useList.Add(i);
+            }
+
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                int ind = -1;
+                if (dataTable.Rows[i]["SubjectId"].ToString() != "")
+                {
+                    ind = BDList.FindIndex(x => x.SubjectId == (int)dataTable.Rows[i]["SubjectId"]);
+
+                    if (ind >= 0)
+                    {
+                        useList.Remove(ind);
+                        BDList[ind] = new Subject
+                        {
+                            SubjectId = (int)dataTable.Rows[i]["SubjectId"],
+                            Name = (string)dataTable.Rows[i]["Name"],
+
+                        };
+                    }
+                    else
+                    {
+                        BDList.Add(
+                            new Subject
+                            {
+                                SubjectId = (int)dataTable.Rows[i]["SubjectId"],
+                                Name = (string)dataTable.Rows[i]["Name"],
+                            }
+                        );
+                    }
+                }
+                else
+                {
+                    BDList.Add(
+                            new Subject
+                            {
+                                Name = (string)dataTable.Rows[i]["Name"],
+                            }
+                        );
+                }
+            }
+
+            for (int i = useList.Count - 1; i >= 0; i--)
+            {
+                BDList.RemoveAt(useList[i]);
+            }
+            WorkToMyDbContext.SaveDB();
+
+        }
+
+
+
+        private void SetBDPair(DataTable dataTable)
+        {
+            List<int> useList = new List<int>();
+            var BDList = pairs;
+
+            for (int i = 0; i < BDList.Count; i++)
+            {
+                useList.Add(i);
+            }
+
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                int ind = -1;
+                if (dataTable.Rows[i]["PairId"].ToString() != "")
+                {
+                    ind = BDList.FindIndex(x => x.PairId == (int)dataTable.Rows[i]["PairId"]);
+
+                    if (ind >= 0)
+                    {
+                        useList.Remove(ind);
+                        BDList[ind] = new Pair
+                        {
+                            PairId = (int)dataTable.Rows[i]["PairId"],
+                            NameThePair = (string)dataTable.Rows[i]["NameThePair"],
+                            NumberThePair = (int)dataTable.Rows[i]["NumberThePair"],
+                            
+
+                        };
+                    }
+                    else
+                    {
+                        BDList.Add(
+                            new Pair
+                            {
+                                PairId = (int)dataTable.Rows[i]["PairId"],
+                                NameThePair = (string)dataTable.Rows[i]["NameThePair"],
+                                NumberThePair = (int)dataTable.Rows[i]["NumberThePair"],
+                            }
+                        );
+                    }
+                }
+                else
+                {
+                    BDList.Add(
+                            new Pair
+                            {
+                               
+                                NameThePair = (string)dataTable.Rows[i]["NameThePair"],
+                                NumberThePair = (int)dataTable.Rows[i]["NumberThePair"],
+                            }
+                        );
+                }
+            }
+
+            for (int i = useList.Count - 1; i >= 0; i--)
+            {
+                BDList.RemoveAt(useList[i]);
+            }
+            WorkToMyDbContext.SaveDB();
+
+        }
+
+        private void SetBDStudyDay(DataTable dataTable)
+        {
+            List<int> useList = new List<int>();
+            var BDList = studyDays;
+
+            for (int i = 0; i < BDList.Count; i++)
+            {
+                useList.Add(i);
+            }
+
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                int ind = -1;
+                if (dataTable.Rows[i]["StudyDayId"].ToString() != "")
+                {
+                    ind = BDList.FindIndex(x => x.StudyDayId == (int)dataTable.Rows[i]["StudyDayId"]);
+
+                    if (ind >= 0)
+                    {
+                        useList.Remove(ind);
+                        BDList[ind] = new StudyDay
+                        {
+                            StudyDayId = (int)dataTable.Rows[i]["StudyDayId"],
+                            NameDayOfWeek = (string)dataTable.Rows[i]["NameDayOfWeek"],
+                            NumberDayOfWeek = (int)dataTable.Rows[i]["NumberDayOfWeek"],
+                            NumberOfWeek = (int)dataTable.Rows[i]["NumberOfWeek"],
+
+                        };
+                    }
+                    else
+                    {
+                        BDList.Add(
+                            new StudyDay
+                            {
+                                StudyDayId = (int)dataTable.Rows[i]["StudyDayId"],
+                                NameDayOfWeek = (string)dataTable.Rows[i]["NameDayOfWeek"],
+                                NumberDayOfWeek = (int)dataTable.Rows[i]["NumberDayOfWeek"],
+                                NumberOfWeek = (int)dataTable.Rows[i]["NumberOfWeek"],
+                            }
+                        );
+                    }
+                }
+                else
+                {
+                    BDList.Add(
+                            new StudyDay
+                            {
+                                
+                                NameDayOfWeek = (string)dataTable.Rows[i]["NameDayOfWeek"],
+                                NumberDayOfWeek = (int)dataTable.Rows[i]["NumberDayOfWeek"],
+                                NumberOfWeek = (int)dataTable.Rows[i]["NumberOfWeek"],
+                            }
+                        );
+                }
+            }
+
+            for (int i = useList.Count - 1; i >= 0; i--)
+            {
+                BDList.RemoveAt(useList[i]);
+            }
+            WorkToMyDbContext.SaveDB();
+
+        }
+
+
     }
 }
