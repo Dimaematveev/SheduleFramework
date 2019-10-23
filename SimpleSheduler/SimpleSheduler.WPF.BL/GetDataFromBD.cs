@@ -369,44 +369,66 @@ namespace SimpleSheduler.WPF.BL
         public void SetBDGroup(DataTable dataTable)
         {
             List<int> useGroup = new List<int>();
-            for (int i = 0; i < groups.Count; i++)
+            var BDList = groups;
+
+            for (int i = 0; i < BDList.Count; i++)
             {
                 useGroup.Add(i);
             }
 
             for (int i = 0; i < dataTable.Rows.Count; i++)
             {
-                int ind = groups.FindIndex(x => x.GroupId == (int)dataTable.Rows[i]["GroupId"]);
-                if (ind >= 0)
+                int ind = -1;
+                if (dataTable.Rows[i]["GroupId"].ToString() != "")
                 {
-                    useGroup.Remove(ind);
-                    groups[ind] = new Group
+                    ind = BDList.FindIndex(x => x.GroupId == (int)dataTable.Rows[i]["GroupId"]);
+
+
+
+                    if (ind >= 0)
                     {
-                        GroupId = (int)dataTable.Rows[i]["GroupId"],
-                        Name = (string)dataTable.Rows[i]["Name"],
-                        NumberOfPersons = (int)dataTable.Rows[i]["NumberOfPersons"],
-                        Seminar = (string)dataTable.Rows[i]["Seminar"],
-                        Potok = (string)dataTable.Rows[i]["Potok"]
-                    };
-                }
-                else
-                {
-                    groups.Add(
-                        new Group
+                        useGroup.Remove(ind);
+                        BDList[ind] = new Group
                         {
                             GroupId = (int)dataTable.Rows[i]["GroupId"],
                             Name = (string)dataTable.Rows[i]["Name"],
                             NumberOfPersons = (int)dataTable.Rows[i]["NumberOfPersons"],
                             Seminar = (string)dataTable.Rows[i]["Seminar"],
                             Potok = (string)dataTable.Rows[i]["Potok"]
-                        }
-                    );
+                        };
+                    }
+                    else
+                    {
+                        BDList.Add(
+                            new Group
+                            {
+                                GroupId = (int)dataTable.Rows[i]["GroupId"],
+                                Name = (string)dataTable.Rows[i]["Name"],
+                                NumberOfPersons = (int)dataTable.Rows[i]["NumberOfPersons"],
+                                Seminar = (string)dataTable.Rows[i]["Seminar"],
+                                Potok = (string)dataTable.Rows[i]["Potok"]
+                            }
+                        );
+                    }
+                }
+                else
+                {
+                    BDList.Add(
+                            new Group
+                            {
+                                
+                                Name = (string)dataTable.Rows[i]["Name"],
+                                NumberOfPersons = (int)dataTable.Rows[i]["NumberOfPersons"],
+                                Seminar = (string)dataTable.Rows[i]["Seminar"],
+                                Potok = (string)dataTable.Rows[i]["Potok"]
+                            }
+                        );
                 }
             }
 
             for (int i = useGroup.Count-1; i >= 0; i--)
             {
-                groups.RemoveAt(useGroup[i]);
+                BDList.RemoveAt(useGroup[i]);
             }
             WorkToMyDbContext.SaveDB();
 
