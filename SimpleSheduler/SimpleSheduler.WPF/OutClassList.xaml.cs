@@ -21,6 +21,9 @@ namespace SimpleSheduler.WPF
     public partial class OutClassList : Window
     {
         
+        
+
+
         public DataTable DataTable;
         public OutClassList()
         {
@@ -29,6 +32,14 @@ namespace SimpleSheduler.WPF
 
             KeyUp += OutClassList_KeyUp;
 
+            ButtonSave.Click += ButtonSave_Click;
+
+
+        }
+
+        public void ButtonSave_Click(object sender, RoutedEventArgs e)
+        {
+            
         }
 
         private void OutClassList_KeyUp(object sender, KeyEventArgs e)

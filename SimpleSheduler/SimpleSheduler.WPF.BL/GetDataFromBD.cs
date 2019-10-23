@@ -316,5 +316,24 @@ namespace SimpleSheduler.WPF.BL
             }
             return table;
         }
+
+
+
+
+        public void SetBDGroup(DataTable dataTable)
+        {
+            var BDClass = groups;
+
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                BDClass[i].GroupId = (int)dataTable.Rows[i]["GroupId"];
+                BDClass[i].Name = (string)dataTable.Rows[i]["Name"];
+                BDClass[i].NumberOfPersons = (int)dataTable.Rows[i]["NumberOfPersons"];
+                BDClass[i].Seminar = (string)dataTable.Rows[i]["Seminar"];
+                BDClass[i].Potok = (string)dataTable.Rows[i]["Potok"];
+
+            }
+
+        }
     }
 }

@@ -26,6 +26,9 @@ namespace SimpleSheduler.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+
+
+
         //Данные из БД
         GetDataFromBD getDataFromBD = new GetDataFromBD();
         Filling<Group>[] fillingGroups;
@@ -117,13 +120,15 @@ namespace SimpleSheduler.WPF
         {
             var table = getDataFromBD.GetDateTableBDCurriculum();
             table.TableName = "План";
-            OpenGridBD(table);
+            OpenGridBD(table, true);
         }
         private void ButtonOpenGroup_Click(object sender, RoutedEventArgs e)
         {
             var table = getDataFromBD.GetDateTableBDGroup();
             table.TableName = "Группы";
-            OpenGridBD(table);
+            var outGroup = OpenGridBD(table,true);
+            outGroup.ButtonSave.Click += ButtonSave_Click;
+            getDataFromBD.SetBDGroup(outGroup.DataTable);
         }
 
 
@@ -172,16 +177,19 @@ namespace SimpleSheduler.WPF
         }
        
         
-        private void OpenGridBD(DataTable collection)
+        private OutClassList OpenGridBD(DataTable collection, bool save = false)
         {
             OutClassList outGroup = new OutClassList();
             outGroup.DataTable = collection;
+            outGroup.ButtonSave.IsEnabled = save;
             outGroup.Show();
+            return outGroup;
         }
 
-
-
-
+        private void ButtonSave_Click(object sender, RoutedEventArgs e)
+        {
+           
+        }
 
         private DataTable GetDateTableFilling<T>(Filling<T>[] fillings) where T : class, IName
         {
