@@ -117,7 +117,9 @@ namespace SimpleSheduler.WPF.BL
                 {
                     DataType = typeof(int),
                     Caption = "ID",
-                    ColumnName = "CurriculumId"
+                    ColumnName = "CurriculumId",
+                    ReadOnly = true,
+                    
                 };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
@@ -446,6 +448,8 @@ namespace SimpleSheduler.WPF.BL
         }
 
         
+
+
         private void SetBDGroup(DataTable dataTable)
         {
             List<int> useGroup = new List<int>();
