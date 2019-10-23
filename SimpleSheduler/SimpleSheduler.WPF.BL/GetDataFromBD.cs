@@ -368,22 +368,46 @@ namespace SimpleSheduler.WPF.BL
 
         public void SetBDGroup(DataTable dataTable)
         {
-            var BDClass = groups;
+            List<int> useGroup = new List<int>();
+            for (int i = 0; i < groups.Count; i++)
+            {
+                useGroup.Add(i);
+            }
 
             for (int i = 0; i < dataTable.Rows.Count; i++)
             {
-
-                BDClass[i] = new Group
+                int ind = groups.FindIndex(x => x.GroupId == (int)dataTable.Rows[i]["GroupId"]);
+                if (ind >= 0)
                 {
-                    GroupId = (int)dataTable.Rows[i]["GroupId"],
-                    Name = (string)dataTable.Rows[i]["Name"],
-                    NumberOfPersons = (int)dataTable.Rows[i]["NumberOfPersons"],
-                    Seminar = (string)dataTable.Rows[i]["Seminar"],
-                    Potok = (string)dataTable.Rows[i]["Potok"]
-                };
-
+                    useGroup.Remove(ind);
+                    groups[ind] = new Group
+                    {
+                        GroupId = (int)dataTable.Rows[i]["GroupId"],
+                        Name = (string)dataTable.Rows[i]["Name"],
+                        NumberOfPersons = (int)dataTable.Rows[i]["NumberOfPersons"],
+                        Seminar = (string)dataTable.Rows[i]["Seminar"],
+                        Potok = (string)dataTable.Rows[i]["Potok"]
+                    };
+                }
+                else
+                {
+                    groups.Add(
+                        new Group
+                        {
+                            GroupId = (int)dataTable.Rows[i]["GroupId"],
+                            Name = (string)dataTable.Rows[i]["Name"],
+                            NumberOfPersons = (int)dataTable.Rows[i]["NumberOfPersons"],
+                            Seminar = (string)dataTable.Rows[i]["Seminar"],
+                            Potok = (string)dataTable.Rows[i]["Potok"]
+                        }
+                    );
+                }
             }
-            groups = BDClass;
+
+            for (int i = useGroup.Count-1; i >= 0; i--)
+            {
+                groups.RemoveAt(useGroup[i]);
+            }
             WorkToMyDbContext.SaveDB();
 
         }

@@ -50,7 +50,6 @@ namespace SimpleSheduler.BD
         {
             using (var context = new MyDbContext())
             {
-                
                 context.Classrooms.AddOrUpdate(classrooms.ToArray());
                 context.Groups.AddOrUpdate(groups.ToArray());
                 context.Subjects.AddOrUpdate(subjects.ToArray());
