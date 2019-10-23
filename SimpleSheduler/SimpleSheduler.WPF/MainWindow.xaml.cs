@@ -90,44 +90,47 @@ namespace SimpleSheduler.WPF
 
         private void ButtonOpenStudyDays_Click(object sender, RoutedEventArgs e)
         {
-            var table = getDataFromBD.GetDateTableBDStudyDay();
-            table.TableName = "Учебные дни";
+            string sNamespace = typeof(StudyDay).FullName;
+            var table = getDataFromBD.GetDateTableBD(sNamespace);
             OpenGridBD(table);
         }
 
         private void ButtonOpenPair_Click(object sender, RoutedEventArgs e)
         {
-            var table = getDataFromBD.GetDateTableBDPair();
-            table.TableName = "Пары";
+            string sNamespace = typeof(Pair).FullName;
+            var table = getDataFromBD.GetDateTableBD(sNamespace);
             OpenGridBD(table);
         }
 
         private void ButtonOpenClassroom_Click(object sender, RoutedEventArgs e)
         {
-            var table = getDataFromBD.GetDateTableBDClassroom();
-            table.TableName = "Аудитории";
-            OpenGridBD(table);
+            string sNamespace = typeof(Classroom).FullName;
+            var table = getDataFromBD.GetDateTableBD(sNamespace);
+            var outClassList = OpenGridBD(table, true);
+            outClassList.ButtonSave.Click += (sender1, EventArgs1) => { ButtonSave_Click(sender1, EventArgs1, outClassList); };
         }
 
         private void ButtonOpenSubject_Click(object sender, RoutedEventArgs e)
         {
-            var table = getDataFromBD.GetDateTableBDSubject();
-            table.TableName = "Предметы";
+            string sNamespace = typeof(Subject).FullName;
+            var table = getDataFromBD.GetDateTableBD(sNamespace);
             OpenGridBD(table);
         }
         
         private void ButtonOpenCurricila_Click(object sender, RoutedEventArgs e)
         {
-            var table = getDataFromBD.GetDateTableBDCurriculum();
-            table.TableName = "План";
-            OpenGridBD(table, true);
+            string sNamespace = typeof(Curriculum).FullName;
+            var table = getDataFromBD.GetDateTableBD(sNamespace);
+            var outClassList =  OpenGridBD(table,true);
+            outClassList.ButtonSave.Click += (sender1, EventArgs1) => { ButtonSave_Click(sender1, EventArgs1, outClassList); };
         }
         private void ButtonOpenGroup_Click(object sender, RoutedEventArgs e)
         {
-            var table = getDataFromBD.GetDateTableBDGroup();
-            table.TableName = "Группы";
-            var outGroup = OpenGridBD(table,true);
-            outGroup.ButtonSave.Click += (sender1, EventArgs1) => { ButtonSave_Click(sender1, EventArgs1, outGroup); }; 
+            string sNamespace = typeof(Group).FullName;
+            var table = getDataFromBD.GetDateTableBD(sNamespace);
+
+            var outClassList = OpenGridBD(table,true);
+            outClassList.ButtonSave.Click += (sender1, EventArgs1) => { ButtonSave_Click(sender1, EventArgs1, outClassList); }; 
             
         }
 
@@ -188,7 +191,7 @@ namespace SimpleSheduler.WPF
 
         private void ButtonSave_Click(object sender, RoutedEventArgs e, OutClassList outClassList)
         {
-            getDataFromBD.SetBDGroup(outClassList.DataTable);
+            getDataFromBD.SetBD(outClassList.DataTable);
             
         }
 

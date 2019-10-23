@@ -34,11 +34,66 @@ namespace SimpleSheduler.WPF.BL
 
         }
 
+        public DataTable GetDateTableBD(string sNamespase)
+        {
+            if (sNamespase == typeof(Subject).FullName)
+            {
+                return GetDateTableBDSubject();
+            }
+            if (sNamespase == typeof(Classroom).FullName)
+            {
+                return GetDateTableBDClassroom();
+            }
+            if (sNamespase == typeof(Curriculum).FullName)
+            {
+                return GetDateTableBDCurriculum();
+            }
+            if (sNamespase == typeof(Pair).FullName)
+            {
+                return GetDateTableBDPair();
+            }
+            if (sNamespase == typeof(StudyDay).FullName)
+            {
+                return GetDateTableBDStudyDay();
+            }
 
-        public DataTable GetDateTableBDCurriculum()
+            if (sNamespase == typeof(Group).FullName)
+            {
+                return GetDateTableBDGroup();
+            }
+            return null;
+        }
+
+        public void SetBD(DataTable dataTable)
+        {
+            string namespase = dataTable.Namespace;
+            if (namespase == typeof(Group).FullName)
+            {
+                SetBDGroup(dataTable);
+                return;
+            }
+            if (namespase == typeof(Classroom).FullName)
+            {
+                SetBDClassroom(dataTable);
+                return;
+            }
+            if (namespase == typeof(Curriculum).FullName)
+            {
+                SetBDCurriculum(dataTable);
+                return;
+            }
+
+        }
+
+
+
+
+        private DataTable GetDateTableBDCurriculum()
         {
             var BDClass = curricula;
             DataTable table = new DataTable();
+            table.TableName = "План";
+            table.Namespace = typeof(Curriculum).FullName;
             {
                 DataColumn column;
                 column = new DataColumn
@@ -111,10 +166,12 @@ namespace SimpleSheduler.WPF.BL
             return table;
         }
 
-        public DataTable GetDateTableBDSubject()
+        private DataTable GetDateTableBDSubject()
         {
             var BDClass = subjects;
             DataTable table = new DataTable();
+            table.TableName = "Предметы";
+            table.Namespace = typeof(Subject).FullName;
             {
                 DataColumn column;
                 column = new DataColumn
@@ -148,10 +205,12 @@ namespace SimpleSheduler.WPF.BL
             return table;
         }
 
-        public DataTable GetDateTableBDClassroom()
+        private DataTable GetDateTableBDClassroom()
         {
             var BDClass = classrooms;
             DataTable table = new DataTable();
+            table.TableName = "Аудитории";
+            table.Namespace = typeof(Classroom).FullName;
             {
                 DataColumn column;
                 column = new DataColumn
@@ -193,10 +252,12 @@ namespace SimpleSheduler.WPF.BL
             }
             return table;
         }
-        public DataTable GetDateTableBDGroup()
+        private DataTable GetDateTableBDGroup()
         {
             var BDClass = groups;
             DataTable table = new DataTable();
+            table.TableName = "Группы";
+            table.Namespace = typeof(Group).FullName;
             {
                 DataColumn column;
                 column = new DataColumn
@@ -259,10 +320,12 @@ namespace SimpleSheduler.WPF.BL
             return table;
         }
 
-        public DataTable GetDateTableBDPair()
+        private DataTable GetDateTableBDPair()
         {
             var BDClass = pairs;
             DataTable table = new DataTable();
+            table.TableName = "Пары";
+            table.Namespace = typeof(Pair).FullName;
             {
                 DataColumn column;
                 column = new DataColumn
@@ -306,10 +369,12 @@ namespace SimpleSheduler.WPF.BL
             return table;
         }
 
-        public DataTable GetDateTableBDStudyDay()
+        private DataTable GetDateTableBDStudyDay()
         {
             var BDClass = studyDays;
             DataTable table = new DataTable();
+            table.TableName = "Учебные дни";
+            table.Namespace = typeof(StudyDay).FullName;
             {
                 DataColumn column;
                 column = new DataColumn
@@ -363,10 +428,8 @@ namespace SimpleSheduler.WPF.BL
             return table;
         }
 
-
-
-
-        public void SetBDGroup(DataTable dataTable)
+        
+        private void SetBDGroup(DataTable dataTable)
         {
             List<int> useGroup = new List<int>();
             var BDList = groups;
@@ -429,6 +492,137 @@ namespace SimpleSheduler.WPF.BL
             for (int i = useGroup.Count-1; i >= 0; i--)
             {
                 BDList.RemoveAt(useGroup[i]);
+            }
+            WorkToMyDbContext.SaveDB();
+
+        }
+
+        private void SetBDClassroom(DataTable dataTable)
+        {
+            List<int> useList = new List<int>();
+            var BDList = classrooms;
+
+            for (int i = 0; i < BDList.Count; i++)
+            {
+                useList.Add(i);
+            }
+
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                int ind = -1;
+                if (dataTable.Rows[i]["ClassroomId"].ToString() != "")
+                {
+                    ind = BDList.FindIndex(x => x.ClassroomId == (int)dataTable.Rows[i]["ClassroomId"]);
+
+                    if (ind >= 0)
+                    {
+                        useList.Remove(ind);
+                        BDList[ind] = new Classroom
+                        {
+                            ClassroomId = (int)dataTable.Rows[i]["ClassroomId"],
+                            Name = (string)dataTable.Rows[i]["Name"],
+                            NumberOfSeats = (int)dataTable.Rows[i]["NumberOfSeats"],
+                           
+                        };
+                    }
+                    else
+                    {
+                        BDList.Add(
+                            new Classroom
+                            {
+                                ClassroomId = (int)dataTable.Rows[i]["ClassroomId"],
+                                Name = (string)dataTable.Rows[i]["Name"],
+                                NumberOfSeats = (int)dataTable.Rows[i]["NumberOfSeats"],
+                            }
+                        );
+                    }
+                }
+                else
+                {
+                    BDList.Add(
+                            new Classroom
+                            {
+                                Name = (string)dataTable.Rows[i]["Name"],
+                                NumberOfSeats = (int)dataTable.Rows[i]["NumberOfSeats"],
+                            }
+                        );
+                }
+            }
+
+            for (int i = useList.Count - 1; i >= 0; i--)
+            {
+                BDList.RemoveAt(useList[i]);
+            }
+            WorkToMyDbContext.SaveDB();
+
+        }
+
+
+
+        private void SetBDCurriculum(DataTable dataTable)
+        {
+            List<int> useList = new List<int>();
+            var BDList = curricula;
+
+            for (int i = 0; i < BDList.Count; i++)
+            {
+                useList.Add(i);
+            }
+
+            for (int i = 0; i < dataTable.Rows.Count; i++)
+            {
+                int ind = -1;
+                if (dataTable.Rows[i]["CurriculumId"].ToString() != "")
+                {
+                    ind = BDList.FindIndex(x => x.CurriculumId == (int)dataTable.Rows[i]["CurriculumId"]);
+
+                    if (ind >= 0)
+                    {
+                        useList.Remove(ind);
+                        BDList[ind] = new Curriculum
+                        {
+                            CurriculumId = (int)dataTable.Rows[i]["CurriculumId"],
+                            NumberOfLaboratory = (int)dataTable.Rows[i]["NumberOfLaboratory"],
+                            NumberOfLectures = (int)dataTable.Rows[i]["NumberOfLectures"],
+                            NumberOfPractical= (int)dataTable.Rows[i]["NumberOfPractical"],
+                            GroupId = ((Group)dataTable.Rows[i]["Group"]).GroupId,
+                            SubjectId = ((Subject)dataTable.Rows[i]["Subject"]).SubjectId,
+
+                        };
+                    }
+                    else
+                    {
+                        BDList.Add(
+                            new Curriculum
+                            {
+                                CurriculumId = (int)dataTable.Rows[i]["CurriculumId"],
+                                NumberOfLaboratory = (int)dataTable.Rows[i]["NumberOfLaboratory"],
+                                NumberOfLectures = (int)dataTable.Rows[i]["NumberOfLectures"],
+                                NumberOfPractical = (int)dataTable.Rows[i]["NumberOfPractical"],
+                                GroupId = ((Group)dataTable.Rows[i]["Group"]).GroupId,
+                                SubjectId = ((Subject)dataTable.Rows[i]["Subject"]).SubjectId,
+                            }
+                        );
+                    }
+                }
+                else
+                {
+                    BDList.Add(
+                            new Curriculum
+                            {
+                                NumberOfLaboratory = (int)dataTable.Rows[i]["NumberOfLaboratory"],
+                                NumberOfLectures = (int)dataTable.Rows[i]["NumberOfLectures"],
+                                NumberOfPractical = (int)dataTable.Rows[i]["NumberOfPractical"],
+                                GroupId = ((Group)dataTable.Rows[i]["Group"]).GroupId,
+                                SubjectId = ((Subject)dataTable.Rows[i]["Subject"]).SubjectId,
+                            }
+                        );
+                }
+            }
+
+            for (int i = useList.Count - 1; i >= 0; i--)
+            {
+                BDList.RemoveAt(useList[i]);
             }
             WorkToMyDbContext.SaveDB();
 
