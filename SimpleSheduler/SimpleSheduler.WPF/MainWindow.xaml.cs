@@ -38,12 +38,16 @@ namespace SimpleSheduler.WPF
             GetDataFromBD.RepositoryBase();
             InitializeComponent();
             ButtonGetDataFromBD.Click += ButtonGetDataFromBD_Click;
-            ButtonOpenGroup.Click += ButtonOpenGroup_Click;
-            ButtonOpenCurricila.Click += ButtonOpenCurricila_Click;
-            ButtonOpenSubject.Click += ButtonOpenSubject_Click;
-            ButtonOpenClassroom.Click += ButtonOpenClassroom_Click;
-            ButtonOpenPair.Click += ButtonOpenPair_Click;
-            ButtonOpenStudyDay.Click += ButtonOpenStudyDays_Click;
+           
+            ButtonOpenClassroom.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(sender1, EventArgs1, typeof(Classroom).FullName); };
+            ButtonOpenSubject.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(sender1, EventArgs1, typeof(Subject).FullName); };
+            ButtonOpenCurricila.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(sender1, EventArgs1, typeof(Curriculum).FullName); };
+            ButtonOpenGroup.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(sender1, EventArgs1, typeof(Group).FullName); };
+            ButtonOpenPair.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(sender1, EventArgs1, typeof(Pair).FullName); };
+            ButtonOpenStudyDay.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(sender1, EventArgs1, typeof(StudyDay).FullName); };
+
+
+
             GetFilling.Click += GetFilling_Click;
             FillingClassrooms.Click += FillingClassrooms_Click;
             FillingGroups.Click += FillingGroups_Click;
@@ -88,54 +92,15 @@ namespace SimpleSheduler.WPF
 
         }
 
-        private void ButtonOpenStudyDays_Click(object sender, RoutedEventArgs e)
+
+        private void ButtonOpenBD_Click(object sender, RoutedEventArgs e, string sNamespace)
         {
-            string sNamespace = typeof(StudyDay).FullName;
             var table = getDataFromBD.GetDateTableBD(sNamespace);
             var outClassList = OpenGridBD(table, true);
             outClassList.ButtonSave.Click += (sender1, EventArgs1) => { ButtonSave_Click(sender1, EventArgs1, outClassList); };
         }
 
-        private void ButtonOpenPair_Click(object sender, RoutedEventArgs e)
-        {
-            string sNamespace = typeof(Pair).FullName;
-            var table = getDataFromBD.GetDateTableBD(sNamespace);
-            var outClassList = OpenGridBD(table, true);
-            outClassList.ButtonSave.Click += (sender1, EventArgs1) => { ButtonSave_Click(sender1, EventArgs1, outClassList); };
-        }
-
-        private void ButtonOpenClassroom_Click(object sender, RoutedEventArgs e)
-        {
-            string sNamespace = typeof(Classroom).FullName;
-            var table = getDataFromBD.GetDateTableBD(sNamespace);
-            var outClassList = OpenGridBD(table, true);
-            outClassList.ButtonSave.Click += (sender1, EventArgs1) => { ButtonSave_Click(sender1, EventArgs1, outClassList); };
-        }
-
-        private void ButtonOpenSubject_Click(object sender, RoutedEventArgs e)
-        {
-            string sNamespace = typeof(Subject).FullName;
-            var table = getDataFromBD.GetDateTableBD(sNamespace);
-            var outClassList = OpenGridBD(table, true);
-            outClassList.ButtonSave.Click += (sender1, EventArgs1) => { ButtonSave_Click(sender1, EventArgs1, outClassList); };
-        }
-        
-        private void ButtonOpenCurricila_Click(object sender, RoutedEventArgs e)
-        {
-            string sNamespace = typeof(Curriculum).FullName;
-            var table = getDataFromBD.GetDateTableBD(sNamespace);
-            var outClassList =  OpenGridBD(table,true);
-            outClassList.ButtonSave.Click += (sender1, EventArgs1) => { ButtonSave_Click(sender1, EventArgs1, outClassList); };
-        }
-        private void ButtonOpenGroup_Click(object sender, RoutedEventArgs e)
-        {
-            string sNamespace = typeof(Group).FullName;
-            var table = getDataFromBD.GetDateTableBD(sNamespace);
-
-            var outClassList = OpenGridBD(table,true);
-            outClassList.ButtonSave.Click += (sender1, EventArgs1) => { ButtonSave_Click(sender1, EventArgs1, outClassList); }; 
-            
-        }
+       
 
 
         private void ButtonGetDataFromBD_Click(object sender, RoutedEventArgs e)
