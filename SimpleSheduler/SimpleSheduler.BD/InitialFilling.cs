@@ -251,9 +251,9 @@ namespace SimpleSheduler.BD
                 var curricula = CreateCurricula();
                 foreach (var item in curricula)
                 {
-                    item.NumberOfLaboratory = item.NumberOfLaboratory/8;
-                    item.NumberOfLectures = item.NumberOfLectures/8;
-                    item.NumberOfPractical = item.NumberOfPractical/8;
+                    item.NumberOfLaboratory /= 8;
+                    item.NumberOfLectures /= 8;
+                    item.NumberOfPractical /= 8;
 
                 }
                 context.Curricula.AddRange(curricula);

@@ -15,12 +15,12 @@ namespace SimpleSheduler.BL
     /// <typeparam name="T"></typeparam>
     public class Filling<T> : IEnumerable where T : class,IName
     {
-        public Filling(T value, PossibleFilling[] possibleFillings)
+        public Filling(T value, List<PossibleFilling> possibleFillings)
         {
             Value = value;
             PossibleFillings = possibleFillings;
         }
-        public Filling(T value,Pair[] pairs, StudyDay[] studyDays)
+        public Filling(T value,List<Pair> pairs, List<StudyDay> studyDays)
         {
             Value = value;
 
@@ -28,7 +28,7 @@ namespace SimpleSheduler.BL
         }
 
         public T Value { get; set; }
-        public PossibleFilling[] PossibleFillings { get; set; }
+        public List<PossibleFilling> PossibleFillings { get; set; }
 
         public IEnumerator GetEnumerator()
         {
@@ -42,7 +42,7 @@ namespace SimpleSheduler.BL
         /// <param name="pairs">Какие пары в этот день</param>
         /// <param name="studyDays">Какие дни</param>
         /// <returns>Массив возможные свободные дни с парами</returns>
-        private PossibleFilling[] GetPossibleFilling(Pair[] pairs, StudyDay[] studyDays)
+        private List<PossibleFilling> GetPossibleFilling(List<Pair> pairs, List<StudyDay> studyDays)
         {
             var possibleFillings = new List<PossibleFilling>();
             foreach (var studyDay in studyDays)
@@ -52,7 +52,7 @@ namespace SimpleSheduler.BL
                     possibleFillings.Add(new PossibleFilling(pair, studyDay));
                 }
             }
-            return possibleFillings.OrderBy(x => x.StudyDay.NumberDayOfWeek).ToArray().ToArray();
+            return possibleFillings.OrderBy(x => x.StudyDay.NumberDayOfWeek).ToList();
         }
 
 
@@ -61,10 +61,10 @@ namespace SimpleSheduler.BL
 
             T newValue = Value.Clone() as T;
 
-            PossibleFilling[] newPossibleFillings = new PossibleFilling[PossibleFillings.Length];
-            for (int i = 0; i < PossibleFillings.Length; i++)
+            List<PossibleFilling> newPossibleFillings = new  List<PossibleFilling>();
+            for (int i = 0; i < PossibleFillings.Count; i++)
             {
-                newPossibleFillings[i] = PossibleFillings[i].Clone() as PossibleFilling;
+                newPossibleFillings.Add(PossibleFillings[i].Clone() as PossibleFilling);
             }
             Filling<T> newFilling = new Filling<T>(newValue, newPossibleFillings);
             return newFilling;
@@ -87,7 +87,7 @@ namespace SimpleSheduler.BL
         {
             get
             {
-                return PossibleFillings.Length;
+                return PossibleFillings.Count;
             }
         }
     }

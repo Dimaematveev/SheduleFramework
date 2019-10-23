@@ -13,19 +13,19 @@ namespace SimpleSheduler.BL
         /// <summary>
         /// Массив групп
         /// </summary>
-        private Group[] Groups { get; set; }
+        private List<Group> Groups { get; set; }
         /// <summary>
         /// Массив аудиторий
         /// </summary>
-        private Classroom[] Classrooms { get; set; }
+        private List<Classroom> Classrooms { get; set; }
         /// <summary>
         /// Массив предметов
         /// </summary>
-        private Subject[] Subjects { get; set; }
+        private List<Subject> Subjects { get; set; }
         /// <summary>
         /// Массив плана занятий
         /// </summary>
-        private Curriculum[] Curricula { get; set; }
+        private List<Curriculum> Curricula { get; set; }
 
         /// <summary>
         /// Количество учебных дней
@@ -35,11 +35,11 @@ namespace SimpleSheduler.BL
         /// <summary>
         /// Заполнение групп
         /// </summary>
-        private Filling<Group>[] FillingGroups { get; set; }
+        private List<Filling<Group>> FillingGroups { get; set; }
         /// <summary>
         /// Заполнение Аудиторий
         /// </summary>
-        private Filling<Classroom>[] FillingClassrooms { get; set; }
+        private List<Filling<Classroom>> FillingClassrooms { get; set; }
         public CreateScheduler()
         {
         }
@@ -54,12 +54,12 @@ namespace SimpleSheduler.BL
         /// <param name="fillingGroups">По каждой группе массив дней когда может учиться</param>
         /// <param name="fillingClassrooms">По каждой аудитории массив дней когда свободна</param>
         public CreateScheduler(
-            Group[] groups,
-            Classroom[] classrooms,
-            Subject[] subjects,
-            Curriculum[] curricula,
-            Filling<Group>[] fillingGroups,
-            Filling<Classroom>[] fillingClassrooms )
+            List<Group> groups,
+            List<Classroom> classrooms,
+            List<Subject> subjects,
+            List<Curriculum> curricula,
+            List<Filling<Group>> fillingGroups,
+            List<Filling<Classroom>> fillingClassrooms )
         {
             ExceptionIfArrayNullorEmpty(groups, nameof(groups));
             ExceptionIfArrayNullorEmpty(classrooms, nameof(classrooms));
@@ -71,8 +71,8 @@ namespace SimpleSheduler.BL
             Classrooms = classrooms;
             Subjects = subjects;
             Curricula = curricula;
-            FillingGroups = (new List<Filling<Group>>( fillingGroups)).ToArray();
-            FillingClassrooms = (new List<Filling<Classroom>>(fillingClassrooms)).ToArray();
+            FillingGroups = (new List<Filling<Group>>( fillingGroups)).ToList();
+            FillingClassrooms = (new List<Filling<Classroom>>(fillingClassrooms)).ToList();
             NumberStudyDays = FillingClassrooms[0].Length;
 
             var sss = SetScheduleWithUniouGroup();
@@ -83,11 +83,11 @@ namespace SimpleSheduler.BL
         /// <typeparam name="T">Тип массива</typeparam>
         /// <param name="array">Массив для проверки</param>
         /// <param name="nameParam">Название параметра вызывающего его обычно задается nameof()</param>
-        private void ExceptionIfArrayNullorEmpty<T>(T[] array, string nameParam)
+        private void ExceptionIfArrayNullorEmpty<T>(List<T> array, string nameParam)
         {
-            if (array == null || array.Length == 0)
+            if (array == null || array.Count == 0)
             {
-                throw new ArgumentNullException($"Массив  {array.GetType().Name} null или пуст!", nameParam);
+                throw new ArgumentNullException($"Список  {array.GetType().Name} null или пуст!", nameParam);
             }
         }
 
@@ -122,7 +122,7 @@ namespace SimpleSheduler.BL
             }
 
             //1. Аудитории сортированы по количеству мест
-            Classrooms = Classrooms.OrderBy(x => x.NumberOfSeats).ToArray();
+            Classrooms = Classrooms.OrderBy(x => x.NumberOfSeats).ToList();
             
             ///2.Новый план занятий который включает: 
                 /// несколько планов из объединения n групп и 
@@ -189,7 +189,8 @@ namespace SimpleSheduler.BL
             //c. Выбираем аудитории с кол-во мест больше чем в группе 
             //(так как они отсортированы по возрастанию то просто номер первой подходящей аудитории)
             //Номер Аудитории из массива которая сейчас будет рассматриваться
-            int NumClassroom = Array.FindIndex(Classrooms, x => x.NumberOfSeats >= group.Sum(y => y.NumberOfPersons));
+
+            int NumClassroom = Classrooms.FindIndex(x => x.NumberOfSeats >= group.Sum(y => y.NumberOfPersons));
             //Теперь для каждой  группы подцепляем занятость
             var fillingGroup = FillingGroups.Where(x => group.Contains(x.Value)).ToList();
             //Добавилась ли пара
@@ -198,7 +199,7 @@ namespace SimpleSheduler.BL
             for (int cu = 0; cu < NumberStudyDays; cu++)
             {
                 //d. Цикл по аудиториям
-                for (int cl = NumClassroom; cl < Classrooms.Length; cl++)
+                for (int cl = NumClassroom; cl < Classrooms.Count; cl++)
                 {
                     //Теперь для аудитории подцепляем занятость
                     var fillingClassroom = FillingClassrooms.First(x => x.Value.ClassroomId == Classrooms[cl].ClassroomId);

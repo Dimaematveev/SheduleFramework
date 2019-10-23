@@ -30,9 +30,9 @@ namespace SimpleSheduler.WPF
 
 
         //Данные из БД
-        GetDataFromBD getDataFromBD = new GetDataFromBD();
-        Filling<Group>[] fillingGroups;
-        Filling<Classroom>[] fillingClassrooms;
+        readonly GetDataFromBD getDataFromBD = new GetDataFromBD();
+        List<Filling<Group>> fillingGroups;
+        List<Filling<Classroom>> fillingClassrooms;
         public MainWindow()
         {
             GetDataFromBD.RepositoryBase();
@@ -127,8 +127,8 @@ namespace SimpleSheduler.WPF
             var table = getDataFromBD.GetDateTableBDGroup();
             table.TableName = "Группы";
             var outGroup = OpenGridBD(table,true);
-            outGroup.ButtonSave.Click += ButtonSave_Click;
-            getDataFromBD.SetBDGroup(outGroup.DataTable);
+            outGroup.ButtonSave.Click += (sender1, EventArgs1) => { ButtonSave_Click(sender1, EventArgs1, outGroup); }; 
+            
         }
 
 
@@ -137,12 +137,12 @@ namespace SimpleSheduler.WPF
             getDataFromBD.ReadDB();
             string ret = "";
             ret += $"Количество:\n";
-            ret += $"Аудиторий={getDataFromBD.classrooms.Length}, ";
-            ret += $"Групп={getDataFromBD.groups.Length}, ";
-            ret += $"Предметов={getDataFromBD.subjects.Length}, ";
-            ret += $"В плане={getDataFromBD.curricula.Length}, ";
-            ret += $"Пар в день={getDataFromBD.pairs.Length}, ";
-            ret += $"Учебных дней за 2 недели={getDataFromBD.studyDays.Length}.";
+            ret += $"Аудиторий={getDataFromBD.classrooms.Count}, ";
+            ret += $"Групп={getDataFromBD.groups.Count}, ";
+            ret += $"Предметов={getDataFromBD.subjects.Count}, ";
+            ret += $"В плане={getDataFromBD.curricula.Count}, ";
+            ret += $"Пар в день={getDataFromBD.pairs.Count}, ";
+            ret += $"Учебных дней за 2 недели={getDataFromBD.studyDays.Count}.";
             TexboxFromBD.Text = ret;
 
             if (getDataFromBD.groups != null)
@@ -186,49 +186,57 @@ namespace SimpleSheduler.WPF
             return outGroup;
         }
 
-        private void ButtonSave_Click(object sender, RoutedEventArgs e)
+        private void ButtonSave_Click(object sender, RoutedEventArgs e, OutClassList outClassList)
         {
-           
+            getDataFromBD.SetBDGroup(outClassList.DataTable);
+            
         }
 
-        private DataTable GetDateTableFilling<T>(Filling<T>[] fillings) where T : class, IName
+        private DataTable GetDateTableFilling<T>(List<Filling<T>> fillings) where T : class, IName
         {
             DataTable table = new DataTable();
             {
                 DataColumn column;
-                column = new DataColumn();
-                column.DataType = typeof(int);
-                column.ColumnName = "NumberOfWeek";
-                column.Caption = "Номер недели";
+                column = new DataColumn
+                {
+                    DataType = typeof(int),
+                    ColumnName = "NumberOfWeek",
+                    Caption = "Номер недели"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
-                column = new DataColumn();
-                column.DataType = typeof(string);
-                column.ColumnName = "NameDayOfWeek";
-                column.Caption = "День недели";
+                column = new DataColumn
+                {
+                    DataType = typeof(string),
+                    ColumnName = "NameDayOfWeek",
+                    Caption = "День недели"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
-                column = new DataColumn();
-                column.DataType = typeof(int);
-                column.ColumnName = "NumberThePair";
-                column.Caption = "Номер Пары";
+                column = new DataColumn
+                {
+                    DataType = typeof(int),
+                    ColumnName = "NumberThePair",
+                    Caption = "Номер Пары"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
                 foreach (var filling in fillings)
                 {
-                    column = new DataColumn();
-
-                    column.DataType = typeof(BusyPair);
-                    column.ColumnName = $"{filling.Value.NameString()}";
-                    column.Caption = $"{filling.Value.NameString()}";
+                    column = new DataColumn
+                    {
+                        DataType = typeof(BusyPair),
+                        ColumnName = $"{filling.Value.NameString()}",
+                        Caption = $"{filling.Value.NameString()}"
+                    };
                     // Add the Column to the DataColumnCollection.
                     table.Columns.Add(column);
                 }
             }
-            for (int i = 0; i < fillings[0].PossibleFillings.Length; i++)
+            for (int i = 0; i < fillings[0].PossibleFillings.Count; i++)
             {
                 DataRow row;
                 row = table.NewRow();

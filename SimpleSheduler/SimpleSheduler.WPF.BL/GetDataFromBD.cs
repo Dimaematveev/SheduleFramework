@@ -16,12 +16,12 @@ namespace SimpleSheduler.WPF.BL
         {
             WorkToMyDbContext.RepositoryBase();
         }
-        public Classroom[] classrooms;
-        public Group[] groups;
-        public Subject[] subjects;
-        public Curriculum[] curricula;
-        public Pair[] pairs;
-        public StudyDay[] studyDays;
+        public List<Classroom> classrooms;
+        public List<Group> groups;
+        public List<Subject> subjects;
+        public List<Curriculum> curricula;
+        public List<Pair> pairs;
+        public List<StudyDay> studyDays;
         public void ReadDB()
         {
             WorkToMyDbContext.ReadDB();
@@ -41,45 +41,57 @@ namespace SimpleSheduler.WPF.BL
             DataTable table = new DataTable();
             {
                 DataColumn column;
-                column = new DataColumn();
-                column.DataType = typeof(int);
-                column.Caption = "ID";
-                column.ColumnName = "CurriculumId";
+                column = new DataColumn
+                {
+                    DataType = typeof(int),
+                    Caption = "ID",
+                    ColumnName = "CurriculumId"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
-                column = new DataColumn();
-                column.DataType = typeof(Group);
-                column.Caption = "Группа";
-                column.ColumnName = "Group";
+                column = new DataColumn
+                {
+                    DataType = typeof(Group),
+                    Caption = "Группа",
+                    ColumnName = "Group"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
-                column = new DataColumn();
-                column.DataType = typeof(Subject);
-                column.Caption = "Предмет";
-                column.ColumnName = "Subject";
+                column = new DataColumn
+                {
+                    DataType = typeof(Subject),
+                    Caption = "Предмет",
+                    ColumnName = "Subject"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
-                column = new DataColumn();
-                column.DataType = typeof(int);
-                column.Caption = "Количество лекций";
-                column.ColumnName = "NumberOfLectures";
+                column = new DataColumn
+                {
+                    DataType = typeof(int),
+                    Caption = "Количество лекций",
+                    ColumnName = "NumberOfLectures"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
-                column = new DataColumn();
-                column.DataType = typeof(int);
-                column.Caption = "Количество практических";
-                column.ColumnName = "NumberOfPractical";
+                column = new DataColumn
+                {
+                    DataType = typeof(int),
+                    Caption = "Количество практических",
+                    ColumnName = "NumberOfPractical"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
-                column = new DataColumn();
-                column.DataType = typeof(int);
-                column.Caption = "Количество лабораторных";
-                column.ColumnName = "NumberOfLaboratory";
+                column = new DataColumn
+                {
+                    DataType = typeof(int),
+                    Caption = "Количество лабораторных",
+                    ColumnName = "NumberOfLaboratory"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
             }
@@ -105,17 +117,21 @@ namespace SimpleSheduler.WPF.BL
             DataTable table = new DataTable();
             {
                 DataColumn column;
-                column = new DataColumn();
-                column.DataType = typeof(int);
-                column.Caption = "ID";
-                column.ColumnName = "SubjectId";
+                column = new DataColumn
+                {
+                    DataType = typeof(int),
+                    Caption = "ID",
+                    ColumnName = "SubjectId"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
-                column = new DataColumn();
-                column.DataType = typeof(string);
-                column.Caption = "Название Предмета";
-                column.ColumnName = "Name";
+                column = new DataColumn
+                {
+                    DataType = typeof(string),
+                    Caption = "Название Предмета",
+                    ColumnName = "Name"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
@@ -138,24 +154,30 @@ namespace SimpleSheduler.WPF.BL
             DataTable table = new DataTable();
             {
                 DataColumn column;
-                column = new DataColumn();
-                column.DataType = typeof(int);
-                column.Caption = "ID";
-                column.ColumnName = "ClassroomId";
+                column = new DataColumn
+                {
+                    DataType = typeof(int),
+                    Caption = "ID",
+                    ColumnName = "ClassroomId"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
-                column = new DataColumn();
-                column.DataType = typeof(string);
-                column.Caption = "Название Аудитории";
-                column.ColumnName = "Name";
+                column = new DataColumn
+                {
+                    DataType = typeof(string),
+                    Caption = "Название Аудитории",
+                    ColumnName = "Name"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
-                column = new DataColumn();
-                column.DataType = typeof(int);
-                column.Caption = "Количество мест";
-                column.ColumnName = "NumberOfSeats";
+                column = new DataColumn
+                {
+                    DataType = typeof(int),
+                    Caption = "Количество мест",
+                    ColumnName = "NumberOfSeats"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
             }
@@ -177,38 +199,48 @@ namespace SimpleSheduler.WPF.BL
             DataTable table = new DataTable();
             {
                 DataColumn column;
-                column = new DataColumn();
-                column.DataType = typeof(int);
-                column.Caption = "ID";
-                column.ColumnName = "GroupId";
+                column = new DataColumn
+                {
+                    DataType = typeof(int),
+                    Caption = "ID",
+                    ColumnName = "GroupId"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
-                column = new DataColumn();
-                column.DataType = typeof(string);
-                column.Caption = "Название Группы";
-                column.ColumnName = "Name";
+                column = new DataColumn
+                {
+                    DataType = typeof(string),
+                    Caption = "Название Группы",
+                    ColumnName = "Name"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
-                column = new DataColumn();
-                column.DataType = typeof(int);
-                column.Caption = "Количество человек в группе";
-                column.ColumnName = "NumberOfPersons";
+                column = new DataColumn
+                {
+                    DataType = typeof(int),
+                    Caption = "Количество человек в группе",
+                    ColumnName = "NumberOfPersons"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
-                column = new DataColumn();
-                column.DataType = typeof(string);
-                column.Caption = "Семинар";
-                column.ColumnName = "Seminar";
+                column = new DataColumn
+                {
+                    DataType = typeof(string),
+                    Caption = "Семинар",
+                    ColumnName = "Seminar"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
-                column = new DataColumn();
-                column.DataType = typeof(string);
-                column.Caption = "Поток";
-                column.ColumnName = "Potok";
+                column = new DataColumn
+                {
+                    DataType = typeof(string),
+                    Caption = "Поток",
+                    ColumnName = "Potok"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
             }
@@ -233,24 +265,30 @@ namespace SimpleSheduler.WPF.BL
             DataTable table = new DataTable();
             {
                 DataColumn column;
-                column = new DataColumn();
-                column.DataType = typeof(int);
-                column.Caption = "ID";
-                column.ColumnName = "PairId";
+                column = new DataColumn
+                {
+                    DataType = typeof(int),
+                    Caption = "ID",
+                    ColumnName = "PairId"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
-                column = new DataColumn();
-                column.DataType = typeof(int);
-                column.Caption = "Номер пары";
-                column.ColumnName = "NumberThePair";
+                column = new DataColumn
+                {
+                    DataType = typeof(int),
+                    Caption = "Номер пары",
+                    ColumnName = "NumberThePair"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
-                column = new DataColumn();
-                column.DataType = typeof(string);
-                column.Caption = "Название пары";
-                column.ColumnName = "NameThePair";
+                column = new DataColumn
+                {
+                    DataType = typeof(string),
+                    Caption = "Название пары",
+                    ColumnName = "NameThePair"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
@@ -274,31 +312,39 @@ namespace SimpleSheduler.WPF.BL
             DataTable table = new DataTable();
             {
                 DataColumn column;
-                column = new DataColumn();
-                column.DataType = typeof(int);
-                column.Caption = "ID";
-                column.ColumnName = "StudyDayId";
+                column = new DataColumn
+                {
+                    DataType = typeof(int),
+                    Caption = "ID",
+                    ColumnName = "StudyDayId"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
-                column = new DataColumn();
-                column.DataType = typeof(int);
-                column.Caption = "Номер недели";
-                column.ColumnName = "NumberOfWeek";
+                column = new DataColumn
+                {
+                    DataType = typeof(int),
+                    Caption = "Номер недели",
+                    ColumnName = "NumberOfWeek"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
-                column = new DataColumn();
-                column.DataType = typeof(string);
-                column.Caption = "Название дня недели";
-                column.ColumnName = "NameDayOfWeek";
+                column = new DataColumn
+                {
+                    DataType = typeof(string),
+                    Caption = "Название дня недели",
+                    ColumnName = "NameDayOfWeek"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
-                column = new DataColumn();
-                column.DataType = typeof(int);
-                column.Caption = "Номер дня недели";
-                column.ColumnName = "NumberDayOfWeek";
+                column = new DataColumn
+                {
+                    DataType = typeof(int),
+                    Caption = "Номер дня недели",
+                    ColumnName = "NumberDayOfWeek"
+                };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
@@ -326,13 +372,19 @@ namespace SimpleSheduler.WPF.BL
 
             for (int i = 0; i < dataTable.Rows.Count; i++)
             {
-                BDClass[i].GroupId = (int)dataTable.Rows[i]["GroupId"];
-                BDClass[i].Name = (string)dataTable.Rows[i]["Name"];
-                BDClass[i].NumberOfPersons = (int)dataTable.Rows[i]["NumberOfPersons"];
-                BDClass[i].Seminar = (string)dataTable.Rows[i]["Seminar"];
-                BDClass[i].Potok = (string)dataTable.Rows[i]["Potok"];
+
+                BDClass[i] = new Group
+                {
+                    GroupId = (int)dataTable.Rows[i]["GroupId"],
+                    Name = (string)dataTable.Rows[i]["Name"],
+                    NumberOfPersons = (int)dataTable.Rows[i]["NumberOfPersons"],
+                    Seminar = (string)dataTable.Rows[i]["Seminar"],
+                    Potok = (string)dataTable.Rows[i]["Potok"]
+                };
 
             }
+            groups = BDClass;
+            WorkToMyDbContext.SaveDB();
 
         }
     }

@@ -19,14 +19,14 @@ namespace SimpleSheduler.WPF.BL
         /// <param name="pairs"> массив пар</param>
         /// <param name="studyDays">Массив учебных дней</param>
         /// <returns>массив заполнение по каждому (преподавателю,группе,аудитории)</returns>
-        public static Filling<T>[] GetFilling<T>(T[] array, Pair[] pairs, StudyDay[] studyDays) where T : class, IName
+        public static List<Filling<T>> GetFilling<T>(List<T> array, List<Pair> pairs, List<StudyDay> studyDays) where T : class, IName
         {
             var result = new List<Filling<T>>();
             foreach (var item in array)
             {
                 result.Add(new Filling<T>(item, pairs, studyDays));
             }
-            return result.ToArray();
+            return result;
         }
     }
 }
