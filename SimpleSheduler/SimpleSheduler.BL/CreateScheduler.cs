@@ -71,8 +71,8 @@ namespace SimpleSheduler.BL
             Classrooms = classrooms;
             Subjects = subjects;
             Curricula = curricula;
-            FillingGroups = (new List<Filling<Group>>( fillingGroups)).ToList();
-            FillingClassrooms = (new List<Filling<Classroom>>(fillingClassrooms)).ToList();
+            FillingGroups = new List<Filling<Group>>( fillingGroups);
+            FillingClassrooms = new List<Filling<Classroom>>(fillingClassrooms);
             NumberStudyDays = FillingClassrooms[0].Length;
 
             var sss = SetScheduleWithUniouGroup();

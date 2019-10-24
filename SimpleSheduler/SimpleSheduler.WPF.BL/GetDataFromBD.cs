@@ -128,7 +128,7 @@ namespace SimpleSheduler.WPF.BL
                 {
                     DataType = typeof(Group),
                     Caption = "Группа",
-                    ColumnName = "Group"
+                    ColumnName = "Group",
                 };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
