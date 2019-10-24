@@ -40,6 +40,11 @@ namespace SimpleSheduler.BL
         /// Заполнение Аудиторий
         /// </summary>
         private List<Filling<Classroom>> FillingClassrooms { get; set; }
+
+        /// <summary>
+        /// Общее заполнение по всему)) то есть и группы и аудитории
+        /// </summary>
+        public List<Filling<IName>> Fillings1 {  get; private set; }
         public CreateScheduler()
         {
         }
@@ -73,6 +78,7 @@ namespace SimpleSheduler.BL
             Curricula = curricula;
             FillingGroups = new List<Filling<Group>>( fillingGroups);
             FillingClassrooms = new List<Filling<Classroom>>(fillingClassrooms);
+            GetFillings(fillingClassrooms, fillingGroups);
             NumberStudyDays = FillingClassrooms[0].Length;
 
             var sss = SetScheduleWithUniouGroup();
@@ -91,6 +97,22 @@ namespace SimpleSheduler.BL
             }
         }
 
+        private void GetFillings(List<Filling<Classroom>> fillingClassrooms, List<Filling<Group>> fillingGroups)
+        {
+
+            Fillings1 = new List<Filling<IName>>();
+            foreach (var fillingClassroom in fillingClassrooms)
+            {
+                Fillings1.Add(new Filling<IName>(fillingClassroom.Value,fillingClassroom.PossibleFillings));
+
+            }
+            foreach (var fillingGroup in fillingGroups)
+            {
+                Fillings1.Add(new Filling<IName>(fillingGroup.Value, fillingGroup.PossibleFillings));
+
+            }
+
+        }
 
         /// <summary>
         /// Функция задание расписания с объединение групп:
