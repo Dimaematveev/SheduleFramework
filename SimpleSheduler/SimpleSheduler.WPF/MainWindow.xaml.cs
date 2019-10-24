@@ -85,7 +85,8 @@ namespace SimpleSheduler.WPF
         {
             fillingGroups = GetFillingClass.GetFilling(getDataFromBD.groups, getDataFromBD.pairs, getDataFromBD.studyDays);
             fillingClassrooms = GetFillingClass.GetFilling(getDataFromBD.classrooms, getDataFromBD.pairs, getDataFromBD.studyDays);
-
+            //TODO: Сделать так чтобы просто при передаче обновлялись поля в новосозданной в CreateScheduler
+           // Сдесь только 1 и 0 по возможности занятости аудитории!!!! и группы соответственно
             FillingClassrooms.IsEnabled = true;
             FillingGroups.IsEnabled = true;
             CreateScheduler.IsEnabled = true;
