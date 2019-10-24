@@ -92,13 +92,18 @@ namespace SimpleSheduler.WPF
         {
             var table = GetDateTableFilling(fillingGroups,true);
             table.TableName = "Заполнение Групп";
-            OpenGridBD(table);
+            table.Namespace = typeof(Filling<Group>).FullName;
+            var outClassList = OpenGridBD(table, true);
+            outClassList.ButtonSave.Click += (sender1, EventArgs1) => { ButtonSaveFilling_Click(sender1, EventArgs1, outClassList); };
         }
         private void SetFillingClassrooms_Click(object sender, RoutedEventArgs e)
         {
             var table = GetDateTableFilling(fillingClassrooms,true);
             table.TableName = "Заполнение Аудиторий";
-            OpenGridBD(table);
+            table.Namespace = typeof(Filling<Classroom>).FullName;
+            var outClassList = OpenGridBD(table, true);
+            outClassList.ButtonSave.Click += (sender1, EventArgs1) => { ButtonSaveFilling_Click(sender1, EventArgs1, outClassList); };
+
         }
         
         private void GetFilling_Click(object sender, RoutedEventArgs e)
@@ -118,7 +123,7 @@ namespace SimpleSheduler.WPF
         {
             var table = getDataFromBD.GetDateTableBD(sNamespace);
             var outClassList = OpenGridBD(table, true);
-            outClassList.ButtonSave.Click += (sender1, EventArgs1) => { ButtonSave_Click(sender1, EventArgs1, outClassList); };
+            outClassList.ButtonSave.Click += (sender1, EventArgs1) => { ButtonSaveBD_Click(sender1, EventArgs1, outClassList); };
         }
 
        
@@ -178,10 +183,17 @@ namespace SimpleSheduler.WPF
             return outGroup;
         }
 
-        private void ButtonSave_Click(object sender, RoutedEventArgs e, OutClassList outClassList)
+        private void ButtonSaveBD_Click(object sender, RoutedEventArgs e, OutClassList outClassList)
         {
             getDataFromBD.SetBD(outClassList.DataTable);
             
+        }
+
+        private void ButtonSaveFilling_Click(object sender, RoutedEventArgs e, OutClassList outClassList)
+        {
+            SetDateTableFilling(outClassList.DataTable);
+
+
         }
 
         private DataTable GetDateTableFilling<T>(List<Filling<T>> fillings , bool set = true) where T : class, IName
@@ -272,5 +284,40 @@ namespace SimpleSheduler.WPF
             return table;
         }
 
+
+        private void SetDateTableFilling(DataTable dataTable)
+        {
+            if (dataTable.Namespace == typeof(Filling<Group>).FullName)
+            {
+                SetDateTableFilling(dataTable, fillingGroups);
+            }
+            if (dataTable.Namespace == typeof(Filling<Classroom>).FullName)
+            {
+                SetDateTableFilling(dataTable, fillingClassrooms);
+            }
+        }
+
+        private void SetDateTableFilling<T>(DataTable dataTable, List<Filling<T>> fillings) where T:class,IName
+        {
+            
+            for (int i = 0; i < fillings.Count; i++)
+            {
+                for (int j = 0; j < dataTable.Rows.Count; j++)
+                {
+                    BusyPair busyPair;
+                    if ((bool)dataTable.Rows[j][3 + i]== true)
+                    {
+                        busyPair = null;
+                    }
+                    else
+                    {
+                        busyPair = new BusyPair(new Classroom(), new Subject(), new Group());
+                    }
+                    fillings[i].PossibleFillings[j].BusyPair = busyPair;
+                }
+               
+            }
+            
+        }
     }
 }
