@@ -33,6 +33,7 @@ namespace SimpleSheduler.WPF
         readonly GetDataFromBD getDataFromBD = new GetDataFromBD();
         List<Filling<Group>> fillingGroups;
         List<Filling<Classroom>> fillingClassrooms;
+        CreateScheduler createScheduler1;
         public MainWindow()
         {
             GetDataFromBD.RepositoryBase();
@@ -49,11 +50,27 @@ namespace SimpleSheduler.WPF
 
 
             GetFilling.Click += GetFilling_Click;
-            FillingClassrooms.Click += FillingClassrooms_Click;
-            FillingGroups.Click += FillingGroups_Click;
+            SetFillingClassrooms.Click += SetFillingClassrooms_Click;
+            SetFillingGroups.Click += SetFillingGroups_Click;
             CreateScheduler.Click += CreateScheduler_Click;
 
+            GetFillingClassrooms.Click += GetFillingClassrooms_Click; ;
+            GetFillingGroups.Click += GetFillingGroups_Click; ;
             this.Loaded += MainWindow_Loaded;
+        }
+
+        private void GetFillingGroups_Click(object sender, RoutedEventArgs e)
+        {
+            var table = GetDateTableFilling(createScheduler1.FillingGroups, false);
+            table.TableName = "Заполнение Групп";
+            OpenGridBD(table);
+        }
+
+        private void GetFillingClassrooms_Click(object sender, RoutedEventArgs e)
+        {
+            var table = GetDateTableFilling(createScheduler1.FillingClassrooms, false);
+            table.TableName = "Заполнение Аудиторий";
+            OpenGridBD(table);
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
@@ -65,18 +82,21 @@ namespace SimpleSheduler.WPF
 
         private void CreateScheduler_Click(object sender, RoutedEventArgs e)
         {
-            CreateScheduler createScheduler1 = new CreateScheduler(getDataFromBD.groups, getDataFromBD.classrooms, getDataFromBD.subjects, getDataFromBD.curricula, fillingGroups, fillingClassrooms);
+            createScheduler1 = new CreateScheduler(getDataFromBD.groups, getDataFromBD.classrooms, getDataFromBD.subjects, getDataFromBD.curricula, fillingGroups, fillingClassrooms);
+
+            GetFillingClassrooms.IsEnabled = true;
+            GetFillingGroups.IsEnabled = true;
         }
 
-        private void FillingGroups_Click(object sender, RoutedEventArgs e)
+        private void SetFillingGroups_Click(object sender, RoutedEventArgs e)
         {
-            var table = GetDateTableFilling(fillingGroups);
+            var table = GetDateTableFilling(fillingGroups,true);
             table.TableName = "Заполнение Групп";
             OpenGridBD(table);
         }
-        private void FillingClassrooms_Click(object sender, RoutedEventArgs e)
+        private void SetFillingClassrooms_Click(object sender, RoutedEventArgs e)
         {
-            var table = GetDateTableFilling(fillingClassrooms);
+            var table = GetDateTableFilling(fillingClassrooms,true);
             table.TableName = "Заполнение Аудиторий";
             OpenGridBD(table);
         }
@@ -86,9 +106,9 @@ namespace SimpleSheduler.WPF
             fillingGroups = GetFillingClass.GetFilling(getDataFromBD.groups, getDataFromBD.pairs, getDataFromBD.studyDays);
             fillingClassrooms = GetFillingClass.GetFilling(getDataFromBD.classrooms, getDataFromBD.pairs, getDataFromBD.studyDays);
             //TODO: Сделать так чтобы просто при передаче обновлялись поля в новосозданной в CreateScheduler
-           // Сдесь только 1 и 0 по возможности занятости аудитории!!!! и группы соответственно
-            FillingClassrooms.IsEnabled = true;
-            FillingGroups.IsEnabled = true;
+           // Сдесь только 1 и 0 по возможности занятости аудитории!!!! и группы соответстве
+            SetFillingClassrooms.IsEnabled = true;
+            SetFillingGroups.IsEnabled = true;
             CreateScheduler.IsEnabled = true;
 
         }
@@ -164,7 +184,7 @@ namespace SimpleSheduler.WPF
             
         }
 
-        private DataTable GetDateTableFilling<T>(List<Filling<T>> fillings) where T : class, IName
+        private DataTable GetDateTableFilling<T>(List<Filling<T>> fillings , bool set = true) where T : class, IName
         {
             DataTable table = new DataTable();
             {
@@ -198,12 +218,27 @@ namespace SimpleSheduler.WPF
 
                 foreach (var filling in fillings)
                 {
-                    column = new DataColumn
+                    if (set)
                     {
-                        DataType = typeof(BusyPair),
-                        ColumnName = $"{filling.Value.NameString()}",
-                        Caption = $"{filling.Value.NameString()}"
-                    };
+                        column = new DataColumn
+                        {
+
+                            DataType = typeof(bool),
+                            ColumnName = $"{filling.Value.NameString()}",
+                            Caption = $"{filling.Value.NameString()}"
+                        };
+                    }
+                    else
+                    {
+                        column = new DataColumn
+                        {
+
+                            DataType = typeof(BusyPair),
+                            ColumnName = $"{filling.Value.NameString()}",
+                            Caption = $"{filling.Value.NameString()}"
+                        };
+                    }
+                    
                     // Add the Column to the DataColumnCollection.
                     table.Columns.Add(column);
                 }
@@ -219,7 +254,17 @@ namespace SimpleSheduler.WPF
                 int stolb = 3;
                 foreach (var filling in fillings)
                 {
-                    row[stolb] = filling.PossibleFillings[i].BusyPair;
+                    if (set)
+                    {
+                        bool IsPairFree;
+                        IsPairFree = filling.PossibleFillings[i].BusyPair == null ? true : false;
+                        row[stolb] = IsPairFree;
+                    }
+                    else
+                    {
+                        row[stolb] = filling.PossibleFillings[i].BusyPair;
+                    }
+                       
                     stolb++;
                 }
                 table.Rows.Add(row);

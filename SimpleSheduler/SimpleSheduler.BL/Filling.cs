@@ -15,6 +15,9 @@ namespace SimpleSheduler.BL
     /// <typeparam name="T"></typeparam>
     public class Filling<T> : IEnumerable where T : class,IName
     {
+        public Filling()
+        {
+        }
         public Filling(T value, List<PossibleFilling> possibleFillings)
         {
             Value = value;

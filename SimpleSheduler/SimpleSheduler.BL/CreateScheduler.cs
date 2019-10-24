@@ -35,11 +35,11 @@ namespace SimpleSheduler.BL
         /// <summary>
         /// Заполнение групп
         /// </summary>
-        private List<Filling<Group>> FillingGroups { get; set; }
+        public List<Filling<Group>> FillingGroups { get; private set; }
         /// <summary>
         /// Заполнение Аудиторий
         /// </summary>
-        private List<Filling<Classroom>> FillingClassrooms { get; set; }
+        public List<Filling<Classroom>> FillingClassrooms { get; private set; }
 
         /// <summary>
         /// Общее заполнение по всему)) то есть и группы и аудитории
@@ -76,9 +76,8 @@ namespace SimpleSheduler.BL
             Classrooms = classrooms;
             Subjects = subjects;
             Curricula = curricula;
-            FillingGroups = new List<Filling<Group>>( fillingGroups);
-            FillingClassrooms = new List<Filling<Classroom>>(fillingClassrooms);
-            GetFillings(fillingClassrooms, fillingGroups);
+            FillingGroups = GetFillings(fillingGroups);
+            FillingClassrooms = GetFillings(fillingClassrooms);
             NumberStudyDays = FillingClassrooms[0].Length;
 
             var sss = SetScheduleWithUniouGroup();
@@ -97,21 +96,30 @@ namespace SimpleSheduler.BL
             }
         }
 
-        private void GetFillings(List<Filling<Classroom>> fillingClassrooms, List<Filling<Group>> fillingGroups)
+        private List<Filling<T>> GetFillings<T>( List<Filling<T>> fillingsOld)where T:class,IName
         {
-
-            Fillings1 = new List<Filling<IName>>();
-            foreach (var fillingClassroom in fillingClassrooms)
+            List<Filling<T>>  fillingsNew = new List<Filling<T>>();
+            BusyPair busyPairFree = new BusyPair(new Classroom(), new Subject(), new Group());
+            foreach (var fillingOld in fillingsOld)
             {
-                Fillings1.Add(new Filling<IName>(fillingClassroom.Value,fillingClassroom.PossibleFillings));
+                Filling<T> fillingNew = new Filling<T>();
+                fillingNew.Value = fillingOld.Value;
+                fillingNew.PossibleFillings = new List<PossibleFilling>();
+                foreach (var fillingOldPossibleFilling in fillingOld.PossibleFillings)
+                {
 
+                    if (fillingOldPossibleFilling.BusyPair!=null)
+                    {
+                        fillingNew.PossibleFillings.Add(new PossibleFilling(fillingOldPossibleFilling.Pair, fillingOldPossibleFilling.StudyDay) { BusyPair = busyPairFree });
+                    }
+                    else
+                    {
+                        fillingNew.PossibleFillings.Add(new PossibleFilling(fillingOldPossibleFilling.Pair, fillingOldPossibleFilling.StudyDay));
+                    }
+                }
+                fillingsNew.Add(fillingNew);
             }
-            foreach (var fillingGroup in fillingGroups)
-            {
-                Fillings1.Add(new Filling<IName>(fillingGroup.Value, fillingGroup.PossibleFillings));
-
-            }
-
+            return fillingsNew;
         }
 
         /// <summary>
