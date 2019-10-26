@@ -99,7 +99,7 @@ namespace SimpleSheduler.BL
         private List<Filling<T>> GetFillings<T>( List<Filling<T>> fillingsOld)where T:class,IName
         {
             List<Filling<T>>  fillingsNew = new List<Filling<T>>();
-            BusyPair busyPairFree = new BusyPair(new Classroom(), new Subject(), new Group());
+            
             foreach (var fillingOld in fillingsOld)
             {
                 Filling<T> fillingNew = new Filling<T>();
@@ -110,6 +110,7 @@ namespace SimpleSheduler.BL
 
                     if (fillingOldPossibleFilling.BusyPair!=null)
                     {
+                        BusyPair busyPairFree = new BusyPair(new Classroom(),  fillingOldPossibleFilling.BusyPair.Subject, new Group()); 
                         fillingNew.PossibleFillings.Add(new PossibleFilling(fillingOldPossibleFilling.Pair, fillingOldPossibleFilling.StudyDay) { BusyPair = busyPairFree });
                     }
                     else
@@ -148,7 +149,7 @@ namespace SimpleSheduler.BL
                 // Объединения по Семинарам мак кол-во человек первый
                 List<Group[]> unionGroupsSeminar = GetUnionGroupBy(tempUnionGroups, GroupComparisonSeminar);
 
-                unionGroups = unionGroupsPotok;
+                unionGroups = unionGroupsSeminar;
             }
 
             //1. Аудитории сортированы по количеству мест
@@ -401,6 +402,7 @@ namespace SimpleSheduler.BL
                     continue;
                 }
                 //Если количество групп > 1 в объединении Проходим по всем начиная со 2-й
+                
                 for (int j = 1; j < unionGroupsBy[u].Length; j++)
                 {
                     //Проверяем По (функции проверки) с 1 группой если не равен то удаляем объединение
@@ -409,6 +411,17 @@ namespace SimpleSheduler.BL
                         unionGroupsBy.RemoveAt(u);
                         break;
                     }
+                }
+
+                //Кол-во человек в объединениии
+                int numPeople = 0;
+                for (int j = 0; j < unionGroupsBy[u].Length; j++)
+                {
+                    numPeople += unionGroupsBy[u][j].NumberOfPersons;
+                }
+                if (numPeople> Classrooms.Max(x=>x.NumberOfSeats))
+                {
+                    unionGroupsBy.RemoveAt(u);
                 }
             }
             return unionGroupsBy;

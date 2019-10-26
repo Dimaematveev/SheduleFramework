@@ -235,7 +235,7 @@ namespace SimpleSheduler.WPF
                         column = new DataColumn
                         {
 
-                            DataType = typeof(bool),
+                            DataType = typeof(string),
                             ColumnName = $"{filling.Value.NameString()}",
                             Caption = $"{filling.Value.NameString()}"
                         };
@@ -268,9 +268,10 @@ namespace SimpleSheduler.WPF
                 {
                     if (set)
                     {
-                        bool IsPairFree;
-                        IsPairFree = filling.PossibleFillings[i].BusyPair == null ? true : false;
-                        row[stolb] = IsPairFree;
+                        string IsPair;
+                        var BusyPair = filling.PossibleFillings[i].BusyPair;
+                        IsPair = BusyPair == null ? null : BusyPair.Subject.Name;
+                        row[stolb] = IsPair;
                     }
                     else
                     {
@@ -305,13 +306,13 @@ namespace SimpleSheduler.WPF
                 for (int j = 0; j < dataTable.Rows.Count; j++)
                 {
                     BusyPair busyPair;
-                    if ((bool)dataTable.Rows[j][3 + i]== true)
+                    if (dataTable.Rows[j][3 + i].ToString() == "")
                     {
                         busyPair = null;
                     }
                     else
                     {
-                        busyPair = new BusyPair(new Classroom(), new Subject(), new Group());
+                        busyPair = new BusyPair(new Classroom(), new Subject() { Name = (string)dataTable.Rows[j][3 + i] }, new Group());
                     }
                     fillings[i].PossibleFillings[j].BusyPair = busyPair;
                 }
