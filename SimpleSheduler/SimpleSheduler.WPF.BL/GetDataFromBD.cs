@@ -211,6 +211,14 @@ namespace SimpleSheduler.WPF.BL
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
 
+                column = new DataColumn
+                {
+                    DataType = typeof(string),
+                    Caption = "Полное название Предмета",
+                    ColumnName = "FullName"
+                };
+                // Add the Column to the DataColumnCollection.
+                table.Columns.Add(column);
             }
             foreach (var item in BDClass)
             {
@@ -219,6 +227,7 @@ namespace SimpleSheduler.WPF.BL
 
                 row[0] = $"{item.SubjectId}";
                 row[1] = $"{item.Name}";
+                row[2] = $"{item.FullName}";
                 table.Rows.Add(row);
             }
             return table;
@@ -252,6 +261,15 @@ namespace SimpleSheduler.WPF.BL
 
                 column = new DataColumn
                 {
+                    DataType = typeof(string),
+                    Caption = "Полное название Аудитории",
+                    ColumnName = "FullName"
+                };
+                // Add the Column to the DataColumnCollection.
+                table.Columns.Add(column);
+
+                column = new DataColumn
+                {
                     DataType = typeof(int),
                     Caption = "Количество мест",
                     ColumnName = "NumberOfSeats"
@@ -266,7 +284,8 @@ namespace SimpleSheduler.WPF.BL
 
                 row[0] = $"{item.ClassroomId}";
                 row[1] = $"{item.Name}";
-                row[2] = $"{item.NumberOfSeats}";
+                row[2] = $"{item.FullName}";
+                row[3] = $"{item.NumberOfSeats}";
                 table.Rows.Add(row);
             }
             return table;
@@ -293,6 +312,15 @@ namespace SimpleSheduler.WPF.BL
                     DataType = typeof(string),
                     Caption = "Название Группы",
                     ColumnName = "Name"
+                };
+                // Add the Column to the DataColumnCollection.
+                table.Columns.Add(column); 
+                
+                column = new DataColumn
+                {
+                    DataType = typeof(string),
+                    Caption = "Полное название Группы",
+                    ColumnName = "FullName"
                 };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
@@ -331,9 +359,10 @@ namespace SimpleSheduler.WPF.BL
 
                 row[0] = $"{item.GroupId}";
                 row[1] = $"{item.Name}";
-                row[2] = $"{item.NumberOfPersons}";
-                row[3] = $"{item.Seminar}";
-                row[4] = $"{item.Potok}";
+                row[2] = $"{item.FullName}";
+                row[3] = $"{item.NumberOfPersons}";
+                row[4] = $"{item.Seminar}";
+                row[5] = $"{item.Potok}";
                 table.Rows.Add(row);
             }
             return table;
@@ -476,6 +505,7 @@ namespace SimpleSheduler.WPF.BL
                         {
                             GroupId = (int)dataTable.Rows[i]["GroupId"],
                             Name = (string)dataTable.Rows[i]["Name"],
+                            FullName = (string)dataTable.Rows[i]["FullName"],
                             NumberOfPersons = (int)dataTable.Rows[i]["NumberOfPersons"],
                             Seminar = (string)dataTable.Rows[i]["Seminar"],
                             Potok = (string)dataTable.Rows[i]["Potok"]
@@ -488,6 +518,7 @@ namespace SimpleSheduler.WPF.BL
                             {
                                 GroupId = (int)dataTable.Rows[i]["GroupId"],
                                 Name = (string)dataTable.Rows[i]["Name"],
+                                FullName = (string)dataTable.Rows[i]["FullName"],
                                 NumberOfPersons = (int)dataTable.Rows[i]["NumberOfPersons"],
                                 Seminar = (string)dataTable.Rows[i]["Seminar"],
                                 Potok = (string)dataTable.Rows[i]["Potok"]
@@ -502,6 +533,7 @@ namespace SimpleSheduler.WPF.BL
                             {
                                 
                                 Name = (string)dataTable.Rows[i]["Name"],
+                                FullName = (string)dataTable.Rows[i]["FullName"],
                                 NumberOfPersons = (int)dataTable.Rows[i]["NumberOfPersons"],
                                 Seminar = (string)dataTable.Rows[i]["Seminar"],
                                 Potok = (string)dataTable.Rows[i]["Potok"]
@@ -542,6 +574,7 @@ namespace SimpleSheduler.WPF.BL
                         {
                             ClassroomId = (int)dataTable.Rows[i]["ClassroomId"],
                             Name = (string)dataTable.Rows[i]["Name"],
+                            FullName = (string)dataTable.Rows[i]["FullName"],
                             NumberOfSeats = (int)dataTable.Rows[i]["NumberOfSeats"],
                            
                         };
@@ -553,6 +586,7 @@ namespace SimpleSheduler.WPF.BL
                             {
                                 ClassroomId = (int)dataTable.Rows[i]["ClassroomId"],
                                 Name = (string)dataTable.Rows[i]["Name"],
+                                FullName = (string)dataTable.Rows[i]["FullName"],
                                 NumberOfSeats = (int)dataTable.Rows[i]["NumberOfSeats"],
                             }
                         );
@@ -564,6 +598,7 @@ namespace SimpleSheduler.WPF.BL
                             new Classroom
                             {
                                 Name = (string)dataTable.Rows[i]["Name"],
+                                FullName = (string)dataTable.Rows[i]["FullName"],
                                 NumberOfSeats = (int)dataTable.Rows[i]["NumberOfSeats"],
                             }
                         );
@@ -676,6 +711,7 @@ namespace SimpleSheduler.WPF.BL
                         {
                             SubjectId = (int)dataTable.Rows[i]["SubjectId"],
                             Name = (string)dataTable.Rows[i]["Name"],
+                            FullName = (string)dataTable.Rows[i]["FullName"],
 
                         };
                     }
@@ -686,6 +722,7 @@ namespace SimpleSheduler.WPF.BL
                             {
                                 SubjectId = (int)dataTable.Rows[i]["SubjectId"],
                                 Name = (string)dataTable.Rows[i]["Name"],
+                                FullName = (string)dataTable.Rows[i]["FullName"],
                             }
                         );
                     }
@@ -696,6 +733,7 @@ namespace SimpleSheduler.WPF.BL
                             new Subject
                             {
                                 Name = (string)dataTable.Rows[i]["Name"],
+                                FullName = (string)dataTable.Rows[i]["FullName"],
                             }
                         );
                 }
