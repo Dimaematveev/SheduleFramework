@@ -120,6 +120,7 @@ namespace SimpleSheduler.WPF.BL
                     ColumnName = "CurriculumId",
                     ReadOnly = true,
                     
+                    
                 };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
@@ -129,6 +130,8 @@ namespace SimpleSheduler.WPF.BL
                     DataType = typeof(Group),
                     Caption = "Группа",
                     ColumnName = "Group",
+                    ReadOnly = true,
+                    Container = groups.to,
                 };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
@@ -137,7 +140,8 @@ namespace SimpleSheduler.WPF.BL
                 {
                     DataType = typeof(Subject),
                     Caption = "Предмет",
-                    ColumnName = "Subject"
+                    ColumnName = "Subject",
+                    ReadOnly = true,
                 };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
@@ -197,7 +201,8 @@ namespace SimpleSheduler.WPF.BL
                 {
                     DataType = typeof(int),
                     Caption = "ID",
-                    ColumnName = "SubjectId"
+                    ColumnName = "SubjectId",
+                    ReadOnly = true,
                 };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
@@ -245,7 +250,8 @@ namespace SimpleSheduler.WPF.BL
                 {
                     DataType = typeof(int),
                     Caption = "ID",
-                    ColumnName = "ClassroomId"
+                    ColumnName = "ClassroomId",
+                    ReadOnly = true,
                 };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
@@ -302,7 +308,8 @@ namespace SimpleSheduler.WPF.BL
                 {
                     DataType = typeof(int),
                     Caption = "ID",
-                    ColumnName = "GroupId"
+                    ColumnName = "GroupId",
+                    ReadOnly = true,
                 };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
@@ -380,7 +387,8 @@ namespace SimpleSheduler.WPF.BL
                 {
                     DataType = typeof(int),
                     Caption = "ID",
-                    ColumnName = "PairId"
+                    ColumnName = "PairId",
+                    ReadOnly = true,
                 };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
@@ -429,7 +437,8 @@ namespace SimpleSheduler.WPF.BL
                 {
                     DataType = typeof(int),
                     Caption = "ID",
-                    ColumnName = "StudyDayId"
+                    ColumnName = "StudyDayId",
+                    ReadOnly = true,
                 };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
