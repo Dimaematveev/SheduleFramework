@@ -17,7 +17,7 @@ namespace SimpleSheduler.BD
         /// </summary>
         [Key]
         public int StudyDayId { get; set; }
-        
+
         /// <summary>
         /// Название дня недели
         /// </summary>
@@ -26,9 +26,16 @@ namespace SimpleSheduler.BD
         public string NameDayOfWeek { get; set; }
 
         /// <summary>
-        /// Название дня недели
+        /// полное Название дня недели
         /// </summary>
-      
+        [Required]
+        [StringLength(20)]
+        public string FullNameDayOfWeek { get; set; }
+
+        /// <summary>
+        /// Номер дня недели
+        /// </summary>
+
         public int? NumberDayOfWeek { get; set; }
         /// <summary>
         /// Номер недели

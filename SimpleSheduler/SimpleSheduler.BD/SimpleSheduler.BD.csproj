@@ -71,6 +71,14 @@
     <Compile Include="Migrations\201910210906308_newBD.designer.cs">
       <DependentUpon>201910210906308_newBD.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910261455323_AddFullName.cs" />
+    <Compile Include="Migrations\201910261455323_AddFullName.designer.cs">
+      <DependentUpon>201910261455323_AddFullName.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201910261459547_AddFullName1.cs" />
+    <Compile Include="Migrations\201910261459547_AddFullName1.designer.cs">
+      <DependentUpon>201910261459547_AddFullName1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\IName.cs" />
     <Compile Include="Model\StudyDay.cs" />
@@ -103,6 +111,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201910210906308_newBD.resx">
       <DependentUpon>201910210906308_newBD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910261455323_AddFullName.resx">
+      <DependentUpon>201910261455323_AddFullName.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910261459547_AddFullName1.resx">
+      <DependentUpon>201910261459547_AddFullName1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -26,7 +26,13 @@ namespace SimpleSheduler.BD
         [StringLength(50)]
         public string Name { get; set; }
 
-        
+        /// <summary>
+        /// Полное Название группы
+        /// </summary>
+        [Required]
+        [StringLength(50)]
+        public string FullName { get; set; }
+
         /// <summary>
         /// Кол-во человек в группе. ?значит может быть нуль
         /// </summary>

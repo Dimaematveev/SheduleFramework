@@ -20,12 +20,17 @@ namespace SimpleSheduler.BD
         [Key]
         public int ClassroomId { get; set; }
         /// <summary>
-        /// Название Аудитории
+        /// Название Аудитории - можно сказать сокращенное название
         /// </summary>
         [Required]
         [StringLength(20)]
         public string Name { get; set; }
-
+        /// <summary>
+        /// Полное Название Аудитории
+        /// </summary>
+        [Required]
+        [StringLength(20)]
+        public string FullName { get; set; }
 
         /// <summary>
         /// Кол-во мест в аудитории. ?значит может быть нуль
