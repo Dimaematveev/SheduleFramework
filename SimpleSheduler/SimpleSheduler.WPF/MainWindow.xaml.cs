@@ -43,7 +43,9 @@ namespace SimpleSheduler.WPF
 
             ButtonOpenClassroom.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(typeof(Classroom).FullName); };
             ButtonOpenSubject.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(typeof(Subject).FullName); };
-            ButtonOpenCurricila.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(typeof(Curriculum).FullName); };
+
+            ButtonOpenCurricila.Click += ButtonOpenCurricila_Click;
+
             ButtonOpenGroup.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(typeof(Group).FullName); };
             ButtonOpenPair.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(typeof(Pair).FullName); };
             ButtonOpenStudyDay.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(typeof(StudyDay).FullName); };
@@ -58,6 +60,18 @@ namespace SimpleSheduler.WPF
             GetFillingGroups.Click += (sender1, EventArgs1) => { GetFillingFromScheduler_Click(typeof(Filling<Group>).FullName); };
             this.Loaded += MainWindow_Loaded;
         }
+
+        private void ButtonOpenCurricila_Click(object sender, RoutedEventArgs e)
+        {
+            var table = getDataFromBD.GetGridBDCurriculum();
+
+            OutClassList outGroup = new OutClassList();
+            outGroup.DataGrid = table;
+            outGroup.ButtonSave.IsEnabled = false;
+            outGroup.Show();
+            
+        }
+
         /// <summary>
         /// Для упрощения процесса запущу сразу
         /// </summary>

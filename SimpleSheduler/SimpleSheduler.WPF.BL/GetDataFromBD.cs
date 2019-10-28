@@ -7,6 +7,8 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace SimpleSheduler.WPF.BL
 {
@@ -102,7 +104,26 @@ namespace SimpleSheduler.WPF.BL
 
         }
 
+        public DataGrid GetGridBDCurriculum()
+        {
+            var BDClass = curricula;
 
+            DataGrid dataGrid = new DataGrid();
+            dataGrid.Name = "План";
+            {
+                DataGridTextColumn dataGridTextColumn ;
+                 dataGridTextColumn = new DataGridTextColumn();
+                dataGridTextColumn.Header = "ID";
+                dataGrid.Columns.Add(dataGridTextColumn);
+                 dataGridTextColumn = new DataGridTextColumn();
+                dataGridTextColumn.Header = "Group";
+                dataGrid.Columns.Add(dataGridTextColumn);
+            }
+            dataGrid.ItemsSource = BDClass.Select(x => new {CI= x.CurriculumId.ToString() ,GN= x.Group.Name});
+            
+
+            return dataGrid;
+        }
 
 
         private DataTable GetDateTableBDCurriculum()
@@ -124,14 +145,13 @@ namespace SimpleSheduler.WPF.BL
                 };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);
-
+                
                 column = new DataColumn
                 {
                     DataType = typeof(Group),
                     Caption = "Группа",
                     ColumnName = "Group",
                     ReadOnly = true,
-                    Container = groups.to,
                 };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);

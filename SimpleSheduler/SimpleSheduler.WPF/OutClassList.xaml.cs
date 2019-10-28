@@ -25,6 +25,7 @@ namespace SimpleSheduler.WPF
 
 
         public DataTable DataTable;
+        public DataGrid DataGrid;
         public OutClassList()
         {
             InitializeComponent();
@@ -57,9 +58,21 @@ namespace SimpleSheduler.WPF
                     DataGridGroup.Columns[i].Header = DataTable.Columns[i].Caption;
                     
                 }
-                
+                DataGridComboBoxColumn dataGridComboBoxColumn = new DataGridComboBoxColumn();
+                List<int> items = new List<int> { 1, 2, 3, 4, 5, };
+                dataGridComboBoxColumn.ItemsSource = items;
+                DataGridGroup.Columns[0] = dataGridComboBoxColumn;
                 this.Title = DataTable.TableName;
                 this.Width = width;
+            }
+            if (DataGrid!=null)
+            {
+                DataGridGroup.ItemsSource = DataGrid.ItemsSource;
+                DataGridComboBoxColumn dataGridComboBoxColumn = new DataGridComboBoxColumn();
+                List<int> items = new List<int> { 1, 2, 3, 4, 5, };
+                dataGridComboBoxColumn.ItemsSource = items;
+                DataGridGroup.Columns[0] = dataGridComboBoxColumn;
+                this.Title = DataGrid.Name;
             }
             
         }
