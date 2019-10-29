@@ -31,6 +31,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -45,6 +46,7 @@
   <ItemGroup>
     <Compile Include="GetDataFromBD.cs" />
     <Compile Include="GetFillingClass.cs" />
+    <Compile Include="MyDataGridProperty.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

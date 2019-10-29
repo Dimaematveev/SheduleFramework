@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleSheduler.WPF.BL;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -20,12 +21,9 @@ namespace SimpleSheduler.WPF
     /// </summary>
     public partial class OutClassList : Window
     {
-        
-        
-
-
         public DataTable DataTable;
         public DataGrid DataGrid;
+        public List<MyDataGridProperty<object>> myDataGridProperties;
         public OutClassList()
         {
             InitializeComponent();
@@ -58,20 +56,45 @@ namespace SimpleSheduler.WPF
                     DataGridGroup.Columns[i].Header = DataTable.Columns[i].Caption;
                     
                 }
-                DataGridComboBoxColumn dataGridComboBoxColumn = new DataGridComboBoxColumn();
-                List<int> items = new List<int> { 1, 2, 3, 4, 5, };
-                dataGridComboBoxColumn.ItemsSource = items;
-                DataGridGroup.Columns[0] = dataGridComboBoxColumn;
+                //DataGridComboBoxColumn dataGridComboBoxColumn = new DataGridComboBoxColumn();
+                //List<int> items = new List<int> { 1, 2, 3, 4, 5, };
+                //dataGridComboBoxColumn.ItemsSource = items;
+                //DataGridGroup.Columns[0] = dataGridComboBoxColumn;
                 this.Title = DataTable.TableName;
                 this.Width = width;
             }
             if (DataGrid!=null)
             {
+               
                 DataGridGroup.ItemsSource = DataGrid.ItemsSource;
-                DataGridComboBoxColumn dataGridComboBoxColumn = new DataGridComboBoxColumn();
-                List<int> items = new List<int> { 1, 2, 3, 4, 5, };
-                dataGridComboBoxColumn.ItemsSource = items;
-                DataGridGroup.Columns[0] = dataGridComboBoxColumn;
+                for (int i = 0; i < DataGridGroup.Columns.Count; i++)
+                {
+                    var column = DataGridGroup.Columns[i];
+                    foreach (var myDataGridProperty in myDataGridProperties)
+                    {
+                        if (DataGridGroup.Columns[i].Header.ToString().Equals(myDataGridProperty.BDName))
+                        {
+                            if (false)
+                            {
+                                DataGridComboBoxColumn dataGridComboBoxColumn = new DataGridComboBoxColumn();
+                                dataGridComboBoxColumn.Header = myDataGridProperty.TableName;
+                                dataGridComboBoxColumn.ItemsSource = myDataGridProperty.ItemsSource;
+                                
+                                DataGridGroup.Columns[i] = dataGridComboBoxColumn;
+                            }
+                            else
+                            {
+                                DataGridGroup.Columns[i].Header = myDataGridProperty.TableName;
+                                
+                                DataGridGroup.Columns[i].Visibility = myDataGridProperty.Visibility;
+                                DataGridGroup.Columns[i].IsReadOnly = myDataGridProperty.IsReadOnly;
+                            }
+
+
+                            break;
+                        }
+                    }
+                }
                 this.Title = DataGrid.Name;
             }
             

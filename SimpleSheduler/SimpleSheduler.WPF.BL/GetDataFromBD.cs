@@ -7,6 +7,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 
@@ -110,17 +111,43 @@ namespace SimpleSheduler.WPF.BL
 
             DataGrid dataGrid = new DataGrid();
             dataGrid.Name = "План";
+            //dataGrid.AutoGenerateColumns = false;
+            //{
+            //    DataGridTextColumn dataGridTextColumn ;
+            //     dataGridTextColumn = new DataGridTextColumn();
+            //    dataGridTextColumn.Header = "ID";
+            //    dataGridTextColumn.IsReadOnly = false;
+            //    dataGrid.Columns.Add(dataGridTextColumn);
+            //    DataGridComboBoxColumn dataGridComboBoxColumn = new DataGridComboBoxColumn();
+            //    dataGridComboBoxColumn.Header = "Group";
+            //    dataGridComboBoxColumn.ItemsSource = groups;
+            //    dataGridComboBoxColumn.IsReadOnly = false;
+            //    dataGrid.Columns.Add(dataGridComboBoxColumn);
+            //}
+            dataGrid.ItemsSource = BDClass;
+            List<MyDataGridProperty<object>> myDataGridProperties = new List<MyDataGridProperty<object>>
             {
-                DataGridTextColumn dataGridTextColumn ;
-                 dataGridTextColumn = new DataGridTextColumn();
-                dataGridTextColumn.Header = "ID";
-                dataGrid.Columns.Add(dataGridTextColumn);
-                 dataGridTextColumn = new DataGridTextColumn();
-                dataGridTextColumn.Header = "Group";
-                dataGrid.Columns.Add(dataGridTextColumn);
+                new MyDataGridProperty<object>("CurriculumId","ID плана",Visibility.Visible,true),
+                new MyDataGridProperty<object>("GroupId","ID группы",Visibility.Hidden,false){ItemsSource = groups },
+                new MyDataGridProperty<object>("SubjectId","ID предмета",Visibility.Visible,false),
+                new MyDataGridProperty<object>("NumberOfLectures","Кол-во лекций",Visibility.Visible,false),
+                new MyDataGridProperty<object>("NumberOfPractical","Кол-во практических",Visibility.Visible,false),
+                new MyDataGridProperty<object>("NumberOfLaboratory","Кол-во лабораторных",Visibility.Visible,false),
+                new MyDataGridProperty<object>("Group","Группа",Visibility.Visible,false),
+                new MyDataGridProperty<object>("Subject","Предмет",Visibility.Visible,false){ItemsSource = subjects },
+            };
+
+            foreach (var item in myDataGridProperties)
+            {
+                if (item.ItemsSource!=null)
+                {
+                    dataGrid.Columns.Add(new DataGridComboBoxColumn());
+                }
+                else
+                {
+                    dataGrid.Columns.Add(new DataGridTextColumn());
+                }
             }
-            dataGrid.ItemsSource = BDClass.Select(x => new {CI= x.CurriculumId.ToString() ,GN= x.Group.Name});
-            
 
             return dataGrid;
         }
