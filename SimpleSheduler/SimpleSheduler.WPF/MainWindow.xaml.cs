@@ -43,9 +43,7 @@ namespace SimpleSheduler.WPF
 
             ButtonOpenClassroom.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(typeof(Classroom).FullName); };
             ButtonOpenSubject.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(typeof(Subject).FullName); };
-
-            ButtonOpenCurricila.Click += ButtonOpenCurricila_Click;
-
+            ButtonOpenCurricila.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(typeof(Curriculum).FullName); };
             ButtonOpenGroup.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(typeof(Group).FullName); };
             ButtonOpenPair.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(typeof(Pair).FullName); };
             ButtonOpenStudyDay.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(typeof(StudyDay).FullName); };
@@ -61,22 +59,7 @@ namespace SimpleSheduler.WPF
             this.Loaded += MainWindow_Loaded;
         }
 
-        private void ButtonOpenCurricila_Click(object sender, RoutedEventArgs e)
-        {
-            var myDataGridProperty = getDataFromBD.GetGridBDCurriculum();
-
-            OutClassList outGroup = new OutClassList();
-            outGroup.DataGrid = new System.Windows.Controls.DataGrid();
-            outGroup.DataGrid.ItemsSource = getDataFromBD.curricula;
-
-            outGroup.MyDataGridProperty = myDataGridProperty;
-            outGroup.ButtonSave.IsEnabled = true;
-            
-
-            outGroup.ButtonSave.Click += (sender1, EventArgs1) => { getDataFromBD.SAVE(); };
-            outGroup.Show();
-
-        }
+       
 
         /// <summary>
         /// Для упрощения процесса запущу сразу
@@ -163,17 +146,36 @@ namespace SimpleSheduler.WPF
             }
         }
         /// <summary>
-        /// Открытие для изменения Таблиц из БД. 
+        /// Открытие для изменения Таблиц из БД.
         /// </summary>
         /// <param name="sNamespace"> typeof(Class).FullName Полное имя класса который будем показывать </param>
-        private void ButtonOpenBD_Click( string sNamespace)
+        private void ButtonOpenBD_Click(string sNamespace)
         {
-            var table = getDataFromBD.GetDateTableBD(sNamespace);
-            
+            var myDataGrid = getDataFromBD.GetDateGridBD(sNamespace);
+            var myDataGridProperty = getDataFromBD.GetDateGridPropertyBD(sNamespace);
 
-            var outClassList = OpenGridBD(table, true);
+            var outClassList = OpenGridBD(myDataGrid, myDataGridProperty, true);
             //Кнопке save приписываем действие
-            outClassList.ButtonSave.Click += (sender1, EventArgs1) => { ButtonSaveBD_Click(outClassList); };
+            outClassList.ButtonSave.Click += (sender1, EventArgs1) => { ButtonSaveBD_Click(); };
+        }
+
+
+
+        /// <summary>
+        /// Показывает DataTable  в новом окне 
+        /// </summary>
+        /// <param name="dataGrid">DataGrid которую стоит показать</param>
+        /// <param name="myDataGridProperty"> Параметры показа DataGrid</param>
+        /// <param name="save">Активна ли кнопка сохранить. False - не активна, True- активна</param>
+        /// <returns> Ссылка на открытое окно</returns>
+        private OutClassList OpenGridBD(System.Windows.Controls.DataGrid dataGrid, MyDataGridProperty myDataGridProperty, bool save = false)
+        {
+            OutClassList outGroup = new OutClassList();
+            outGroup.DataGrid = dataGrid;
+            outGroup.MyDataGridProperty = myDataGridProperty;
+            outGroup.ButtonSave.IsEnabled = save;
+            outGroup.Show();
+            return outGroup;
         }
 
         /// <summary>
@@ -194,11 +196,9 @@ namespace SimpleSheduler.WPF
         /// <summary>
         /// Действие кнопки Save в открытом окне
         /// </summary>
-        /// <param name="outClassList">Ссылка на окно</param>
-        private void ButtonSaveBD_Click(OutClassList outClassList)
+        private void ButtonSaveBD_Click()
         {
-            getDataFromBD.SetBD(outClassList.DataTable);
-
+            getDataFromBD.SaveAll();
         }
 
         /// <summary>

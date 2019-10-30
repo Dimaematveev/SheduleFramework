@@ -37,875 +37,159 @@ namespace SimpleSheduler.WPF.BL
 
         }
 
-        public DataTable GetDateTableBD(string sNamespase)
+        public DataGrid GetDateGridBD(string sNamespase)
         {
+            DataGrid dataGrid = new DataGrid();
             if (sNamespase == typeof(Subject).FullName)
             {
-                return GetDateTableBDSubject();
+                dataGrid.ItemsSource = subjects;
             }
             if (sNamespase == typeof(Classroom).FullName)
             {
-                return GetDateTableBDClassroom();
+                dataGrid.ItemsSource = classrooms;
             }
             if (sNamespase == typeof(Curriculum).FullName)
             {
-                return GetDateTableBDCurriculum();
+                dataGrid.ItemsSource = curricula;
             }
             if (sNamespase == typeof(Pair).FullName)
             {
-                return GetDateTableBDPair();
+                dataGrid.ItemsSource = pairs;
             }
             if (sNamespase == typeof(StudyDay).FullName)
             {
-                return GetDateTableBDStudyDay();
+                dataGrid.ItemsSource = studyDays;
             }
-
             if (sNamespase == typeof(Group).FullName)
             {
-                return GetDateTableBDGroup();
+                dataGrid.ItemsSource = groups;
             }
-            return null;
+
+            return dataGrid;
         }
 
-        public void SetBD(DataTable dataTable)
+        public MyDataGridProperty GetDateGridPropertyBD(string sNamespase)
         {
-            string namespase = dataTable.Namespace;
-            if (namespase == typeof(Group).FullName)
+            MyDataGridProperty myDataGridProperty = new MyDataGridProperty();
+            if (sNamespase == typeof(Subject).FullName)
             {
-                SetBDGroup(dataTable);
-                return;
+                myDataGridProperty = GetDateGridPropertyBDSubject();
             }
-            if (namespase == typeof(Classroom).FullName)
+            if (sNamespase == typeof(Classroom).FullName)
             {
-                SetBDClassroom(dataTable);
-                return;
+                myDataGridProperty= GetDateGridPropertyBDClassroom();
             }
-            if (namespase == typeof(Curriculum).FullName)
+            if (sNamespase == typeof(Curriculum).FullName)
             {
-                SetBDCurriculum(dataTable);
-                return;
+                myDataGridProperty= GetDateGridPropertyBDCurriculum();
             }
-
-            if (namespase == typeof(Subject).FullName)
+            if (sNamespase == typeof(Pair).FullName)
             {
-                SetBDSubject(dataTable);
-                return;
+                myDataGridProperty= GetDateGridPropertyBDPair();
             }
-
-            if (namespase == typeof(Pair).FullName)
+            if (sNamespase == typeof(StudyDay).FullName)
             {
-                SetBDPair(dataTable);
-                return;
+                myDataGridProperty= GetDateGridPropertyBDStudyDay();
             }
-            if (namespase == typeof(StudyDay).FullName)
+            if (sNamespase == typeof(Group).FullName)
             {
-                SetBDStudyDay(dataTable);
-                return;
+                myDataGridProperty= GetDateGridPropertyBDGroup();
             }
 
-        }
-
-        public MyDataGridProperty GetGridBDCurriculum()
-        {
-            
-            List<MyColumnProperty> myColumnProperties = new List<MyColumnProperty>
-            {
-                new MyColumnProperty("CurriculumId","ID плана",Visibility.Visible,true),
-                new MyColumnProperty("GroupId","ID группы",Visibility.Hidden,false,groups ),
-                new MyColumnProperty("SubjectId","ID предмета",Visibility.Visible,false),
-                new MyColumnProperty("NumberOfLectures","Кол-во лекций",Visibility.Visible,false),
-                new MyColumnProperty("NumberOfPractical","Кол-во практических",Visibility.Visible,false),
-                new MyColumnProperty("NumberOfLaboratory","Кол-во лабораторных",Visibility.Visible,false),
-                new MyColumnProperty("Group","Группа",Visibility.Visible,false),
-                new MyColumnProperty("Subject","Предмет",Visibility.Visible,false,subjects ),
-            };
-            MyDataGridProperty myDataGridProperty = new MyDataGridProperty(myColumnProperties, typeof(Curriculum).FullName, "План");
-            
             return myDataGridProperty;
         }
 
 
-        private DataTable GetDateTableBDCurriculum()
+
+        private MyDataGridProperty GetDateGridPropertyBDCurriculum()
         {
-            var BDClass = curricula;
-            DataTable table = new DataTable();
-            table.TableName = "План";
-            table.Namespace = typeof(Curriculum).FullName;
+            List<MyColumnProperty> myColumnProperties = new List<MyColumnProperty>
             {
-                DataColumn column;
-                column = new DataColumn
-                {
-                    DataType = typeof(int),
-                    Caption = "ID",
-                    ColumnName = "CurriculumId",
-                    ReadOnly = true,
-                    
-                    
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-                
-                column = new DataColumn
-                {
-                    DataType = typeof(Group),
-                    Caption = "Группа",
-                    ColumnName = "Group",
-                    ReadOnly = true,
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-
-                column = new DataColumn
-                {
-                    DataType = typeof(Subject),
-                    Caption = "Предмет",
-                    ColumnName = "Subject",
-                    ReadOnly = true,
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-
-                column = new DataColumn
-                {
-                    DataType = typeof(int),
-                    Caption = "Количество лекций",
-                    ColumnName = "NumberOfLectures"
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-
-                column = new DataColumn
-                {
-                    DataType = typeof(int),
-                    Caption = "Количество практических",
-                    ColumnName = "NumberOfPractical"
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-
-                column = new DataColumn
-                {
-                    DataType = typeof(int),
-                    Caption = "Количество лабораторных",
-                    ColumnName = "NumberOfLaboratory"
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-            }
-            foreach (var item in BDClass)
-            {
-                DataRow row;
-                row = table.NewRow();
-
-                row[0] = $"{item.CurriculumId}";
-                row[1] = item.Group;
-                row[2] = item.Subject;
-                row[3] = $"{item.NumberOfLectures}";
-                row[4] = $"{item.NumberOfPractical}";
-                row[5] = $"{item.NumberOfLaboratory}";
-                table.Rows.Add(row);
-            }
-            return table;
+                new MyColumnProperty(nameof(Curriculum.CurriculumId),"ID плана",Visibility.Visible,true),
+                new MyColumnProperty(nameof(Curriculum.GroupId),"ID группы",Visibility.Hidden,false,groups ),
+                new MyColumnProperty(nameof(Curriculum.SubjectId),"ID предмета",Visibility.Visible,false),
+                new MyColumnProperty(nameof(Curriculum.NumberOfLectures),"Кол-во лекций",Visibility.Visible,false),
+                new MyColumnProperty(nameof(Curriculum.NumberOfPractical),"Кол-во практических",Visibility.Visible,false),
+                new MyColumnProperty(nameof(Curriculum.NumberOfLaboratory),"Кол-во лабораторных",Visibility.Visible,false),
+                new MyColumnProperty(nameof(Curriculum.Group),"Группа",Visibility.Visible,false),
+                new MyColumnProperty(nameof(Curriculum.Subject),"Предмет",Visibility.Visible,false,subjects ),
+            };
+            MyDataGridProperty myDataGridProperty = new MyDataGridProperty(myColumnProperties, typeof(Curriculum).FullName, "План");
+            return myDataGridProperty;
         }
 
-        private DataTable GetDateTableBDSubject()
+
+
+        private MyDataGridProperty GetDateGridPropertyBDSubject()
         {
-            var BDClass = subjects;
-            DataTable table = new DataTable();
-            table.TableName = "Предметы";
-            table.Namespace = typeof(Subject).FullName;
+            List<MyColumnProperty> myColumnProperties = new List<MyColumnProperty>
             {
-                DataColumn column;
-                column = new DataColumn
-                {
-                    DataType = typeof(int),
-                    Caption = "ID",
-                    ColumnName = "SubjectId",
-                    ReadOnly = true,
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-
-                column = new DataColumn
-                {
-                    DataType = typeof(string),
-                    Caption = "Название Предмета",
-                    ColumnName = "Name"
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-
-                column = new DataColumn
-                {
-                    DataType = typeof(string),
-                    Caption = "Полное название Предмета",
-                    ColumnName = "FullName"
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-            }
-            foreach (var item in BDClass)
-            {
-                DataRow row;
-                row = table.NewRow();
-
-                row[0] = $"{item.SubjectId}";
-                row[1] = $"{item.Name}";
-                row[2] = $"{item.FullName}";
-                table.Rows.Add(row);
-            }
-            return table;
+                new MyColumnProperty(nameof(Subject.SubjectId),"ID предмета",Visibility.Visible,true),
+                new MyColumnProperty(nameof(Subject.Name),"Название предмета",Visibility.Visible,false),
+                new MyColumnProperty(nameof(Subject.FullName),"Полное название предмета",Visibility.Visible,false),
+            };
+            MyDataGridProperty myDataGridProperty = new MyDataGridProperty(myColumnProperties, typeof(Subject).FullName, "Предметы");
+            return myDataGridProperty;
         }
 
-        private DataTable GetDateTableBDClassroom()
+        private MyDataGridProperty GetDateGridPropertyBDClassroom()
         {
-            var BDClass = classrooms;
-            DataTable table = new DataTable();
-            table.TableName = "Аудитории";
-            table.Namespace = typeof(Classroom).FullName;
+            List<MyColumnProperty> myColumnProperties = new List<MyColumnProperty>
             {
-                DataColumn column;
-                column = new DataColumn
-                {
-                    DataType = typeof(int),
-                    Caption = "ID",
-                    ColumnName = "ClassroomId",
-                    ReadOnly = true,
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-
-                column = new DataColumn
-                {
-                    DataType = typeof(string),
-                    Caption = "Название Аудитории",
-                    ColumnName = "Name"
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-
-                column = new DataColumn
-                {
-                    DataType = typeof(string),
-                    Caption = "Полное название Аудитории",
-                    ColumnName = "FullName"
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-
-                column = new DataColumn
-                {
-                    DataType = typeof(int),
-                    Caption = "Количество мест",
-                    ColumnName = "NumberOfSeats"
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-            }
-            foreach (var item in BDClass)
-            {
-                DataRow row;
-                row = table.NewRow();
-
-                row[0] = $"{item.ClassroomId}";
-                row[1] = $"{item.Name}";
-                row[2] = $"{item.FullName}";
-                row[3] = $"{item.NumberOfSeats}";
-                table.Rows.Add(row);
-            }
-            return table;
+                new MyColumnProperty(nameof(Classroom.ClassroomId),"ID Аудитории",Visibility.Visible,true),
+                new MyColumnProperty(nameof(Classroom.Name),"Название Аудитории",Visibility.Visible,false),
+                new MyColumnProperty(nameof(Classroom.FullName),"Полное название Аудитории",Visibility.Visible,false),
+                new MyColumnProperty(nameof(Classroom.NumberOfSeats),"Кол-во мест",Visibility.Visible,false),
+            };
+            MyDataGridProperty myDataGridProperty = new MyDataGridProperty(myColumnProperties, typeof(Classroom).FullName, "Аудитории");
+            return myDataGridProperty;
         }
-        private DataTable GetDateTableBDGroup()
+        private MyDataGridProperty GetDateGridPropertyBDGroup()
         {
-            var BDClass = groups;
-            DataTable table = new DataTable();
-            table.TableName = "Группы";
-            table.Namespace = typeof(Group).FullName;
+            List<MyColumnProperty> myColumnProperties = new List<MyColumnProperty>
             {
-                DataColumn column;
-                column = new DataColumn
-                {
-                    DataType = typeof(int),
-                    Caption = "ID",
-                    ColumnName = "GroupId",
-                    ReadOnly = true,
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-
-                column = new DataColumn
-                {
-                    DataType = typeof(string),
-                    Caption = "Название Группы",
-                    ColumnName = "Name"
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column); 
-                
-                column = new DataColumn
-                {
-                    DataType = typeof(string),
-                    Caption = "Полное название Группы",
-                    ColumnName = "FullName"
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-
-                column = new DataColumn
-                {
-                    DataType = typeof(int),
-                    Caption = "Количество человек в группе",
-                    ColumnName = "NumberOfPersons"
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-
-                column = new DataColumn
-                {
-                    DataType = typeof(string),
-                    Caption = "Семинар",
-                    ColumnName = "Seminar"
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-
-                column = new DataColumn
-                {
-                    DataType = typeof(string),
-                    Caption = "Поток",
-                    ColumnName = "Potok"
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-            }
-            foreach (var item in BDClass)
+                new MyColumnProperty(nameof(Group.GroupId),"ID Группы",Visibility.Visible,true),
+                new MyColumnProperty(nameof(Group.Name),"Название группы",Visibility.Visible,false),
+                new MyColumnProperty(nameof(Group.FullName),"Полное название Аудитории",Visibility.Visible,false),
+                new MyColumnProperty(nameof(Group.NumberOfPersons),"Количество человек в группе",Visibility.Visible,false),
+                new MyColumnProperty(nameof(Group.Seminar),"Семинар",Visibility.Visible,false),
+                new MyColumnProperty(nameof(Group.Potok),"Поток",Visibility.Visible,false),
+            };
+            MyDataGridProperty myDataGridProperty = new MyDataGridProperty(myColumnProperties, typeof(Group).FullName, "Группы");
+            return myDataGridProperty;
+        }
+        private MyDataGridProperty GetDateGridPropertyBDPair()
+        {
+            List<MyColumnProperty> myColumnProperties = new List<MyColumnProperty>
             {
-                DataRow row;
-                row = table.NewRow();
-
-                row[0] = $"{item.GroupId}";
-                row[1] = $"{item.Name}";
-                row[2] = $"{item.FullName}";
-                row[3] = $"{item.NumberOfPersons}";
-                row[4] = $"{item.Seminar}";
-                row[5] = $"{item.Potok}";
-                table.Rows.Add(row);
-            }
-            return table;
+                new MyColumnProperty(nameof(Pair.PairId),"ID пары",Visibility.Visible,true),
+                new MyColumnProperty(nameof(Pair.NameThePair),"Название пары",Visibility.Visible,false),
+                new MyColumnProperty(nameof(Pair.NumberThePair),"Номер пары",Visibility.Visible,false),
+            };
+            MyDataGridProperty myDataGridProperty = new MyDataGridProperty(myColumnProperties, typeof(Pair).FullName, "Пары");
+            return myDataGridProperty;
+        }
+        private MyDataGridProperty GetDateGridPropertyBDStudyDay()
+        {
+            List<MyColumnProperty> myColumnProperties = new List<MyColumnProperty>
+            {
+                new MyColumnProperty(nameof(StudyDay.StudyDayId),"ID учебного дня",Visibility.Visible,true),
+                new MyColumnProperty(nameof(StudyDay.NumberOfWeek),"Номер недели",Visibility.Visible,false),
+                new MyColumnProperty(nameof(StudyDay.NumberDayOfWeek),"Номер дня недели",Visibility.Visible,false),
+                new MyColumnProperty(nameof(StudyDay.NameDayOfWeek),"День недели",Visibility.Visible,false),
+                new MyColumnProperty(nameof(StudyDay.FullNameDayOfWeek),"Полное название дня недели",Visibility.Visible,false),
+            };
+            MyDataGridProperty myDataGridProperty = new MyDataGridProperty(myColumnProperties, typeof(StudyDay).FullName, "Учебные дни");
+            return myDataGridProperty;
         }
 
-        private DataTable GetDateTableBDPair()
-        {
-            var BDClass = pairs;
-            DataTable table = new DataTable();
-            table.TableName = "Пары";
-            table.Namespace = typeof(Pair).FullName;
-            {
-                DataColumn column;
-                column = new DataColumn
-                {
-                    DataType = typeof(int),
-                    Caption = "ID",
-                    ColumnName = "PairId",
-                    ReadOnly = true,
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
 
-                column = new DataColumn
-                {
-                    DataType = typeof(int),
-                    Caption = "Номер пары",
-                    ColumnName = "NumberThePair"
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-
-                column = new DataColumn
-                {
-                    DataType = typeof(string),
-                    Caption = "Название пары",
-                    ColumnName = "NameThePair"
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-
-            }
-            foreach (var item in BDClass)
-            {
-                DataRow row;
-                row = table.NewRow();
-
-                row[0] = $"{item.PairId}";
-                row[1] = $"{item.NumberThePair}";
-                row[2] = $"{item.NameThePair}";
-                table.Rows.Add(row);
-            }
-            return table;
-        }
-
-        private DataTable GetDateTableBDStudyDay()
-        {
-            var BDClass = studyDays;
-            DataTable table = new DataTable();
-            table.TableName = "Учебные дни";
-            table.Namespace = typeof(StudyDay).FullName;
-            {
-                DataColumn column;
-                column = new DataColumn
-                {
-                    DataType = typeof(int),
-                    Caption = "ID",
-                    ColumnName = "StudyDayId",
-                    ReadOnly = true,
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-
-                column = new DataColumn
-                {
-                    DataType = typeof(int),
-                    Caption = "Номер недели",
-                    ColumnName = "NumberOfWeek"
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-
-                column = new DataColumn
-                {
-                    DataType = typeof(string),
-                    Caption = "Название дня недели",
-                    ColumnName = "NameDayOfWeek"
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-
-                column = new DataColumn
-                {
-                    DataType = typeof(int),
-                    Caption = "Номер дня недели",
-                    ColumnName = "NumberDayOfWeek"
-                };
-                // Add the Column to the DataColumnCollection.
-                table.Columns.Add(column);
-
-            }
-            foreach (var item in BDClass)
-            {
-                DataRow row;
-                row = table.NewRow();
-
-                row[0] = $"{item.StudyDayId}";
-                row[1] = $"{item.NumberOfWeek}";
-                row[2] = $"{item.NameDayOfWeek}";
-                row[3] = $"{item.NumberDayOfWeek}";
-                table.Rows.Add(row);
-            }
-            return table;
-        }
-
-        
-
-
-        private void SetBDGroup(DataTable dataTable)
-        {
-            List<int> useGroup = new List<int>();
-            var BDList = groups;
-
-            for (int i = 0; i < BDList.Count; i++)
-            {
-                useGroup.Add(i);
-            }
-
-            for (int i = 0; i < dataTable.Rows.Count; i++)
-            {
-                int ind = -1;
-                if (dataTable.Rows[i]["GroupId"].ToString() != "")
-                {
-                    ind = BDList.FindIndex(x => x.GroupId == (int)dataTable.Rows[i]["GroupId"]);
-
-
-
-                    if (ind >= 0)
-                    {
-                        useGroup.Remove(ind);
-                        BDList[ind] = new Group
-                        {
-                            GroupId = (int)dataTable.Rows[i]["GroupId"],
-                            Name = (string)dataTable.Rows[i]["Name"],
-                            FullName = (string)dataTable.Rows[i]["FullName"],
-                            NumberOfPersons = (int)dataTable.Rows[i]["NumberOfPersons"],
-                            Seminar = (string)dataTable.Rows[i]["Seminar"],
-                            Potok = (string)dataTable.Rows[i]["Potok"]
-                        };
-                    }
-                    else
-                    {
-                        BDList.Add(
-                            new Group
-                            {
-                                GroupId = (int)dataTable.Rows[i]["GroupId"],
-                                Name = (string)dataTable.Rows[i]["Name"],
-                                FullName = (string)dataTable.Rows[i]["FullName"],
-                                NumberOfPersons = (int)dataTable.Rows[i]["NumberOfPersons"],
-                                Seminar = (string)dataTable.Rows[i]["Seminar"],
-                                Potok = (string)dataTable.Rows[i]["Potok"]
-                            }
-                        );
-                    }
-                }
-                else
-                {
-                    BDList.Add(
-                            new Group
-                            {
-                                
-                                Name = (string)dataTable.Rows[i]["Name"],
-                                FullName = (string)dataTable.Rows[i]["FullName"],
-                                NumberOfPersons = (int)dataTable.Rows[i]["NumberOfPersons"],
-                                Seminar = (string)dataTable.Rows[i]["Seminar"],
-                                Potok = (string)dataTable.Rows[i]["Potok"]
-                            }
-                        );
-                }
-            }
-
-            for (int i = useGroup.Count-1; i >= 0; i--)
-            {
-                BDList.RemoveAt(useGroup[i]);
-            }
-            WorkToMyDbContext.SaveDB();
-
-        }
-
-        public void SAVE()
+        public void SaveAll()
         {
             WorkToMyDbContext.SaveDB();
         }
-        private void SetBDClassroom(DataTable dataTable)
-        {
-            List<int> useList = new List<int>();
-            var BDList = classrooms;
+       
 
-            for (int i = 0; i < BDList.Count; i++)
-            {
-                useList.Add(i);
-            }
-
-            for (int i = 0; i < dataTable.Rows.Count; i++)
-            {
-                int ind = -1;
-                if (dataTable.Rows[i]["ClassroomId"].ToString() != "")
-                {
-                    ind = BDList.FindIndex(x => x.ClassroomId == (int)dataTable.Rows[i]["ClassroomId"]);
-
-                    if (ind >= 0)
-                    {
-                        useList.Remove(ind);
-                        BDList[ind] = new Classroom
-                        {
-                            ClassroomId = (int)dataTable.Rows[i]["ClassroomId"],
-                            Name = (string)dataTable.Rows[i]["Name"],
-                            FullName = (string)dataTable.Rows[i]["FullName"],
-                            NumberOfSeats = (int)dataTable.Rows[i]["NumberOfSeats"],
-                           
-                        };
-                    }
-                    else
-                    {
-                        BDList.Add(
-                            new Classroom
-                            {
-                                ClassroomId = (int)dataTable.Rows[i]["ClassroomId"],
-                                Name = (string)dataTable.Rows[i]["Name"],
-                                FullName = (string)dataTable.Rows[i]["FullName"],
-                                NumberOfSeats = (int)dataTable.Rows[i]["NumberOfSeats"],
-                            }
-                        );
-                    }
-                }
-                else
-                {
-                    BDList.Add(
-                            new Classroom
-                            {
-                                Name = (string)dataTable.Rows[i]["Name"],
-                                FullName = (string)dataTable.Rows[i]["FullName"],
-                                NumberOfSeats = (int)dataTable.Rows[i]["NumberOfSeats"],
-                            }
-                        );
-                }
-            }
-
-            for (int i = useList.Count - 1; i >= 0; i--)
-            {
-                BDList.RemoveAt(useList[i]);
-            }
-            WorkToMyDbContext.SaveDB();
-
-        }
-
-
-
-        private void SetBDCurriculum(DataTable dataTable)
-        {
-            List<int> useList = new List<int>();
-            var BDList = curricula;
-
-            for (int i = 0; i < BDList.Count; i++)
-            {
-                useList.Add(i);
-            }
-
-            for (int i = 0; i < dataTable.Rows.Count; i++)
-            {
-                int ind = -1;
-                if (dataTable.Rows[i]["CurriculumId"].ToString() != "")
-                {
-                    ind = BDList.FindIndex(x => x.CurriculumId == (int)dataTable.Rows[i]["CurriculumId"]);
-
-                    if (ind >= 0)
-                    {
-                        useList.Remove(ind);
-                        BDList[ind] = new Curriculum
-                        {
-                            CurriculumId = (int)dataTable.Rows[i]["CurriculumId"],
-                            NumberOfLaboratory = (int)dataTable.Rows[i]["NumberOfLaboratory"],
-                            NumberOfLectures = (int)dataTable.Rows[i]["NumberOfLectures"],
-                            NumberOfPractical= (int)dataTable.Rows[i]["NumberOfPractical"],
-                            GroupId = ((Group)dataTable.Rows[i]["Group"]).GroupId,
-                            SubjectId = ((Subject)dataTable.Rows[i]["Subject"]).SubjectId,
-
-                        };
-                    }
-                    else
-                    {
-                        BDList.Add(
-                            new Curriculum
-                            {
-                                CurriculumId = (int)dataTable.Rows[i]["CurriculumId"],
-                                NumberOfLaboratory = (int)dataTable.Rows[i]["NumberOfLaboratory"],
-                                NumberOfLectures = (int)dataTable.Rows[i]["NumberOfLectures"],
-                                NumberOfPractical = (int)dataTable.Rows[i]["NumberOfPractical"],
-                                GroupId = ((Group)dataTable.Rows[i]["Group"]).GroupId,
-                                SubjectId = ((Subject)dataTable.Rows[i]["Subject"]).SubjectId,
-                            }
-                        );
-                    }
-                }
-                else
-                {
-                    BDList.Add(
-                            new Curriculum
-                            {
-                                NumberOfLaboratory = (int)dataTable.Rows[i]["NumberOfLaboratory"],
-                                NumberOfLectures = (int)dataTable.Rows[i]["NumberOfLectures"],
-                                NumberOfPractical = (int)dataTable.Rows[i]["NumberOfPractical"],
-                                GroupId = ((Group)dataTable.Rows[i]["Group"]).GroupId,
-                                SubjectId = ((Subject)dataTable.Rows[i]["Subject"]).SubjectId,
-                            }
-                        );
-                }
-            }
-
-            for (int i = useList.Count - 1; i >= 0; i--)
-            {
-                BDList.RemoveAt(useList[i]);
-            }
-            WorkToMyDbContext.SaveDB();
-
-        }
-
-
-
-
-        private void SetBDSubject(DataTable dataTable)
-        {
-            List<int> useList = new List<int>();
-            var BDList = subjects;
-
-            for (int i = 0; i < BDList.Count; i++)
-            {
-                useList.Add(i);
-            }
-
-            for (int i = 0; i < dataTable.Rows.Count; i++)
-            {
-                int ind = -1;
-                if (dataTable.Rows[i]["SubjectId"].ToString() != "")
-                {
-                    ind = BDList.FindIndex(x => x.SubjectId == (int)dataTable.Rows[i]["SubjectId"]);
-
-                    if (ind >= 0)
-                    {
-                        useList.Remove(ind);
-                        BDList[ind] = new Subject
-                        {
-                            SubjectId = (int)dataTable.Rows[i]["SubjectId"],
-                            Name = (string)dataTable.Rows[i]["Name"],
-                            FullName = (string)dataTable.Rows[i]["FullName"],
-
-                        };
-                    }
-                    else
-                    {
-                        BDList.Add(
-                            new Subject
-                            {
-                                SubjectId = (int)dataTable.Rows[i]["SubjectId"],
-                                Name = (string)dataTable.Rows[i]["Name"],
-                                FullName = (string)dataTable.Rows[i]["FullName"],
-                            }
-                        );
-                    }
-                }
-                else
-                {
-                    BDList.Add(
-                            new Subject
-                            {
-                                Name = (string)dataTable.Rows[i]["Name"],
-                                FullName = (string)dataTable.Rows[i]["FullName"],
-                            }
-                        );
-                }
-            }
-
-            for (int i = useList.Count - 1; i >= 0; i--)
-            {
-                BDList.RemoveAt(useList[i]);
-            }
-            WorkToMyDbContext.SaveDB();
-
-        }
-
-
-
-        private void SetBDPair(DataTable dataTable)
-        {
-            List<int> useList = new List<int>();
-            var BDList = pairs;
-
-            for (int i = 0; i < BDList.Count; i++)
-            {
-                useList.Add(i);
-            }
-
-            for (int i = 0; i < dataTable.Rows.Count; i++)
-            {
-                int ind = -1;
-                if (dataTable.Rows[i]["PairId"].ToString() != "")
-                {
-                    ind = BDList.FindIndex(x => x.PairId == (int)dataTable.Rows[i]["PairId"]);
-
-                    if (ind >= 0)
-                    {
-                        useList.Remove(ind);
-                        BDList[ind] = new Pair
-                        {
-                            PairId = (int)dataTable.Rows[i]["PairId"],
-                            NameThePair = (string)dataTable.Rows[i]["NameThePair"],
-                            NumberThePair = (int)dataTable.Rows[i]["NumberThePair"],
-                            
-
-                        };
-                    }
-                    else
-                    {
-                        BDList.Add(
-                            new Pair
-                            {
-                                PairId = (int)dataTable.Rows[i]["PairId"],
-                                NameThePair = (string)dataTable.Rows[i]["NameThePair"],
-                                NumberThePair = (int)dataTable.Rows[i]["NumberThePair"],
-                            }
-                        );
-                    }
-                }
-                else
-                {
-                    BDList.Add(
-                            new Pair
-                            {
-                               
-                                NameThePair = (string)dataTable.Rows[i]["NameThePair"],
-                                NumberThePair = (int)dataTable.Rows[i]["NumberThePair"],
-                            }
-                        );
-                }
-            }
-
-            for (int i = useList.Count - 1; i >= 0; i--)
-            {
-                BDList.RemoveAt(useList[i]);
-            }
-            WorkToMyDbContext.SaveDB();
-
-        }
-
-        private void SetBDStudyDay(DataTable dataTable)
-        {
-            List<int> useList = new List<int>();
-            var BDList = studyDays;
-
-            for (int i = 0; i < BDList.Count; i++)
-            {
-                useList.Add(i);
-            }
-
-            for (int i = 0; i < dataTable.Rows.Count; i++)
-            {
-                int ind = -1;
-                if (dataTable.Rows[i]["StudyDayId"].ToString() != "")
-                {
-                    ind = BDList.FindIndex(x => x.StudyDayId == (int)dataTable.Rows[i]["StudyDayId"]);
-
-                    if (ind >= 0)
-                    {
-                        useList.Remove(ind);
-                        BDList[ind] = new StudyDay
-                        {
-                            StudyDayId = (int)dataTable.Rows[i]["StudyDayId"],
-                            NameDayOfWeek = (string)dataTable.Rows[i]["NameDayOfWeek"],
-                            NumberDayOfWeek = (int)dataTable.Rows[i]["NumberDayOfWeek"],
-                            NumberOfWeek = (int)dataTable.Rows[i]["NumberOfWeek"],
-
-                        };
-                    }
-                    else
-                    {
-                        BDList.Add(
-                            new StudyDay
-                            {
-                                StudyDayId = (int)dataTable.Rows[i]["StudyDayId"],
-                                NameDayOfWeek = (string)dataTable.Rows[i]["NameDayOfWeek"],
-                                NumberDayOfWeek = (int)dataTable.Rows[i]["NumberDayOfWeek"],
-                                NumberOfWeek = (int)dataTable.Rows[i]["NumberOfWeek"],
-                            }
-                        );
-                    }
-                }
-                else
-                {
-                    BDList.Add(
-                            new StudyDay
-                            {
-                                
-                                NameDayOfWeek = (string)dataTable.Rows[i]["NameDayOfWeek"],
-                                NumberDayOfWeek = (int)dataTable.Rows[i]["NumberDayOfWeek"],
-                                NumberOfWeek = (int)dataTable.Rows[i]["NumberOfWeek"],
-                            }
-                        );
-                }
-            }
-
-            for (int i = useList.Count - 1; i >= 0; i--)
-            {
-                BDList.RemoveAt(useList[i]);
-            }
-            WorkToMyDbContext.SaveDB();
-
-        }
 
 
     }

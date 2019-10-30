@@ -67,7 +67,6 @@ namespace SimpleSheduler.WPF
             {
                
                 DataGridGroup.ItemsSource = DataGrid.ItemsSource;
-                this.Title = MyDataGridProperty.NameTable;
                 for (int i = 0; i < DataGridGroup.Columns.Count; i++)
                 {
                     var column = DataGridGroup.Columns[i];
