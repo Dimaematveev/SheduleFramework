@@ -8,27 +8,32 @@ using System.Windows;
 namespace SimpleSheduler.WPF.BL
 {
 
-    public class MyDataGridProperty<T>
+    public class MyDataGridProperty
     {
-        public string BDName;
-        public string TableName;
+        /// <summary>
+        /// Список колонок
+        /// </summary>
+        public IEnumerable<MyColumnProperty> MyColumnProperties;
 
-        public Visibility Visibility;
-        public bool IsReadOnly;
+        /// <summary>
+        /// Полное пространство имен из БД
+        /// </summary>
+        public string FullNamespaceBD;
 
-        public IEnumerable<T> ItemsSource;
+        /// <summary>
+        /// Название таблицы для вывода
+        /// </summary>
+        public string NameTable;
 
         public MyDataGridProperty()
         {
-
         }
 
-        public MyDataGridProperty(string bDName, string tableName, Visibility visibility, bool isReadOnly)
+        public MyDataGridProperty(IEnumerable<MyColumnProperty> myColumnProperties, string fullNamespaceBD, string nameTable)
         {
-            BDName = bDName;
-            TableName = tableName;
-            Visibility = visibility;
-            IsReadOnly = isReadOnly;
+            MyColumnProperties = myColumnProperties;
+            FullNamespaceBD = fullNamespaceBD;
+            NameTable = nameTable;
         }
     }
 }

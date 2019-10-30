@@ -63,25 +63,19 @@ namespace SimpleSheduler.WPF
 
         private void ButtonOpenCurricila_Click(object sender, RoutedEventArgs e)
         {
-            var table = getDataFromBD.GetGridBDCurriculum();
+            var myDataGridProperty = getDataFromBD.GetGridBDCurriculum();
 
             OutClassList outGroup = new OutClassList();
-            outGroup.DataGrid = table;
-            List<MyDataGridProperty<object>> myDataGridProperties = new List<MyDataGridProperty<object>>
-            {
-                new MyDataGridProperty<object>("CurriculumId","ID плана",Visibility.Visible,true),
-                new MyDataGridProperty<object>("GroupId","ID группы",Visibility.Hidden,false){ItemsSource = getDataFromBD.groups },
-                new MyDataGridProperty<object>("SubjectId","ID предмета",Visibility.Visible,false),
-                new MyDataGridProperty<object>("NumberOfLectures","Кол-во лекций",Visibility.Visible,false),
-                new MyDataGridProperty<object>("NumberOfPractical","Кол-во практических",Visibility.Visible,false),
-                new MyDataGridProperty<object>("NumberOfLaboratory","Кол-во лабораторных",Visibility.Visible,false),
-                new MyDataGridProperty<object>("Group","Группа",Visibility.Visible,false),
-                new MyDataGridProperty<object>("Subject","Предмет",Visibility.Visible,false){ItemsSource = getDataFromBD.subjects },
-            };
-            outGroup.myDataGridProperties = myDataGridProperties;
-            outGroup.ButtonSave.IsEnabled = false;
-            outGroup.Show();
+            outGroup.DataGrid = new System.Windows.Controls.DataGrid();
+            outGroup.DataGrid.ItemsSource = getDataFromBD.curricula;
+
+            outGroup.MyDataGridProperty = myDataGridProperty;
+            outGroup.ButtonSave.IsEnabled = true;
             
+
+            outGroup.ButtonSave.Click += (sender1, EventArgs1) => { getDataFromBD.SAVE(); };
+            outGroup.Show();
+
         }
 
         /// <summary>

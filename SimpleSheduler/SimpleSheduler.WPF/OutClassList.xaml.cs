@@ -23,7 +23,7 @@ namespace SimpleSheduler.WPF
     {
         public DataTable DataTable;
         public DataGrid DataGrid;
-        public List<MyDataGridProperty<object>> myDataGridProperties;
+        public MyDataGridProperty MyDataGridProperty;
         public OutClassList()
         {
             InitializeComponent();
@@ -67,24 +67,25 @@ namespace SimpleSheduler.WPF
             {
                
                 DataGridGroup.ItemsSource = DataGrid.ItemsSource;
+                this.Title = MyDataGridProperty.NameTable;
                 for (int i = 0; i < DataGridGroup.Columns.Count; i++)
                 {
                     var column = DataGridGroup.Columns[i];
-                    foreach (var myDataGridProperty in myDataGridProperties)
+                    foreach (var myDataGridProperty in MyDataGridProperty.MyColumnProperties)
                     {
-                        if (DataGridGroup.Columns[i].Header.ToString().Equals(myDataGridProperty.BDName))
+                        if (DataGridGroup.Columns[i].Header.ToString().Equals(myDataGridProperty.ColumnBDName))
                         {
                             if (false)
                             {
                                 DataGridComboBoxColumn dataGridComboBoxColumn = new DataGridComboBoxColumn();
-                                dataGridComboBoxColumn.Header = myDataGridProperty.TableName;
+                                dataGridComboBoxColumn.Header = myDataGridProperty.ColumnOutName;
                                 dataGridComboBoxColumn.ItemsSource = myDataGridProperty.ItemsSource;
                                 
                                 DataGridGroup.Columns[i] = dataGridComboBoxColumn;
                             }
                             else
                             {
-                                DataGridGroup.Columns[i].Header = myDataGridProperty.TableName;
+                                DataGridGroup.Columns[i].Header = myDataGridProperty.ColumnOutName;
                                 
                                 DataGridGroup.Columns[i].Visibility = myDataGridProperty.Visibility;
                                 DataGridGroup.Columns[i].IsReadOnly = myDataGridProperty.IsReadOnly;

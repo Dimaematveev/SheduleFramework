@@ -105,51 +105,23 @@ namespace SimpleSheduler.WPF.BL
 
         }
 
-        public DataGrid GetGridBDCurriculum()
+        public MyDataGridProperty GetGridBDCurriculum()
         {
-            var BDClass = curricula;
-
-            DataGrid dataGrid = new DataGrid();
-            dataGrid.Name = "План";
-            //dataGrid.AutoGenerateColumns = false;
-            //{
-            //    DataGridTextColumn dataGridTextColumn ;
-            //     dataGridTextColumn = new DataGridTextColumn();
-            //    dataGridTextColumn.Header = "ID";
-            //    dataGridTextColumn.IsReadOnly = false;
-            //    dataGrid.Columns.Add(dataGridTextColumn);
-            //    DataGridComboBoxColumn dataGridComboBoxColumn = new DataGridComboBoxColumn();
-            //    dataGridComboBoxColumn.Header = "Group";
-            //    dataGridComboBoxColumn.ItemsSource = groups;
-            //    dataGridComboBoxColumn.IsReadOnly = false;
-            //    dataGrid.Columns.Add(dataGridComboBoxColumn);
-            //}
-            dataGrid.ItemsSource = BDClass;
-            List<MyDataGridProperty<object>> myDataGridProperties = new List<MyDataGridProperty<object>>
+            
+            List<MyColumnProperty> myColumnProperties = new List<MyColumnProperty>
             {
-                new MyDataGridProperty<object>("CurriculumId","ID плана",Visibility.Visible,true),
-                new MyDataGridProperty<object>("GroupId","ID группы",Visibility.Hidden,false){ItemsSource = groups },
-                new MyDataGridProperty<object>("SubjectId","ID предмета",Visibility.Visible,false),
-                new MyDataGridProperty<object>("NumberOfLectures","Кол-во лекций",Visibility.Visible,false),
-                new MyDataGridProperty<object>("NumberOfPractical","Кол-во практических",Visibility.Visible,false),
-                new MyDataGridProperty<object>("NumberOfLaboratory","Кол-во лабораторных",Visibility.Visible,false),
-                new MyDataGridProperty<object>("Group","Группа",Visibility.Visible,false),
-                new MyDataGridProperty<object>("Subject","Предмет",Visibility.Visible,false){ItemsSource = subjects },
+                new MyColumnProperty("CurriculumId","ID плана",Visibility.Visible,true),
+                new MyColumnProperty("GroupId","ID группы",Visibility.Hidden,false,groups ),
+                new MyColumnProperty("SubjectId","ID предмета",Visibility.Visible,false),
+                new MyColumnProperty("NumberOfLectures","Кол-во лекций",Visibility.Visible,false),
+                new MyColumnProperty("NumberOfPractical","Кол-во практических",Visibility.Visible,false),
+                new MyColumnProperty("NumberOfLaboratory","Кол-во лабораторных",Visibility.Visible,false),
+                new MyColumnProperty("Group","Группа",Visibility.Visible,false),
+                new MyColumnProperty("Subject","Предмет",Visibility.Visible,false,subjects ),
             };
-
-            foreach (var item in myDataGridProperties)
-            {
-                if (item.ItemsSource!=null)
-                {
-                    dataGrid.Columns.Add(new DataGridComboBoxColumn());
-                }
-                else
-                {
-                    dataGrid.Columns.Add(new DataGridTextColumn());
-                }
-            }
-
-            return dataGrid;
+            MyDataGridProperty myDataGridProperty = new MyDataGridProperty(myColumnProperties, typeof(Curriculum).FullName, "План");
+            
+            return myDataGridProperty;
         }
 
 
@@ -606,6 +578,10 @@ namespace SimpleSheduler.WPF.BL
 
         }
 
+        public void SAVE()
+        {
+            WorkToMyDbContext.SaveDB();
+        }
         private void SetBDClassroom(DataTable dataTable)
         {
             List<int> useList = new List<int>();

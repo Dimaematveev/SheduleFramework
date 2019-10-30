@@ -46,6 +46,7 @@
   <ItemGroup>
     <Compile Include="GetDataFromBD.cs" />
     <Compile Include="GetFillingClass.cs" />
+    <Compile Include="MyColumnProperty.cs" />
     <Compile Include="MyDataGridProperty.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
