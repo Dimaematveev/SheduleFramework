@@ -79,6 +79,10 @@
     <Compile Include="Migrations\201910261459547_AddFullName1.designer.cs">
       <DependentUpon>201910261459547_AddFullName1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910311938579_AddColumnIsDelete.cs" />
+    <Compile Include="Migrations\201910311938579_AddColumnIsDelete.designer.cs">
+      <DependentUpon>201910311938579_AddColumnIsDelete.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\IName.cs" />
     <Compile Include="Model\StudyDay.cs" />
@@ -117,6 +121,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910261459547_AddFullName1.resx">
       <DependentUpon>201910261459547_AddFullName1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910311938579_AddColumnIsDelete.resx">
+      <DependentUpon>201910311938579_AddColumnIsDelete.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

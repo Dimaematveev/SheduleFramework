@@ -28,13 +28,20 @@ namespace SimpleSheduler.BD
         /// </summary>
         [Required]
         public int NumberThePair { get; set; }
+        /// <summary>
+        /// Удален
+        /// </summary>
+        [Required]
+        public bool IsDelete { get; set; } = false;
+
         public object Clone()
         {
             Pair newPair = new Pair()
             {
                 PairId = this.PairId,
                 NameThePair = this.NameThePair,
-                NumberThePair = this.NumberThePair
+                NumberThePair = this.NumberThePair,
+                IsDelete = this.IsDelete,
             };
             return newPair;
         }

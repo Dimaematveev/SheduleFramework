@@ -42,6 +42,12 @@ namespace SimpleSheduler.BD
         /// </summary>
         [Required]
         public int NumberOfWeek { get; set; }
+        /// <summary>
+        /// Удален
+        /// </summary>
+        [Required]
+        public bool IsDelete { get; set; } = false;
+
 
         public object Clone()
         {
@@ -50,7 +56,9 @@ namespace SimpleSheduler.BD
                 StudyDayId = this.StudyDayId,
                 NameDayOfWeek = this.NameDayOfWeek,
                 NumberDayOfWeek = this.NumberDayOfWeek,
-                NumberOfWeek = this.NumberOfWeek
+                NumberOfWeek = this.NumberOfWeek,
+                IsDelete = this.IsDelete,
+                FullNameDayOfWeek = this.FullNameDayOfWeek,
             };
             return newStudyDay;
         }

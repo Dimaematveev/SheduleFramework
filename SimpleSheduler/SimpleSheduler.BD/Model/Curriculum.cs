@@ -47,6 +47,13 @@ namespace SimpleSheduler.BD
         [Required]
         public int NumberOfLaboratory { get; set; }
 
+        /// <summary>
+        /// Удален
+        /// </summary>
+        [Required]
+        public bool IsDelete { get; set; } = false;
+
+
 
         /// <summary>
         /// Для связи с группой.
@@ -70,6 +77,7 @@ namespace SimpleSheduler.BD
                 GroupId = this.GroupId,
                 Subject = this.Subject,
                 SubjectId = this.SubjectId,
+                IsDelete = this.IsDelete,
             };
             return newCurriculum;
         }

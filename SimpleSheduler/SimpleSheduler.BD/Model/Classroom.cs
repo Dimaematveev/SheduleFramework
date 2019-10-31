@@ -38,13 +38,21 @@ namespace SimpleSheduler.BD
         [Required]
         public int NumberOfSeats { get; set; }
 
+        /// <summary>
+        /// Удален
+        /// </summary>
+        [Required]
+        public bool IsDelete { get; set; } = false;
+
         public object Clone()
         {
             Classroom newClassroom = new Classroom()
             {
                 ClassroomId = this.ClassroomId,
                 Name = this.Name,
-                NumberOfSeats = this.NumberOfSeats
+                NumberOfSeats = this.NumberOfSeats,
+                IsDelete = this.IsDelete,
+                FullName = this.FullName,
             };
             return newClassroom;
         }

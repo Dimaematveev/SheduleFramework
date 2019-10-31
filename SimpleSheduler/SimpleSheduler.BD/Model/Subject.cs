@@ -32,6 +32,13 @@ namespace SimpleSheduler.BD
         [StringLength(100)]
         public string FullName { get; set; }
 
+        /// <summary>
+        /// Удален
+        /// </summary>
+        [Required]
+        public bool IsDelete { get; set; } = false;
+
+
         ///Свойство для EntityFramework
         /// <summary>
         /// У каждого предмета будет храниться весь учебный план. Т.е. связь с Планом занятий
@@ -46,6 +53,8 @@ namespace SimpleSheduler.BD
                 Curricula = this.Curricula,
                 Name = this.Name,
                 SubjectId = this.SubjectId,
+                IsDelete = this.IsDelete,
+                FullName = this.FullName,
                
             };
             return newSubject;

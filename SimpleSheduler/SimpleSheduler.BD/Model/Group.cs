@@ -51,6 +51,12 @@ namespace SimpleSheduler.BD
         [Required]
         [StringLength(20)]
         public string Potok { get; set; }
+        /// <summary>
+        /// Удален
+        /// </summary>
+        [Required]
+        public bool IsDelete { get; set; } = false;
+
 
 
         ///Свойство для EntityFramework
@@ -78,7 +84,9 @@ namespace SimpleSheduler.BD
                 Name = this.Name,
                 NumberOfPersons = this.NumberOfPersons,
                 Potok = this.Potok,
-                Seminar = this.Seminar
+                Seminar = this.Seminar,
+                IsDelete = this.IsDelete,
+                FullName = this.FullName,
             };
             return newGroup;
         }
