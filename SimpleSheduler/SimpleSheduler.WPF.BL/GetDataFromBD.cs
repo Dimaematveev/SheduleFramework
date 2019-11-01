@@ -119,7 +119,7 @@ namespace SimpleSheduler.WPF.BL
                 new MyColumnProperty(nameof(Curriculum.NumberOfPractical),"Кол-во практических",Visibility.Visible,false),
                 new MyColumnProperty(nameof(Curriculum.NumberOfLaboratory),"Кол-во лабораторных",Visibility.Visible,false),
                 new MyColumnProperty(nameof(Curriculum.Group),"Группа",Visibility.Visible,false),
-                new MyColumnProperty(nameof(Curriculum.Subject),"Предмет",Visibility.Visible,false,subjects ),
+                new MyColumnProperty(nameof(Curriculum.Subject),"Предмет",Visibility.Visible,false ),
             };
             myColumnProperties.AddRange(GetGeneralColumnProperty());
             MyDataGridProperty myDataGridProperty = new MyDataGridProperty(myColumnProperties, typeof(Curriculum).FullName, "План");
