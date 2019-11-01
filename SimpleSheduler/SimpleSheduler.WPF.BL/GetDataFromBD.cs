@@ -25,6 +25,7 @@ namespace SimpleSheduler.WPF.BL
         public List<Curriculum> curricula;
         public List<Pair> pairs;
         public List<StudyDay> studyDays;
+        public List<TypeUnionGroup> typeUnionGroups;
         public void ReadDB()
         {
             WorkToMyDbContext.ReadDB();
@@ -34,6 +35,7 @@ namespace SimpleSheduler.WPF.BL
             curricula = WorkToMyDbContext.curricula;
             pairs = WorkToMyDbContext.pairs;
             studyDays = WorkToMyDbContext.studyDays;
+            typeUnionGroups = WorkToMyDbContext.typeUnionGroups;
 
         }
 
@@ -63,6 +65,9 @@ namespace SimpleSheduler.WPF.BL
             if (sNamespase == typeof(Group).FullName)
             {
                 dataGrid.ItemsSource = groups;
+            }if (sNamespase == typeof(TypeUnionGroup).FullName)
+            {
+                dataGrid.ItemsSource = typeUnionGroups;
             }
 
             return dataGrid;
@@ -95,6 +100,10 @@ namespace SimpleSheduler.WPF.BL
             {
                 myDataGridProperty= GetDateGridPropertyBDGroup();
             }
+            if (sNamespase == typeof(TypeUnionGroup).FullName)
+            {
+                myDataGridProperty= GetDateGridPropertyBDTypeUnionGroup();
+            }
 
             return myDataGridProperty;
         }
@@ -107,7 +116,7 @@ namespace SimpleSheduler.WPF.BL
             };
             return myColumnProperties;
         }
-
+        
         private MyDataGridProperty GetDateGridPropertyBDCurriculum()
         {
             List<MyColumnProperty> myColumnProperties = new List<MyColumnProperty>
@@ -196,7 +205,19 @@ namespace SimpleSheduler.WPF.BL
             return myDataGridProperty;
         }
 
+        private MyDataGridProperty GetDateGridPropertyBDTypeUnionGroup()
+        {
+            List<MyColumnProperty> myColumnProperties = new List<MyColumnProperty>
+            {
+                new MyColumnProperty(nameof(TypeUnionGroup.TypeUnionGroupId),"ID объединения",Visibility.Visible,true),
+                new MyColumnProperty(nameof(TypeUnionGroup.Name),"Название объединения",Visibility.Visible,false ),
+                new MyColumnProperty(nameof(TypeUnionGroup.FullName),"Полное название объединения",Visibility.Visible,false),
 
+            };
+            myColumnProperties.AddRange(GetGeneralColumnProperty());
+            MyDataGridProperty myDataGridProperty = new MyDataGridProperty(myColumnProperties, typeof(TypeUnionGroup).FullName, "Типы объединений");
+            return myDataGridProperty;
+        }
         public void SaveAll()
         {
             WorkToMyDbContext.SaveDB();

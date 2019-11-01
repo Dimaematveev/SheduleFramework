@@ -83,6 +83,10 @@
     <Compile Include="Migrations\201910311938579_AddColumnIsDelete.designer.cs">
       <DependentUpon>201910311938579_AddColumnIsDelete.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911011908239_AddTableTypeUnionGroup.cs" />
+    <Compile Include="Migrations\201911011908239_AddTableTypeUnionGroup.designer.cs">
+      <DependentUpon>201911011908239_AddTableTypeUnionGroup.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\IIsDelete.cs" />
     <Compile Include="Model\IName.cs" />
@@ -90,6 +94,7 @@
     <Compile Include="Model\Classroom.cs" />
     <Compile Include="Model\Curriculum.cs" />
     <Compile Include="Model\Group.cs" />
+    <Compile Include="Model\TypeUnionGroup.cs" />
     <Compile Include="MyDbContext.cs" />
     <Compile Include="Model\Pair.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -125,6 +130,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910311938579_AddColumnIsDelete.resx">
       <DependentUpon>201910311938579_AddColumnIsDelete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911011908239_AddTableTypeUnionGroup.resx">
+      <DependentUpon>201911011908239_AddTableTypeUnionGroup.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

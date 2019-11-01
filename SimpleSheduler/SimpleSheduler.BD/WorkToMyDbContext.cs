@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
+using SimpleSheduler.BD.Model;
 
 namespace SimpleSheduler.BD
 {
@@ -24,6 +25,7 @@ namespace SimpleSheduler.BD
         public static List<Curriculum> curricula;
         public static List<Pair> pairs;
         public static List<StudyDay> studyDays;
+        public static List<TypeUnionGroup> typeUnionGroups;
         public static void ReadDB()
         {
             using (var context = new MyDbContext())
@@ -36,6 +38,7 @@ namespace SimpleSheduler.BD
                 // var subjectOfTeachers = context.SubjectsOfTeachers.ToArray();
                 pairs = context.Pairs.ToList();
                 studyDays = context.StudyDays.ToList();
+                typeUnionGroups = context.TypeUnionGroups.ToList();
             }
         }
 

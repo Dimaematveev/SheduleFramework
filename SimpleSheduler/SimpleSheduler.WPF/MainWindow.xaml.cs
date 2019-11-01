@@ -47,6 +47,7 @@ namespace SimpleSheduler.WPF
             ButtonOpenGroup.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(typeof(Group).FullName); };
             ButtonOpenPair.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(typeof(Pair).FullName); };
             ButtonOpenStudyDay.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(typeof(StudyDay).FullName); };
+            ButtonOpenTypeUnionGroup.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(typeof(TypeUnionGroup).FullName); };
 
 
 
@@ -139,6 +140,10 @@ namespace SimpleSheduler.WPF
             if (getDataFromBD.studyDays != null)
             {
                 ButtonOpenStudyDay.IsEnabled = true;
+            }
+            if (getDataFromBD.typeUnionGroups != null)
+            {
+                ButtonOpenTypeUnionGroup.IsEnabled = true;
             }
             if (getDataFromBD.groups != null && getDataFromBD.classrooms != null && getDataFromBD.pairs != null && getDataFromBD.studyDays != null)
             {
