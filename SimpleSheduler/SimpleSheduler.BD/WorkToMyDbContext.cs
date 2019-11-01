@@ -46,7 +46,7 @@ namespace SimpleSheduler.BD
         }
 
 
-        public static void SaveDB()
+        private static void SaveDBALL()
         {
             using (var context = new MyDbContext())
             {
@@ -55,9 +55,115 @@ namespace SimpleSheduler.BD
                 context.Subjects.AddOrUpdate(subjects.ToArray());
                 context.Curricula.AddOrUpdate(curricula.ToArray());
                 context.Pairs.AddOrUpdate(pairs.ToArray());
+                
                 context.StudyDays.AddOrUpdate(studyDays.ToArray());
                 context.SaveChanges();
             }
         }
+
+        public static void SaveDB(string sNamespace="ALL")
+        {
+            if (typeof(Classroom).FullName == sNamespace) 
+            {
+                SaveDBClassroom();
+                return;
+            }
+            if (typeof(Group).FullName == sNamespace)
+            {
+                SaveDBGroup();
+                return;
+            }
+            if (typeof(Curriculum).FullName == sNamespace)
+            {
+                SaveDBCurriculum();
+                return;
+            }
+            if (typeof(Pair).FullName == sNamespace)
+            {
+                SaveDBPair();
+                return;
+            }
+            if (typeof(StudyDay).FullName == sNamespace)
+            {
+                SaveDBStudyDay();
+                return;
+            }
+            if (typeof(Subject).FullName == sNamespace)
+            {
+                SaveDBSubject();
+                return;
+            }
+            if ("ALL" == sNamespace)
+            {
+                SaveDBALL();
+                return;
+            }
+            throw new ArgumentException($"Нет такой таблицы {sNamespace}");
+        }
+
+        private static void SaveDBClassroom()
+        {
+            using (var context = new MyDbContext())
+            {
+                context.Classrooms.AddOrUpdate(classrooms.ToArray());
+                context.SaveChanges();
+            }
+        }
+
+        private static void SaveDBGroup()
+        {
+            using (var context = new MyDbContext())
+            {
+
+                context.Groups.AddOrUpdate(groups.ToArray());
+                context.SaveChanges();
+            }
+        }
+
+
+        private static void SaveDBSubject()
+        {
+            using (var context = new MyDbContext())
+            {
+
+                context.Subjects.AddOrUpdate(subjects.ToArray());
+
+                context.SaveChanges();
+            }
+        }
+
+
+        private static void SaveDBCurriculum()
+        {
+            using (var context = new MyDbContext())
+            {
+               
+                context.Curricula.AddOrUpdate(curricula.ToArray());
+               
+                context.SaveChanges();
+            }
+        }
+
+
+        private static void SaveDBPair()
+        {
+            using (var context = new MyDbContext())
+            {
+                context.Pairs.AddOrUpdate(pairs.ToArray());
+
+                context.SaveChanges();
+            }
+        }
+
+
+        private static void SaveDBStudyDay()
+        {
+            using (var context = new MyDbContext())
+            {
+                context.StudyDays.AddOrUpdate(studyDays.ToArray());
+                context.SaveChanges();
+            }
+        }
+
     }
 }

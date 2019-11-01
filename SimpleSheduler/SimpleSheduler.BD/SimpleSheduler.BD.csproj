@@ -84,6 +84,7 @@
       <DependentUpon>201910311938579_AddColumnIsDelete.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Model\IIsDelete.cs" />
     <Compile Include="Model\IName.cs" />
     <Compile Include="Model\StudyDay.cs" />
     <Compile Include="Model\Classroom.cs" />

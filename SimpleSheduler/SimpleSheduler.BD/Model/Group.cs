@@ -11,7 +11,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Группа.
     /// </summary>
-    public class Group : IName,ICloneable
+    public class Group : IIsDelete, IName,ICloneable
     {
         
         /// <summary>

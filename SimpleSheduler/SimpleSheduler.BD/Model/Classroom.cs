@@ -11,7 +11,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Аудитория
     /// </summary>
-    public class Classroom : IName,ICloneable
+    public class Classroom : IName, IIsDelete, ICloneable
     {
 
         /// <summary>

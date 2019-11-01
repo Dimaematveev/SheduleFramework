@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleSheduler.BD.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Учебные дни за 2 недели
     /// </summary>
-    public class StudyDay:ICloneable
+    public class StudyDay: IIsDelete, ICloneable
     {
         /// <summary>
         /// Ключ Учебного дня

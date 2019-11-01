@@ -99,7 +99,14 @@ namespace SimpleSheduler.WPF.BL
             return myDataGridProperty;
         }
 
-
+        private List<MyColumnProperty> GetGeneralColumnProperty()
+        {
+            List<MyColumnProperty> myColumnProperties = new List<MyColumnProperty>
+            {
+                new MyColumnProperty(nameof(Curriculum.IsDelete),"Удален",Visibility.Visible,true ),
+            };
+            return myColumnProperties;
+        }
 
         private MyDataGridProperty GetDateGridPropertyBDCurriculum()
         {
@@ -114,6 +121,7 @@ namespace SimpleSheduler.WPF.BL
                 new MyColumnProperty(nameof(Curriculum.Group),"Группа",Visibility.Visible,false),
                 new MyColumnProperty(nameof(Curriculum.Subject),"Предмет",Visibility.Visible,false,subjects ),
             };
+            myColumnProperties.AddRange(GetGeneralColumnProperty());
             MyDataGridProperty myDataGridProperty = new MyDataGridProperty(myColumnProperties, typeof(Curriculum).FullName, "План");
             return myDataGridProperty;
         }
@@ -128,6 +136,7 @@ namespace SimpleSheduler.WPF.BL
                 new MyColumnProperty(nameof(Subject.Name),"Название предмета",Visibility.Visible,false),
                 new MyColumnProperty(nameof(Subject.FullName),"Полное название предмета",Visibility.Visible,false),
             };
+            myColumnProperties.AddRange(GetGeneralColumnProperty());
             MyDataGridProperty myDataGridProperty = new MyDataGridProperty(myColumnProperties, typeof(Subject).FullName, "Предметы");
             return myDataGridProperty;
         }
@@ -141,6 +150,7 @@ namespace SimpleSheduler.WPF.BL
                 new MyColumnProperty(nameof(Classroom.FullName),"Полное название Аудитории",Visibility.Visible,false),
                 new MyColumnProperty(nameof(Classroom.NumberOfSeats),"Кол-во мест",Visibility.Visible,false),
             };
+            myColumnProperties.AddRange(GetGeneralColumnProperty());
             MyDataGridProperty myDataGridProperty = new MyDataGridProperty(myColumnProperties, typeof(Classroom).FullName, "Аудитории");
             return myDataGridProperty;
         }
@@ -155,6 +165,7 @@ namespace SimpleSheduler.WPF.BL
                 new MyColumnProperty(nameof(Group.Seminar),"Семинар",Visibility.Visible,false),
                 new MyColumnProperty(nameof(Group.Potok),"Поток",Visibility.Visible,false),
             };
+            myColumnProperties.AddRange(GetGeneralColumnProperty());
             MyDataGridProperty myDataGridProperty = new MyDataGridProperty(myColumnProperties, typeof(Group).FullName, "Группы");
             return myDataGridProperty;
         }
@@ -166,6 +177,7 @@ namespace SimpleSheduler.WPF.BL
                 new MyColumnProperty(nameof(Pair.NameThePair),"Название пары",Visibility.Visible,false),
                 new MyColumnProperty(nameof(Pair.NumberThePair),"Номер пары",Visibility.Visible,false),
             };
+            myColumnProperties.AddRange(GetGeneralColumnProperty());
             MyDataGridProperty myDataGridProperty = new MyDataGridProperty(myColumnProperties, typeof(Pair).FullName, "Пары");
             return myDataGridProperty;
         }
@@ -179,6 +191,7 @@ namespace SimpleSheduler.WPF.BL
                 new MyColumnProperty(nameof(StudyDay.NameDayOfWeek),"День недели",Visibility.Visible,false),
                 new MyColumnProperty(nameof(StudyDay.FullNameDayOfWeek),"Полное название дня недели",Visibility.Visible,false),
             };
+            myColumnProperties.AddRange(GetGeneralColumnProperty());
             MyDataGridProperty myDataGridProperty = new MyDataGridProperty(myColumnProperties, typeof(StudyDay).FullName, "Учебные дни");
             return myDataGridProperty;
         }
@@ -188,7 +201,13 @@ namespace SimpleSheduler.WPF.BL
         {
             WorkToMyDbContext.SaveDB();
         }
+
+        public void Save(string sNamespace)
+        {
+            WorkToMyDbContext.SaveDB(sNamespace);
+        }
        
+
 
 
 

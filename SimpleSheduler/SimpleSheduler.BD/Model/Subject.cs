@@ -11,7 +11,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Предмет
     /// </summary>
-    public class Subject : IName,ICloneable
+    public class Subject : IName, IIsDelete, ICloneable
     {
         
         /// <summary>

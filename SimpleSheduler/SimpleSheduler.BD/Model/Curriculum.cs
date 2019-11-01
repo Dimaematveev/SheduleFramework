@@ -11,7 +11,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Учебный план на 2 недели
     /// </summary>
-    public class Curriculum: ICloneable
+    public class Curriculum: IIsDelete, ICloneable
     {
        
         /// <summary>

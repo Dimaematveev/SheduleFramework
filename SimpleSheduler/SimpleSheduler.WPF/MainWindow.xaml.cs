@@ -156,7 +156,7 @@ namespace SimpleSheduler.WPF
 
             var outClassList = OpenGridBD(myDataGrid, myDataGridProperty, true);
             //Кнопке save приписываем действие
-            outClassList.ButtonSave.Click += (sender1, EventArgs1) => { ButtonSaveBD_Click(); };
+            outClassList.ButtonSave.Click += (sender1, EventArgs1) => { ButtonSaveBD_Click(sNamespace); };
         }
 
 
@@ -196,9 +196,9 @@ namespace SimpleSheduler.WPF
         /// <summary>
         /// Действие кнопки Save в открытом окне
         /// </summary>
-        private void ButtonSaveBD_Click()
+        private void ButtonSaveBD_Click(string sNamespace)
         {
-            getDataFromBD.SaveAll();
+            getDataFromBD.Save(sNamespace);
         }
 
         /// <summary>
