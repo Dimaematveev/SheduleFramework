@@ -48,6 +48,7 @@ namespace SimpleSheduler.WPF
             ButtonOpenPair.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(typeof(Pair).FullName); };
             ButtonOpenStudyDay.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(typeof(StudyDay).FullName); };
             ButtonOpenTypeUnionGroup.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(typeof(TypeUnionGroup).FullName); };
+            ButtonOpenTypeOfClasses.Click += (sender1, EventArgs1) => { ButtonOpenBD_Click(typeof(TypeOfClasses).FullName); };
 
 
 
@@ -57,6 +58,8 @@ namespace SimpleSheduler.WPF
             CreateScheduler.Click += CreateScheduler_Click;
             GetFillingClassrooms.Click += (sender1, EventArgs1) => { GetFillingFromScheduler_Click(typeof(Filling<Classroom>).FullName); };
             GetFillingGroups.Click += (sender1, EventArgs1) => { GetFillingFromScheduler_Click(typeof(Filling<Group>).FullName); };
+
+            PlanNotScheduler.Click += (sender1, EventArgs1) => { ShowMess(); };
             this.Loaded += MainWindow_Loaded;
         }
 
@@ -70,7 +73,7 @@ namespace SimpleSheduler.WPF
             //getDataFromBD.AddNewBD();
             ButtonGetDataFromBD_Click(sender,e);
             GetFilling_Click(sender, e);
-            CreateScheduler_Click(sender, e);
+            //CreateScheduler_Click(sender, e);
         }
 
         /// <summary>
@@ -145,6 +148,10 @@ namespace SimpleSheduler.WPF
             if (getDataFromBD.typeUnionGroups != null)
             {
                 ButtonOpenTypeUnionGroup.IsEnabled = true;
+            }
+            if (getDataFromBD.typeOfClasses != null)
+            {
+                ButtonOpenTypeOfClasses.IsEnabled = true;
             }
             if (getDataFromBD.groups != null && getDataFromBD.classrooms != null && getDataFromBD.pairs != null && getDataFromBD.studyDays != null)
             {
@@ -256,13 +263,35 @@ namespace SimpleSheduler.WPF
         private void CreateScheduler_Click(object sender, RoutedEventArgs e)
         {
             createScheduler1 = new CreateScheduler(getDataFromBD.groups, getDataFromBD.classrooms, getDataFromBD.subjects, getDataFromBD.curricula, getFillingClass.fillingGroups, getFillingClass.fillingClassrooms);
+            if (createScheduler1.NotUnion.Length>0)
+            {
+                ShowMess();
+            }
+
             ButtonEnable_CreateScheduler_Click();
         }
+
+        /// <summary>
+        /// Показывает сообщение с планами не в расписании
+        /// </summary>
+        private void ShowMess()
+        {
+            string mess = "";
+            foreach (var item in createScheduler1.NotUnion)
+            {
+                mess += item.ToString();
+                mess += "\n";
+            }
+            System.Windows.MessageBox.Show(mess, "Не смог внести в расписание!", MessageBoxButton.OK, MessageBoxImage.Error);
+
+        }
+
         private void ButtonEnable_CreateScheduler_Click()
         {
             ButtonEnable_GetFilling_Click();
             GetFillingClassrooms.IsEnabled = true;
             GetFillingGroups.IsEnabled = true;
+            PlanNotScheduler.IsEnabled = true;
         }
 
 

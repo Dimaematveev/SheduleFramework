@@ -45,6 +45,11 @@ namespace SimpleSheduler.BL
         /// Общее заполнение по всему)) то есть и группы и аудитории
         /// </summary>
         public List<Filling<IAbbreviation >> Fillings1 {  get; private set; }
+
+        /// <summary>
+        /// Которые не удалость объединить
+        /// </summary>
+        public Curriculum[] NotUnion { get; private set; }
         public CreateScheduler()
         {
         }
@@ -80,7 +85,8 @@ namespace SimpleSheduler.BL
             FillingClassrooms = GetFillings(fillingClassrooms);
             NumberStudyDays = FillingClassrooms[0].Length;
 
-            var sss = SetScheduleWithUniouGroup();
+            NotUnion = SetScheduleWithUniouGroup();
+
         }
         /// <summary>
         /// Создает ArgumentNullException массиву если он пуст или null

@@ -26,6 +26,7 @@ namespace SimpleSheduler.WPF.BL
         public List<Pair> pairs;
         public List<StudyDay> studyDays;
         public List<TypeUnionGroup> typeUnionGroups;
+        public List<TypeOfClasses> typeOfClasses;
         public void ReadDB()
         {
             WorkToMyDbContext.ReadDB();
@@ -36,6 +37,7 @@ namespace SimpleSheduler.WPF.BL
             pairs = WorkToMyDbContext.pairs;
             studyDays = WorkToMyDbContext.studyDays;
             typeUnionGroups = WorkToMyDbContext.typeUnionGroups;
+            typeOfClasses = WorkToMyDbContext.typeOfClasses;
 
         }
         public void AddNewBD()
@@ -68,9 +70,14 @@ namespace SimpleSheduler.WPF.BL
             if (sNamespase == typeof(Group).FullName)
             {
                 dataGrid.ItemsSource = groups;
-            }if (sNamespase == typeof(TypeUnionGroup).FullName)
+            }
+            if (sNamespase == typeof(TypeUnionGroup).FullName)
             {
                 dataGrid.ItemsSource = typeUnionGroups;
+            }
+            if (sNamespase == typeof(TypeOfClasses).FullName)
+            {
+                dataGrid.ItemsSource = typeOfClasses;
             }
 
             return dataGrid;
@@ -82,6 +89,10 @@ namespace SimpleSheduler.WPF.BL
             if (sNamespase == typeof(Subject).FullName)
             {
                 myDataGridProperty = GetDateGridPropertyBDSubject();
+            }
+            if (sNamespase == typeof(TypeOfClasses).FullName)
+            {
+                myDataGridProperty = GetDateGridPropertyBDTypeOfClasses();
             }
             if (sNamespase == typeof(Classroom).FullName)
             {
@@ -133,6 +144,18 @@ namespace SimpleSheduler.WPF.BL
             };
             myColumnProperties.AddRange(GetGeneralColumnProperty());
             MyDataGridProperty myDataGridProperty = new MyDataGridProperty(myColumnProperties, typeof(Curriculum).FullName, "План");
+            return myDataGridProperty;
+        }
+        private MyDataGridProperty GetDateGridPropertyBDTypeOfClasses()
+        {
+            List<MyColumnProperty> myColumnProperties = new List<MyColumnProperty>
+            {
+                new MyColumnProperty(nameof(TypeOfClasses.TypeOfClassesId),"ID типа пары",Visibility.Visible,true),
+                new MyColumnProperty(nameof(TypeOfClasses.Abbreviation),"Сокращение",Visibility.Visible,false ),
+                new MyColumnProperty(nameof(TypeOfClasses.FullName),"Название",Visibility.Visible,false),
+            };
+            myColumnProperties.AddRange(GetGeneralColumnProperty());
+            MyDataGridProperty myDataGridProperty = new MyDataGridProperty(myColumnProperties, typeof(TypeOfClasses).FullName, "Типы пар");
             return myDataGridProperty;
         }
 

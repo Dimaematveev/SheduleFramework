@@ -93,5 +93,10 @@ namespace SimpleSheduler.BL
                 return PossibleFillings.Count;
             }
         }
+
+        public override string ToString()
+        {
+            return $"{Value.ToString()}-Num:{PossibleFillings.Count}";
+        }
     }
 }

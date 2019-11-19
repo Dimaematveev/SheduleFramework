@@ -26,6 +26,7 @@ namespace SimpleSheduler.BD
         public static List<Pair> pairs;
         public static List<StudyDay> studyDays;
         public static List<TypeUnionGroup> typeUnionGroups;
+        public static List<TypeOfClasses> typeOfClasses;
         public static void ReadDB()
         {
             using (var context = new MyDbContext())
@@ -39,6 +40,7 @@ namespace SimpleSheduler.BD
                 pairs = context.Pairs.ToList();
                 studyDays = context.StudyDays.ToList();
                 typeUnionGroups = context.TypeUnionGroups.ToList();
+                typeOfClasses = context.TypeOfClasses.ToList();
             }
         }
 
@@ -60,6 +62,7 @@ namespace SimpleSheduler.BD
                 context.Pairs.AddOrUpdate(pairs.ToArray());
                 
                 context.StudyDays.AddOrUpdate(studyDays.ToArray());
+                context.TypeOfClasses.AddOrUpdate(typeOfClasses.ToArray());
                 context.SaveChanges();
             }
         }
@@ -96,6 +99,11 @@ namespace SimpleSheduler.BD
                 SaveDBSubject();
                 return;
             }
+            if (typeof(TypeOfClasses).FullName == sNamespace)
+            {
+                SaveDBTypeOfClasses();
+                return;
+            }
             if ("ALL" == sNamespace)
             {
                 SaveDBALL();
@@ -109,6 +117,14 @@ namespace SimpleSheduler.BD
             using (var context = new MyDbContext())
             {
                 context.Classrooms.AddOrUpdate(classrooms.ToArray());
+                context.SaveChanges();
+            }
+        }
+        private static void SaveDBTypeOfClasses()
+        {
+            using (var context = new MyDbContext())
+            {
+                context.TypeOfClasses.AddOrUpdate(typeOfClasses.ToArray());
                 context.SaveChanges();
             }
         }
