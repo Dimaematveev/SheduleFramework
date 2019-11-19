@@ -11,7 +11,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Группа.
     /// </summary>
-    public class Group : IIsDelete, IName,ICloneable
+    public class Group : IIsDelete, IAbbreviation ,ICloneable
     {
         
         /// <summary>
@@ -24,7 +24,7 @@ namespace SimpleSheduler.BD
         /// </summary>
         [Required]
         [StringLength(50)]
-        public string Name { get; set; }
+        public string Abbreviation { get; set; }
 
         /// <summary>
         /// Полное Название группы
@@ -81,7 +81,7 @@ namespace SimpleSheduler.BD
             {
                 GroupId = this.GroupId,
                 Curricula = this.Curricula,
-                Name = this.Name,
+                Abbreviation = this.Abbreviation,
                 NumberOfPersons = this.NumberOfPersons,
                 Potok = this.Potok,
                 Seminar = this.Seminar,
@@ -90,9 +90,9 @@ namespace SimpleSheduler.BD
             };
             return newGroup;
         }
-        public string NameString()
+        public string AbbreviationString()
         {
-            return Name;
+            return Abbreviation;
         }
 
         public override int GetHashCode()
@@ -102,7 +102,7 @@ namespace SimpleSheduler.BD
 
         public override string ToString()
         {
-            return $"ID:{GroupId}, N:{Name}, P:{Potok}, S:{Seminar}, Num:{NumberOfPersons}.";
+            return $"ID:{GroupId}, N:{Abbreviation}, P:{Potok}, S:{Seminar}, Num:{NumberOfPersons}.";
         }
     }
 }

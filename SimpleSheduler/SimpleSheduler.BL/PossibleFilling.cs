@@ -28,9 +28,9 @@ namespace SimpleSheduler.BL
             {
                 padNumberThePair = pair.NumberThePair.ToString().Length;
             }
-            if (studyDay.NameDayOfWeek.Length > padNameDayOfWeek)
+            if (studyDay.AbbreviationDayOfWeek.Length > padNameDayOfWeek)
             {
-                padNameDayOfWeek = studyDay.NameDayOfWeek.Length;
+                padNameDayOfWeek = studyDay.AbbreviationDayOfWeek.Length;
             }
             if (studyDay.NumberOfWeek.ToString().Length > padNumberOfWeek)
             {
@@ -51,7 +51,7 @@ namespace SimpleSheduler.BL
         }
         public string OutputStudyDay()
         {
-            string nameDayOfWeek = StudyDay.NameDayOfWeek.PadRight(padNameDayOfWeek);
+            string nameDayOfWeek = StudyDay.AbbreviationDayOfWeek.PadRight(padNameDayOfWeek);
             string numberOfWeek = StudyDay.NumberOfWeek.ToString().PadRight(padNumberOfWeek);
             return $"День недели:{nameDayOfWeek}, Номер недели:{numberOfWeek}";
         }

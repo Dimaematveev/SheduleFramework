@@ -11,7 +11,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Аудитория
     /// </summary>
-    public class Classroom : IName, IIsDelete, ICloneable
+    public class Classroom : IAbbreviation , IIsDelete, ICloneable
     {
 
         /// <summary>
@@ -24,7 +24,7 @@ namespace SimpleSheduler.BD
         /// </summary>
         [Required]
         [StringLength(20)]
-        public string Name { get; set; }
+        public string Abbreviation { get; set; }
         /// <summary>
         /// Полное Название Аудитории
         /// </summary>
@@ -49,7 +49,7 @@ namespace SimpleSheduler.BD
             Classroom newClassroom = new Classroom()
             {
                 ClassroomId = this.ClassroomId,
-                Name = this.Name,
+                Abbreviation = this.Abbreviation,
                 NumberOfSeats = this.NumberOfSeats,
                 IsDelete = this.IsDelete,
                 FullName = this.FullName,
@@ -57,9 +57,9 @@ namespace SimpleSheduler.BD
             return newClassroom;
         }
 
-        public string NameString()
+        public string AbbreviationString()
         {
-            return Name;
+            return Abbreviation;
         }
         public override bool Equals(object obj)
         {
@@ -79,7 +79,7 @@ namespace SimpleSheduler.BD
 
         public override string ToString()
         {
-            return $"ID:{ClassroomId}, N:{Name}, Num:{NumberOfSeats}.";
+            return $"ID:{ClassroomId}, N:{Abbreviation}, Num:{NumberOfSeats}.";
         }
     }
 }

@@ -13,7 +13,7 @@ namespace SimpleSheduler.BL
     /// Заполнение по 
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class Filling<T> : IEnumerable where T : class,IName
+    public class Filling<T> : IEnumerable where T : class,IAbbreviation 
     {
         public Filling()
         {

@@ -11,7 +11,7 @@ namespace SimpleSheduler.BD.Model
     /// Тип объединения групп
     /// ваианты объединения
     /// </summary>
-    public class TypeUnionGroup : IName, IIsDelete, ICloneable
+    public class TypeUnionGroup : IAbbreviation , IIsDelete, ICloneable
     {
         /// <summary>
         /// Ключ Типа объединения
@@ -50,7 +50,7 @@ namespace SimpleSheduler.BD.Model
             return newTypeUnionGroup;
         }
 
-        public string NameString()
+        public string AbbreviationString()
         {
             return Name;
         }

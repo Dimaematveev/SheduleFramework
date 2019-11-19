@@ -102,7 +102,7 @@ namespace SimpleSheduler.CMD
         /// <param name="pairs"> массив пар</param>
         /// <param name="studyDays">Массив учебных дней</param>
         /// <returns>массив заполнение по каждому (преподавателю,группе,аудитории)</returns>
-        private static Filling<T>[] GetFilling<T>(T[] array, Pair[] pairs , StudyDay[] studyDays) where T:class,IName
+        private static Filling<T>[] GetFilling<T>(T[] array, Pair[] pairs , StudyDay[] studyDays) where T:class,IAbbreviation 
         {
             var result = new List<Filling<T>>();
             foreach (var item in array)

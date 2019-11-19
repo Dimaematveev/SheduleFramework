@@ -24,7 +24,7 @@ namespace SimpleSheduler.WPF.BL
         /// <param name="pairs"> массив пар</param>
         /// <param name="studyDays">Массив учебных дней</param>
         /// <returns>массив заполнение по каждому (группе,аудитории)</returns>
-        private List<Filling<T>> GetFilling<T>(List<T> array, List<Pair> pairs, List<StudyDay> studyDays) where T : class, IName
+        private List<Filling<T>> GetFilling<T>(List<T> array, List<Pair> pairs, List<StudyDay> studyDays) where T : class, IAbbreviation 
         {
             var result = new List<Filling<T>>();
             foreach (var item in array)
@@ -95,7 +95,7 @@ namespace SimpleSheduler.WPF.BL
             return null;
         }
 
-        private DataTable GetDateTableFilling<T>(List<Filling<T>> fillings, bool set = true) where T : class, IName
+        private DataTable GetDateTableFilling<T>(List<Filling<T>> fillings, bool set = true) where T : class, IAbbreviation 
         {
             DataTable table = new DataTable();
             {
@@ -135,8 +135,8 @@ namespace SimpleSheduler.WPF.BL
                         {
 
                             DataType = typeof(string),
-                            ColumnName = $"{filling.Value.NameString()}",
-                            Caption = $"{filling.Value.NameString()}"
+                            ColumnName = $"{filling.Value.AbbreviationString()}",
+                            Caption = $"{filling.Value.AbbreviationString()}"
                         };
                     }
                     else
@@ -145,8 +145,8 @@ namespace SimpleSheduler.WPF.BL
                         {
 
                             DataType = typeof(BusyPair),
-                            ColumnName = $"{filling.Value.NameString()}",
-                            Caption = $"{filling.Value.NameString()}"
+                            ColumnName = $"{filling.Value.AbbreviationString()}",
+                            Caption = $"{filling.Value.AbbreviationString()}"
                         };
                     }
 
@@ -160,7 +160,7 @@ namespace SimpleSheduler.WPF.BL
                 row = table.NewRow();
                 var temp = fillings[0].PossibleFillings[i];
                 row[0] = $"{temp.StudyDay.NumberOfWeek}";
-                row[1] = $"{temp.StudyDay.NameDayOfWeek}";
+                row[1] = $"{temp.StudyDay.AbbreviationDayOfWeek}";
                 row[2] = $"{temp.Pair.NumberThePair}";
                 int stolb = 3;
                 foreach (var filling in fillings)
@@ -169,7 +169,7 @@ namespace SimpleSheduler.WPF.BL
                     {
                         string IsPair;
                         var BusyPair = filling.PossibleFillings[i].BusyPair;
-                        IsPair = BusyPair == null ? null : BusyPair.Subject.Name;
+                        IsPair = BusyPair == null ? null : BusyPair.Subject.Abbreviation;
                         row[stolb] = IsPair;
                     }
                     else
@@ -197,7 +197,7 @@ namespace SimpleSheduler.WPF.BL
             }
         }
 
-        private void SetDateTableFilling<T>(DataTable dataTable, List<Filling<T>> fillings) where T : class, IName
+        private void SetDateTableFilling<T>(DataTable dataTable, List<Filling<T>> fillings) where T : class, IAbbreviation 
         {
 
             for (int i = 0; i < fillings.Count; i++)
@@ -211,7 +211,7 @@ namespace SimpleSheduler.WPF.BL
                     }
                     else
                     {
-                        busyPair = new BusyPair(new Classroom(), new Subject() { Name = (string)dataTable.Rows[j][3 + i] }, new Group());
+                        busyPair = new BusyPair(new Classroom(), new Subject() { Abbreviation = (string)dataTable.Rows[j][3 + i] }, new Group());
                     }
                     fillings[i].PossibleFillings[j].BusyPair = busyPair;
                 }

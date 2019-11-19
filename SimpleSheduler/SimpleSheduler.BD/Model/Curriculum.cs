@@ -100,7 +100,7 @@ namespace SimpleSheduler.BD
 
         public override string ToString()
         {
-            return $"ID:{CurriculumId}, G:{Group.Name}, S:{Subject.Name}, NLec:{NumberOfLectures}, NLab:{NumberOfLaboratory}, NPr:{NumberOfPractical}.";
+            return $"ID:{CurriculumId}, G:{Group.Abbreviation}, S:{Subject.Abbreviation}, NLec:{NumberOfLectures}, NLab:{NumberOfLaboratory}, NPr:{NumberOfPractical}.";
         }
     }
 }

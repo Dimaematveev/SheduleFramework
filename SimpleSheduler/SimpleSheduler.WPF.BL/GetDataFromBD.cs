@@ -142,7 +142,7 @@ namespace SimpleSheduler.WPF.BL
             List<MyColumnProperty> myColumnProperties = new List<MyColumnProperty>
             {
                 new MyColumnProperty(nameof(Subject.SubjectId),"ID предмета",Visibility.Visible,true),
-                new MyColumnProperty(nameof(Subject.Name),"Название предмета",Visibility.Visible,false),
+                new MyColumnProperty(nameof(Subject.Abbreviation),"Название предмета",Visibility.Visible,false),
                 new MyColumnProperty(nameof(Subject.FullName),"Полное название предмета",Visibility.Visible,false),
             };
             myColumnProperties.AddRange(GetGeneralColumnProperty());
@@ -155,7 +155,7 @@ namespace SimpleSheduler.WPF.BL
             List<MyColumnProperty> myColumnProperties = new List<MyColumnProperty>
             {
                 new MyColumnProperty(nameof(Classroom.ClassroomId),"ID Аудитории",Visibility.Visible,true),
-                new MyColumnProperty(nameof(Classroom.Name),"Название Аудитории",Visibility.Visible,false),
+                new MyColumnProperty(nameof(Classroom.Abbreviation),"Название Аудитории",Visibility.Visible,false),
                 new MyColumnProperty(nameof(Classroom.FullName),"Полное название Аудитории",Visibility.Visible,false),
                 new MyColumnProperty(nameof(Classroom.NumberOfSeats),"Кол-во мест",Visibility.Visible,false),
             };
@@ -168,7 +168,7 @@ namespace SimpleSheduler.WPF.BL
             List<MyColumnProperty> myColumnProperties = new List<MyColumnProperty>
             {
                 new MyColumnProperty(nameof(Group.GroupId),"ID Группы",Visibility.Visible,true),
-                new MyColumnProperty(nameof(Group.Name),"Название группы",Visibility.Visible,false),
+                new MyColumnProperty(nameof(Group.Abbreviation),"Название группы",Visibility.Visible,false),
                 new MyColumnProperty(nameof(Group.FullName),"Полное название Аудитории",Visibility.Visible,false),
                 new MyColumnProperty(nameof(Group.NumberOfPersons),"Количество человек в группе",Visibility.Visible,false),
                 new MyColumnProperty(nameof(Group.Seminar),"Семинар",Visibility.Visible,false),
@@ -197,7 +197,7 @@ namespace SimpleSheduler.WPF.BL
                 new MyColumnProperty(nameof(StudyDay.StudyDayId),"ID учебного дня",Visibility.Visible,true),
                 new MyColumnProperty(nameof(StudyDay.NumberOfWeek),"Номер недели",Visibility.Visible,false),
                 new MyColumnProperty(nameof(StudyDay.NumberDayOfWeek),"Номер дня недели",Visibility.Visible,false),
-                new MyColumnProperty(nameof(StudyDay.NameDayOfWeek),"День недели",Visibility.Visible,false),
+                new MyColumnProperty(nameof(StudyDay.AbbreviationDayOfWeek),"День недели",Visibility.Visible,false),
                 new MyColumnProperty(nameof(StudyDay.FullNameDayOfWeek),"Полное название дня недели",Visibility.Visible,false),
             };
             myColumnProperties.AddRange(GetGeneralColumnProperty());

@@ -11,7 +11,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Предмет
     /// </summary>
-    public class Subject : IName, IIsDelete, ICloneable
+    public class Subject : IAbbreviation , IIsDelete, ICloneable
     {
         
         /// <summary>
@@ -24,7 +24,7 @@ namespace SimpleSheduler.BD
         /// </summary>
         [Required]
         [StringLength(100)]
-        public string Name { get; set; }
+        public string Abbreviation { get; set; }
         /// <summary>
         /// Полное Название Предмета
         /// </summary>
@@ -60,7 +60,7 @@ namespace SimpleSheduler.BD
             Subject newSubject = new Subject()
             {
                 Curricula = this.Curricula,
-                Name = this.Name,
+                Abbreviation = this.Abbreviation,
                 SubjectId = this.SubjectId,
                 IsDelete = this.IsDelete,
                 FullName = this.FullName,
@@ -68,9 +68,9 @@ namespace SimpleSheduler.BD
             };
             return newSubject;
         }
-        public string NameString()
+        public string AbbreviationString()
         {
-            return Name;
+            return Abbreviation;
         }
         public override bool Equals(object obj)
         {
@@ -88,7 +88,7 @@ namespace SimpleSheduler.BD
         }
         public override string ToString()
         {
-            return $"ID:{SubjectId}, N:{Name}.";
+            return $"ID:{SubjectId}, N:{Abbreviation}.";
         }
     }
 }

@@ -44,7 +44,7 @@ namespace SimpleSheduler.BL
         /// <summary>
         /// Общее заполнение по всему)) то есть и группы и аудитории
         /// </summary>
-        public List<Filling<IName>> Fillings1 {  get; private set; }
+        public List<Filling<IAbbreviation >> Fillings1 {  get; private set; }
         public CreateScheduler()
         {
         }
@@ -96,7 +96,7 @@ namespace SimpleSheduler.BL
             }
         }
 
-        private List<Filling<T>> GetFillings<T>( List<Filling<T>> fillingsOld)where T:class,IName
+        private List<Filling<T>> GetFillings<T>( List<Filling<T>> fillingsOld)where T:class,IAbbreviation 
         {
             List<Filling<T>>  fillingsNew = new List<Filling<T>>();
             

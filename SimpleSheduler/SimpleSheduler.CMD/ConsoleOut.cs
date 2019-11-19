@@ -26,7 +26,7 @@ namespace SimpleSheduler.CMD
         /// <param name="fillings"></param>
         /// <param name="nameTable">Название таблицы(Распределение по...)</param>
         public static void ConsoleFilling<T>(Filling<T>[] fillings,
-                                             string nameTable) where T : class,IName
+                                             string nameTable) where T : class,IAbbreviation 
         {
             ConsoleTable consoleTable = new ConsoleTable
             {
@@ -37,7 +37,7 @@ namespace SimpleSheduler.CMD
             consoleTable.AddColumn("пара");
             foreach (var filling in fillings)
             {
-                consoleTable.AddColumn($"{filling.Value.NameString()}");
+                consoleTable.AddColumn($"{filling.Value.AbbreviationString()}");
             }
 
             for (int i = 0; i < fillings[0].PossibleFillings.Length; i++)
@@ -45,7 +45,7 @@ namespace SimpleSheduler.CMD
                 var temp = fillings[0].PossibleFillings[i];
                 var AddTemp = new List<string>
                 {
-                    $"{temp.StudyDay.NameDayOfWeek}",
+                    $"{temp.StudyDay.AbbreviationDayOfWeek}",
                     $"{temp.StudyDay.NumberDayOfWeek}",
                     $"{temp.Pair.NumberThePair}"
                 };
@@ -59,7 +59,7 @@ namespace SimpleSheduler.CMD
 
                         if (!(fillings is Filling<Classroom>[]))
                         {
-                            value += $"C{busyPairTemp.Classroom.Name.Substring(busyPairTemp.Classroom.Name.Length - 1, 1)}_";
+                            value += $"C{busyPairTemp.Classroom.Abbreviation.Substring(busyPairTemp.Classroom.Abbreviation.Length - 1, 1)}_";
                         }
                        // if (!(fillings is Filling<Teacher>[]))
                        // {
@@ -67,14 +67,14 @@ namespace SimpleSheduler.CMD
                        // }
                         if (!(fillings is Filling<Subject>[]))
                         {
-                            value += $"S{busyPairTemp.Subject.Name.Substring(0, 5)}_";
+                            value += $"S{busyPairTemp.Subject.Abbreviation.Substring(0, 5)}_";
                         }
                         if (!(fillings is Filling<Group>[]))
                         {
                             value += $"G:";
                             foreach (var group in busyPairTemp.Groups)
                             {
-                                value += $"{group.Name.Substring(group.Name.Length - 1, 1)},";
+                                value += $"{group.Abbreviation.Substring(group.Abbreviation.Length - 1, 1)},";
                             }
                             value += "_";
                         }
@@ -111,12 +111,12 @@ namespace SimpleSheduler.CMD
                 return;
             }
             int padId = classrooms.Max(x => x.ClassroomId.ToString().Length);
-            int padName = classrooms.Max(x => x.Name.Length);
+            int padName = classrooms.Max(x => x.Abbreviation.Length);
             int padNumberOfSeats = classrooms.Max(x => x.NumberOfSeats.ToString().Length);
             foreach (var classroom in classrooms)
             {
                 string id = classroom.ClassroomId.ToString().PadRight(padId);
-                string name = classroom.Name.ToString().PadRight(padName);
+                string name = classroom.Abbreviation.ToString().PadRight(padName);
                 string numberOfSeats = classroom.NumberOfSeats.ToString().PadRight(padNumberOfSeats);
                 Console.CursorLeft = pos + 1 * posit;
                 Console.WriteLine($"ID:{id}, Название:{name}, Мест:{numberOfSeats}.");
@@ -146,13 +146,13 @@ namespace SimpleSheduler.CMD
                 return;
             }
             int padId = groups.Max(x => x.GroupId.ToString().Length);
-            int padName = groups.Max(x => x.Name.Length);
+            int padName = groups.Max(x => x.Abbreviation.Length);
             int padNumberOfPersons = groups.Max(x => x.NumberOfPersons.ToString().Length);
             int padAllPair = groups.Max(x => x.Curricula.Aggregate(0, (x1, x2) => x1 + x2.NumberOfLectures).ToString().Length);
             foreach (var group in groups)
             {
                 string id = group.GroupId.ToString().PadRight(padId);
-                string name = group.Name.ToString().PadRight(padName);
+                string name = group.Abbreviation.ToString().PadRight(padName);
                 string numberOfPersons = group.NumberOfPersons.ToString().PadRight(padNumberOfPersons);
                 string allPair = group.Curricula.Aggregate(0, (x1, x2) => x1 + x2.NumberOfLectures).ToString().PadRight(padAllPair);
                 Console.CursorLeft = pos + 1 * posit;
@@ -188,14 +188,14 @@ namespace SimpleSheduler.CMD
                 return;
             }
             int padId = subjects.Max(x => x.SubjectId.ToString().Length);
-            int padName = subjects.Max(x => x.Name.Length);
+            int padName = subjects.Max(x => x.Abbreviation.Length);
            
             int padAllPairs = subjects.Max(x => x.Curricula.Aggregate(0, (x1, x2) => x1 + x2.NumberOfLectures).ToString().Length);
 
             foreach (var subject in subjects)
             {
                 string id = subject.SubjectId.ToString().PadRight(padId);
-                string name = subject.Name.ToString().PadRight(padName);
+                string name = subject.Abbreviation.ToString().PadRight(padName);
                
                 string allPairs = subject.Curricula.Aggregate(0, (x1, x2) => x1 + x2.NumberOfLectures).ToString().PadRight(padAllPairs);
 
@@ -239,14 +239,14 @@ namespace SimpleSheduler.CMD
                 return;
             }
             int padId = curricula.Max(x => x.CurriculumId.ToString().Length);
-            int padGroup = curricula.Max(x => x.Group.Name.Length);
-            int padSubject = curricula.Max(x => x.Subject.Name.Length);
+            int padGroup = curricula.Max(x => x.Group.Abbreviation.Length);
+            int padSubject = curricula.Max(x => x.Subject.Abbreviation.Length);
             int padNumberOfPairs = curricula.Max(x => x.NumberOfLectures.ToString().Length);
             foreach (var curriculum in curricula)
             {
                 string id = curriculum.CurriculumId.ToString().PadRight(padId);
-                string group = curriculum.Group.Name.ToString().PadRight(padGroup);
-                string subject = curriculum.Subject.Name.ToString().PadRight(padSubject);
+                string group = curriculum.Group.Abbreviation.ToString().PadRight(padGroup);
+                string subject = curriculum.Subject.Abbreviation.ToString().PadRight(padSubject);
                 string numberOfPairs = curriculum.NumberOfLectures.ToString().PadRight(padNumberOfPairs);
 
                 Console.CursorLeft = pos + 1 * posit;
@@ -314,7 +314,7 @@ namespace SimpleSheduler.CMD
                 return;
             }
             int padId = studyDays.Max(x => x.StudyDayId.ToString().Length);
-            int padName = studyDays.Max(x => x.NameDayOfWeek.Length);
+            int padName = studyDays.Max(x => x.AbbreviationDayOfWeek.Length);
             int padNumber = studyDays.Max(x => x.NumberOfWeek.ToString().Length);
             foreach (var studyDay in studyDays)
             {

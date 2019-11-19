@@ -87,9 +87,13 @@
     <Compile Include="Migrations\201911011908239_AddTableTypeUnionGroup.designer.cs">
       <DependentUpon>201911011908239_AddTableTypeUnionGroup.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911191129274_RenameNametoAbbreviation.cs" />
+    <Compile Include="Migrations\201911191129274_RenameNametoAbbreviation.designer.cs">
+      <DependentUpon>201911191129274_RenameNametoAbbreviation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\IIsDelete.cs" />
-    <Compile Include="Model\IName.cs" />
+    <Compile Include="Model\IAbbreviation.cs" />
     <Compile Include="Model\StudyDay.cs" />
     <Compile Include="Model\Classroom.cs" />
     <Compile Include="Model\Curriculum.cs" />
@@ -133,6 +137,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911011908239_AddTableTypeUnionGroup.resx">
       <DependentUpon>201911011908239_AddTableTypeUnionGroup.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911191129274_RenameNametoAbbreviation.resx">
+      <DependentUpon>201911191129274_RenameNametoAbbreviation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
