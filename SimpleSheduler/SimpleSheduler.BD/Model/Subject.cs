@@ -38,14 +38,23 @@ namespace SimpleSheduler.BD
         [Required]
         public bool IsDelete { get; set; } = false;
 
+        // <summary>
+        /// Для связи с TypeUnionGroup для лекций.
+        /// </summary>
+        public int Lect_TypeUnionGroupId { get; set; }
+
 
         ///Свойство для EntityFramework
         /// <summary>
         /// У каждого предмета будет храниться весь учебный план. Т.е. связь с Планом занятий
         /// </summary>
         public virtual ICollection<Curriculum> Curricula { get; set; }
+        // <summary>
+        /// Для связи с TypeUnionGroup для лекций.
+        /// </summary>
+        public virtual TypeUnionGroup Lect { get; set; }
 
-       
+
         public object Clone()
         {
             Subject newSubject = new Subject()
