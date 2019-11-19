@@ -98,6 +98,7 @@
     <Compile Include="Model\Classroom.cs" />
     <Compile Include="Model\Curriculum.cs" />
     <Compile Include="Model\Group.cs" />
+    <Compile Include="Model\TypeOfClasses.cs" />
     <Compile Include="Model\TypeUnionGroup.cs" />
     <Compile Include="MyDbContext.cs" />
     <Compile Include="Model\Pair.cs" />

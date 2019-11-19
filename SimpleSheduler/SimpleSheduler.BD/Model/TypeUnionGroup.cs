@@ -28,7 +28,7 @@ namespace SimpleSheduler.BD.Model
         /// </summary>
         [Required]
         [StringLength(20)]
-        public string Name { get; set; }
+        public string Abbreviation { get; set; }
         /// <summary>
         /// Полное Название объединения
         /// </summary>
@@ -43,7 +43,7 @@ namespace SimpleSheduler.BD.Model
             TypeUnionGroup newTypeUnionGroup = new TypeUnionGroup()
             {
                 TypeUnionGroupId = this.TypeUnionGroupId,
-                Name = this.Name,
+                Abbreviation = this.Abbreviation,
                 FullName = this.FullName,
                 IsDelete = this.IsDelete,
             };
@@ -52,7 +52,7 @@ namespace SimpleSheduler.BD.Model
 
         public string AbbreviationString()
         {
-            return Name;
+            return Abbreviation;
         }
 
         public override bool Equals(object obj)
@@ -73,7 +73,7 @@ namespace SimpleSheduler.BD.Model
 
         public override string ToString()
         {
-            return $"ID:{TypeUnionGroupId}, N:{Name}.";
+            return $"ID:{TypeUnionGroupId}, N:{Abbreviation}.";
         }
     }
 }

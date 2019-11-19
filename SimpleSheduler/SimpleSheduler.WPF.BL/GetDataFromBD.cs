@@ -210,7 +210,7 @@ namespace SimpleSheduler.WPF.BL
             List<MyColumnProperty> myColumnProperties = new List<MyColumnProperty>
             {
                 new MyColumnProperty(nameof(TypeUnionGroup.TypeUnionGroupId),"ID объединения",Visibility.Visible,true),
-                new MyColumnProperty(nameof(TypeUnionGroup.Name),"Название объединения",Visibility.Visible,false ),
+                new MyColumnProperty(nameof(TypeUnionGroup.Abbreviation),"Название объединения",Visibility.Visible,false ),
                 new MyColumnProperty(nameof(TypeUnionGroup.FullName),"Полное название объединения",Visibility.Visible,false),
 
             };
