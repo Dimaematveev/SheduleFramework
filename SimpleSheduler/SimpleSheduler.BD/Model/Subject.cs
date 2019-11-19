@@ -23,7 +23,7 @@ namespace SimpleSheduler.BD
         /// Название Предмета
         /// </summary>
         [Required]
-        [StringLength(100)]
+        [StringLength(5)]
         public string Abbreviation { get; set; }
         /// <summary>
         /// Полное Название Предмета
@@ -38,21 +38,12 @@ namespace SimpleSheduler.BD
         [Required]
         public bool IsDelete { get; set; } = false;
 
-        // <summary>
-        /// Для связи с TypeUnionGroup для лекций.
-        /// </summary>
-        public int Lect_TypeUnionGroupId { get; set; }
-
-
         ///Свойство для EntityFramework
         /// <summary>
         /// У каждого предмета будет храниться весь учебный план. Т.е. связь с Планом занятий
         /// </summary>
         public virtual ICollection<Curriculum> Curricula { get; set; }
-        // <summary>
-        /// Для связи с TypeUnionGroup для лекций.
-        /// </summary>
-        public virtual TypeUnionGroup Lect { get; set; }
+
 
 
         public object Clone()
