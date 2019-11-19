@@ -40,7 +40,7 @@ namespace SimpleSheduler.CMD
                 consoleTable.AddColumn($"{filling.Value.AbbreviationString()}");
             }
 
-            for (int i = 0; i < fillings[0].PossibleFillings.Length; i++)
+            for (int i = 0; i < fillings[0].PossibleFillings.Count; i++)
             {
                 var temp = fillings[0].PossibleFillings[i];
                 var AddTemp = new List<string>
@@ -148,13 +148,13 @@ namespace SimpleSheduler.CMD
             int padId = groups.Max(x => x.GroupId.ToString().Length);
             int padName = groups.Max(x => x.Abbreviation.Length);
             int padNumberOfPersons = groups.Max(x => x.NumberOfPersons.ToString().Length);
-            int padAllPair = groups.Max(x => x.Curricula.Aggregate(0, (x1, x2) => x1 + x2.NumberOfLectures).ToString().Length);
+            int padAllPair = groups.Max(x => x.Curricula.Aggregate(0, (x1, x2) => x1 + x2.Number).ToString().Length);
             foreach (var group in groups)
             {
                 string id = group.GroupId.ToString().PadRight(padId);
                 string name = group.Abbreviation.ToString().PadRight(padName);
                 string numberOfPersons = group.NumberOfPersons.ToString().PadRight(padNumberOfPersons);
-                string allPair = group.Curricula.Aggregate(0, (x1, x2) => x1 + x2.NumberOfLectures).ToString().PadRight(padAllPair);
+                string allPair = group.Curricula.Aggregate(0, (x1, x2) => x1 + x2.Number).ToString().PadRight(padAllPair);
                 Console.CursorLeft = pos + 1 * posit;
                 Console.WriteLine($"ID:{id}, Название:{name}, Количество человек:{numberOfPersons}, Всего пар {allPair}.");
                 if (All)
@@ -190,14 +190,14 @@ namespace SimpleSheduler.CMD
             int padId = subjects.Max(x => x.SubjectId.ToString().Length);
             int padName = subjects.Max(x => x.Abbreviation.Length);
            
-            int padAllPairs = subjects.Max(x => x.Curricula.Aggregate(0, (x1, x2) => x1 + x2.NumberOfLectures).ToString().Length);
+            int padAllPairs = subjects.Max(x => x.Curricula.Aggregate(0, (x1, x2) => x1 + x2.Number).ToString().Length);
 
             foreach (var subject in subjects)
             {
                 string id = subject.SubjectId.ToString().PadRight(padId);
                 string name = subject.Abbreviation.ToString().PadRight(padName);
                
-                string allPairs = subject.Curricula.Aggregate(0, (x1, x2) => x1 + x2.NumberOfLectures).ToString().PadRight(padAllPairs);
+                string allPairs = subject.Curricula.Aggregate(0, (x1, x2) => x1 + x2.Number).ToString().PadRight(padAllPairs);
 
                 Console.CursorLeft = pos + 1 * posit;
                 Console.WriteLine($"ID:{ id}, Название:{name}, Всего пар {allPairs}.");
@@ -241,13 +241,13 @@ namespace SimpleSheduler.CMD
             int padId = curricula.Max(x => x.CurriculumId.ToString().Length);
             int padGroup = curricula.Max(x => x.Group.Abbreviation.Length);
             int padSubject = curricula.Max(x => x.Subject.Abbreviation.Length);
-            int padNumberOfPairs = curricula.Max(x => x.NumberOfLectures.ToString().Length);
+            int padNumberOfPairs = curricula.Max(x => x.Number.ToString().Length);
             foreach (var curriculum in curricula)
             {
                 string id = curriculum.CurriculumId.ToString().PadRight(padId);
                 string group = curriculum.Group.Abbreviation.ToString().PadRight(padGroup);
                 string subject = curriculum.Subject.Abbreviation.ToString().PadRight(padSubject);
-                string numberOfPairs = curriculum.NumberOfLectures.ToString().PadRight(padNumberOfPairs);
+                string numberOfPairs = curriculum.Number.ToString().PadRight(padNumberOfPairs);
 
                 Console.CursorLeft = pos + 1 * posit;
                 Console.WriteLine($"ID:{id}, Название группы :{group}, Название предмета:{subject}, Количество пар:{numberOfPairs}.");

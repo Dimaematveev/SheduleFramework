@@ -38,7 +38,10 @@ namespace SimpleSheduler.WPF.BL
             typeUnionGroups = WorkToMyDbContext.typeUnionGroups;
 
         }
-
+        public void AddNewBD()
+        {
+            WorkToMyDbContext.AddNewBD();
+        }
         public DataGrid GetDateGridBD(string sNamespase)
         {
             DataGrid dataGrid = new DataGrid();
@@ -124,9 +127,7 @@ namespace SimpleSheduler.WPF.BL
                 new MyColumnProperty(nameof(Curriculum.CurriculumId),"ID плана",Visibility.Visible,true),
                 new MyColumnProperty(nameof(Curriculum.GroupId),"ID группы",Visibility.Hidden,false,groups ),
                 new MyColumnProperty(nameof(Curriculum.SubjectId),"ID предмета",Visibility.Visible,false),
-                new MyColumnProperty(nameof(Curriculum.NumberOfLectures),"Кол-во лекций",Visibility.Visible,false),
-                new MyColumnProperty(nameof(Curriculum.NumberOfPractical),"Кол-во практических",Visibility.Visible,false),
-                new MyColumnProperty(nameof(Curriculum.Number),"Кол-во лабораторных",Visibility.Visible,false),
+                new MyColumnProperty(nameof(Curriculum.Number),"Кол-во",Visibility.Visible,false),
                 new MyColumnProperty(nameof(Curriculum.Group),"Группа",Visibility.Visible,false),
                 new MyColumnProperty(nameof(Curriculum.Subject),"Предмет",Visibility.Visible,false ),
             };

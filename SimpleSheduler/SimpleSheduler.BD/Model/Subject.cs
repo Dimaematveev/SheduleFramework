@@ -23,7 +23,7 @@ namespace SimpleSheduler.BD
         /// Название Предмета
         /// </summary>
         [Required]
-        [StringLength(5)]
+        [StringLength(10)]
         public string Abbreviation { get; set; }
         /// <summary>
         /// Полное Название Предмета

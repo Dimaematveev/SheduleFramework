@@ -72,7 +72,6 @@ namespace SimpleSheduler.BD
             {
                 CurriculumId = this.CurriculumId,
                 Number = this.Number,
-
                 Group = this.Group,
                 GroupId = this.GroupId,
                 Subject = this.Subject,

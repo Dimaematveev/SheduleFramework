@@ -71,6 +71,14 @@
     <Compile Include="Migrations\201911191154493_NewBase.designer.cs">
       <DependentUpon>201911191154493_NewBase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201911191302425_SubjectUpdate5-10.cs" />
+    <Compile Include="Migrations\201911191302425_SubjectUpdate5-10.designer.cs">
+      <DependentUpon>201911191302425_SubjectUpdate5-10.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201911191322133_TypeOfClasses.cs" />
+    <Compile Include="Migrations\201911191322133_TypeOfClasses.designer.cs">
+      <DependentUpon>201911191322133_TypeOfClasses.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\IIsDelete.cs" />
     <Compile Include="Model\IAbbreviation.cs" />
@@ -114,6 +122,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201911191154493_NewBase.resx">
       <DependentUpon>201911191154493_NewBase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911191302425_SubjectUpdate5-10.resx">
+      <DependentUpon>201911191302425_SubjectUpdate5-10.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201911191322133_TypeOfClasses.resx">
+      <DependentUpon>201911191322133_TypeOfClasses.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

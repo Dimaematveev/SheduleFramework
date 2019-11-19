@@ -36,6 +36,13 @@ namespace SimpleSheduler.BD.Model
         /// </summary>
         [Required]
         public bool IsDelete { get; set; }
+
+
+        ///Свойство для EntityFramework
+        /// <summary>
+        /// У каждого предмета будет храниться все типы занятий. Т.е. связь с Планом занятий
+        /// </summary>
+        public virtual ICollection<Curriculum> Curricula { get; set; }
         public string AbbreviationString()
         {
             return Abbreviation;
@@ -45,6 +52,7 @@ namespace SimpleSheduler.BD.Model
         {
             TypeOfClasses newTypeOfClasses = new TypeOfClasses()
             {
+                Curricula = this.Curricula,
                 TypeOfClassesId = this.TypeOfClassesId,
                 Abbreviation = this.Abbreviation,
                 FullName = this.FullName,

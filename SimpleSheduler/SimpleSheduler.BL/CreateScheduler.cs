@@ -305,7 +305,7 @@ namespace SimpleSheduler.BL
                     else
                     {
                         //1. Добавляем к элементу 1 пару
-                        curriculaNot[ind].NumberOfLectures++;
+                        curriculaNot[ind].Number++;
                     }
                     //Если закончено
                 }
@@ -326,7 +326,7 @@ namespace SimpleSheduler.BL
         {
             
             //Произведена группировка по предметам. Каждый Предмет включает План для нескольких групп по нему
-            var SubjectIncludePlans = Curricula.OrderByDescending(x => x.NumberOfLectures).GroupBy(x => x.Subject).Select(g => g.ToList()).ToList();
+            var SubjectIncludePlans = Curricula.OrderByDescending(x => x.Number).GroupBy(x => x.Subject).Select(g => g.ToList()).ToList();
             // Можно сразу выкинуть из объединенного плана если количество элементов в предмете =1 так как не с чем объединять
             //Добавляем эти одиночные предметы в объединенный план
             List<CurriculaWithAmountPair> CurriculaAndNumPairs = SubjectIncludePlans.Where(x => x.Count == 1).Select(c => new CurriculaWithAmountPair(c[0])).ToList();
@@ -350,7 +350,7 @@ namespace SimpleSheduler.BL
                         //Выбираю планы, только для объединенных групп
                         Curriculum[] curriculaUnionGroup = plansInSubject.Where(x => groups.Contains(x.Group)).ToArray();
                         //Проверям что у всех кто объединитсь одинаковое количество пар
-                        if (curriculaUnionGroup.All(x => x.NumberOfLectures == curriculaUnionGroup[0].NumberOfLectures))
+                        if (curriculaUnionGroup.All(x => x.Number == curriculaUnionGroup[0].Number))
                         {
                             //Создаем план с возможностью изменения кол-во пар только для первой группы
                             CurriculaWithAmountPair tempCurriculaWithAmountPair = new CurriculaWithAmountPair(curriculaUnionGroup[0]);

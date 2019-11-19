@@ -27,12 +27,12 @@ namespace SimpleSheduler.CMD
             Filling<Group>[] fillingGroups;
             Filling<Classroom>[] fillingClassrooms;
 
-            Classroom[] classrooms;
-            Group[] groups;
-            Subject[] subjects;
-            Curriculum[] curricula;
-            Pair[] pairs;
-            StudyDay[] studyDays;
+            List<Classroom>classrooms;
+            List < Group> groups;
+            List < Subject> subjects;
+            List < Curriculum> curricula;
+            List < Pair> pairs;
+            List < StudyDay> studyDays;
             {
                
                 WorkToMyDbContext.ReadDB();
@@ -61,12 +61,12 @@ namespace SimpleSheduler.CMD
             ///Получили когда возможно свободные  пары по дням и по преподавателям
             //fillingTeachers = GetFilling(teachers, pairs, studyDays);
             ///Получили когда возможно свободные  пары по дням и по группам
-            fillingGroups = GetFilling(groups, pairs, studyDays);
+            fillingGroups = GetFilling(groups.ToArray(), pairs.ToArray(), studyDays.ToArray());
             ///Получили когда возможно свободные  пары по дням и по аудиториям
-            fillingClassrooms = GetFilling(classrooms, pairs, studyDays);
+            fillingClassrooms = GetFilling(classrooms.ToArray(), pairs.ToArray(), studyDays.ToArray());
 
             //TODO: первый без объединения групп второй с объединением
-            CreateScheduler createScheduler1 = new CreateScheduler( groups, classrooms, subjects, curricula, fillingGroups, fillingClassrooms);
+            //CreateScheduler createScheduler1 = new CreateScheduler( groups, classrooms, subjects, curricula, fillingGroups, fillingClassrooms);
 
             
 
@@ -107,7 +107,7 @@ namespace SimpleSheduler.CMD
             var result = new List<Filling<T>>();
             foreach (var item in array)
             {
-                result.Add(new Filling<T>(item, pairs , studyDays));
+                result.Add(new Filling<T>(item, pairs.ToList() , studyDays.ToList()));
             }
             return result.ToArray();
         }
