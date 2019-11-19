@@ -67,29 +67,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="InitialFilling.cs" />
-    <Compile Include="Migrations\201910210906308_newBD.cs" />
-    <Compile Include="Migrations\201910210906308_newBD.designer.cs">
-      <DependentUpon>201910210906308_newBD.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201910261455323_AddFullName.cs" />
-    <Compile Include="Migrations\201910261455323_AddFullName.designer.cs">
-      <DependentUpon>201910261455323_AddFullName.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201910261459547_AddFullName1.cs" />
-    <Compile Include="Migrations\201910261459547_AddFullName1.designer.cs">
-      <DependentUpon>201910261459547_AddFullName1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201910311938579_AddColumnIsDelete.cs" />
-    <Compile Include="Migrations\201910311938579_AddColumnIsDelete.designer.cs">
-      <DependentUpon>201910311938579_AddColumnIsDelete.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911011908239_AddTableTypeUnionGroup.cs" />
-    <Compile Include="Migrations\201911011908239_AddTableTypeUnionGroup.designer.cs">
-      <DependentUpon>201911011908239_AddTableTypeUnionGroup.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201911191129274_RenameNametoAbbreviation.cs" />
-    <Compile Include="Migrations\201911191129274_RenameNametoAbbreviation.designer.cs">
-      <DependentUpon>201911191129274_RenameNametoAbbreviation.cs</DependentUpon>
+    <Compile Include="Migrations\201911191154493_NewBase.cs" />
+    <Compile Include="Migrations\201911191154493_NewBase.designer.cs">
+      <DependentUpon>201911191154493_NewBase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\IIsDelete.cs" />
@@ -124,32 +104,17 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201910210906308_newBD.resx">
-      <DependentUpon>201910210906308_newBD.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910261455323_AddFullName.resx">
-      <DependentUpon>201910261455323_AddFullName.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910261459547_AddFullName1.resx">
-      <DependentUpon>201910261459547_AddFullName1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910311938579_AddColumnIsDelete.resx">
-      <DependentUpon>201910311938579_AddColumnIsDelete.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911011908239_AddTableTypeUnionGroup.resx">
-      <DependentUpon>201911011908239_AddTableTypeUnionGroup.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201911191129274_RenameNametoAbbreviation.resx">
-      <DependentUpon>201911191129274_RenameNametoAbbreviation.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="SQL\ShedulerTest.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="SQL\ShedulerTest_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201911191154493_NewBase.resx">
+      <DependentUpon>201911191154493_NewBase.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

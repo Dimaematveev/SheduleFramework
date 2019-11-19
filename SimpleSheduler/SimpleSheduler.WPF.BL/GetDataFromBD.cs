@@ -126,7 +126,7 @@ namespace SimpleSheduler.WPF.BL
                 new MyColumnProperty(nameof(Curriculum.SubjectId),"ID предмета",Visibility.Visible,false),
                 new MyColumnProperty(nameof(Curriculum.NumberOfLectures),"Кол-во лекций",Visibility.Visible,false),
                 new MyColumnProperty(nameof(Curriculum.NumberOfPractical),"Кол-во практических",Visibility.Visible,false),
-                new MyColumnProperty(nameof(Curriculum.NumberOfLaboratory),"Кол-во лабораторных",Visibility.Visible,false),
+                new MyColumnProperty(nameof(Curriculum.Number),"Кол-во лабораторных",Visibility.Visible,false),
                 new MyColumnProperty(nameof(Curriculum.Group),"Группа",Visibility.Visible,false),
                 new MyColumnProperty(nameof(Curriculum.Subject),"Предмет",Visibility.Visible,false ),
             };

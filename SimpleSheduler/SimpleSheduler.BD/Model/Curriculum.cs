@@ -32,20 +32,16 @@ namespace SimpleSheduler.BD
         public int SubjectId { get; set; }
 
         /// <summary>
-        /// Количество Лекций за 2 недели
+        /// Количество Занятий за 2 недели
         /// </summary>
         [Required]
-        public int NumberOfLectures { get; set; }
+        public int Number { get; set; }
+
         /// <summary>
-        /// Количество Практических за 2 недели
+        /// Тип занятия Занятия
         /// </summary>
         [Required]
-        public int NumberOfPractical { get; set; }
-        /// <summary>
-        /// Количество Лабораторных за 2 недели
-        /// </summary>
-        [Required]
-        public int NumberOfLaboratory { get; set; }
+        public int TypeOfClassesId { get; set; }
 
         /// <summary>
         /// Удален
@@ -63,20 +59,26 @@ namespace SimpleSheduler.BD
         /// Для связи с Предметом.
         /// </summary>
         public virtual Subject Subject { get; set; }
-     
+
+        /// <summary>
+        /// Для связи с Типом занятия.
+        /// </summary>
+        public virtual TypeOfClasses TypeOfClasses { get; set; }
+
 
         public object Clone()
         {
             Curriculum newCurriculum = new Curriculum()
             {
                 CurriculumId = this.CurriculumId,
-                NumberOfLectures = this.NumberOfLectures,
-                NumberOfLaboratory = this.NumberOfLaboratory,
-                NumberOfPractical = this.NumberOfPractical,
+                Number = this.Number,
+
                 Group = this.Group,
                 GroupId = this.GroupId,
                 Subject = this.Subject,
                 SubjectId = this.SubjectId,
+                TypeOfClasses =  this.TypeOfClasses,
+                TypeOfClassesId = this.TypeOfClassesId,
                 IsDelete = this.IsDelete,
             };
             return newCurriculum;
@@ -100,7 +102,7 @@ namespace SimpleSheduler.BD
 
         public override string ToString()
         {
-            return $"ID:{CurriculumId}, G:{Group.Abbreviation}, S:{Subject.Abbreviation}, NLec:{NumberOfLectures}, NLab:{NumberOfLaboratory}, NPr:{NumberOfPractical}.";
+            return $"ID:{CurriculumId}, G:{Group.Abbreviation}, S:{Subject.Abbreviation}, Type:{TypeOfClasses.Abbreviation}, N:{Number}.";
         }
     }
 }
