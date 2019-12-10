@@ -22,19 +22,24 @@ namespace ViewingDB.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        public DataGrid DataGridClassRooms = new DataGrid();
         public MainWindow()
         {
             InitializeComponent();
-            this.Activated += MainWindow_Activated;  
+            FillGrid();
         }
 
-        private void MainWindow_Activated(object sender, EventArgs e)
+        /// <summary>
+        /// Заполнение Всех DataGrid
+        /// </summary>
+        private void FillGrid()
         {
             GridClassRoom.ItemsSource = WorkToMyDbContext.classrooms;
             GridGroup.ItemsSource = WorkToMyDbContext.groups;
             GridSubject.ItemsSource = WorkToMyDbContext.subjects;
             GridCurriculum.ItemsSource = WorkToMyDbContext.curricula;
+            sdads.ItemsSource = WorkToMyDbContext.subjects;
+            
+
             GridPair.ItemsSource = WorkToMyDbContext.pairs;
             GridStudyDay.ItemsSource = WorkToMyDbContext.studyDays;
             GridTypeOfClasses.ItemsSource = WorkToMyDbContext.typeOfClasses;
@@ -42,5 +47,9 @@ namespace ViewingDB.WPF
 
         }
 
+        private void DataGridComboBoxColumn_SourceUpdated(object sender, DataTransferEventArgs e)
+        {
+
+        }
     }
 }

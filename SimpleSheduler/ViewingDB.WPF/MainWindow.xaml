@@ -9,15 +9,15 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <TabControl Margin="10,10,9.6,10" x:Name="TabControls">
-            <TabItem Name="TabClassRoom" Header="Аудитории">
+        <TabControl Margin="10,10,9.6,10" x:Name="TabControls" >
+            <TabItem Name="TabClassRoom" Header="Аудитории" >
                 <DataGrid x:Name="GridClassRoom" AutoGenerateColumns="False" >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding Path=ClassroomId}"/>
                         <DataGridTextColumn Header="Сокращенное название" Binding="{Binding Path=Abbreviation}"/>
                         <DataGridTextColumn Header="Полное название" Binding="{Binding Path=FullName}"/>
                         <DataGridTextColumn Header="Количество мест" Binding="{Binding Path=NumberOfSeats}"/>
-                        <DataGridTextColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
+                        <DataGridCheckBoxColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
@@ -30,7 +30,7 @@
                         <DataGridTextColumn Header="Количество человек" Binding="{Binding Path=NumberOfPersons}"/>
                         <DataGridTextColumn Header="Семинар" Binding="{Binding Path=Seminar}"/>
                         <DataGridTextColumn Header="Поток" Binding="{Binding Path=Potok}"/>
-                        <DataGridTextColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
+                        <DataGridCheckBoxColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
@@ -40,7 +40,7 @@
                         <DataGridTextColumn Header="ID" Binding="{Binding Path=SubjectId}"/>
                         <DataGridTextColumn Header="Сокращенное название" Binding="{Binding Path=Abbreviation}"/>
                         <DataGridTextColumn Header="Полное название" Binding="{Binding Path=FullName}"/>
-                        <DataGridTextColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
+                        <DataGridCheckBoxColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
@@ -55,7 +55,7 @@
                         <DataGridTextColumn Header="Группа" Binding="{Binding Path=Group}"/>
                         <DataGridTextColumn Header="Предмет" Binding="{Binding Path=Subject}"/>
                         <DataGridTextColumn Header="Тип занятия" Binding="{Binding Path=TypeOfClasses}"/>
-                        <DataGridTextColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
+                        <DataGridCheckBoxColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
@@ -68,7 +68,7 @@
                         <DataGridTextColumn Header="ID" Binding="{Binding Path=PairId}"/>
                         <DataGridTextColumn Header="Название пары" Binding="{Binding Path=NameThePair}"/>
                         <DataGridTextColumn Header="Номер пары" Binding="{Binding Path=NumberThePair}"/>
-                        <DataGridTextColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
+                        <DataGridCheckBoxColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
@@ -80,7 +80,7 @@
                         <DataGridTextColumn Header="Полное название дня недели" Binding="{Binding Path=FullNameDayOfWeek}"/>
                         <DataGridTextColumn Header="Номер дня недели" Binding="{Binding Path=NumberDayOfWeek}"/>
                         <DataGridTextColumn Header="Номер недели" Binding="{Binding Path=NumberOfWeek}"/>
-                        <DataGridTextColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
+                        <DataGridCheckBoxColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
@@ -90,7 +90,7 @@
                         <DataGridTextColumn Header="ID" Binding="{Binding Path=TypeUnionGroupId}"/>
                         <DataGridTextColumn Header="Тип объединения" Binding="{Binding Path=Abbreviation}"/>
                         <DataGridTextColumn Header="Полное название объединения" Binding="{Binding Path=FullName}"/>
-                        <DataGridTextColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
+                        <DataGridCheckBoxColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
@@ -100,7 +100,7 @@
                         <DataGridTextColumn Header="ID" Binding="{Binding Path=TypeOfClassesId}"/>
                         <DataGridTextColumn Header="Тип занятия" Binding="{Binding Path=Abbreviation}"/>
                         <DataGridTextColumn Header="Полное название занятия" Binding="{Binding Path=FullName}"/>
-                    <DataGridTextColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
+                        <DataGridCheckBoxColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
                 </DataGrid.Columns>
             </DataGrid>
         </TabItem>
