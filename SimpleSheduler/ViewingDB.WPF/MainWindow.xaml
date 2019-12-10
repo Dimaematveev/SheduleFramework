@@ -21,7 +21,89 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
-        </TabControl>
+            <TabItem Name="TabGroup" Header="Группы">
+                <DataGrid x:Name="GridGroup" AutoGenerateColumns="False" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Path=GroupId}"/>
+                        <DataGridTextColumn Header="Сокращенное название" Binding="{Binding Path=Abbreviation}"/>
+                        <DataGridTextColumn Header="Полное название" Binding="{Binding Path=FullName}"/>
+                        <DataGridTextColumn Header="Количество человек" Binding="{Binding Path=NumberOfPersons}"/>
+                        <DataGridTextColumn Header="Семинар" Binding="{Binding Path=Seminar}"/>
+                        <DataGridTextColumn Header="Поток" Binding="{Binding Path=Potok}"/>
+                        <DataGridTextColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Name="TabSubject" Header="Предметы">
+                <DataGrid x:Name="GridSubject" AutoGenerateColumns="False" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Path=SubjectId}"/>
+                        <DataGridTextColumn Header="Сокращенное название" Binding="{Binding Path=Abbreviation}"/>
+                        <DataGridTextColumn Header="Полное название" Binding="{Binding Path=FullName}"/>
+                        <DataGridTextColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Name="TabCurriculum" Header="Расписание">
+                <DataGrid x:Name="GridCurriculum" AutoGenerateColumns="False" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Path=CurriculumId}"/>
+                        <DataGridTextColumn Header="GroupId" Binding="{Binding Path=GroupId}"/>
+                        <DataGridTextColumn Header="SubjectId" Binding="{Binding Path=SubjectId}"/>
+                        <DataGridTextColumn Header="Количество занятий" Binding="{Binding Path=Number}"/>
+                        <DataGridTextColumn Header="TypeOfClassesId" Binding="{Binding Path=TypeOfClassesId}"/>
+                        <DataGridTextColumn Header="Группа" Binding="{Binding Path=Group}"/>
+                        <DataGridTextColumn Header="Предмет" Binding="{Binding Path=Subject}"/>
+                        <DataGridTextColumn Header="Тип занятия" Binding="{Binding Path=TypeOfClasses}"/>
+                        <DataGridTextColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
 
+            
+
+            <TabItem Name="TabPair" Header="Пары">
+                <DataGrid x:Name="GridPair" AutoGenerateColumns="False" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Path=PairId}"/>
+                        <DataGridTextColumn Header="Название пары" Binding="{Binding Path=NameThePair}"/>
+                        <DataGridTextColumn Header="Номер пары" Binding="{Binding Path=NumberThePair}"/>
+                        <DataGridTextColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Name="TabStudyDay" Header="Учебный день">
+                <DataGrid x:Name="GridStudyDay" AutoGenerateColumns="False" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Path=StudyDayId}"/>
+                        <DataGridTextColumn Header="День недели" Binding="{Binding Path=AbbreviationDayOfWeek}"/>
+                        <DataGridTextColumn Header="Полное название дня недели" Binding="{Binding Path=FullNameDayOfWeek}"/>
+                        <DataGridTextColumn Header="Номер дня недели" Binding="{Binding Path=NumberDayOfWeek}"/>
+                        <DataGridTextColumn Header="Номер недели" Binding="{Binding Path=NumberOfWeek}"/>
+                        <DataGridTextColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Name="TabTypeUnionGroup" Header="Типы объединения">
+                <DataGrid x:Name="GridTypeUnionGroup" AutoGenerateColumns="False" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Path=TypeUnionGroupId}"/>
+                        <DataGridTextColumn Header="Тип объединения" Binding="{Binding Path=Abbreviation}"/>
+                        <DataGridTextColumn Header="Полное название объединения" Binding="{Binding Path=FullName}"/>
+                        <DataGridTextColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Name="TabTypeOfClasses" Header="Типы пар">
+            <DataGrid x:Name="GridTypeOfClasses" AutoGenerateColumns="False" >
+                <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Path=TypeOfClassesId}"/>
+                        <DataGridTextColumn Header="Тип занятия" Binding="{Binding Path=Abbreviation}"/>
+                        <DataGridTextColumn Header="Полное название занятия" Binding="{Binding Path=FullName}"/>
+                    <DataGridTextColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+        </TabItem>
+        </TabControl>
     </Grid>
 </Window>

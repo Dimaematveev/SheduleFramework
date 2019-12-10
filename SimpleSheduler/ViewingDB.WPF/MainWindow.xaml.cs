@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SimpleSheduler.BD;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +16,7 @@ using System.Windows.Shapes;
 
 namespace ViewingDB.WPF
 {
+
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
@@ -29,7 +31,15 @@ namespace ViewingDB.WPF
 
         private void MainWindow_Activated(object sender, EventArgs e)
         {
-            GridClassRoom.ItemsSource = DataGridClassRooms.ItemsSource;
+            GridClassRoom.ItemsSource = WorkToMyDbContext.classrooms;
+            GridGroup.ItemsSource = WorkToMyDbContext.groups;
+            GridSubject.ItemsSource = WorkToMyDbContext.subjects;
+            GridCurriculum.ItemsSource = WorkToMyDbContext.curricula;
+            GridPair.ItemsSource = WorkToMyDbContext.pairs;
+            GridStudyDay.ItemsSource = WorkToMyDbContext.studyDays;
+            GridTypeOfClasses.ItemsSource = WorkToMyDbContext.typeOfClasses;
+            GridTypeUnionGroup.ItemsSource = WorkToMyDbContext.typeUnionGroups;
+
         }
 
     }
