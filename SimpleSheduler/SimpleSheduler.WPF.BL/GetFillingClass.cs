@@ -38,10 +38,10 @@ namespace SimpleSheduler.WPF.BL
         /// Поличть все заполения
         /// </summary>
         /// <param name="getDataFromBD">БД</param>
-        public void GetFilling(GetDataFromBD getDataFromBD)
+        public void GetFilling()
         {
-            fillingGroups = GetFilling(getDataFromBD.groups, getDataFromBD.pairs, getDataFromBD.studyDays);
-            fillingClassrooms = GetFilling(getDataFromBD.classrooms, getDataFromBD.pairs, getDataFromBD.studyDays);
+            fillingGroups = GetFilling(WorkToMyDbContext.groups, WorkToMyDbContext.pairs, WorkToMyDbContext.studyDays);
+            fillingClassrooms = GetFilling(WorkToMyDbContext.classrooms, WorkToMyDbContext.pairs, WorkToMyDbContext.studyDays);
         }
 
 
