@@ -11,14 +11,12 @@
     <Grid>
         <TabControl Margin="10,10,9.6,10" x:Name="TabControls">
             <TabItem Header="Asa">
-                <DataGrid x:Name="food" AutoGenerateColumns="True" ItemsSource="{DynamicResource ResourceKey=assa1 }">
-                    <DataGrid.Resources>
-                        <col:ArrayList x:Key="assa1">
+                <DataGrid x:Name="food" AutoGenerateColumns="False" >
 
-                            <local:NeedFood NameProduct="wdwd" Count1="1.2"/>
-                        </col:ArrayList>
-
-                    </DataGrid.Resources>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="name" Binding="{Binding Path=NameProduct}"/>
+                        <DataGridTextColumn Header="doubl" Binding="{Binding Path=Count1}"/>
+                    </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
         </TabControl>
