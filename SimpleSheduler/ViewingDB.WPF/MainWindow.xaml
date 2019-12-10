@@ -4,12 +4,22 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ViewingDB.WPF"
+        xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
+        
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <TabControl Margin="10,10,9.6,10" x:Name="TabControls">
             <TabItem Header="Asa">
-                <DataGrid x:Name="DataGridGroup"/>
+                <DataGrid x:Name="food" AutoGenerateColumns="True" ItemsSource="{DynamicResource ResourceKey=assa1 }">
+                    <DataGrid.Resources>
+                        <col:ArrayList x:Key="assa1">
+
+                            <local:NeedFood NameProduct="wdwd" Count1="1.2"/>
+                        </col:ArrayList>
+
+                    </DataGrid.Resources>
+                </DataGrid>
             </TabItem>
         </TabControl>
 

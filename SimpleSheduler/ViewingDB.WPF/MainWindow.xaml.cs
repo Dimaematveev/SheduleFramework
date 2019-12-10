@@ -15,45 +15,51 @@ using System.Windows.Shapes;
 
 namespace ViewingDB.WPF
 {
+    public class NeedFood
+    {
+        public string NameProduct { get; set; }
+        public double Count1 { get; set; }
+    }
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        public List<NeedFood> assa;
         public MainWindow()
         {
             InitializeComponent();
-            this.Loaded += MainWindow_Loaded;
+            MainWindow_Loaded1();
         }
 
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        private void MainWindow_Loaded1()
         {
-            List<int> assa = new List<int> { 1, 2, 3, 4 };
-            var s = TabControls.Items.GetItemAt(0) as TabItem;
-            DataGrid dataGrid = new DataGrid();
+            assa = new List<NeedFood> { 
+               new NeedFood(){Count1=1.2,NameProduct="sasa"},
+               new NeedFood(){Count1=1.3,NameProduct="fe"},
+               new NeedFood(){Count1=1.4,NameProduct="2ee"},
+            };
+            food.ItemsSource = assa;
+           
+            //var s = TabControls.Items.GetItemAt(0) as TabItem;
+            //DataGrid dataGrid = new DataGrid();
 
-
-
-            DataGridColumn dataGridColumn = new DataGridTextColumn();
-
-            dataGridColumn.Header = "222";
-            dataGridColumn.Visibility = Visibility.Visible;
-            dataGridColumn.IsReadOnly = false;
-
-
-            dataGrid.Columns.Add(dataGridColumn);
+          
+            //dataGrid.ItemsSource = assa;
+            //dataGrid.Items.Add(dataGridRow);
+            //dataGrid.UpdateLayout()
 
             //var sss = dataGrid.Items;
-            s.Content = dataGrid;
-            TabItem tabItem = new TabItem();
+            //s.Content = dataGrid;
+            //TabItem tabItem = new TabItem();
 
-            tabItem.Name = "as2";
-            tabItem.ToolTip = "as3";
-            tabItem.Header = "as4";
+            //tabItem.Name = "as2";
+            //tabItem.ToolTip = "as3";
+            //tabItem.Header = "as4";
             
             
 
-            TabControls.Items.Add(tabItem);
+            //TabControls.Items.Add(tabItem);
         }
     }
 }
