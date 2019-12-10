@@ -115,6 +115,10 @@
       <Project>{46da7bed-c91a-4dcb-ab35-9b0618785682}</Project>
       <Name>SimpleSheduler.WPF.BL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\ViewingDB.WPF\ViewingDB.WPF.csproj">
+      <Project>{d7e0e8a6-6d8e-4f11-8308-de728f28b35d}</Project>
+      <Name>ViewingDB.WPF</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

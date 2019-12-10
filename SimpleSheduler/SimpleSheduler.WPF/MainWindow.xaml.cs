@@ -305,7 +305,12 @@ namespace SimpleSheduler.WPF
             var outClassList = OpenGridBD(table, false);
         }
 
-
-
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ViewingDB.WPF.MainWindow mainWindow = new ViewingDB.WPF.MainWindow();
+            mainWindow.DataGridClassRooms.ItemsSource = getDataFromBD.classrooms;
+            mainWindow.ShowDialog();
+            
+        }
     }
 }

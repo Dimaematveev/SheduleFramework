@@ -24,6 +24,7 @@
         <Button x:Name="ButtonOpenTypeUnionGroup" Content="TypeUnionGroup" HorizontalAlignment="Left" Margin="587,158,0,0" VerticalAlignment="Top" Width="97" IsEnabled="False"/>
         <Button x:Name="ButtonOpenTypeOfClasses" Content="TypeOfClasses" HorizontalAlignment="Left" Margin="689,158,0,0" VerticalAlignment="Top" Width="97" IsEnabled="False"/>
         <Button x:Name="PlanNotScheduler" Content="PlanNotScheduler" HorizontalAlignment="Left" Height="27" Margin="365,271,0,0" VerticalAlignment="Top" Width="169" IsEnabled="False"/>
+        <Button Content="Button" HorizontalAlignment="Left" Height="22" Margin="84,131,0,0" VerticalAlignment="Top" Width="86" Click="Button_Click"/>
 
     </Grid>
 </Window>

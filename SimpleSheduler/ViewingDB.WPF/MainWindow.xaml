@@ -10,12 +10,14 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <TabControl Margin="10,10,9.6,10" x:Name="TabControls">
-            <TabItem Header="Asa">
-                <DataGrid x:Name="food" AutoGenerateColumns="False" >
-
+            <TabItem Name="TabClassRoom" Header="Аудитории">
+                <DataGrid x:Name="GridClassRoom" AutoGenerateColumns="False" >
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="name" Binding="{Binding Path=NameProduct}"/>
-                        <DataGridTextColumn Header="doubl" Binding="{Binding Path=Count1}"/>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Path=ClassroomId}"/>
+                        <DataGridTextColumn Header="Сокращенное название" Binding="{Binding Path=Abbreviation}"/>
+                        <DataGridTextColumn Header="Полное название" Binding="{Binding Path=FullName}"/>
+                        <DataGridTextColumn Header="Количество мест" Binding="{Binding Path=NumberOfSeats}"/>
+                        <DataGridTextColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
