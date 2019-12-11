@@ -37,7 +37,7 @@ namespace ViewingDB.WPF
             GridGroup.ItemsSource = WorkToMyDbContext.groups;
             GridSubject.ItemsSource = WorkToMyDbContext.subjects;
             GridCurriculum.ItemsSource = WorkToMyDbContext.curricula;
-            sdads.ItemsSource = WorkToMyDbContext.subjects;
+         
             
 
             GridPair.ItemsSource = WorkToMyDbContext.pairs;
