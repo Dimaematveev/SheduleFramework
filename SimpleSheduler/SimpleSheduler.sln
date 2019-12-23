@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleSheduler.WPF.BL", "Si
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewingDB.WPF", "ViewingDB.WPF\ViewingDB.WPF.csproj", "{D7E0E8A6-6D8E-4F11-8308-DE728F28B35D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SetFilling.WPF", "SetFilling.WPF\SetFilling.WPF.csproj", "{4A9418E0-74C8-4174-977D-3F5F397D392C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{D7E0E8A6-6D8E-4F11-8308-DE728F28B35D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7E0E8A6-6D8E-4F11-8308-DE728F28B35D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7E0E8A6-6D8E-4F11-8308-DE728F28B35D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A9418E0-74C8-4174-977D-3F5F397D392C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A9418E0-74C8-4174-977D-3F5F397D392C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A9418E0-74C8-4174-977D-3F5F397D392C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A9418E0-74C8-4174-977D-3F5F397D392C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
