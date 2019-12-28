@@ -7,6 +7,32 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <TabControl Margin="10,10,9.6,10">
+            <TabItem Name="TabClassRoom" Header="Аудитории" >
+                <DataGrid x:Name="GridClassRoom" AutoGenerateColumns="False" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Path=ClassroomId}" Visibility="Hidden"/>
+                        <DataGridTextColumn Header="Сокращенное название" Binding="{Binding Path=Abbreviation}"/>
+                        <DataGridTextColumn Header="Полное название" Binding="{Binding Path=FullName}"/>
+                        <DataGridTextColumn Header="Количество мест" Binding="{Binding Path=NumberOfSeats}"/>
+                        <DataGridCheckBoxColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+            <TabItem Name="TabGroup" Header="Группы">
+                <DataGrid x:Name="GridGroup" AutoGenerateColumns="False" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Path=GroupId}"/>
+                        <DataGridTextColumn Header="Сокращенное название" Binding="{Binding Path=Abbreviation}"/>
+                        <DataGridTextColumn Header="Полное название" Binding="{Binding Path=FullName}"/>
+                        <DataGridTextColumn Header="Количество человек" Binding="{Binding Path=NumberOfPersons}"/>
+                        <DataGridTextColumn Header="Семинар" Binding="{Binding Path=Seminar}"/>
+                        <DataGridTextColumn Header="Поток" Binding="{Binding Path=Potok}"/>
+                        <DataGridCheckBoxColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+        </TabControl>
+
     </Grid>
 </Window>

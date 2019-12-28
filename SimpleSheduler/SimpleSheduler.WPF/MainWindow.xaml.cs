@@ -114,6 +114,7 @@ namespace SimpleSheduler.WPF
             CreateScheduler.IsEnabled = true;
         }
 
+        //TODO: это есть заполнение аудиторий
         ///// <summary>
         ///// Возможность изменить заполнение аудиторий
         ///// </summary>
