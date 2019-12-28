@@ -94,5 +94,15 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SimpleSheduler.BD\SimpleSheduler.BD.csproj">
+      <Project>{E56CC290-5A77-4FE7-8A37-D7DDACC4C190}</Project>
+      <Name>SimpleSheduler.BD</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SimpleSheduler.BL\SimpleSheduler.BL.csproj">
+      <Project>{30ffd8c4-8c26-4080-8f65-06e4b7f508a5}</Project>
+      <Name>SimpleSheduler.BL</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

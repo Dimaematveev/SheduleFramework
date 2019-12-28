@@ -96,6 +96,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\SetFilling.WPF\SetFilling.WPF.csproj">
+      <Project>{4a9418e0-74c8-4174-977d-3f5f397d392c}</Project>
+      <Name>SetFilling.WPF</Name>
+    </ProjectReference>
     <ProjectReference Include="..\SimpleSheduler.BD\SimpleSheduler.BD.csproj">
       <Project>{e56cc290-5a77-4fe7-8a37-d7ddacc4c190}</Project>
       <Name>SimpleSheduler.BD</Name>

@@ -174,5 +174,11 @@ namespace SimpleSheduler.WPF
             mainWindow.ShowDialog();
             
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            SetFilling.WPF.MainWindow mainWindow = new SetFilling.WPF.MainWindow(createScheduler1);
+            mainWindow.ShowDialog();
+        }
     }
 }

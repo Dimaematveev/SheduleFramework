@@ -9,14 +9,8 @@
     <Grid>
         <TabControl Margin="10,10,9.6,10">
             <TabItem Name="TabClassRoom" Header="Аудитории" >
-                <DataGrid x:Name="GridClassRoom" AutoGenerateColumns="False" >
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding Path=ClassroomId}" Visibility="Hidden"/>
-                        <DataGridTextColumn Header="Сокращенное название" Binding="{Binding Path=Abbreviation}"/>
-                        <DataGridTextColumn Header="Полное название" Binding="{Binding Path=FullName}"/>
-                        <DataGridTextColumn Header="Количество мест" Binding="{Binding Path=NumberOfSeats}"/>
-                        <DataGridCheckBoxColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
-                    </DataGrid.Columns>
+                <DataGrid x:Name="GridClassRoom" AutoGenerateColumns="True" >
+                    
                 </DataGrid>
             </TabItem>
             <TabItem Name="TabGroup" Header="Группы">
