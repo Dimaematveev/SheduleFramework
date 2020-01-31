@@ -44,9 +44,11 @@ namespace SimpleSheduler.WPF
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             //getDataFromBD.AddNewBD();
-            ButtonGetDataFromBD_Click(sender,e);
+           /* 
+            * ButtonGetDataFromBD_Click(sender,e);
             GetFilling_Click(sender, e);
             CreateScheduler_Click(sender, e);
+            */
         }
 
         /// <summary>
