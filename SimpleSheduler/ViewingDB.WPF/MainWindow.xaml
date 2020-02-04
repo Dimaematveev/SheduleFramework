@@ -108,9 +108,7 @@
             <TabItem Name="TabSheduler" Header="Расписание">
                 <DataGrid x:Name="GridSheduler" AutoGenerateColumns="False" >
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="Группа" Binding="{Binding Path=Group}"/>
-                        <DataGridTextColumn Header="Предмет" Binding="{Binding Path=Subject}"/>
-                        <DataGridCheckBoxColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
+                        
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>

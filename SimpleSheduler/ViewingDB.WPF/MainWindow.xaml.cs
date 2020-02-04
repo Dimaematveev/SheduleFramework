@@ -47,19 +47,68 @@ namespace ViewingDB.WPF
 
 
 
-            GridSheduler.ItemsSource = WorkToMyDbContext.curricula;
-            var kk = new DataGridTextColumn();
-            kk.Header = "ddd";
-            kk.Binding = new Binding("Group");
-           
 
-            GridSheduler.Columns.Add(kk);
+            var uni = FillingUnionCuriculaAndTypeOfClasses();
+            GridSheduler.ItemsSource = uni.;
+            var dataGridTextColumn = new DataGridTextColumn();
+            dataGridTextColumn.Header = "Группа";
+            dataGridTextColumn.Binding = new Binding("NameGroup");
+            GridSheduler.Columns.Add(dataGridTextColumn);
+            dataGridTextColumn = new DataGridTextColumn();
+            dataGridTextColumn.Header = "Предмет";
+            dataGridTextColumn.Binding = new Binding("NameSubject");
+            GridSheduler.Columns.Add(dataGridTextColumn);
+            //for (int i = 0; i < WorkToMyDbContext.typeOfClasses.Count; i++)
+            //{
+            //    dataGridTextColumn = new DataGridTextColumn();
+            //    dataGridTextColumn.Header = uni[0].NameTypeOfClasses[i];
+            //    dataGridTextColumn.Binding = new Binding("CountPairs[i]");
+            //    GridSheduler.Columns.Add(dataGridTextColumn);
+            //}
 
         }
 
         private void DataGridComboBoxColumn_SourceUpdated(object sender, DataTransferEventArgs e)
         {
 
+        }
+
+        public class UnionCuriculaAndTypeOfClasses
+        {
+            public string NameGroup;
+            public string NameSubject;
+            public List<string> NameTypeOfClasses;
+            public List<int> CountPairs;
+        }
+
+        public List<UnionCuriculaAndTypeOfClasses> FillingUnionCuriculaAndTypeOfClasses()
+        {
+            List<UnionCuriculaAndTypeOfClasses> unionCuriculaAndTypeOfClasses = new List<UnionCuriculaAndTypeOfClasses>();
+            foreach (var curricula in WorkToMyDbContext.curricula)
+            {
+                var unionCATOC = new UnionCuriculaAndTypeOfClasses();
+                unionCATOC.NameGroup = curricula.Group.FullName;
+                unionCATOC.NameSubject = curricula.Subject.FullName;
+                unionCATOC.NameTypeOfClasses = new List<string>();
+                foreach (var typeOfClass in WorkToMyDbContext.typeOfClasses)
+                {
+                    unionCATOC.NameTypeOfClasses.Add(typeOfClass.FullName);
+                }
+                unionCATOC.CountPairs = new List<int>();
+                foreach (var nameTypeOfClass in unionCATOC.NameTypeOfClasses)
+                {
+                    if (Equals( nameTypeOfClass,curricula.TypeOfClasses.FullName))
+                    {
+                        unionCATOC.CountPairs.Add(curricula.Number);
+                    }
+                    else
+                    {
+                        unionCATOC.CountPairs.Add(0);
+                    }
+                }
+                unionCuriculaAndTypeOfClasses.Add(unionCATOC);
+            }
+            return unionCuriculaAndTypeOfClasses;
         }
     }
 }
