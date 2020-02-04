@@ -45,6 +45,16 @@ namespace ViewingDB.WPF
             GridTypeOfClasses.ItemsSource = WorkToMyDbContext.typeOfClasses;
             GridTypeUnionGroup.ItemsSource = WorkToMyDbContext.typeUnionGroups;
 
+
+
+            GridSheduler.ItemsSource = WorkToMyDbContext.curricula;
+            var kk = new DataGridTextColumn();
+            kk.Header = "ddd";
+            kk.Binding = new Binding("Group");
+           
+
+            GridSheduler.Columns.Add(kk);
+
         }
 
         private void DataGridComboBoxColumn_SourceUpdated(object sender, DataTransferEventArgs e)
