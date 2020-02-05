@@ -22,10 +22,18 @@ namespace ViewingDB.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
+       
+
         public MainWindow()
         {
             InitializeComponent();
             FillGrid();
+            Loaded += MainWindow_Loaded;
+        }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            TabSheduler.Focus();
         }
 
         /// <summary>
@@ -46,25 +54,22 @@ namespace ViewingDB.WPF
             GridTypeUnionGroup.ItemsSource = WorkToMyDbContext.typeUnionGroups;
 
 
-
-
-            var uni = FillingUnionCuriculaAndTypeOfClasses();
-            GridSheduler.ItemsSource = uni.;
+            GridSheduler.ItemsSource = WorkToMyDbContext.unionCuriculaAndTypeOfClasses;
             var dataGridTextColumn = new DataGridTextColumn();
             dataGridTextColumn.Header = "Группа";
-            dataGridTextColumn.Binding = new Binding("NameGroup");
+            dataGridTextColumn.Binding = new Binding("Group");
             GridSheduler.Columns.Add(dataGridTextColumn);
             dataGridTextColumn = new DataGridTextColumn();
             dataGridTextColumn.Header = "Предмет";
-            dataGridTextColumn.Binding = new Binding("NameSubject");
+            dataGridTextColumn.Binding = new Binding("Subject");
             GridSheduler.Columns.Add(dataGridTextColumn);
-            //for (int i = 0; i < WorkToMyDbContext.typeOfClasses.Count; i++)
-            //{
-            //    dataGridTextColumn = new DataGridTextColumn();
-            //    dataGridTextColumn.Header = uni[0].NameTypeOfClasses[i];
-            //    dataGridTextColumn.Binding = new Binding("CountPairs[i]");
-            //    GridSheduler.Columns.Add(dataGridTextColumn);
-            //}
+            for (int i = 0; i < WorkToMyDbContext.typeOfClasses.Count; i++)
+            {
+                dataGridTextColumn = new DataGridTextColumn();
+                dataGridTextColumn.Header = UnionCuriculaAndTypeOfClasses.TypeOfClasses[i].FullName;
+                dataGridTextColumn.Binding = new Binding($"CountPairs[{i}]");
+                GridSheduler.Columns.Add(dataGridTextColumn);
+            }
 
         }
 
@@ -73,42 +78,10 @@ namespace ViewingDB.WPF
 
         }
 
-        public class UnionCuriculaAndTypeOfClasses
-        {
-            public string NameGroup;
-            public string NameSubject;
-            public List<string> NameTypeOfClasses;
-            public List<int> CountPairs;
-        }
+       
 
-        public List<UnionCuriculaAndTypeOfClasses> FillingUnionCuriculaAndTypeOfClasses()
-        {
-            List<UnionCuriculaAndTypeOfClasses> unionCuriculaAndTypeOfClasses = new List<UnionCuriculaAndTypeOfClasses>();
-            foreach (var curricula in WorkToMyDbContext.curricula)
-            {
-                var unionCATOC = new UnionCuriculaAndTypeOfClasses();
-                unionCATOC.NameGroup = curricula.Group.FullName;
-                unionCATOC.NameSubject = curricula.Subject.FullName;
-                unionCATOC.NameTypeOfClasses = new List<string>();
-                foreach (var typeOfClass in WorkToMyDbContext.typeOfClasses)
-                {
-                    unionCATOC.NameTypeOfClasses.Add(typeOfClass.FullName);
-                }
-                unionCATOC.CountPairs = new List<int>();
-                foreach (var nameTypeOfClass in unionCATOC.NameTypeOfClasses)
-                {
-                    if (Equals( nameTypeOfClass,curricula.TypeOfClasses.FullName))
-                    {
-                        unionCATOC.CountPairs.Add(curricula.Number);
-                    }
-                    else
-                    {
-                        unionCATOC.CountPairs.Add(0);
-                    }
-                }
-                unionCuriculaAndTypeOfClasses.Add(unionCATOC);
-            }
-            return unionCuriculaAndTypeOfClasses;
-        }
+        
     }
+
+    
 }

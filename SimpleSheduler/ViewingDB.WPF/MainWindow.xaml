@@ -108,7 +108,6 @@
             <TabItem Name="TabSheduler" Header="Расписание">
                 <DataGrid x:Name="GridSheduler" AutoGenerateColumns="False" >
                     <DataGrid.Columns>
-                        
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>

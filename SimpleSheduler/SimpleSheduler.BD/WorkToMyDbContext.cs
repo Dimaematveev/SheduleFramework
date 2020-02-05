@@ -10,6 +10,13 @@ using SimpleSheduler.BD.Model;
 
 namespace SimpleSheduler.BD
 {
+    public class UnionCuriculaAndTypeOfClasses
+    {
+        public Group Group { get; set; }
+        public Subject Subject { get; set; }
+        public static List<TypeOfClasses> TypeOfClasses { get; set; }
+        public int[] CountPairs { get; set; }
+    }
     public static class WorkToMyDbContext
     { 
 
@@ -27,6 +34,9 @@ namespace SimpleSheduler.BD
         public static List<StudyDay> studyDays;
         public static List<TypeUnionGroup> typeUnionGroups;
         public static List<TypeOfClasses> typeOfClasses;
+
+        public static List<UnionCuriculaAndTypeOfClasses> unionCuriculaAndTypeOfClasses;
+
         public static void ReadDB()
         {
             using (var context = new MyDbContext())
@@ -41,6 +51,33 @@ namespace SimpleSheduler.BD
                 studyDays = context.StudyDays.ToList();
                 typeUnionGroups = context.TypeUnionGroups.ToList();
                 typeOfClasses = context.TypeOfClasses.ToList();
+            }
+            FillingUnionCuriculaAndTypeOfClasses();
+        }
+
+        public static void FillingUnionCuriculaAndTypeOfClasses()
+        {
+            unionCuriculaAndTypeOfClasses = new List<UnionCuriculaAndTypeOfClasses>();
+            UnionCuriculaAndTypeOfClasses.TypeOfClasses = new List<TypeOfClasses>();
+            foreach (var typeOfClass in WorkToMyDbContext.typeOfClasses)
+            {
+                UnionCuriculaAndTypeOfClasses.TypeOfClasses.Add(typeOfClass);
+            }
+            foreach (var curricula in WorkToMyDbContext.curricula)
+            {
+                UnionCuriculaAndTypeOfClasses unionCATOC;
+                int indCur = unionCuriculaAndTypeOfClasses.FindIndex(x => x.Group.Equals(curricula.Group) && x.Subject.Equals(curricula.Subject));
+                if (indCur == -1)
+                {
+                    unionCATOC = new UnionCuriculaAndTypeOfClasses();
+                    unionCATOC.Group = curricula.Group;
+                    unionCATOC.Subject = curricula.Subject;
+                    unionCATOC.CountPairs = new int[UnionCuriculaAndTypeOfClasses.TypeOfClasses.Count];
+                    unionCuriculaAndTypeOfClasses.Add(unionCATOC);
+                    indCur = unionCuriculaAndTypeOfClasses.Count - 1;
+                }
+                int ind = UnionCuriculaAndTypeOfClasses.TypeOfClasses.FindIndex(x=>x.Equals(curricula.TypeOfClasses));
+                unionCuriculaAndTypeOfClasses[indCur].CountPairs[ind] = curricula.Number;
             }
         }
 
