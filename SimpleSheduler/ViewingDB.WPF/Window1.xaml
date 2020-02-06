@@ -1,0 +1,29 @@
+﻿<Window x:Class="ViewingDB.WPF.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ViewingDB.WPF"
+        mc:Ignorable="d"
+        Title="Window1" Height="450" Width="800">
+    <Grid>
+        <TabControl Margin="10,10,9.6,10" x:Name="TabControls" >
+            <TabItem Name="TabCurriculum" Header="Расписание">
+                <DataGrid x:Name="GridCurriculum" AutoGenerateColumns="False" >
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="ID" Binding="{Binding Path=CurriculumId}"/>
+                        <DataGridTextColumn Header="GroupId" Binding="{Binding Path=GroupId}"/>
+                        <DataGridTextColumn Header="SubjectId" Binding="{Binding Path=SubjectId}"/>
+                        <DataGridTextColumn Header="Количество занятий" Binding="{Binding Path=Number}"/>
+                        <DataGridTextColumn Header="TypeOfClassesId" Binding="{Binding Path=TypeOfClassesId}"/>
+                        <DataGridTextColumn Header="Группа" Binding="{Binding Path=Group.Abbreviation}"/>
+                        <DataGridTextColumn Header="Предмет" Binding="{Binding Path=Subject.FullName}"/>
+                        <DataGridTextColumn Header="Тип занятия" Binding="{Binding Path=TypeOfClasses.Abbreviation}"/>
+                        <DataGridCheckBoxColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+
+        </TabControl>
+    </Grid>
+</Window>

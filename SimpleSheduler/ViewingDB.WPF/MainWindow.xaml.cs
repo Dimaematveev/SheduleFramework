@@ -29,6 +29,16 @@ namespace ViewingDB.WPF
             InitializeComponent();
             FillGrid();
             Loaded += MainWindow_Loaded;
+          //  GridSheduler.MouseDoubleClick += GridSheduler_MouseDoubleClick;
+            GridSheduler.PreviewMouseDoubleClick += GridSheduler_MouseDoubleClick;
+        }
+
+        private void GridSheduler_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            
+            var UCATOC = (UnionCuriculaAndTypeOfClasses)GridSheduler.CurrentCell.Item;
+            Window1 window1 = new Window1(UCATOC.Group, UCATOC.Subject);
+            window1.ShowDialog();
         }
 
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
