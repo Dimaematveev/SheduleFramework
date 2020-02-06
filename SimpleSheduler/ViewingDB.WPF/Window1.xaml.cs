@@ -27,8 +27,10 @@ namespace ViewingDB.WPF
         {
             Group = group;
             Subject = subject;
-            InitializeComponent();  
-
+            
+            InitializeComponent();
+            NameGroup.Text = Group.FullName.ToString();
+            NameSubject.Text = Subject.FullName.ToString();
             GetCuriculaForGroup();
             GridCurriculum.ItemsSource = CurriculumForGroup;
         }
