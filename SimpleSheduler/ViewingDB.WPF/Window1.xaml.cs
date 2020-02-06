@@ -31,6 +31,7 @@ namespace ViewingDB.WPF
             InitializeComponent();
             NameGroup.Text = Group.FullName.ToString();
             NameSubject.Text = Subject.FullName.ToString();
+            TypeOfClass.ItemsSource = WorkToMyDbContext.typeOfClasses;
             GetCuriculaForGroup();
             GridCurriculum.ItemsSource = CurriculumForGroup;
         }

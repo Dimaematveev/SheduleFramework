@@ -106,7 +106,7 @@
         </TabItem>
 
             <TabItem Name="TabSheduler" Header="Расписание">
-                <DataGrid x:Name="GridSheduler" AutoGenerateColumns="False" >
+                <DataGrid x:Name="GridSheduler" AutoGenerateColumns="False" IsReadOnly="True" >
                     <DataGrid.Columns>
                     </DataGrid.Columns>
                 </DataGrid>
