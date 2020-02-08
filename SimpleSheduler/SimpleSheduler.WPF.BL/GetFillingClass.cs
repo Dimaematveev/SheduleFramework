@@ -1,12 +1,8 @@
 ﻿using SimpleSheduler.BD;
 using SimpleSheduler.BD.Model;
 using SimpleSheduler.BL;
-using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SimpleSheduler.WPF.BL
 {
