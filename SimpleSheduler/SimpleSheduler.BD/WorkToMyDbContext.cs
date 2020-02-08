@@ -15,7 +15,7 @@ namespace SimpleSheduler.BD
         public Group Group { get; set; }
         public Subject Subject { get; set; }
         public static List<TypeOfClasses> TypeOfClasses { get; set; }
-        public int[] CountPairs { get; set; }
+        public Curriculum[] CountPairs { get; set; }
     }
     public static class WorkToMyDbContext
     { 
@@ -72,12 +72,12 @@ namespace SimpleSheduler.BD
                     unionCATOC = new UnionCuriculaAndTypeOfClasses();
                     unionCATOC.Group = curricula.Group;
                     unionCATOC.Subject = curricula.Subject;
-                    unionCATOC.CountPairs = new int[UnionCuriculaAndTypeOfClasses.TypeOfClasses.Count];
+                    unionCATOC.CountPairs = new Curriculum[UnionCuriculaAndTypeOfClasses.TypeOfClasses.Count];
                     unionCuriculaAndTypeOfClasses.Add(unionCATOC);
                     indCur = unionCuriculaAndTypeOfClasses.Count - 1;
                 }
                 int ind = UnionCuriculaAndTypeOfClasses.TypeOfClasses.FindIndex(x=>x.Equals(curricula.TypeOfClasses));
-                unionCuriculaAndTypeOfClasses[indCur].CountPairs[ind] = curricula.Number;
+                unionCuriculaAndTypeOfClasses[indCur].CountPairs[ind] = curricula;
             }
         }
 

@@ -83,7 +83,8 @@ namespace ViewingDB.WPF
             {
                 dataGridTextColumn = new DataGridTextColumn();
                 dataGridTextColumn.Header = UnionCuriculaAndTypeOfClasses.TypeOfClasses[i].FullName;
-                dataGridTextColumn.Binding = new Binding($"CountPairs[{i}]");
+                
+                dataGridTextColumn.Binding = new Binding($"CountPairs[{i}].Number");
                 GridSheduler.Columns.Add(dataGridTextColumn);
             }
 
