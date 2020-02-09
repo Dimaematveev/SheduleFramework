@@ -1,5 +1,6 @@
 ﻿using SimpleSheduler.BD;
 using System.Collections.Generic;
+using System.Linq;
 using System.Windows;
 
 namespace ViewingDB.WPF
@@ -23,6 +24,25 @@ namespace ViewingDB.WPF
             TypeOfClass.ItemsSource = WorkToMyDbContext.typeOfClasses;
             GetCuriculaForGroup();
             GridCurriculum.ItemsSource = CurriculumForGroup;
+
+           // GridCurriculum.AddingNewItem += GridCurriculum_AddingNewItem;
+           // GridCurriculum.InitializingNewItem += GridCurriculum_InitializingNewItem;
+           
+        }
+
+        private void GridCurriculum_InitializingNewItem(object sender, System.Windows.Controls.InitializingNewItemEventArgs e)
+        {
+            MessageBox.Show("Test2");
+        }
+
+        private void GridCurriculum_AddingNewItem(object sender, System.Windows.Controls.AddingNewItemEventArgs e)
+        {
+            Curriculum curriculum = new Curriculum();
+            curriculum.CurriculumId = WorkToMyDbContext.curricula.Max(x => x.CurriculumId) + 1;
+            curriculum.Group = Group;
+            curriculum.Subject = Subject;
+            WorkToMyDbContext.curricula.Add(curriculum);
+            CurriculumForGroup.Add(curriculum);
         }
 
         public void GetCuriculaForGroup()
