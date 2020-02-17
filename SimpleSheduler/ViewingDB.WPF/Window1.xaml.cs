@@ -24,15 +24,23 @@ namespace ViewingDB.WPF
             TypeOfClass.ItemsSource = WorkToMyDbContext.typeOfClasses;
             GetCuriculaForGroup();
             GridCurriculum.ItemsSource = CurriculumForGroup;
+            ButAddLesson.Click += ButAddLesson_Click;
 
-           // GridCurriculum.AddingNewItem += GridCurriculum_AddingNewItem;
-           // GridCurriculum.InitializingNewItem += GridCurriculum_InitializingNewItem;
-           
+            Loaded += Window1_Loaded;
         }
 
-        private void GridCurriculum_InitializingNewItem(object sender, System.Windows.Controls.InitializingNewItemEventArgs e)
+        private void Window1_Loaded(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("Test2");
+            ButAddLesson_Click(sender, e);
+        }
+
+        private void ButAddLesson_Click(object sender, RoutedEventArgs e)
+        {
+            if (CurriculumForGroup.Count<= WorkToMyDbContext.typeOfClasses.Count)
+            {
+                AddLesson addLesson = new AddLesson(Group,Subject,CurriculumForGroup);
+                addLesson.ShowDialog();
+            }
         }
 
         private void GridCurriculum_AddingNewItem(object sender, System.Windows.Controls.AddingNewItemEventArgs e)

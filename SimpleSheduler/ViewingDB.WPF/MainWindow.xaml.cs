@@ -21,12 +21,14 @@ namespace ViewingDB.WPF
             Loaded += MainWindow_Loaded;
             GridSheduler.MouseDoubleClick += GridSheduler_MouseDoubleClick;
             //GridSheduler.PreviewMouseDoubleClick += GridSheduler_MouseDoubleClick;
+
+            
         }
 
         private void GridSheduler_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             
-            var UCATOC = GridSheduler.CurrentCell.Item as UnionCuriculaAndTypeOfClasses;
+            var UCATOC = GridSheduler.CurrentItem as UnionCuriculaAndTypeOfClasses;
             if (UCATOC!=null)
             {
                 Window1 window1 = new Window1(UCATOC.Group, UCATOC.Subject);
@@ -40,6 +42,15 @@ namespace ViewingDB.WPF
         private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             TabSheduler.Focus();
+            GridSheduler.Focus();
+            //GridSheduler.SelectedItem = GridSheduler.Items[0];
+            GridSheduler.SelectedIndex=0;
+
+            //GridSheduler.ScrollIntoView(GridSheduler.Items[0]);
+            GridSheduler.CurrentItem = GridSheduler.Items[0];
+            MouseDevice mouse = Mouse.PrimaryDevice;
+            MouseButtonEventArgs mouseButtonEventArgs = new MouseButtonEventArgs(mouse, 0, MouseButton.Left);
+            GridSheduler_MouseDoubleClick(sender, mouseButtonEventArgs);
         }
 
         /// <summary>

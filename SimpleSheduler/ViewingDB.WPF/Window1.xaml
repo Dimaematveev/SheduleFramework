@@ -7,22 +7,19 @@
         mc:Ignorable="d"
         Title="Window1" Height="450" Width="800">
     <Grid>
-        <TabControl Margin="10,50,9.6,10" x:Name="TabControls" >
-            <TabItem Name="TabCurriculum" Header="Расписание">
-                <DataGrid x:Name="GridCurriculum" AutoGenerateColumns="False" >
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding Path=CurriculumId}"/>
-                        <DataGridTextColumn Header="Количество занятий" Binding="{Binding Path=Number}"/>
-                        <DataGridComboBoxColumn x:Name="TypeOfClass" Header="Тип занятия" SelectedItemBinding="{Binding TypeOfClasses}" />
-                        <DataGridCheckBoxColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-            </TabItem>
 
-        </TabControl>
+        <DataGrid  x:Name="GridCurriculum" AutoGenerateColumns="False" Margin="10,46,9.6,180" CanUserAddRows="False" >
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Path=CurriculumId}"/>
+                <DataGridTextColumn Header="Количество занятий" Binding="{Binding Path=Number}"/>
+                <DataGridComboBoxColumn x:Name="TypeOfClass" Header="Тип занятия" SelectedItemBinding="{Binding TypeOfClasses}" />
+                <DataGridCheckBoxColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
+            </DataGrid.Columns>
+        </DataGrid>
         <Label Content="Группа:" HorizontalAlignment="Left"  Margin="10,15,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="NameGroup" HorizontalAlignment="Left" Height="23" Margin="70,18,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" IsReadOnly="True" Width="301"/>
         <Label Content="Предмет:" HorizontalAlignment="Left"  Margin="390,15,0,0" VerticalAlignment="Top"/>
         <TextBox x:Name="NameSubject" HorizontalAlignment="Left" Height="23" Margin="450,18,0,0" TextWrapping="Wrap"  VerticalAlignment="Top" IsReadOnly="True" Width="300"/>
+        <Button x:Name="ButAddLesson"  Content="Добавить занятие" HorizontalAlignment="Left" Margin="10,245,0,0" VerticalAlignment="Top" Width="116"/>
     </Grid>
 </Window>
