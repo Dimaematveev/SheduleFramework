@@ -184,5 +184,6 @@ namespace SimpleSheduler.WPF
             SetFilling.WPF.MainWindow mainWindow = new SetFilling.WPF.MainWindow(createScheduler1);
             mainWindow.ShowDialog();
         }
+
     }
 }

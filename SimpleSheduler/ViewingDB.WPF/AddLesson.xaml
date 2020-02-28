@@ -16,7 +16,7 @@
         <TextBox x:Name="NameLesson" HorizontalAlignment="Left" Height="23" Margin="113,58,0,0" TextWrapping="Wrap"  VerticalAlignment="Top"  Width="258"/>
         <Label Content="Тип занятия:" HorizontalAlignment="Left"  Margin="390,55,0,0" VerticalAlignment="Top"/>
         <ListBox x:Name="TypeLesson" HorizontalAlignment="Left" Height="23" Margin="473,58,0,0" VerticalAlignment="Top" Width="277"/>
-        <ScrollBar x:Name="ssw" HorizontalAlignment="Left" Height="26" Margin="157,102,0,0" VerticalAlignment="Top" Width="82"/>
+        <ScrollBar x:Name="ssw" HorizontalAlignment="Left" Height="26" Margin="200,86,0,0" VerticalAlignment="Top" Width="82"/>
 
     </Grid>
 </Window>

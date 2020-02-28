@@ -7,17 +7,17 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <Button x:Name="ButtonGetDataFromBD" Content="Считать данные из БД" HorizontalAlignment="Left" Margin="48,48,0,0" VerticalAlignment="Top" Width="161" />
-        <TextBox x:Name="TexboxFromBD" HorizontalAlignment="Left" Height="62" Margin="214,48,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="570"/>
-        <Button x:Name="GetFilling" Content="GetFilling" HorizontalAlignment="Left" Margin="175,197,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False"/>
-        <Button x:Name="SetFillingGroups" Content="Задать Когда Группы свободны" HorizontalAlignment="Left" Margin="48,236,0,0" VerticalAlignment="Top" Width="187" IsEnabled="False"/>
-        <Button x:Name="SetFillingClassrooms" Content="Задать Когда Аудитории свободны" HorizontalAlignment="Left" Margin="255,236,0,0" VerticalAlignment="Top" Width="235" IsEnabled="False"/>
-        <Button x:Name="CreateScheduler" Content="Create Scheduler" HorizontalAlignment="Left" Height="27" Margin="175,271,0,0" VerticalAlignment="Top" Width="169" IsEnabled="False"/>
-        <Button x:Name="GetFillingGroups" Content="Пары по Группам" HorizontalAlignment="Left" Margin="53,303,0,0" VerticalAlignment="Top" Width="187" IsEnabled="False"/>
-        <Button x:Name="GetFillingClassrooms" Content="Пары по Аудиториям" HorizontalAlignment="Left" Margin="255,303,0,0" VerticalAlignment="Top" Width="235" IsEnabled="False"/>
-        <Button x:Name="PlanNotScheduler" Content="PlanNotScheduler" HorizontalAlignment="Left" Height="27" Margin="365,271,0,0" VerticalAlignment="Top" Width="169" IsEnabled="False"/>
-        <Button Content="AllBD" HorizontalAlignment="Left" Height="22" Margin="84,131,0,0" VerticalAlignment="Top" Width="86" Click="Button_Click"/>
-        <Button Content="GetFilling" HorizontalAlignment="Left" Height="22" Margin="73,271,0,0" VerticalAlignment="Top" Width="86" Click="Button_Click_1" />
+        <Button Visibility="Hidden"  x:Name="ButtonGetDataFromBD" Content="Считать данные из БД" HorizontalAlignment="Left" Margin="48,48,0,0" VerticalAlignment="Top" Width="161" />
+        <TextBox Visibility="Hidden"  x:Name="TexboxFromBD" HorizontalAlignment="Left" Height="62" Margin="214,48,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="570"/>
+        <Button x:Name="GetFilling" Content="Заполнить" HorizontalAlignment="Left" Margin="175,197,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False"/>
+        <Button  Visibility="Hidden" x:Name="SetFillingGroups" Content="Задать Когда Группы свободны" HorizontalAlignment="Left" Margin="48,236,0,0" VerticalAlignment="Top" Width="187" IsEnabled="False"/>
+        <Button Visibility="Hidden" x:Name="SetFillingClassrooms" Content="Задать Когда Аудитории свободны" HorizontalAlignment="Left" Margin="255,236,0,0" VerticalAlignment="Top" Width="235" IsEnabled="False"/>
+        <Button x:Name="CreateScheduler" Content="Создать расписание" HorizontalAlignment="Left" Height="27" Margin="175,271,0,0" VerticalAlignment="Top" Width="169" IsEnabled="False"/>
+        <Button Visibility="Hidden" x:Name="GetFillingGroups" Content="Пары по Группам" HorizontalAlignment="Left" Margin="53,303,0,0" VerticalAlignment="Top" Width="187" IsEnabled="False"/>
+        <Button Visibility="Hidden" x:Name="GetFillingClassrooms" Content="Пары по Аудиториям" HorizontalAlignment="Left" Margin="255,303,0,0" VerticalAlignment="Top" Width="235" IsEnabled="False"/>
+        <Button x:Name="PlanNotScheduler" Content="Пары не вошедшие в расписание" HorizontalAlignment="Left" Height="27" Margin="365,271,0,0" VerticalAlignment="Top" Width="207" IsEnabled="False"/>
+        <Button Content="Показать данные" HorizontalAlignment="Left" Height="22" Margin="36,133,0,0" VerticalAlignment="Top" Width="115" Click="Button_Click"/>
+        <Button Content="Показать расписание" HorizontalAlignment="Left" Height="22" Margin="36,271,0,0" VerticalAlignment="Top" Width="123" Click="Button_Click_1" />
 
     </Grid>
 </Window>
