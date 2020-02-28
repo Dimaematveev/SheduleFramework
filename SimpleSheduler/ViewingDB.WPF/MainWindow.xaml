@@ -44,7 +44,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
-            <TabItem Name="TabCurriculum" Header="Расписание">
+            <TabItem Name="TabCurriculum" Header="План">
                 <DataGrid x:Name="GridCurriculum" AutoGenerateColumns="False" >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding Path=CurriculumId}"/>
@@ -105,7 +105,7 @@
             </DataGrid>
         </TabItem>
 
-            <TabItem Name="TabSheduler" Header="Расписание">
+            <TabItem Name="TabSheduler" Header="План с типами пар">
                 <DataGrid x:Name="GridSheduler" AutoGenerateColumns="False" IsReadOnly="True" >
                     <DataGrid.Columns>
                     </DataGrid.Columns>

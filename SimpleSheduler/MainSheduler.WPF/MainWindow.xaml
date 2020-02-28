@@ -1,0 +1,24 @@
+﻿<Window x:Class="MainSheduler.WPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MainSheduler.WPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Label Content="Выберите дату начала семестра:" Margin="10,10,564.6,380" Height="30"/>
+
+        <Label Content="Выберите дату окончания семестра:" Margin="10,45,564.6,345"  Height="30"/>
+
+        <TextBox x:Name="TextBoxBegin" HorizontalAlignment="Left" Height="23" Margin="234,13,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="141" IsReadOnly="True"/>
+        <TextBox x:Name="TextBoxEnd" HorizontalAlignment="Left" Height="23" Margin="234,46,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="141" IsReadOnly="True"/>
+        <Button x:Name="ButtonOK" Content="OK" Height="20" Margin="170,75,564.6,325"/>
+
+
+        <Calendar x:Name="CalendarBegin" HorizontalAlignment="Left" Margin="234,41,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+        <Button x:Name="ButtonBeginOK" Content="OK" HorizontalAlignment="Left" Height="23" Margin="380,13,0,0" VerticalAlignment="Top" Width="32" Visibility="Hidden"/>
+        <Calendar x:Name="CalendarEnd" HorizontalAlignment="Left" Margin="234,74,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+        <Button x:Name="ButtonEndOK" Content="OK" HorizontalAlignment="Left" Height="23" Margin="380,46,0,0" VerticalAlignment="Top" Width="32" Visibility="Hidden"/>
+    </Grid>
+</Window>
