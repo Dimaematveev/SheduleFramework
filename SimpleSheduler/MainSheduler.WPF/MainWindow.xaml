@@ -12,6 +12,8 @@
         <Button x:Name="ButtonOK" Content="OK" Margin="170,80,564.6,312"/>
         <DatePicker x:Name="DatePickerBegin" HorizontalAlignment="Left" Margin="234,11,0,0" VerticalAlignment="Top"/>
         <DatePicker x:Name="DatePickerEnd" HorizontalAlignment="Left" Margin="234,46,0,0" VerticalAlignment="Top"/>
-        <Calendar x:Name="Calendar1" HorizontalAlignment="Left" Height="170" Margin="100,148,0,0" VerticalAlignment="Top" Width="195"/>
+        <Calendar x:Name="Calendar1" HorizontalAlignment="Left" Height="170" Margin="100,148,0,0" VerticalAlignment="Top" Width="195">
+           
+        </Calendar>
     </Grid>
 </Window>

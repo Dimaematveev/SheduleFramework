@@ -35,8 +35,7 @@ namespace MainSheduler.WPF
             DatePickerEnd.SelectedDateChanged += DatePickerEnd_SelectedDateChanged;
             ButtonOK.Click += ButtonOK_Click;
 
-
-           
+                       
         }
 
         private void DatePickerBegin_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -70,10 +69,35 @@ namespace MainSheduler.WPF
 
             Calendar1.DisplayDateStart = Begin;
             Calendar1.DisplayDateEnd = End;
+            Calendar1.SelectionMode = CalendarSelectionMode.MultipleRange;
+            Calendar1.MouseRightButtonUp += Calendar1_MouseRightButtonUp;
+
+
+            ContextMenu contextMenu = new ContextMenu();
+            MenuItem menuItemWorkDay = new MenuItem();
+            menuItemWorkDay.Header = "Рабочие дни";
+            MenuItem menuItemDayOff = new MenuItem();
+            menuItemDayOff.Header = "Выходные дни";
+            MenuItem menuItemReducedDay = new MenuItem();
+            menuItemReducedDay.Header = "Сокращенные дни";
+            for (int i = 1; i <= 6; i++)
+            {
+                MenuItem menuItemReducedDayCountPair = new MenuItem();
+                menuItemReducedDayCountPair.Header = $"{i}";
+                menuItemReducedDay.Items.Add(menuItemReducedDayCountPair);
+            }
+            contextMenu.Items.Add(menuItemWorkDay);
+            contextMenu.Items.Add(menuItemDayOff);
+            contextMenu.Items.Add(menuItemReducedDay);
+            Calendar1.ContextMenu = contextMenu;
+            Calendar1.SelectedDates.
         }
 
-
-      
+        private void Calendar1_MouseRightButtonUp(object sender, MouseButtonEventArgs e)
+        {
+            
+            
+        }
     }
     
 }
