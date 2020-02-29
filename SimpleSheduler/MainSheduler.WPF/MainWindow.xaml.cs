@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,68 +20,60 @@ namespace MainSheduler.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        DateTime Begin;
-        DateTime End;
+        DateTime? Begin = null;
+        DateTime? End = null;
+        HelperDate helperDate;
         public MainWindow()
         {
             InitializeComponent();
-            CalendarBegin.SelectedDatesChanged += CalendarBegin_SelectedDatesChanged; ;
-            TextBoxBegin.GotFocus += TextBoxBegin_GotFocus;
-            //TextBoxBegin.LostFocus += ButtonBeginOK_Click;
-            ButtonBeginOK.Click += ButtonBeginOK_Click;
+            Begin = new DateTime(2020, 2, 01);
+            End = new DateTime(2020, 2, 28);
+            DatePickerBegin.Text = Begin.Value.ToShortDateString();
+            DatePickerEnd.Text = End.Value.ToShortDateString();
 
-            CalendarEnd.SelectedDatesChanged += CalendarEnd_SelectedDatesChanged; ;
-            TextBoxEnd.GotFocus += TextBoxEnd_GotFocus;
-            //TextBoxEnd.LostFocus += ButtonEndOK_Click;
-            ButtonEndOK.Click += ButtonEndOK_Click;
-
-
+            DatePickerBegin.SelectedDateChanged += DatePickerBegin_SelectedDateChanged;
+            DatePickerEnd.SelectedDateChanged += DatePickerEnd_SelectedDateChanged;
             ButtonOK.Click += ButtonOK_Click;
+
+
+           
+        }
+
+        private void DatePickerBegin_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Begin = ((DatePicker)e.OriginalSource).SelectedDate;
+        }
+
+        private void DatePickerEnd_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        {
+            End = ((DatePicker)e.OriginalSource).SelectedDate;
         }
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
         {
             string str = "";
-            str+="Количество Недель: ";
-            str+="Количество Понедельников: ";
+            helperDate = new HelperDate(Begin.Value, End.Value);
+            str += "Количество";
+            str += $"\nПериод с {Begin.Value.ToShortDateString()} по {End.Value.ToShortDateString()}";
+            str += "\nДней: ";
+            str += $"{helperDate.CountDays}";
+            str += "\nНедель: ";
+            str += $"{helperDate.CountWeek}";
+            foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)))
+            {
+                str += $"\n{day}: ";
+                str += $"{helperDate.CountDayOfWeek[day]}";
+            }
+           
             
             MessageBox.Show(str);
+
+            Calendar1.DisplayDateStart = Begin;
+            Calendar1.DisplayDateEnd = End;
         }
 
-        private void ButtonBeginOK_Click(object sender, RoutedEventArgs e)
-        {
-            CalendarBegin.Visibility = Visibility.Hidden;
-            ButtonBeginOK.Visibility = Visibility.Hidden;
-        }
 
-        private void TextBoxBegin_GotFocus(object sender, RoutedEventArgs e)
-        {
-            CalendarBegin.Visibility = Visibility.Visible;
-            ButtonBeginOK.Visibility = Visibility.Visible;
-        }
-
-        private void CalendarBegin_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Begin = ((Calendar)e.OriginalSource).SelectedDate.Value.Date;
-            TextBoxBegin.Text = Begin.ToShortDateString();
-        }
-        private void ButtonEndOK_Click(object sender, RoutedEventArgs e)
-        {
-            CalendarEnd.Visibility = Visibility.Hidden;
-            ButtonEndOK.Visibility = Visibility.Hidden;
-        }
-
-        private void TextBoxEnd_GotFocus(object sender, RoutedEventArgs e)
-        {
-            CalendarEnd.Visibility = Visibility.Visible;
-            ButtonEndOK.Visibility = Visibility.Visible;
-        }
-
-        private void CalendarEnd_SelectedDatesChanged(object sender, SelectionChangedEventArgs e)
-        {
-            End = ((Calendar)e.OriginalSource).SelectedDate.Value.Date;
-            TextBoxEnd.Text = End.ToShortDateString();
-        }
-
+      
     }
+    
 }

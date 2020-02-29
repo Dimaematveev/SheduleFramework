@@ -8,17 +8,10 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <Label Content="Выберите дату начала семестра:" Margin="10,10,564.6,380" Height="30"/>
-
         <Label Content="Выберите дату окончания семестра:" Margin="10,45,564.6,345"  Height="30"/>
-
-        <TextBox x:Name="TextBoxBegin" HorizontalAlignment="Left" Height="23" Margin="234,13,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="141" IsReadOnly="True"/>
-        <TextBox x:Name="TextBoxEnd" HorizontalAlignment="Left" Height="23" Margin="234,46,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="141" IsReadOnly="True"/>
-        <Button x:Name="ButtonOK" Content="OK" Height="20" Margin="170,75,564.6,325"/>
-
-
-        <Calendar x:Name="CalendarBegin" HorizontalAlignment="Left" Margin="234,41,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
-        <Button x:Name="ButtonBeginOK" Content="OK" HorizontalAlignment="Left" Height="23" Margin="380,13,0,0" VerticalAlignment="Top" Width="32" Visibility="Hidden"/>
-        <Calendar x:Name="CalendarEnd" HorizontalAlignment="Left" Margin="234,74,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
-        <Button x:Name="ButtonEndOK" Content="OK" HorizontalAlignment="Left" Height="23" Margin="380,46,0,0" VerticalAlignment="Top" Width="32" Visibility="Hidden"/>
+        <Button x:Name="ButtonOK" Content="OK" Margin="170,80,564.6,312"/>
+        <DatePicker x:Name="DatePickerBegin" HorizontalAlignment="Left" Margin="234,11,0,0" VerticalAlignment="Top"/>
+        <DatePicker x:Name="DatePickerEnd" HorizontalAlignment="Left" Margin="234,46,0,0" VerticalAlignment="Top"/>
+        <Calendar x:Name="Calendar1" HorizontalAlignment="Left" Height="170" Margin="100,148,0,0" VerticalAlignment="Top" Width="195"/>
     </Grid>
 </Window>
