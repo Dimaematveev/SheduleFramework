@@ -24,14 +24,13 @@ namespace MainSheduler.WPF
         private DateTime? Begin = null;
         private DateTime? End = null;
         private HelperDate helperDate;
-        private SortedDictionary<DateTime, int> ReducedDay = new SortedDictionary<DateTime, int>();
-        private SortedSet<DateTime> DayOff = new SortedSet<DateTime>();
-        private SortedSet<DateTime> WorkDay = new SortedSet<DateTime>();
+        private SortedDictionary<DateTime, string> ReducedDay = new SortedDictionary<DateTime, string>();
+        private SortedDictionary<DateTime, string> DayOff = new SortedDictionary<DateTime, string>();
+        private SortedDictionary<DateTime, string> WorkDay = new SortedDictionary<DateTime, string>();
 
         
         public MainWindow()
         {
-            
             InitializeComponent();
             Begin = new DateTime(2020, 2, 01);
             End = new DateTime(2020, 2, 28);
@@ -42,11 +41,9 @@ namespace MainSheduler.WPF
             DatePickerEnd.SelectedDateChanged += DatePickerEnd_SelectedDateChanged;
             ButtonOK.Click += ButtonOK_Click;
 
-
-
-            ListViewReducedDay.ItemsSource = ReducedDay;
-            ListViewDayOff.ItemsSource = DayOff;
-            ListViewWorkDay.ItemsSource = WorkDay;
+            ListViewReducedDay.ItemsSource = ReducedDay.Values;
+            ListViewDayOff.ItemsSource = DayOff.Values;
+            ListViewWorkDay.ItemsSource = WorkDay.Values;
         }
 
         private void DatePickerBegin_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
@@ -111,16 +108,43 @@ namespace MainSheduler.WPF
             //ControlTemplate controlTemplate = new ControlTemplate(typeof(System.Windows.Controls.Calendar));
             ////controlTemplate.Triggers.Add((new Trigger()).);
             ////controlTemplate.
-            //var w = 1;
+            //var w = 1;\
+
+            for (DateTime i = Begin.Value; i <= End.Value; i=i.AddDays(1))
+            {
+                if (i.DayOfWeek == DayOfWeek.Sunday) 
+                {
+                    AddCollection(DayOff, i);
+                }
+                else
+                {
+                    AddCollection(WorkDay, i);
+                }
+            }
+            UpdateAllListView();
         }
 
-
+        private void AddCollection(SortedDictionary<DateTime, string> collection, DateTime dateTime, int? count = null)
+        {
+            if (!collection.Keys.Contains(dateTime))
+            {
+                if (count == null)
+                {
+                    collection.Add(dateTime, $"[{dateTime.ToShortDateString()}]");
+                }
+                else
+                {
+                    collection.Add(dateTime, $"[{dateTime.ToShortDateString()},{count}]");
+                }
+            }
+            
+        }
         private void MenuItemReducedDayCountPair_Click(int count)
         {
             foreach (var item in Calendar1.SelectedDates)
             {
                 WorkDay.Remove(item);
-                ReducedDay.Add(item, count);
+                AddCollection(ReducedDay, item, count);
                 DayOff.Remove(item);
             }
             UpdateAllListView();
@@ -132,9 +156,8 @@ namespace MainSheduler.WPF
             {
                 WorkDay.Remove(item);
                 ReducedDay.Remove(item);
-                DayOff.Add(item);
+                AddCollection(DayOff, item);
             }
-
             UpdateAllListView();
         }
 
@@ -142,7 +165,7 @@ namespace MainSheduler.WPF
         {
             foreach (var item in Calendar1.SelectedDates)
             {
-                WorkDay.Add(item);
+                AddCollection(WorkDay, item);
                 ReducedDay.Remove(item);
                 DayOff.Remove(item);
             }
