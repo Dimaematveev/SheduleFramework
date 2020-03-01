@@ -80,10 +80,10 @@ namespace MainSheduler.WPF
             ContextMenu contextMenu = new ContextMenu();
             MenuItem menuItemWorkDay = new MenuItem();
             menuItemWorkDay.Header = "Рабочие дни";
-            //menuItemWorkDay.Click += MenuItemWorkDay_Click;
+            menuItemWorkDay.Click += MenuItemWorkDay_Click;
             MenuItem menuItemDayOff = new MenuItem();
             menuItemDayOff.Header = "Выходные дни";
-            //menuItemDayOff.Click += MenuItemDayOff_Click;
+            menuItemDayOff.Click += MenuItemDayOff_Click;
             MenuItem menuItemReducedDay = new MenuItem();
             menuItemReducedDay.Header = "Сокращенные дни";
             for (int i = 1; i <= 6; i++)
@@ -91,7 +91,7 @@ namespace MainSheduler.WPF
                 int z = i;
                 MenuItem menuItemReducedDayCountPair = new MenuItem();
                 menuItemReducedDayCountPair.Header = $"Кол-во пар: {z}";
-                //menuItemReducedDayCountPair.Click += (sender1, EventArgs1) => { MenuItemReducedDayCountPair_Click(z); }; 
+                menuItemReducedDayCountPair.Click += (sender1, EventArgs1) => { MenuItemReducedDayCountPair_Click(z); };
                 menuItemReducedDay.Items.Add(menuItemReducedDayCountPair);
             }
             contextMenu.Items.Add(menuItemWorkDay);
@@ -99,53 +99,39 @@ namespace MainSheduler.WPF
             contextMenu.Items.Add(menuItemReducedDay);
             Calendar1.ContextMenu = contextMenu;
 
-            PairsToDays pairsToDays = new PairsToDays(Begin.Value, End.Value, 6);
-            ListViewReducedDay.ItemsSource = pairsToDays.GetReducedDay();
-            ListViewDayOff.ItemsSource = pairsToDays.GetDayOff();
-            ListViewWorkDay.ItemsSource = pairsToDays.GetWorkDay();
+            pairsToDays = new PairsToDays(Begin.Value, End.Value, 6);
+            
             UpdateAllListView();
         }
 
-        //private void MenuItemReducedDayCountPair_Click(int count)
-        //{
-        //    foreach (var item in Calendar1.SelectedDates)
-        //    {
-        //        WorkDay.Remove(item);
-        //        AddCollection(ReducedDay, item, count);
-        //        DayOff.Remove(item);
-        //    }
-        //    UpdateAllListView();
-        //}
+        private void MenuItemReducedDayCountPair_Click(int count)
+        {
+            pairsToDays.ResetDays(Calendar1.SelectedDates, count);
+            UpdateAllListView();
+        }
 
-        //private void MenuItemDayOff_Click(object sender, RoutedEventArgs e)
-        //{
-        //    foreach (var item in Calendar1.SelectedDates)
-        //    {
-        //        WorkDay.Remove(item);
-        //        ReducedDay.Remove(item);
-        //        AddCollection(DayOff, item);
-        //    }
-        //    UpdateAllListView();
-        //}
+        private void MenuItemDayOff_Click(object sender, RoutedEventArgs e)
+        {
+            pairsToDays.ResetDays(Calendar1.SelectedDates, 0);
+            UpdateAllListView();
+        }
 
-        //private void MenuItemWorkDay_Click(object sender, RoutedEventArgs e)
-        //{
-        //    foreach (var item in Calendar1.SelectedDates)
-        //    {
-        //        AddCollection(WorkDay, item);
-        //        ReducedDay.Remove(item);
-        //        DayOff.Remove(item);
-        //    }
-        //    UpdateAllListView();
-        //}
+        private void MenuItemWorkDay_Click(object sender, RoutedEventArgs e)
+        {
+            pairsToDays.ResetDays(Calendar1.SelectedDates, null);
+            UpdateAllListView();
+        }
 
         private void UpdateAllListView()
         {
             ListViewWorkDay.BeginInit();
+            ListViewWorkDay.ItemsSource = pairsToDays.WorkDay;
             ListViewWorkDay.EndInit();
             ListViewReducedDay.BeginInit();
+            ListViewReducedDay.ItemsSource = pairsToDays.ReducedDay;
             ListViewReducedDay.EndInit();
             ListViewDayOff.BeginInit();
+            ListViewDayOff.ItemsSource = pairsToDays.DayOff;
             ListViewDayOff.EndInit();
         }
 

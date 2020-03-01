@@ -54,6 +54,8 @@ namespace MainSheduler.WPF
         {
             return DatePair.CompareTo(((PairsToDay)obj).DatePair);
         }
+
+        
     }
 
     /// <summary>
@@ -61,19 +63,19 @@ namespace MainSheduler.WPF
     /// </summary>
     public class PairsToDays
     {
-        
 
         /// <summary>
         /// Список количества пар для всех дней
         /// </summary>
-        public List<PairsToDay> pairsToDays { get; set; }
+        public List<PairsToDay> pairsToDays { get; private set; }
 
         /// <summary>
         /// Максимальное кол-во пар
         /// </summary>
         public int MaxCountPair { get; }
-
-
+        public List<PairsToDay> WorkDay { get; private set; }
+        public List<PairsToDay> DayOff { get; private set; }
+        public List<PairsToDay> ReducedDay { get; private set; }
 
         /// <summary>
         /// 
@@ -84,6 +86,7 @@ namespace MainSheduler.WPF
         {
             pairsToDays = pairsToDayList.ToList();
             MaxCountPair = maxCountPair;
+            GetListDays();
         }
 
         /// <summary>
@@ -109,37 +112,44 @@ namespace MainSheduler.WPF
             }
             pairsToDays = PairsToDayList;
             MaxCountPair = maxCountPair;
+            GetListDays();
+        }
+
+        
+        /// <summary>
+        /// заполнить все списки дней, рабочи выходные неполные
+        /// </summary>
+        private void GetListDays()
+        {
+            DayOff = pairsToDays.Where(x => x.CountPair == 0).ToList();
+            DayOff.Sort();
+            ReducedDay = pairsToDays.Where(x => x.CountPair > 0).ToList();
+            ReducedDay.Sort();
+            WorkDay = pairsToDays.Where(x => x.CountPair == null).ToList();
+            WorkDay.Sort();
+        }
+       
+
+        /// <summary>
+        /// Изменить кол-во пар в день
+        /// </summary>
+        /// <param name="datePair">Дата пары</param>
+        /// <param name="countPair">кол-во пар</param>
+        public void ResetDay(DateTime datePair, int? countPair)
+        {
+            pairsToDays.Where(x => x.DatePair == datePair).First().CountPair = countPair;
+            GetListDays();
         }
 
         /// <summary>
-        /// Получить все полные рабочие дни
+        /// Изменить кол-во пар в дни
         /// </summary>
-        /// <returns> список всех рабочих дней</returns>
-        public List<PairsToDay> GetWorkDay()
+        /// <param name="datePairs"> Список дней</param>
+        /// <param name="countPair"> кол-во пар</param>
+        public void ResetDays(IEnumerable<DateTime> datePairs, int? countPair)
         {
-            var ret =  pairsToDays.Where(x => x.CountPair == null).ToList();
-            ret.Sort();
-            return ret;
-        }
-        /// <summary>
-        /// Получить все выходные
-        /// </summary>
-        /// <returns> список всех выходных</returns>
-        public List<PairsToDay> GetDayOff()
-        {
-            var ret = pairsToDays.Where(x => x.CountPair == 0).ToList();
-            ret.Sort();
-            return ret;
-        }
-        /// <summary>
-        /// Получить все неполные рабочие дни
-        /// </summary>
-        /// <returns> список всех неполных рабочих дней</returns>
-        public List<PairsToDay> GetReducedDay()
-        {
-            var ret = pairsToDays.Where(x => x.CountPair > 0).ToList();
-            ret.Sort();
-            return ret;
+            pairsToDays.Where(x => datePairs.Contains(x.DatePair)).ToList().ForEach(x=>x.CountPair = countPair);
+            GetListDays();
         }
     }
 }
