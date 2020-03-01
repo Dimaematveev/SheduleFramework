@@ -8,7 +8,7 @@ namespace SetFilling.WPF
 {
     /// <summary>
     /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
+    /// </summary> 
     public partial class MainWindow : Window
     {
         public MainWindow(CreateScheduler createScheduler)
@@ -17,6 +17,7 @@ namespace SetFilling.WPF
             
 
             GridClassRoom.ItemsSource = GetDateTableFilling(createScheduler.FillingClassrooms,false).DefaultView;
+            GridGroup.ItemsSource = GetDateTableFilling(createScheduler.FillingGroups,false).DefaultView;
         }
 
 

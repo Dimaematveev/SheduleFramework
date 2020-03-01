@@ -156,14 +156,6 @@ namespace SimpleSheduler.WPF
         {
             NotPlan notPlan = new NotPlan(createScheduler1.NotUnion);
             notPlan.ShowDialog();
-            //string mess = "";
-            //foreach (var item in createScheduler1.NotUnion)
-            //{
-            //    mess += item.ToString();
-            //    mess += "\n";
-            //}
-            //System.Windows.MessageBox.Show(mess, "Не смог внести в расписание!", MessageBoxButton.OK, MessageBoxImage.Error);
-
         }
 
         private void ButtonEnable_CreateScheduler_Click()
