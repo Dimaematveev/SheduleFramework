@@ -2,6 +2,7 @@
 using SimpleSheduler.BL;
 using SimpleSheduler.WPF.BL;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace SimpleSheduler.WPF
 {
@@ -153,13 +154,15 @@ namespace SimpleSheduler.WPF
         /// </summary>
         private void ShowMess()
         {
-            string mess = "";
-            foreach (var item in createScheduler1.NotUnion)
-            {
-                mess += item.ToString();
-                mess += "\n";
-            }
-            System.Windows.MessageBox.Show(mess, "Не смог внести в расписание!", MessageBoxButton.OK, MessageBoxImage.Error);
+            NotPlan notPlan = new NotPlan(createScheduler1.NotUnion);
+            notPlan.ShowDialog();
+            //string mess = "";
+            //foreach (var item in createScheduler1.NotUnion)
+            //{
+            //    mess += item.ToString();
+            //    mess += "\n";
+            //}
+            //System.Windows.MessageBox.Show(mess, "Не смог внести в расписание!", MessageBoxButton.OK, MessageBoxImage.Error);
 
         }
 
