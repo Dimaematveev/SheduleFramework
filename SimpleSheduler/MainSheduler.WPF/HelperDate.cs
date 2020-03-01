@@ -7,13 +7,9 @@ namespace MainSheduler.WPF
     public class HelperDate
     {
         /// <summary>
-        /// Начало отсчета
+        /// Список дней
         /// </summary>
-        public DateTime DateBegin { get; }
-        /// <summary>
-        /// Окончание отсчета включая эту дату
-        /// </summary>
-        public DateTime DateEnd { get; }
+        public List<DateTime> DateRange { get; }
         /// <summary>
         /// Количество дней
         /// </summary>
@@ -23,9 +19,10 @@ namespace MainSheduler.WPF
         /// </summary>
         public int CountWeek { get; }
         /// <summary>
-        /// С какого дня начинается календарная неделя(По умолчанию понедельник)
+        /// Количество учебных недель
         /// </summary>
-        public DayOfWeek BeginWeek { get; }
+        public int CountStudyWeek { get; }
+     
         /// <summary>
         /// Количество определенного дня в неделе понедельников, вторников,...
         /// </summary>
@@ -36,35 +33,112 @@ namespace MainSheduler.WPF
         /// </summary>
         /// <param name="dateBegin"> дата начала</param>
         /// <param name="dateEnd"> дата окончания</param>
-        /// <param name="beginWeek"> День начала недели</param>
-        public HelperDate(DateTime dateBegin, DateTime dateEnd, DayOfWeek beginWeek)
+        /// <param name="beginWeek"> День начала недели(по умолчанию понедельник)</param>
+        public HelperDate(DateTime dateBegin, DateTime dateEnd)
         {
-            DateBegin = dateBegin;
-            DateEnd = dateEnd;
-            BeginWeek = beginWeek;
+            DateRange = new List<DateTime>();
+            for (DateTime i = dateBegin; i <= dateEnd; i = i.AddDays(1))
+            {
+                DateRange.Add(i);
+            }
+            DateRange.Sort();
+            CountDayOfWeek = GetCountDayOfWeek();
+            CountDays = GetCountDays();
+            CountWeek = GetCountWeek();
+            CountStudyWeek = GetCountCalendarWeek();
+        }
 
-            CountDayOfWeek = new Dictionary<DayOfWeek, int>();
+        
+
+
+        /// <summary>
+        /// Констркуктор со списком включаемых дней
+        /// </summary>
+        /// <param name="dateRange">Список дней</param>
+        /// <param name="beginWeek"> День начала недели</param>
+        public HelperDate(List<DateTime> dateRange)
+        {
+            DateRange = dateRange;
+            DateRange.Sort();
+
+            CountDayOfWeek = GetCountDayOfWeek();
+            CountDays = GetCountDays();
+            CountWeek = GetCountWeek();
+            CountStudyWeek = GetCountCalendarWeek();
+        }
+
+        private Dictionary<DayOfWeek, int> GetCountDayOfWeek()
+        {
+            var ret= new Dictionary<DayOfWeek, int>();
             foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)))
             {
-                CountDayOfWeek.Add(day, 0);
+                ret.Add(day, 0);
             }
-            for (DateTime i = DateBegin; i <= DateEnd; i=i.AddDays(1))
+            foreach (var date in DateRange)
             {
-                CountDayOfWeek[i.DayOfWeek] = CountDayOfWeek[i.DayOfWeek] + 1;
+                ret[date.DayOfWeek] = ret[date.DayOfWeek] + 1;
             }
-            CountDays = CountDayOfWeek.Values.Sum();
-            CountWeek = CountDayOfWeek.Values.Min();
+            return ret;
         }
-        /// <summary>
-        /// Конструктор без указания начала недели,значит начинается с понедельника
-        /// </summary>
-        /// <param name="dateBegin"> дата начала</param>
-        /// <param name="dateEnd"> дата окончания</param>
-        public HelperDate(DateTime dateBegin, DateTime dateEnd) :this(dateBegin, dateEnd,DayOfWeek.Monday)
+        private int GetCountWeek()
         {
+            return CountDayOfWeek.Values.Min();
         }
 
+        private int GetCountDays()
+        {
+            return CountDayOfWeek.Values.Sum();
+        }
+        private int GetCountCalendarWeek()
+        {
+            int count = 0;
+            List<DateTime> Temp = new List<DateTime>();
+            Temp.Clear();
+            Temp.Add(DateRange[0]);
+            if (DateRange[0].DayOfWeek != DayOfWeek.Monday) 
+            {
+                count++;
+                
+                for (int i = 1; i < 7; i++)
+                {
+                    Temp.Add(DateRange[0].AddDays(i));
+                }
+            }
+            DateTime dateTimeFistMonday = Temp.Find(x => x.DayOfWeek == DayOfWeek.Monday);
 
+            Temp.Clear();
+            Temp.Add(DateRange.Last());
+            if (DateRange.Last().DayOfWeek != DayOfWeek.Sunday)
+            {
+                count++;
+                for (int i = 1; i < 7; i++)
+                {
+                    Temp.Add(DateRange.Last().AddDays(-i));
+                }
+            }
+            DateTime dateTimeLastSunday = Temp.FindLast(x => x.DayOfWeek == DayOfWeek.Sunday);
+            count += ((dateTimeLastSunday - dateTimeFistMonday).Days / 7) + 1;
+            return count;
+        }
+
+        public override string ToString()
+        {
+            string str = "";
+            str += $" Период с {DateRange[0].ToShortDateString()} по {DateRange.Last().ToShortDateString()}";
+            str += "\n Количество";
+            str += "\n Дней: ";
+            str += $"{CountDays}";
+            str += "\n Недель: ";
+            str += $"{CountWeek}";
+            str += "\n Учебных недель: ";
+            str += $"{CountStudyWeek}";
+            foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)))
+            {
+                str += $"\n{day}: ";
+                str += $"{CountDayOfWeek[day]}";
+            }
+            return str;
+        }
     }
     
 }

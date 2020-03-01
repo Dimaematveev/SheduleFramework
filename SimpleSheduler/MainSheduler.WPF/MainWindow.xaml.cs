@@ -21,8 +21,6 @@ namespace MainSheduler.WPF
     /// </summary>
     public partial class MainWindow : Window
     {
-        private DateTime? Begin = null;
-        private DateTime? End = null;
         private HelperDate helperDate;
         PairsToDays pairsToDays;
 
@@ -30,60 +28,40 @@ namespace MainSheduler.WPF
         public MainWindow()
         {
             InitializeComponent();
-            Begin = new DateTime(2020, 2, 01);
-            End = new DateTime(2020, 2, 28);
-            DatePickerBegin.Text = Begin.Value.ToShortDateString();
-            DatePickerEnd.Text = End.Value.ToShortDateString();
-
-            DatePickerBegin.SelectedDateChanged += DatePickerBegin_SelectedDateChanged;
-            DatePickerEnd.SelectedDateChanged += DatePickerEnd_SelectedDateChanged;
+            DatePickerBegin.SelectedDate = new DateTime(2020, 2, 01);
+            DatePickerEnd.SelectedDate = new DateTime(2020, 2, 28);
             ButtonOK.Click += ButtonOK_Click;
-
-           
+            ButtonProv.Click += ButtonProv_Click;
         }
 
-        private void DatePickerBegin_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
+        private void ButtonProv_Click(object sender, RoutedEventArgs e)
         {
-            Begin = ((DatePicker)e.OriginalSource).SelectedDate;
-        }
-
-        private void DatePickerEnd_SelectedDateChanged(object sender, SelectionChangedEventArgs e)
-        {
-            End = ((DatePicker)e.OriginalSource).SelectedDate;
+            var DateRange = new List<DateTime>();
+            DateRange.AddRange(pairsToDays.ReducedDay.Select(x => x.DatePair));
+            DateRange.AddRange(pairsToDays.WorkDay.Select(x => x.DatePair));
+            helperDate = new HelperDate(DateRange);
+            TextBoxInfo.Text = helperDate.ToString();
         }
 
         private void ButtonOK_Click(object sender, RoutedEventArgs e)
         {
-            string str = "";
-            helperDate = new HelperDate(Begin.Value, End.Value);
-            str += "Количество";
-            str += $"\nПериод с {Begin.Value.ToShortDateString()} по {End.Value.ToShortDateString()}";
-            str += "\nДней: ";
-            str += $"{helperDate.CountDays}";
-            str += "\nНедель: ";
-            str += $"{helperDate.CountWeek}";
-            foreach (DayOfWeek day in Enum.GetValues(typeof(DayOfWeek)))
-            {
-                str += $"\n{day}: ";
-                str += $"{helperDate.CountDayOfWeek[day]}";
-            }
-           
-            
-            MessageBox.Show(str);
 
-            Calendar1.DisplayDateStart = Begin;
-            Calendar1.DisplayDateEnd = End;
+            helperDate = new HelperDate(DatePickerBegin.SelectedDate.Value, DatePickerEnd.SelectedDate.Value);
+            TextBoxInfo.Text = helperDate.ToString();
+
+            Calendar1.DisplayDateStart = DatePickerBegin.SelectedDate;
+            Calendar1.DisplayDateEnd = DatePickerEnd.SelectedDate;
             Calendar1.SelectionMode = CalendarSelectionMode.MultipleRange;
-        
+
 
 
             ContextMenu contextMenu = new ContextMenu();
             MenuItem menuItemWorkDay = new MenuItem();
             menuItemWorkDay.Header = "Рабочие дни";
-            menuItemWorkDay.Click += MenuItemWorkDay_Click;
+            menuItemWorkDay.Click += (sender1, EventArgs1) => { MenuItemDayCountPair_Click(null); };
             MenuItem menuItemDayOff = new MenuItem();
             menuItemDayOff.Header = "Выходные дни";
-            menuItemDayOff.Click += MenuItemDayOff_Click;
+            menuItemDayOff.Click += (sender1, EventArgs1) => { MenuItemDayCountPair_Click(0); };
             MenuItem menuItemReducedDay = new MenuItem();
             menuItemReducedDay.Header = "Сокращенные дни";
             for (int i = 1; i <= 6; i++)
@@ -91,7 +69,7 @@ namespace MainSheduler.WPF
                 int z = i;
                 MenuItem menuItemReducedDayCountPair = new MenuItem();
                 menuItemReducedDayCountPair.Header = $"Кол-во пар: {z}";
-                menuItemReducedDayCountPair.Click += (sender1, EventArgs1) => { MenuItemReducedDayCountPair_Click(z); };
+                menuItemReducedDayCountPair.Click += (sender1, EventArgs1) => { MenuItemDayCountPair_Click(z); };
                 menuItemReducedDay.Items.Add(menuItemReducedDayCountPair);
             }
             contextMenu.Items.Add(menuItemWorkDay);
@@ -99,29 +77,27 @@ namespace MainSheduler.WPF
             contextMenu.Items.Add(menuItemReducedDay);
             Calendar1.ContextMenu = contextMenu;
 
-            pairsToDays = new PairsToDays(Begin.Value, End.Value, 6);
-            
+            pairsToDays = new PairsToDays(DatePickerBegin.SelectedDate.Value, DatePickerEnd.SelectedDate.Value, 6);
+
             UpdateAllListView();
         }
 
-        private void MenuItemReducedDayCountPair_Click(int count)
+     
+
+        /// <summary>
+        /// Функия при нажимании на контекстное меню каледаря
+        /// </summary>
+        /// <param name="count"> кол-во пар, 0- выходной, null-полный день, число кол-во пар</param>
+        private void MenuItemDayCountPair_Click(int? count)
         {
             pairsToDays.ResetDays(Calendar1.SelectedDates, count);
             UpdateAllListView();
         }
 
-        private void MenuItemDayOff_Click(object sender, RoutedEventArgs e)
-        {
-            pairsToDays.ResetDays(Calendar1.SelectedDates, 0);
-            UpdateAllListView();
-        }
 
-        private void MenuItemWorkDay_Click(object sender, RoutedEventArgs e)
-        {
-            pairsToDays.ResetDays(Calendar1.SelectedDates, null);
-            UpdateAllListView();
-        }
-
+        /// <summary>
+        /// Обновить все Списки дней
+        /// </summary>
         private void UpdateAllListView()
         {
             ListViewWorkDay.BeginInit();

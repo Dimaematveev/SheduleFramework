@@ -55,7 +55,11 @@ namespace MainSheduler.WPF
             return DatePair.CompareTo(((PairsToDay)obj).DatePair);
         }
 
-        
+        public override int GetHashCode()
+        {
+            var hashCode = DatePair.GetHashCode();
+            return hashCode;
+        }
     }
 
     /// <summary>

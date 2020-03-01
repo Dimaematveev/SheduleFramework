@@ -12,17 +12,17 @@
         <Button x:Name="ButtonOK" Content="OK" Margin="170,80,564.6,312"/>
         <DatePicker x:Name="DatePickerBegin" HorizontalAlignment="Left" Margin="234,11,0,0" VerticalAlignment="Top"/>
         <DatePicker x:Name="DatePickerEnd" HorizontalAlignment="Left" Margin="234,46,0,0" VerticalAlignment="Top"/>
-        <Calendar x:Name="Calendar1" HorizontalAlignment="Left" Height="170" Margin="100,148,0,0" VerticalAlignment="Top" Width="195">
+        <Calendar x:Name="Calendar1" HorizontalAlignment="Left" Height="170" Margin="296,133,0,0" VerticalAlignment="Top" Width="195">
 
         </Calendar>
-        <ListView x:Name="ListViewDayOff" HorizontalAlignment="Left" Height="158" Margin="317,148,0,0" VerticalAlignment="Top" Width="133">
+        <ListView x:Name="ListViewDayOff" HorizontalAlignment="Left" Height="144" Margin="496,47,0,0" VerticalAlignment="Top" Width="133">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Дата выходного"/>
                 </GridView>
             </ListView.View>
         </ListView>
-        <ListView x:Name="ListViewReducedDay" HorizontalAlignment="Left" Height="160" Margin="462,146,0,0" VerticalAlignment="Top" Width="167">
+        <ListView x:Name="ListViewReducedDay" HorizontalAlignment="Left" Height="155" Margin="496,196,0,0" VerticalAlignment="Top" Width="133">
             <ListView.View>
                 <GridView>
                     <GridViewColumn  Header="Дата и количество пар"/>
@@ -36,5 +36,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <TextBox x:Name="TextBoxInfo" HorizontalAlignment="Left" Height="219" Margin="10,119,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="281"/>
+        <Button x:Name="ButtonProv" Content="OK" Margin="372,319,362.6,73"/>
     </Grid>
 </Window>
