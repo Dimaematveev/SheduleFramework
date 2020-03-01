@@ -79,8 +79,11 @@
     <Compile Include="Migrations\201911191322133_TypeOfClasses.designer.cs">
       <DependentUpon>201911191322133_TypeOfClasses.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003012215272_delete IsDelete.cs" />
+    <Compile Include="Migrations\202003012215272_delete IsDelete.designer.cs">
+      <DependentUpon>202003012215272_delete IsDelete.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Model\IIsDelete.cs" />
     <Compile Include="Model\IAbbreviation.cs" />
     <Compile Include="Model\StudyDay.cs" />
     <Compile Include="Model\Classroom.cs" />
@@ -128,6 +131,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201911191322133_TypeOfClasses.resx">
       <DependentUpon>201911191322133_TypeOfClasses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003012215272_delete IsDelete.resx">
+      <DependentUpon>202003012215272_delete IsDelete.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

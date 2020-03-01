@@ -7,7 +7,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Пары 
     /// </summary>
-    public class Pair: IIsDelete, ICloneable
+    public class Pair:  ICloneable
     {
         /// <summary>
         /// Ключ Пары
@@ -25,11 +25,7 @@ namespace SimpleSheduler.BD
         /// </summary>
         [Required]
         public int NumberThePair { get; set; }
-        /// <summary>
-        /// Удален
-        /// </summary>
-        [Required]
-        public bool IsDelete { get; set; } = false;
+
 
         public object Clone()
         {
@@ -38,7 +34,6 @@ namespace SimpleSheduler.BD
                 PairId = this.PairId,
                 NameThePair = this.NameThePair,
                 NumberThePair = this.NumberThePair,
-                IsDelete = this.IsDelete,
             };
             return newPair;
         }

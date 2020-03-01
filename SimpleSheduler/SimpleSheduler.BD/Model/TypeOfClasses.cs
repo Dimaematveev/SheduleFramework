@@ -7,7 +7,7 @@ namespace SimpleSheduler.BD.Model
     /// <summary>
     /// Тип занятий
     /// </summary>
-    public class TypeOfClasses : IAbbreviation, IIsDelete, ICloneable
+    public class TypeOfClasses : IAbbreviation,  ICloneable
     {
 
 
@@ -28,11 +28,7 @@ namespace SimpleSheduler.BD.Model
         [Required]
         [StringLength(100)]
         public string FullName { get; set; }
-        /// <summary>
-        /// Удален?
-        /// </summary>
-        [Required]
-        public bool IsDelete { get; set; }
+    
 
 
         ///Свойство для EntityFramework
@@ -53,7 +49,6 @@ namespace SimpleSheduler.BD.Model
                 TypeOfClassesId = this.TypeOfClassesId,
                 Abbreviation = this.Abbreviation,
                 FullName = this.FullName,
-                IsDelete = this.IsDelete,
             };
             return newTypeOfClasses;
         }

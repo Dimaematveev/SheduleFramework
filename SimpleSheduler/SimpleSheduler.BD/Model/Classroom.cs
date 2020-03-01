@@ -7,7 +7,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Аудитория
     /// </summary>
-    public class Classroom : IAbbreviation , IIsDelete, ICloneable
+    public class Classroom : IAbbreviation , ICloneable
     {
 
         /// <summary>
@@ -34,12 +34,7 @@ namespace SimpleSheduler.BD
         [Required]
         public int NumberOfSeats { get; set; }
 
-        /// <summary>
-        /// Удален
-        /// </summary>
-        [Required]
-        public bool IsDelete { get; set; } = false;
-
+     
         public object Clone()
         {
             Classroom newClassroom = new Classroom()
@@ -47,7 +42,6 @@ namespace SimpleSheduler.BD
                 ClassroomId = this.ClassroomId,
                 Abbreviation = this.Abbreviation,
                 NumberOfSeats = this.NumberOfSeats,
-                IsDelete = this.IsDelete,
                 FullName = this.FullName,
             };
             return newClassroom;

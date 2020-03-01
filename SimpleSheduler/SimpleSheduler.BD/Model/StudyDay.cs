@@ -7,7 +7,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Учебные дни за 2 недели
     /// </summary>
-    public class StudyDay: IIsDelete, ICloneable
+    public class StudyDay:ICloneable
     {
         /// <summary>
         /// Ключ Учебного дня
@@ -39,12 +39,6 @@ namespace SimpleSheduler.BD
         /// </summary>
         [Required]
         public int NumberOfWeek { get; set; }
-        /// <summary>
-        /// Удален
-        /// </summary>
-        [Required]
-        public bool IsDelete { get; set; } = false;
-
 
         public object Clone()
         {
@@ -54,7 +48,6 @@ namespace SimpleSheduler.BD
                 AbbreviationDayOfWeek = this.AbbreviationDayOfWeek,
                 NumberDayOfWeek = this.NumberDayOfWeek,
                 NumberOfWeek = this.NumberOfWeek,
-                IsDelete = this.IsDelete,
                 FullNameDayOfWeek = this.FullNameDayOfWeek,
             };
             return newStudyDay;

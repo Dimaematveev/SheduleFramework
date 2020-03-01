@@ -8,7 +8,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Предмет
     /// </summary>
-    public class Subject : IAbbreviation , IIsDelete, ICloneable
+    public class Subject : IAbbreviation , ICloneable
     {
         
         /// <summary>
@@ -29,11 +29,7 @@ namespace SimpleSheduler.BD
         [StringLength(100)]
         public string FullName { get; set; }
 
-        /// <summary>
-        /// Удален
-        /// </summary>
-        [Required]
-        public bool IsDelete { get; set; } = false;
+
 
         ///Свойство для EntityFramework
         /// <summary>
@@ -50,7 +46,6 @@ namespace SimpleSheduler.BD
                 Curricula = this.Curricula,
                 Abbreviation = this.Abbreviation,
                 SubjectId = this.SubjectId,
-                IsDelete = this.IsDelete,
                 FullName = this.FullName,
                
             };

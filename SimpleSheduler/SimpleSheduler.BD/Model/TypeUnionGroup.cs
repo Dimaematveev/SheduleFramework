@@ -7,18 +7,14 @@ namespace SimpleSheduler.BD.Model
     /// Тип объединения групп
     /// ваианты объединения
     /// </summary>
-    public class TypeUnionGroup : IAbbreviation , IIsDelete, ICloneable
+    public class TypeUnionGroup : IAbbreviation , ICloneable
     {
         /// <summary>
         /// Ключ Типа объединения
         /// </summary>
         [Key]
         public int TypeUnionGroupId { get; set; }
-        /// <summary>
-        /// Удален
-        /// </summary>
-        [Required]
-        public bool IsDelete { get; set; } = false;
+
         /// <summary>
         /// Название Объединения - можно сказать сокращенное название
         /// </summary>
@@ -41,7 +37,6 @@ namespace SimpleSheduler.BD.Model
                 TypeUnionGroupId = this.TypeUnionGroupId,
                 Abbreviation = this.Abbreviation,
                 FullName = this.FullName,
-                IsDelete = this.IsDelete,
             };
             return newTypeUnionGroup;
         }

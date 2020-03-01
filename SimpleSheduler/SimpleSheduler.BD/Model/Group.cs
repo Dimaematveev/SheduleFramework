@@ -8,7 +8,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Группа.
     /// </summary>
-    public class Group : IIsDelete, IAbbreviation ,ICloneable
+    public class Group :  IAbbreviation ,ICloneable
     {
         
         /// <summary>
@@ -48,11 +48,7 @@ namespace SimpleSheduler.BD
         [Required]
         [StringLength(20)]
         public string Potok { get; set; }
-        /// <summary>
-        /// Удален
-        /// </summary>
-        [Required]
-        public bool IsDelete { get; set; } = false;
+  
 
 
 
@@ -82,7 +78,6 @@ namespace SimpleSheduler.BD
                 NumberOfPersons = this.NumberOfPersons,
                 Potok = this.Potok,
                 Seminar = this.Seminar,
-                IsDelete = this.IsDelete,
                 FullName = this.FullName,
             };
             return newGroup;

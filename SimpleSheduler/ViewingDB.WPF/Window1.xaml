@@ -13,7 +13,6 @@
                 <DataGridTextColumn Header="ID" Binding="{Binding Path=CurriculumId}"/>
                 <DataGridTextColumn Header="Количество занятий" Binding="{Binding Path=Number}"/>
                 <DataGridComboBoxColumn x:Name="TypeOfClass" Header="Тип занятия" SelectedItemBinding="{Binding TypeOfClasses}" />
-                <DataGridCheckBoxColumn Header="Удален?" Binding="{Binding Path=IsDelete}"/>
             </DataGrid.Columns>
         </DataGrid>
         <Label Content="Группа:" HorizontalAlignment="Left"  Margin="10,15,0,0" VerticalAlignment="Top"/>

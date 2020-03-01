@@ -7,7 +7,7 @@ namespace SimpleSheduler.BD
     /// <summary>
     /// Учебный план на 2 недели
     /// </summary>
-    public class Curriculum: IIsDelete, ICloneable
+    public class Curriculum: ICloneable
     {
        
         /// <summary>
@@ -39,11 +39,6 @@ namespace SimpleSheduler.BD
         [Required]
         public int TypeOfClassesId { get; set; }
 
-        /// <summary>
-        /// Удален
-        /// </summary>
-        [Required]
-        public bool IsDelete { get; set; } = false;
 
 
 
@@ -74,7 +69,6 @@ namespace SimpleSheduler.BD
                 SubjectId = this.SubjectId,
                 TypeOfClasses =  this.TypeOfClasses,
                 TypeOfClassesId = this.TypeOfClassesId,
-                IsDelete = this.IsDelete,
             };
             return newCurriculum;
         }
