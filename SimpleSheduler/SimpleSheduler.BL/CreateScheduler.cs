@@ -153,7 +153,7 @@ namespace SimpleSheduler.BL
                 // Объединения по Семинарам мак кол-во человек первый
                 List<Group[]> unionGroupsSeminar = GetUnionGroupBy(tempUnionGroups, GroupComparisonSeminar);
 
-                unionGroups = notUnionGroups;
+                unionGroups = unionGroupsSeminar;
             }
 
             //1. Аудитории сортированы по количеству мест
@@ -190,7 +190,9 @@ namespace SimpleSheduler.BL
             //план который не вошел пустой
             var curriculaNot = new List<Curriculum>();
             //Элемент который будет проверятся у меня это макс число оставшихся пар
-            var MaxCurricula = curriculaAndNumPairs.Aggregate((l, r) => l.NumberOfPair > r.NumberOfPair ? l : r);
+            //TODO: Если я правильно понял то проблема в том что при выборе 1 элемента в других ничего не меняется.
+            //То есть если мы имее поаны с 1-им или 4-мя планами то при взятии 1-го в 4-х не поменяется
+            var MaxCurricula = curriculaAndNumPairs.OrderByDescending(x=>x.Curricula.Length).Aggregate((l, r) => l.NumberOfPair > r.NumberOfPair ? l : r);
             //3. Цикл по плану занятий не равен 0
             while (MaxCurricula.NumberOfPair != 0)
             {

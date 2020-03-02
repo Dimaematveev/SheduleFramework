@@ -17,6 +17,7 @@ namespace SetFilling.WPF
             
 
             GridClassRoom.ItemsSource = GetDateTableFilling(createScheduler.FillingClassrooms,false).DefaultView;
+            
             GridGroup.ItemsSource = GetDateTableFilling(createScheduler.FillingGroups,false).DefaultView;
         }
 
@@ -31,7 +32,8 @@ namespace SetFilling.WPF
                 {
                     DataType = typeof(int),
                     ColumnName = "NumberOfWeek",
-                    Caption = "Номер недели"
+                    Caption = "Номер недели",
+                   
                 };
                 // Add the Column to the DataColumnCollection.
                 table.Columns.Add(column);

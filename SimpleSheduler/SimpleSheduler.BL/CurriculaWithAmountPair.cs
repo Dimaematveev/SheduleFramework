@@ -13,7 +13,7 @@ namespace SimpleSheduler.BL
         /// <summary>
         /// Учебные планы которые объединились
         /// </summary>
-        private Curriculum[] Curricula { get; set; }
+        public Curriculum[] Curricula { get; private set; }
         /// <summary>
         /// Количество пар за 2 недели
         /// </summary>
