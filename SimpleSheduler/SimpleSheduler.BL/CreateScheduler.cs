@@ -153,7 +153,7 @@ namespace SimpleSheduler.BL
                 // Объединения по Семинарам мак кол-во человек первый
                 List<Group[]> unionGroupsSeminar = GetUnionGroupBy(tempUnionGroups, GroupComparisonSeminar);
 
-                unionGroups = unionGroupsSeminar;
+                unionGroups = notUnionGroups;
             }
 
             //1. Аудитории сортированы по количеству мест
