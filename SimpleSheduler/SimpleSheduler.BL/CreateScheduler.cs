@@ -223,7 +223,7 @@ namespace SimpleSheduler.BL
             var subject = MaxCurricula.GetSubject();
             //c. Выбираем аудитории с кол-во мест больше чем в группе 
             //(так как они отсортированы по возрастанию то просто номер первой подходящей аудитории)
-            //Номер Аудитории из массива которая сейчас будет рассматриваться
+            //Номер Аудитории из массива которая сейчас будет рассматриваться -1 значит нет такой аудитории
 
             int NumClassroom = Classrooms.FindIndex(x => x.NumberOfSeats >= group.Sum(y => y.NumberOfPersons));
             //Теперь для каждой  группы подцепляем занятость
@@ -231,61 +231,64 @@ namespace SimpleSheduler.BL
             //Добавилась ли пара
             bool success = false;
             //i. Цикл по расписанию
-            for (int cu = 0; cu < NumberStudyDays; cu++)
+            if (NumClassroom != -1)
             {
-                //d. Цикл по аудиториям
-                for (int cl = NumClassroom; cl < Classrooms.Count; cl++)
+                for (int cu = 0; cu < NumberStudyDays; cu++)
                 {
-                    //Теперь для аудитории подцепляем занятость
-                    var fillingClassroom = FillingClassrooms.First(x => x.Value.ClassroomId == Classrooms[cl].ClassroomId);
-                    //Условия что в этот день в эту пару группы не заняты
-                    bool FG = true;
-                    foreach (var fillingGroup1 in fillingGroup)
+                    //d. Цикл по аудиториям
+                    for (int cl = NumClassroom; cl < Classrooms.Count; cl++)
                     {
-                        bool FG1 = fillingGroup1[cu].BusyPair == null;
-                        if (!FG1)
-                        {
-                            FG = false;
-                            break;
-                        }
-                    }
-                    //Условия что в этот день в эту пару классная комната не занята
-                    bool FC = fillingClassroom[cu].BusyPair == null;
-                    //ToDO: в день не должно быть более 2-х одинаковых пар
-                    //все пары в этот день у этой группы
-                    var allPairsInGroup = fillingGroup[0].PossibleFillings.Where(x => x.StudyDay == fillingGroup[0].PossibleFillings[cu].StudyDay).ToArray();
-                    //одинаковые пары в день
-                    int numOfThisLesson = allPairsInGroup.Where(x => x.BusyPair != null && x.BusyPair.Subject == subject).Count();
-                    //Кол-во пар в день не более 2
-                    bool FNT = true;
-                    if (numOfThisLesson >= 2)
-                    {
-                        FNT = false;
-                    }
-                    //1. Если в этот день свободна и группа и преподаватель и аудитория
-                    if (FNT && FG && FC)
-                    {
-
-                        BusyPair busyPair = new BusyPair(Classrooms[cl], subject, group);
-                        //a. Добавляем им пару
-
+                        //Теперь для аудитории подцепляем занятость
+                        var fillingClassroom = FillingClassrooms.First(x => x.Value.ClassroomId == Classrooms[cl].ClassroomId);
+                        //Условия что в этот день в эту пару группы не заняты
+                        bool FG = true;
                         foreach (var fillingGroup1 in fillingGroup)
                         {
-                            fillingGroup1[cu].BusyPair = busyPair;
+                            bool FG1 = fillingGroup1[cu].BusyPair == null;
+                            if (!FG1)
+                            {
+                                FG = false;
+                                break;
+                            }
                         }
-                        fillingClassroom[cu].BusyPair = busyPair;
-                        //b. Заканчиваем 2 цикла(по расписанию и по аудиториям)
-                        success = true;
+                        //Условия что в этот день в эту пару классная комната не занята
+                        bool FC = fillingClassroom[cu].BusyPair == null;
+                        //ToDO: в день не должно быть более 2-х одинаковых пар
+                        //все пары в этот день у этой группы
+                        var allPairsInGroup = fillingGroup[0].PossibleFillings.Where(x => x.StudyDay == fillingGroup[0].PossibleFillings[cu].StudyDay).ToArray();
+                        //одинаковые пары в день
+                        int numOfThisLesson = allPairsInGroup.Where(x => x.BusyPair != null && x.BusyPair.Subject == subject).Count();
+                        //Кол-во пар в день не более 2
+                        bool FNT = true;
+                        if (numOfThisLesson >= 2)
+                        {
+                            FNT = false;
+                        }
+                        //1. Если в этот день свободна и группа и преподаватель и аудитория
+                        if (FNT && FG && FC)
+                        {
+
+                            BusyPair busyPair = new BusyPair(Classrooms[cl], subject, group);
+                            //a. Добавляем им пару
+
+                            foreach (var fillingGroup1 in fillingGroup)
+                            {
+                                fillingGroup1[cu].BusyPair = busyPair;
+                            }
+                            fillingClassroom[cu].BusyPair = busyPair;
+                            //b. Заканчиваем 2 цикла(по расписанию и по аудиториям)
+                            success = true;
+                            break;
+                        }
+                        //Если закончено
+                    }
+
+                    //Цикл по расписанию закончен
+                    //b. Заканчиваем 2 цикла(по расписанию и по аудиториям) если пара добавилась
+                    if (success)
+                    {
                         break;
                     }
-                    //Если закончено
-                }
-
-                //Цикл по расписанию закончен
-                //b. Заканчиваем 2 цикла(по расписанию и по аудиториям) если пара добавилась
-                if (success)
-                {
-                    break;
                 }
             }
             //Цикл аудиторий закончен
