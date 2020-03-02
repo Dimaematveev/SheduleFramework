@@ -10,6 +10,13 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <TabControl Margin="10,10,9.6,10" x:Name="TabControls" >
+            <TabItem Name="TabShedulerMain" Header="Расписание">
+                <DataGrid x:Name="GridShedulerMain" AutoGenerateColumns="True" >
+                    <DataGrid.Columns>
+                       
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>            
             <TabItem Name="TabClassRoom" Header="Аудитории" >
                 <DataGrid x:Name="GridClassRoom" AutoGenerateColumns="False" >
                     <DataGrid.Columns>

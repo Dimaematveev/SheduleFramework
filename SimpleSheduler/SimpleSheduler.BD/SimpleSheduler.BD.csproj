@@ -83,8 +83,17 @@
     <Compile Include="Migrations\202003012215272_delete IsDelete.designer.cs">
       <DependentUpon>202003012215272_delete IsDelete.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202003021445385_AddSheduler.cs" />
+    <Compile Include="Migrations\202003021445385_AddSheduler.designer.cs">
+      <DependentUpon>202003021445385_AddSheduler.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202003021454326_AddSheduler1.cs" />
+    <Compile Include="Migrations\202003021454326_AddSheduler1.designer.cs">
+      <DependentUpon>202003021454326_AddSheduler1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\IAbbreviation.cs" />
+    <Compile Include="Model\Sheduler.cs" />
     <Compile Include="Model\StudyDay.cs" />
     <Compile Include="Model\Classroom.cs" />
     <Compile Include="Model\Curriculum.cs" />
@@ -134,6 +143,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202003012215272_delete IsDelete.resx">
       <DependentUpon>202003012215272_delete IsDelete.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003021445385_AddSheduler.resx">
+      <DependentUpon>202003021445385_AddSheduler.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202003021454326_AddSheduler1.resx">
+      <DependentUpon>202003021454326_AddSheduler1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

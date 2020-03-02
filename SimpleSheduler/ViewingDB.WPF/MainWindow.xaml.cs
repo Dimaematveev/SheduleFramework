@@ -58,6 +58,9 @@ namespace ViewingDB.WPF
         /// </summary>
         private void FillGrid()
         {
+            GridShedulerMain.ItemsSource = WorkToMyDbContext.shedulers;
+
+
             GridClassRoom.ItemsSource = WorkToMyDbContext.classrooms;
             GridGroup.ItemsSource = WorkToMyDbContext.groups;
             GridSubject.ItemsSource = WorkToMyDbContext.subjects;

@@ -30,6 +30,7 @@ namespace SimpleSheduler.BD
         public static List<StudyDay> studyDays;
         public static List<TypeUnionGroup> typeUnionGroups;
         public static List<TypeOfClasses> typeOfClasses;
+        public static List<Sheduler> shedulers;
 
         public static List<UnionCuriculaAndTypeOfClasses> unionCuriculaAndTypeOfClasses;
 
@@ -47,6 +48,7 @@ namespace SimpleSheduler.BD
                 studyDays = context.StudyDays.ToList();
                 typeUnionGroups = context.TypeUnionGroups.ToList();
                 typeOfClasses = context.TypeOfClasses.ToList();
+                shedulers = context.Shedulers.ToList();
             }
             FillingUnionCuriculaAndTypeOfClasses();
         }
@@ -96,6 +98,7 @@ namespace SimpleSheduler.BD
                 
                 context.StudyDays.AddOrUpdate(studyDays.ToArray());
                 context.TypeOfClasses.AddOrUpdate(typeOfClasses.ToArray());
+                context.Shedulers.AddOrUpdate(shedulers.ToArray());
                 context.SaveChanges();
             }
         }
@@ -137,12 +140,26 @@ namespace SimpleSheduler.BD
                 SaveDBTypeOfClasses();
                 return;
             }
+            if (typeof(Sheduler).FullName == sNamespace)
+            {
+                SaveDBShedulers();
+                return;
+            }
             if ("ALL" == sNamespace)
             {
                 SaveDBALL();
                 return;
             }
             throw new ArgumentException($"Нет такой таблицы {sNamespace}");
+        }
+
+        private static void SaveDBShedulers()
+        {
+            using (var context = new MyDbContext())
+            {
+                context.Shedulers.AddOrUpdate(shedulers.ToArray());
+                context.SaveChanges();
+            }
         }
 
         private static void SaveDBClassroom()

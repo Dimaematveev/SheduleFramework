@@ -32,5 +32,6 @@ namespace SimpleSheduler.BD
         public DbSet<Pair> Pairs { get; set; }
         public DbSet<TypeUnionGroup> TypeUnionGroups { get; set; }
         public DbSet<TypeOfClasses> TypeOfClasses { get; set; }
+        public DbSet<Sheduler> Shedulers { get; set; }
     }
 }
