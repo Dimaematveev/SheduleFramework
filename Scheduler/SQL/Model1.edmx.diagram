@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="72dd1a4d366846408f2e92724f9d7b88" Name="Diagram1">
+        <EntityTypeShape EntityType="ShedModel.Classrooms" Width="1.5" PointX="3.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShedModel.Curricula" Width="1.5" PointX="3" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShedModel.Groups" Width="1.5" PointX="0.75" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShedModel.Pairs" Width="1.5" PointX="2.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShedModel.PlanToTwoWeek" Width="1.5" PointX="4.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShedModel.Shedulers" Width="1.5" PointX="6" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShedModel.StudyDays" Width="1.5" PointX="6.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShedModel.Subjects" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShedModel.sysdiagrams" Width="1.5" PointX="8.75" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShedModel.TypeOfClasses" Width="1.5" PointX="0.75" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShedModel.TypeUnionGroups" Width="1.5" PointX="8.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="ShedModel.View_1" Width="1.5" PointX="8.75" PointY="8.25" IsExpanded="true" />
+        <AssociationConnector Association="ShedModel.FK_Shedulers_Classrooms" ManuallyRouted="false" />
+        <AssociationConnector Association="ShedModel.FK_Curricula_Groups" ManuallyRouted="false" />
+        <AssociationConnector Association="ShedModel.FK_Curricula_Subjects" ManuallyRouted="false" />
+        <AssociationConnector Association="ShedModel.FK_Curricula_TypeOfClasses" ManuallyRouted="false" />
+        <AssociationConnector Association="ShedModel.FK_Shedulers_Groups" ManuallyRouted="false" />
+        <AssociationConnector Association="ShedModel.FK_Shedulers_Subjects" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

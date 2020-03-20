@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +24,27 @@ namespace NewScheduler
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string connString = @"Data Source=(localdb)\MSSQLLocalDB;Integrated Security=True;Initial Catalog=Shed;";
+
+            SqlConnection conn = new SqlConnection(connString);
+            conn.Open();
+            string strSQL = "SELECT Max(NumberOfSeats)   FROM [Shed].[dbo].Classrooms";
+            // Создание еще одного объекта команды с помощью свойств
+            SqlCommand testCommand = new SqlCommand();
+            testCommand.Connection = conn;
+            testCommand.CommandText = strSQL;
+            SqlDataReader dr = testCommand.ExecuteReader();
+            string vaa = "";
+            while (dr.Read())
+            {
+                vaa += $"Max classrooms: {dr[0]} \n";
+            }   
+            MessageBox.Show(vaa);
+            conn.Close();
         }
     }
 }
