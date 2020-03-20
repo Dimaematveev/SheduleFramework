@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQL;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -45,6 +46,17 @@ namespace NewScheduler
             }   
             MessageBox.Show(vaa);
             conn.Close();
+
+
+
+            using (ShedEntities db = new ShedEntities())
+            {
+                vaa = "";
+                var classroms = db.Classrooms;
+                foreach (Classrooms cl in classroms)
+                    vaa+=$"{cl.ClassroomId} {cl.FullName}";
+                MessageBox.Show(vaa);
+            }
         }
     }
 }
