@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace SQL
 {
-    public class Class1
+    public class Connect
     {
+
     }
 }
