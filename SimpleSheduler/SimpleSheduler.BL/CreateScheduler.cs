@@ -424,6 +424,7 @@ namespace SimpleSheduler.BL
 
                 //Кол-во человек в объединениии
                 int numPeople = 0;
+                var temp = unionGroupsBy[u];
                 for (int j = 0; j < unionGroupsBy[u].Length; j++)
                 {
                     numPeople += unionGroupsBy[u][j].NumberOfPersons;
