@@ -5,12 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:NewScheduler"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="1060">
     <Grid>
-        <Button x:Name="ButtonOn" Content="Button" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="70"/>
+        <Button x:Name="ButtonOn" Content="Button" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="100"/>
 
-        <TextBox x:Name="TextBoxMaxClassroom" HorizontalAlignment="Left" Margin="95,10,0,0" VerticalAlignment="Top" Width="200"></TextBox>
-        <TextBox x:Name="TextBoxUnion" HorizontalAlignment="Left" Margin="95,40,0,0" VerticalAlignment="Top" Width="689" Height="370"></TextBox>
+        <TextBox x:Name="TextBoxMaxClassroom" HorizontalAlignment="Left" Margin="10,40,0,0" VerticalAlignment="Top" Width="100" Height="50"/>
+        <TextBox x:Name="TextBoxUnionAll" HorizontalAlignment="Left" Margin="120,10,0,10" Width="300"/>
+        <TextBox x:Name="TextBoxUnionFilterSeminar" HorizontalAlignment="Left" Margin="430,10,0,10" Width="300"/>
+        <TextBox x:Name="TextBoxUnionFilterPotok" HorizontalAlignment="Left" Margin="740,10,0,10" Width="300"/>
 
     </Grid>
 </Window>

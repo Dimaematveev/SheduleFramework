@@ -1,4 +1,5 @@
 ﻿using SQL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -61,13 +62,43 @@ namespace NewScheduler
                 return 1;
             }
 
+            /// <summary>
+            /// Фильтр по функции
+            /// </summary>
+            /// <param name="filter"> функция фильтра </param>
+            /// <returns> подходит ли объединения к функции фильтра  </returns>
+            public bool Filter(Func<Groups, Groups, bool> filter)
+            {
+                if (Count==1)
+                {
+                    return true;
+                }
+                else if(Count<1)
+                {
+                    return false;
+                }
+                else
+                {
+                    foreach (var group in Groups)
+                    {
+                        if (!filter(Groups[0],group))
+                        {
+                            return false;
+                        }
+                    }
+                    return true;
+                }
+            }
 
             public override string ToString()
             {
-                string res = $"Count:{Count.ToString().PadRight(2)}, AllNumberOfPersons:{AllNumberOfPersons.ToString().PadRight(4)}, Groups:";
+                string res = $"Count:{Count.ToString().PadRight(2)}, AllNumberOfPersons:{AllNumberOfPersons,4}, Groups:";
                 foreach (var group in Groups)
                 {
-                    res += group.GroupId.ToString().PadRight(3);
+                    res += $"\n".PadRight(10);
+                    res += $"ID:{group.GroupId,3}";
+                    res += $"S:{group.Seminar,10}";
+                    res += $"P:{group.Potok,10}";
                     res += ",";
                 }
                 res= res.Remove(res.Length - 1);

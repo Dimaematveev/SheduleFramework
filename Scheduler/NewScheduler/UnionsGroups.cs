@@ -1,4 +1,5 @@
 ﻿using SQL;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -65,9 +66,31 @@ namespace NewScheduler
                 }
                 return 1;
             }
+
+
+            /// <summary>
+            /// Фильтр по функции
+            /// </summary>
+            /// <param name="filter"> функция фильтра </param>
+            /// <returns> Выводит Все объединения  </returns>
+            public UnionsGroups FilterUnionGroups(Func<Groups,Groups,bool> filter)
+            {
+                var unionsGroups = new UnionsGroups();
+               
+                foreach (var unionsGroup in UnionsGroup)
+                {
+                    if (unionsGroup.Filter(filter))
+                    {
+                        unionsGroups.Add(unionsGroup);
+                    }
+                }
+                return unionsGroups;
+               
+            }
+
             public override string ToString()
             {
-                string res = "";
+                string res = $"Count:{Count.ToString().PadRight(2)}:\n";
                 foreach (var unionsGroup in UnionsGroup)
                 {
                     res += unionsGroup.ToString();
