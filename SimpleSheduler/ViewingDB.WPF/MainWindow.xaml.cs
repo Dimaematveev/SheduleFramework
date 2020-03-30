@@ -1,4 +1,6 @@
-﻿using SimpleSheduler.BD;
+﻿using Microsoft.Win32;
+using ShedulerFromExcel.BL;
+using SimpleSheduler.BD;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -99,9 +101,20 @@ namespace ViewingDB.WPF
 
         }
 
-       
+        private void AddExcel_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog1 = new OpenFileDialog();
+            openFileDialog1.Filter = "All files(*.*)|*.*";
+            openFileDialog1.ShowDialog();
 
-        
+
+            ShowDialog();
+            EasyExcel easyExcel17 = new EasyExcel(openFileDialog1.FileName);
+
+            
+
+
+        }
     }
 
     
