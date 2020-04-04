@@ -1,0 +1,25 @@
+﻿<Window x:Class="ViewingDB.WPF.AddSubject" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ViewingDB.WPF"
+        mc:Ignorable="d"
+        Title="AddSubject" Height="170" Width="400" ResizeMode="NoResize">
+    <Grid>
+        <WrapPanel Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="380">
+            <Grid Width="370" Height="26" Margin="5,5,5,5">
+                <Label Content="Название предмета" Margin="5,0,0,0"  Width="120" Height="26" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                <TextBox x:Name="SubjectName"  Margin="130,0,0,0" Width="230" Height="26"  HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+            </Grid>
+            <Grid Width="370" Height="26" Margin="5,5,5,5">
+                <Label Content="Сокращенное название предмета" Margin="5,0,0,0"  Width="200" Height="26" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                <TextBox x:Name="SokrSubjectName"  Margin="210,0,0,0" Width="150" Height="26"  HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+            </Grid>
+           
+            <Grid Width="130" Height="26" Margin="5,5,5,5">
+                <Button x:Name="Add" Content="Добавить группу"/>
+            </Grid>
+        </WrapPanel>
+    </Grid>
+</Window>

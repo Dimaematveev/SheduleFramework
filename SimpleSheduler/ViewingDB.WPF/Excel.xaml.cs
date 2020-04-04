@@ -53,31 +53,66 @@ namespace ViewingDB.WPF
                 if (item as System.Data.DataRowView != null)
                 {
                     var rows = (System.Data.DataRowView)item;
-                    var subject = WorkToMyDbContext.subjects.Find(x => x.FullName == rows.Row[2].Text);
+                    string subjectName =rows.Row[2].ToString();
+                    var subject = WorkToMyDbContext.subjects.Find(x => x.FullName.Equals(subjectName));
                     int subjectID;
                     if (subject == null)
                     {
-                        AddGroup addGroup = new AddGroup(GroupName.Text, Potok.Text, Seminar.Text);
-                        addGroup.ShowDialog();
-                        groupID = addGroup.ID;
+                        AddSubject addSubject = new AddSubject(subjectName);
+                        addSubject.ShowDialog();
+                        subjectID = addSubject.ID;
                     }
                     else
                     {
-                        MessageBox.Show($"ok {GroupName.Text} и {group.ToString()}");
-                        groupID = group.GroupId;
+                        //MessageBox.Show($"ok {subjectName} и {subject.ToString()}");
+                        subjectID = subject.SubjectId;
                     }
 
+                    Dictionary<int, int> LectLabPrac = new Dictionary<int, int>();
 
-                    for (int i = 0; i < dataGrid.Columns.Count; i++)
-                    {
-                        str += rows.Row[i] + "__";
-                    }
+                   
+                    GetValueForPairs(groupID,subjectID,rows,5,"Лекция");
+                    GetValueForPairs(groupID,subjectID,rows,6, "Лабораторная");
+                    GetValueForPairs(groupID,subjectID,rows,7, "Практика");
+                    
                     str += "\n";
                 }
             }
 
 
-            MessageBox.Show($"{str}");
+            //MessageBox.Show($"{str}");
+        }
+
+        /// <summary>
+        /// Добавляем план занятий
+        /// </summary>
+        /// <param name="groupId"> id группы для добавления плана </param>
+        /// <param name="subjectId">  id предмета для добавления плана </param>
+        /// <param name="row"> строка таблицы </param>
+        /// <param name="nuberStolb">номер столбца</param>
+        /// <param name="name"> тип пары</param>
+        private void GetValueForPairs(int groupID,int subjectID,System.Data.DataRowView row,int nuberStolb,string name)
+        {
+            string stolb = row.Row[nuberStolb].ToString();
+            if (string.IsNullOrWhiteSpace(stolb))
+            {
+                return;
+            }
+            int pair = Convert.ToInt32(stolb);
+            int typePair = WorkToMyDbContext.typeOfClasses.Find(x => x.FullName.Equals(name)).TypeOfClassesId;
+
+            Curriculum curriculum = new Curriculum()
+            {
+                CurriculumId = WorkToMyDbContext.curricula.Max(x => x.CurriculumId) + 1,
+                GroupId = groupID,
+                SubjectId = subjectID,
+                Number = pair/8,
+                TypeOfClassesId = typePair,
+                
+            };
+            WorkToMyDbContext.curricula.Add(curriculum);
+            WorkToMyDbContext.SaveDB();
+
         }
 
         private void Init(string filename)

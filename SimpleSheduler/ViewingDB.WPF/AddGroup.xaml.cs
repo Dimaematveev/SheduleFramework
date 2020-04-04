@@ -40,23 +40,23 @@ namespace ViewingDB.WPF
         private void GroupAdd()
         {
             string notWork = "";
-            if (GroupName.Text == null || GroupName.Text == "") 
+            if (string.IsNullOrWhiteSpace(GroupName.Text))
             {
                 notWork += $"{nameof(GroupName)} is null\n";
             }
-            if (SokrGroupName.Text == null || SokrGroupName.Text == "")
+            if (string.IsNullOrWhiteSpace(SokrGroupName.Text))
             {
                 notWork += $"{nameof(SokrGroupName)} is null\n";
             }
-            if (Potok.Text == null || Potok.Text == "")
+            if (string.IsNullOrWhiteSpace(Potok.Text))
             {
                 notWork += $"{nameof(Potok)} is null\n";
             }
-            if (Seminar.Text == null || Seminar.Text == "")
+            if (string.IsNullOrWhiteSpace(Seminar.Text))
             {
                 notWork += $"{nameof(Seminar)} is null\n";
             }
-            if (NumberPeople.Text == null || NumberPeople.Text == "")
+            if (string.IsNullOrWhiteSpace(NumberPeople.Text))
             {
                 notWork += $"{nameof(NumberPeople)} is null\n";
             }
