@@ -77,9 +77,10 @@ namespace ViewingDB.WPF
                     
                     str += "\n";
                 }
+               
             }
 
-
+            WorkToMyDbContext.SaveDB();
             //MessageBox.Show($"{str}");
         }
 
@@ -111,7 +112,7 @@ namespace ViewingDB.WPF
                 
             };
             WorkToMyDbContext.curricula.Add(curriculum);
-            WorkToMyDbContext.SaveDB();
+            
 
         }
 
