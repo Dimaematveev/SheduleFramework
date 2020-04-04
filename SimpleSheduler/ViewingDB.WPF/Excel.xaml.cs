@@ -101,10 +101,18 @@ namespace ViewingDB.WPF
             }
             int pair = Convert.ToInt32(stolb);
             int typePair = WorkToMyDbContext.typeOfClasses.Find(x => x.FullName.Equals(name)).TypeOfClassesId;
-
+            int ID;
+            if (WorkToMyDbContext.curricula == null || WorkToMyDbContext.curricula.Count == 0) 
+            {
+                ID = 1;
+            }
+            else
+            {
+                ID = WorkToMyDbContext.curricula.Max(x => x.CurriculumId) + 1;
+            }
             Curriculum curriculum = new Curriculum()
             {
-                CurriculumId = WorkToMyDbContext.curricula.Max(x => x.CurriculumId) + 1,
+                CurriculumId = ID,
                 GroupId = groupID,
                 SubjectId = subjectID,
                 Number = pair/8,

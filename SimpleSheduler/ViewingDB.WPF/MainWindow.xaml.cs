@@ -20,7 +20,7 @@ namespace ViewingDB.WPF
         {
             InitializeComponent();
             FillGrid();
-            Loaded += MainWindow_Loaded;
+            //Loaded += MainWindow_Loaded;
             GridSheduler.MouseDoubleClick += GridSheduler_MouseDoubleClick;
             //GridSheduler.PreviewMouseDoubleClick += GridSheduler_MouseDoubleClick;
 

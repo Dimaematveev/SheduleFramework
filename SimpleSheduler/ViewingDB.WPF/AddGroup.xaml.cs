@@ -64,7 +64,17 @@ namespace ViewingDB.WPF
 
             if (notWork == "")
             {
-                MessageBox.Show("Work");
+               
+               
+                if (WorkToMyDbContext.groups==null || WorkToMyDbContext.groups.Count==0)
+                {
+                    ID = 1;
+                }
+                else
+                {
+                    ID = WorkToMyDbContext.groups.Max(x => x.GroupId) + 1;
+                }
+                
                 var group = new Group()
                 {
                     FullName = GroupName.Text,
@@ -72,11 +82,12 @@ namespace ViewingDB.WPF
                     Potok = Potok.Text,
                     Seminar = Seminar.Text,
                     NumberOfPersons = Convert.ToInt32(NumberPeople.Text),
-                    GroupId = WorkToMyDbContext.groups.Max(x => x.GroupId) + 1
+                    GroupId = ID
                 };
                 WorkToMyDbContext.groups.Add(group);
-                WorkToMyDbContext.SaveDB();
-                ID = group.GroupId;
+                WorkToMyDbContext.SaveDB(typeof(Group).FullName);
+
+                Close();
             }
             else
             {

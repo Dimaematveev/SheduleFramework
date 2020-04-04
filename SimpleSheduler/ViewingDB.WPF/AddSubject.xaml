@@ -14,7 +14,7 @@
             </Grid>
             <Grid Width="370" Height="26" Margin="5,5,5,5">
                 <Label Content="Сокращенное название предмета" Margin="5,0,0,0"  Width="200" Height="26" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
-                <TextBox x:Name="SokrSubjectName"  Margin="210,0,0,0" Width="150" Height="26"  HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                <TextBox x:Name="SokrSubjectName"  Margin="210,0,0,0" Width="150" Height="26"  HorizontalAlignment="Left" VerticalAlignment="Bottom" MaxLength="10" />
             </Grid>
            
             <Grid Width="130" Height="26" Margin="5,5,5,5">

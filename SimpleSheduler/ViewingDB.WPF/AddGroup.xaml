@@ -14,7 +14,7 @@
             </Grid>
             <Grid Width="370" Height="26" Margin="5,5,5,5">
                 <Label Content="Сокращенное название группы" Margin="5,0,0,0"  Width="190" Height="26" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
-                <TextBox x:Name="SokrGroupName"  Margin="200,0,0,0" Width="160" Height="26"  HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                <TextBox x:Name="SokrGroupName"  Margin="200,0,0,0" Width="160" Height="26"  HorizontalAlignment="Left" VerticalAlignment="Bottom" MaxLength="10"/>
             </Grid>
             <Grid Width="370" Height="26" Margin="5,5,5,5">
                 <Label Content="Поток" Margin="5,0,0,0"  Width="49" Height="26" HorizontalAlignment="Left" VerticalAlignment="Bottom" />

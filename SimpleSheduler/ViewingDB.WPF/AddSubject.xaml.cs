@@ -45,16 +45,24 @@ namespace ViewingDB.WPF
 
             if (notWork == "")
             {
-                MessageBox.Show("Work");
+                if (WorkToMyDbContext.subjects == null || WorkToMyDbContext.subjects.Count == 0) 
+                {
+                    ID = 1;
+                }
+                else
+                {
+                    ID = WorkToMyDbContext.subjects.Max(x => x.SubjectId) + 1;
+                }
                 var subject = new Subject()
                 {
                     FullName = SubjectName.Text,
                     Abbreviation = SokrSubjectName.Text,
-                    SubjectId = WorkToMyDbContext.subjects.Max(x => x.SubjectId) + 1
+                    SubjectId = ID
                 };
                 WorkToMyDbContext.subjects.Add(subject);
-                WorkToMyDbContext.SaveDB();
-                ID = subject.SubjectId;
+                WorkToMyDbContext.SaveDB(typeof(Subject).FullName);
+                Close();
+
             }
             else
             {
