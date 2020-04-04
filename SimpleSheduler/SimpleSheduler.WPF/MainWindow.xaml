@@ -9,10 +9,10 @@
     <Grid>
         <Button Visibility="Hidden"  x:Name="ButtonGetDataFromBD" Content="Считать данные из БД" HorizontalAlignment="Left" Margin="48,48,0,0" VerticalAlignment="Top" Width="161" />
         <TextBox Visibility="Hidden"  x:Name="TexboxFromBD" HorizontalAlignment="Left" Height="62" Margin="214,48,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="570"/>
-        <Button x:Name="GetFilling" Content="Заполнить" HorizontalAlignment="Left" Margin="269,95,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False"/>
+        <Button x:Name="GetFilling" Content="Заполнить" HorizontalAlignment="Left" Margin="269,95,0,0" VerticalAlignment="Top" Width="75" IsEnabled="False" Visibility="Hidden"/>
         <Button  Visibility="Hidden" x:Name="SetFillingGroups" Content="Задать Когда Группы свободны" HorizontalAlignment="Left" Margin="48,236,0,0" VerticalAlignment="Top" Width="187" IsEnabled="False"/>
         <Button Visibility="Hidden" x:Name="SetFillingClassrooms" Content="Задать Когда Аудитории свободны" HorizontalAlignment="Left" Margin="255,236,0,0" VerticalAlignment="Top" Width="235" IsEnabled="False"/>
-        <Button x:Name="CreateScheduler" Content="Создать расписание" HorizontalAlignment="Left" Height="27" Margin="230,169,0,0" VerticalAlignment="Top" Width="169" IsEnabled="False"/>
+        <Button x:Name="CreateScheduler" Content="Создать расписание" HorizontalAlignment="Left" Height="27" Margin="230,169,0,0" VerticalAlignment="Top" Width="169" IsEnabled="True" />
         <Button Visibility="Hidden" x:Name="GetFillingGroups" Content="Пары по Группам" HorizontalAlignment="Left" Margin="53,303,0,0" VerticalAlignment="Top" Width="187" IsEnabled="False"/>
         <Button Visibility="Hidden" x:Name="GetFillingClassrooms" Content="Пары по Аудиториям" HorizontalAlignment="Left" Margin="255,303,0,0" VerticalAlignment="Top" Width="235" IsEnabled="False"/>
         <Button x:Name="PlanNotScheduler" Content="Пары не вошедшие в расписание" HorizontalAlignment="Left" Height="27" Margin="466,232,0,0" VerticalAlignment="Top" Width="207" IsEnabled="False"/>

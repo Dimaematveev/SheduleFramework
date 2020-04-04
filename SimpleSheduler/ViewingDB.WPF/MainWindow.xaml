@@ -13,10 +13,10 @@
             <TabItem Name="TabShedulerMain" Header="Расписание">
                 <DataGrid x:Name="GridShedulerMain" AutoGenerateColumns="True" >
                     <DataGrid.Columns>
-                       
+
                     </DataGrid.Columns>
                 </DataGrid>
-            </TabItem>            
+            </TabItem>
             <TabItem Name="TabClassRoom" Header="Аудитории" >
                 <DataGrid x:Name="GridClassRoom" AutoGenerateColumns="False" >
                     <DataGrid.Columns>
@@ -50,24 +50,24 @@
             </TabItem>
             <TabItem Name="TabCurriculum" Header="План">
                 <Grid>
-                <DataGrid x:Name="GridCurriculum" AutoGenerateColumns="False" Margin="0,0,-0.2,45" >
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="ID" Binding="{Binding Path=CurriculumId}"/>
-                        <DataGridTextColumn Header="GroupId" Binding="{Binding Path=GroupId}"/>
-                        <DataGridTextColumn Header="SubjectId" Binding="{Binding Path=SubjectId}"/>
-                        <DataGridTextColumn Header="Количество занятий" Binding="{Binding Path=Number}"/>
-                        <DataGridTextColumn Header="TypeOfClassesId" Binding="{Binding Path=TypeOfClassesId}"/>
-                        <DataGridTextColumn Header="Группа" Binding="{Binding Path=Group.Abbreviation}"/>
-                        <DataGridTextColumn Header="Предмет" Binding="{Binding Path=Subject.FullName}"/>
-                        <DataGridTextColumn Header="Тип занятия" Binding="{Binding Path=TypeOfClasses.Abbreviation}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+                    <DataGrid x:Name="GridCurriculum" AutoGenerateColumns="False" Margin="0,0,-0.2,45" >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="ID" Binding="{Binding Path=CurriculumId}"/>
+                            <DataGridTextColumn Header="GroupId" Binding="{Binding Path=GroupId}"/>
+                            <DataGridTextColumn Header="SubjectId" Binding="{Binding Path=SubjectId}"/>
+                            <DataGridTextColumn Header="Количество занятий" Binding="{Binding Path=Number}"/>
+                            <DataGridTextColumn Header="TypeOfClassesId" Binding="{Binding Path=TypeOfClassesId}"/>
+                            <DataGridTextColumn Header="Группа" Binding="{Binding Path=Group.Abbreviation}"/>
+                            <DataGridTextColumn Header="Предмет" Binding="{Binding Path=Subject.FullName}"/>
+                            <DataGridTextColumn Header="Тип занятия" Binding="{Binding Path=TypeOfClasses.Abbreviation}"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
 
-                <Button x:Name="AddExcel" Content="Добавить из excel" HorizontalAlignment="Left" Height="30" Margin="608.2,332,0,0" VerticalAlignment="Top" Width="125" Grid.Column="1" Click="AddExcel_Click"/>
+                    <Button x:Name="AddExcel" Content="Добавить из excel" Margin="634,0,0,10" Click="AddExcel_Click" Height="30" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="125"/>
                 </Grid>
             </TabItem>
 
-            
+
 
             <TabItem Name="TabPair" Header="Пары">
                 <DataGrid x:Name="GridPair" AutoGenerateColumns="False" >
@@ -99,14 +99,14 @@
                 </DataGrid>
             </TabItem>
             <TabItem Name="TabTypeOfClasses" Header="Типы пар">
-            <DataGrid x:Name="GridTypeOfClasses" AutoGenerateColumns="False" >
-                <DataGrid.Columns>
+                <DataGrid x:Name="GridTypeOfClasses" AutoGenerateColumns="False" >
+                    <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding Path=TypeOfClassesId}"/>
                         <DataGridTextColumn Header="Тип занятия" Binding="{Binding Path=Abbreviation}"/>
                         <DataGridTextColumn Header="Полное название занятия" Binding="{Binding Path=FullName}"/>
                     </DataGrid.Columns>
-            </DataGrid>
-        </TabItem>
+                </DataGrid>
+            </TabItem>
 
             <TabItem Name="TabSheduler" Header="План с типами пар">
                 <DataGrid x:Name="GridSheduler" AutoGenerateColumns="False" IsReadOnly="True" >

@@ -108,8 +108,8 @@ namespace ViewingDB.WPF
             openFileDialog1.ShowDialog();
 
 
-            ShowDialog();
-            EasyExcel easyExcel17 = new EasyExcel(openFileDialog1.FileName);
+            Excel excel = new Excel(openFileDialog1.FileName);
+            excel.ShowDialog();
 
             
 

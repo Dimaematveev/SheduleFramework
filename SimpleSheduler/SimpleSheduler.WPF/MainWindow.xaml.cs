@@ -26,7 +26,7 @@ namespace SimpleSheduler.WPF
             InitializeComponent();
             ButtonGetDataFromBD.Click += ButtonGetDataFromBD_Click;
 
-            GetFilling.Click += GetFilling_Click;
+            GetFilling.Click += (sender1, EventArgs1) => { GetFilling_Click(); };
            // SetFillingClassrooms.Click += (sender1, EventArgs1) => { SetFilling_Click(typeof(Filling<Classroom>).FullName); };
            // SetFillingGroups.Click += (sender1, EventArgs1) => { SetFilling_Click(typeof(Filling<Group>).FullName); };
             CreateScheduler.Click += CreateScheduler_Click;
@@ -46,6 +46,7 @@ namespace SimpleSheduler.WPF
         {
             ButtonGetDataFromBD_Click(sender, e);
             Button_Click(sender, e);
+            GetFilling_Click();
             //getDataFromBD.AddNewBD();
             /* 
              * ButtonGetDataFromBD_Click(sender,e);
@@ -105,7 +106,7 @@ namespace SimpleSheduler.WPF
         /// Дать возможность посмотреть и отредактировать Заполнение.
         /// Дать возможность создать расписание.
         /// </summary>
-        private void GetFilling_Click(object sender, RoutedEventArgs e)
+        private void GetFilling_Click()
         {
             getFillingClass.GetFilling();
             ButtonEnable_GetFilling_Click();
