@@ -11,6 +11,14 @@
 
         <WrapPanel Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="270">
             <Grid Width="270" Height="26" Margin="5,5,5,5">
+                <Label Content="Имя файла" Margin="5,0,0,0"  Width="70" Height="26" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                <TextBox x:Name="FileName"  Margin="80,0,0,0" Width="180" Height="26"  HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+            </Grid>
+            <Grid Width="270" Height="26" Margin="5,5,5,5">
+                <Label Content="Название группы" Margin="5,0,0,0"  Width="110" Height="26" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                <TextBox x:Name="GroupName"  Margin="120,0,0,0" Width="140" Height="26"  HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+            </Grid>
+            <Grid Width="270" Height="26" Margin="5,5,5,5">
                 <Label Content="Год начала обучения" Margin="5,0,0,0"  Width="130" Height="26" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
                 <TextBox x:Name="Year"  Margin="145, 0, 0,0" Width="115" Height="26"  HorizontalAlignment="Left" VerticalAlignment="Bottom" />
             </Grid>
@@ -29,6 +37,10 @@
             <Grid Width="270" Height="26" Margin="5,5,5,5">
                 <Label Content="Профиль" Margin="5,0,0,0"  Width="63" Height="26" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
                 <TextBox x:Name="Profil" Margin="73,0,0,0" Width="187" Height="26"  HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+            </Grid>
+            <Grid Width="270" Height="26" Margin="5,5,5,5">
+                <Label Content="Семинар" Margin="5,0,0,0"  Width="63" Height="26" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                <TextBox x:Name="Seminar" Margin="73,0,0,0" Width="187" Height="26"  HorizontalAlignment="Left" VerticalAlignment="Bottom" />
             </Grid>
             <Grid Width="170" Height="26" Margin="5,5,5,5">
                 <Button x:Name="Add" Content="Добавить открытую вкладку"/>

@@ -1,0 +1,38 @@
+﻿<Window x:Class="ViewingDB.WPF.AddGroup" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ViewingDB.WPF"
+        mc:Ignorable="d"
+        Title="AddGroup" Height="280" Width="400" ResizeMode="NoResize">
+    <Grid>
+        <WrapPanel Margin="10,10,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="380">
+            <Grid Width="370" Height="26" Margin="5,5,5,5">
+                <Label Content="Название группы" Margin="5,0,0,0"  Width="110" Height="26" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                <TextBox x:Name="GroupName"  Margin="120,0,0,0" Width="240" Height="26"  HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+            </Grid>
+            <Grid Width="370" Height="26" Margin="5,5,5,5">
+                <Label Content="Сокращенное название группы" Margin="5,0,0,0"  Width="190" Height="26" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                <TextBox x:Name="SokrGroupName"  Margin="200,0,0,0" Width="160" Height="26"  HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+            </Grid>
+            <Grid Width="370" Height="26" Margin="5,5,5,5">
+                <Label Content="Поток" Margin="5,0,0,0"  Width="49" Height="26" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                <TextBox x:Name="Potok" Margin="59,0,0,0" Width="301" Height="26"  HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+            </Grid>
+
+            <Grid Width="370" Height="26" Margin="5,5,5,5">
+                <Label Content="Семинар" Margin="5,0,0,0"  Width="63" Height="26" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                <TextBox x:Name="Seminar" Margin="73,0,0,0" Width="287" Height="26"  HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+            </Grid>
+            <Grid Width="370" Height="26" Margin="5,5,5,5">
+                <Label Content="Количество человек" Margin="5,0,0,0"  Width="130" Height="26" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
+                <TextBox x:Name="NumberPeople" Margin="175,0,0,0" Width="185" Height="26"  HorizontalAlignment="Left" VerticalAlignment="Bottom" IsEnabled="False"  DataContext="{Binding Value, ElementName=ScrollBarNumberPeople}"/>
+                <ScrollBar x:Name="ScrollBarNumberPeople" HorizontalAlignment="Left" Height="26" Margin="140,0,0,0" VerticalAlignment="Top" Width="30" SmallChange="1" Maximum="255"/>
+            </Grid>
+            <Grid Width="130" Height="26" Margin="5,5,5,5">
+                <Button x:Name="Add" Content="Добавить группу"/>
+            </Grid>
+        </WrapPanel>
+    </Grid>
+</Window>
