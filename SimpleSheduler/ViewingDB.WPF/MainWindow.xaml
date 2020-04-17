@@ -10,7 +10,7 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <TabControl Margin="10,10,9.6,10" x:Name="TabControls" >
-            <TabItem Name="TabShedulerMain" Header="Расписание">
+            <TabItem Name="TabShedulerMain" Header="Расписание" Visibility="Hidden" Width="0">
                 <DataGrid x:Name="GridShedulerMain" AutoGenerateColumns="True" >
                     <DataGrid.Columns>
 
@@ -89,7 +89,7 @@
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
-            <TabItem Name="TabTypeUnionGroup" Header="Типы объединения">
+            <TabItem Name="TabTypeUnionGroup" Header="Типы объединения"  Visibility="Hidden" Width="0">
                 <DataGrid x:Name="GridTypeUnionGroup" AutoGenerateColumns="False" >
                     <DataGrid.Columns>
                         <DataGridTextColumn Header="ID" Binding="{Binding Path=TypeUnionGroupId}"/>
